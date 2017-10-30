@@ -1,0 +1,29 @@
+{
+  "name": "york",
+  "version": "0.0.1",
+  "description": "York - UI library",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Qlean/York.git"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "webpack",
+    "ui",
+    "components",
+    "Eboracum",
+    "Eburacum",
+    "Eburaci"
+  ],
+  "author": "Qlean frontend team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Qlean/York/issues"
+  },
+  "homepage": "https://github.com/Qlean/York#readme"
+}
