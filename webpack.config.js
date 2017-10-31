@@ -13,6 +13,10 @@ module.exports = {
     publicPath: '/'
   },
 
+  resolve: {
+    modules: ['node_modules', './src']
+  },
+
   module: {
     rules: [
       {
@@ -21,7 +25,10 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g)$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
+        options: {
+          publicPath: resolve(__dirname, 'build/')
+        }
       }
     ]
   }
