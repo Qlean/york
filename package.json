@@ -4,7 +4,8 @@
   "description": "york - UI library",
   "main": "build/index.js",
   "scripts": {
-    "build": "rm -rf build/* && babel --source-maps --out-dir build src --copy-files",
+    "build": "rm -rf build/* && babel --out-dir build src --copy-files",
+    "watch": "rm -rf build/* && babel --source-maps --out-dir build src --copy-files --watch",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "postinstall": "npm run build"
