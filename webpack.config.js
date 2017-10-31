@@ -18,6 +18,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(png|jpe?g)$/,
+        loader: 'file-loader'
       }
     ]
   }

@@ -4,8 +4,10 @@
   "description": "york - UI library",
   "main": "build/index.js",
   "scripts": {
+    "build": "webpack -p",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
