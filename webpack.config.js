@@ -27,7 +27,7 @@ module.exports = {
         test: /\.(png|jpe?g)$/,
         loader: 'file-loader',
         options: {
-          publicPath: resolve(__dirname, 'build/')
+          publicPath: resolve(__dirname)
         }
       }
     ]

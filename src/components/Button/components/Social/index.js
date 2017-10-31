@@ -7,13 +7,11 @@ import messenger from './images/messenger.png'
 import telegram from './images/telegram.png'
 import viber from './images/viber.png'
 
-console.log(viber.toString())
-
 const Social = ({ href, children, network }) => {
   const bgColor = network === 'messenger' ? '#0084FF' : network === 'telegram' ? '#2CA5E0' : '#7C529E'
   const bgImage = network === 'messenger' ? messenger : network === 'telegram' ? telegram : viber
 
-  const Link = styled.a`
+  const styles = `
     height: 50px;
     width: 190px;
     display: inline-flex;
@@ -22,13 +20,15 @@ const Social = ({ href, children, network }) => {
     align-items: center;
     justify-content: center;
     border-radius: 25px;
-    background: url('${bgImage.toString()}') no-repeat 20px center ${bgColor};
+    background: url('${bgImage}') no-repeat 20px center ${bgColor};
     background-size: 20px 20px;
     transition: all .25s;
     &:hover {
       background-color: ${Color(bgColor).lighten(0.25).string()}
     }
   `
+
+  const Link = styled.a`${styles}`
 
   return (
     <Link href={href}>{children}</Link>

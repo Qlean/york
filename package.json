@@ -4,7 +4,7 @@
   "description": "york - UI library",
   "main": "build/index.js",
   "scripts": {
-    "build": "webpack -p",
+    "build": "rm -rf build/* && babel --source-maps --out-dir build src --copy-files",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "postinstall": "npm run build"
@@ -32,6 +32,7 @@
   "dependencies": {
     "@storybook/addon-knobs": "^3.2.13",
     "@storybook/react": "^3.2.13",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
