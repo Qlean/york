@@ -17,6 +17,12 @@
     react-inspector "^2.2.1"
     uuid "^3.1.0"
 
+"@storybook/addon-centered@^3.2.14":
+  version "3.2.14"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-centered/-/addon-centered-3.2.14.tgz#5dd5f60f09c8b55d2f6ac223be6878ee0879f8c0"
+  dependencies:
+    global "^4.3.2"
+
 "@storybook/addon-info@^3.2.14":
   version "3.2.14"
   resolved "https://registry.yarnpkg.com/@storybook/addon-info/-/addon-info-3.2.14.tgz#9c4eff70a0319cf25fb367564fc1a928ad81323f"
@@ -50,6 +56,23 @@
 "@storybook/addon-links@^3.2.14":
   version "3.2.14"
   resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-3.2.14.tgz#a8eb9a99df904fbaa3412eb0ecfbf2c7e257959d"
+  dependencies:
+    "@storybook/addons" "^3.2.14"
+
+"@storybook/addon-notes@^3.2.14":
+  version "3.2.14"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-notes/-/addon-notes-3.2.14.tgz#343aa6c95334028184c497a7b31c590ed1eec299"
+  dependencies:
+    "@storybook/addons" "^3.2.14"
+    babel-runtime "^6.26.0"
+    prop-types "^15.6.0"
+    util-deprecate "^1.0.2"
+  optionalDependencies:
+    "@types/react" "^15.0.24"
+
+"@storybook/addon-options@^3.2.14":
+  version "3.2.14"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-3.2.14.tgz#5bb56d667a651a62d32d79b92914544393f10329"
   dependencies:
     "@storybook/addons" "^3.2.14"
 
@@ -174,6 +197,10 @@
 "@types/inline-style-prefixer@^3.0.0":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/inline-style-prefixer/-/inline-style-prefixer-3.0.1.tgz#8541e636b029124b747952e9a28848286d2b5bf6"
+
+"@types/react@^15.0.24":
+  version "15.6.5"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.5.tgz#fb23b8d8b7226313b645b6e84fb178976bbfe587"
 
 "@types/react@^16.0.18":
   version "16.0.19"

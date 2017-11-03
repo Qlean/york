@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react'
 
 import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info'
+import { withNotes } from '@storybook/addon-notes'
+import centered from '@storybook/addon-centered'
 
 import '../src/styles/global'
 
@@ -14,7 +16,8 @@ const stories = storiesOf('Button', module)
 stories.addDecorator(withKnobs)
 
 stories
-  .add('Social button', withInfo({
+  .addDecorator(centered)
+  .add('Social button', withNotes("import { Button } from 'york/components/web'")(withInfo({
     name: 'Кнопка со ссылкой на соц. сеть.',
     propTables: [Social]
   })(() => (
@@ -24,4 +27,4 @@ stories
       href='https://www.facebook.com/messages/t/270092376765399'
       children={text('children', 'Messenger')}
     />
-  )))
+  ))))

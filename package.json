@@ -31,8 +31,11 @@
   },
   "homepage": "https://github.com/Qlean/york#readme",
   "dependencies": {
+    "@storybook/addon-centered": "^3.2.14",
     "@storybook/addon-info": "^3.2.14",
     "@storybook/addon-knobs": "^3.2.14",
+    "@storybook/addon-notes": "^3.2.14",
+    "@storybook/addon-options": "^3.2.14",
     "@storybook/react": "^3.2.14",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
