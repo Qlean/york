@@ -22,7 +22,7 @@
 ## Info
 Показывает доступные props, способ подключения и описание.
 
-![Example](https://github.com/Qlean/york/storybook.png)
+![Example](https://github.com/Qlean/york/blob/master/storybook.png)
 
 # Детали
 Внутри каждой папки находится документация по разделу.
