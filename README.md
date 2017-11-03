@@ -14,6 +14,16 @@
 
 Для запуска storybook используейте команду: `npm run storybook`
 
+К storybook подключены 2 аддона: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) и [info](https://github.com/storybooks/storybook/tree/master/addons/info)
+
+## Knobs
+Позволяет выводить элементы управления компонента, с помощью которых можно посмотреть все вариации компонента на основе props.
+
+## Info
+Показывает доступные props, способ подключения и описание.
+
+![Example](https://github.com/Qlean/york/storybook.png)
+
 # Детали
 Внутри каждой папки находится документация по разделу.
 
