@@ -26,6 +26,7 @@ export default class Button extends Component {
 }
 
 Button.propTypes = {
+  /** Тип кнопки, которую нужно выводить. */
   type: PropTypes.oneOf(['social', 'primary'])
 }
 
