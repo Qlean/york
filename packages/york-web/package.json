@@ -1,0 +1,28 @@
+{
+  "name": "york-web",
+  "version": "1.0.0",
+  "description": "Qlean React components library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qlean/york.git"
+  },
+  "keywords": [
+    "ui",
+    "components"
+  ],
+  "author": "Vadim Shvetsov <vadim@shvetsov.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qlean/york/issues"
+  },
+  "homepage": "https://github.com/qlean/york#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "rimraf": "^2.6.2"
+  }
+}
