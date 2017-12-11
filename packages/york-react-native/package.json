@@ -4,6 +4,7 @@
   "description": "Qlean React Native components library",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf lib",
     "test": "jest"
   },
   "repository": {
@@ -26,5 +27,8 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "york-core": "^1.0.0"
   }
 }
