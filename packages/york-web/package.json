@@ -1,0 +1,63 @@
+{
+  "name": "york-web",
+  "version": "1.0.0",
+  "description": "Qlean React components library",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib --ignore test.js",
+    "clean": "rimraf lib",
+    "lint": "eslint src",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "watch": "babel src -d lib --ignore test.js -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qlean/york.git"
+  },
+  "keywords": [
+    "ui",
+    "components"
+  ],
+  "author": "Vadim Shvetsov <vadim@shvetsov.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qlean/york/issues"
+  },
+  "homepage": "https://github.com/qlean/york#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-qlean": "^1.0.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-react": "^7.4.0",
+    "jest": "^21.2.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "styled-components": "^2.2.4",
+    "york-core": "^1.0.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./setupTests.js"
+  },
+  "peerDependencies": {
+    "react": ">=15"
+  }
+}

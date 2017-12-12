@@ -1,0 +1,36 @@
+{
+  "name": "york-core",
+  "version": "1.0.0",
+  "description": "Qlean JavaScript utils library",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rimraf lib",
+    "lint": "eslint .",
+    "test": "jest",
+    "watch": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qlean/york.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "Vadim Shvetsov <vadim@shvetsov.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qlean/york/issues"
+  },
+  "homepage": "https://github.com/qlean/york#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^21.2.1",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.52.1"
+  }
+}

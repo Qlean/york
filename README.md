@@ -1,43 +1,28 @@
-# Установка
-`npm install https://github.com/Qlean/york`
+# York - Qlean utils and UI Components libraries
 
-# Описание
-Библиотека включает в себя набор компонентов, вспомогательных утилит и всевозможные ассеты, необходимые в работе. На основании этого проект разделен на 4 части:
+<a name="development"></a>
+## Development Process
 
-- `assets`
-- `components`
-- `styles`
-- `utils`
-
-# Storybook
-К проекту подключен storybook, который позволим вам ознакомиться со всеми компонентами, которые реализованы в проекте.
-
-Для запуска storybook используейте команду: `npm run storybook`
-
-К storybook подключены 2 аддона: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) и [info](https://github.com/storybooks/storybook/tree/master/addons/info)
-
-## Knobs
-Позволяет выводить элементы управления компонента, с помощью которых можно посмотреть все вариации компонента на основе props.
-
-## Info
-Показывает доступные props, способ подключения и описание.
-
-![Example](https://github.com/Qlean/york/blob/master/storybook.png)
-
-# Детали
-Внутри каждой папки находится документация по разделу.
-
-# Работа из соседней папки
-1. Для корректной работы из соседней папки нужно запустить проект в режиме watch через команду `npm run watch`.
-2. В develop конфиг webpack'а прописать алиас:
-  `{ york: path.resolve(PATH_TO_YORK_DIR) }`
-
-
-> Или можно добавить в общий конфиг:
+1. Install [lerna](https://github.com/lerna/lerna) globally with command `npm i -g lerna` and clone this repo. We recommend to investigate `lerna` for advanced usage with all benefits.
+2. Move to your clonned project folder and type `lerna bootstrap`. All your packages will symlink each other and install their dependencies.
+3. (Optional) If you need to link all this packages for using them in your applications you can simply type:
+```sh
+$ lerna exec npm link
 ```
-if (process.env.NODE_ENV !== 'production') {
-  commonConfig.resolve.alias.york = resolve(PATH_TO_YORK_DIR);
-}
+or if you need to produce only `york-core` link for example
+```sh
+$ lerna exec npm link --scope york-core
 ```
-# Работа с исходниками
-На текущий момент существует проблема с sourcemaps, а именно с конкатенацией sourcemap'ов york'а и проекта, в котором он используется. Если на проде нужны sourcemaps с данными из york, то можно испортировать компоненты напрямую из папки `src`
+Then inside your target application folder type `npm link <package name>`.
+4. If you want to execute single build you can use `lerna run build` or for watch type `lerna run --parallel watch`. Ignoring package with `--ignore <package name>` flag or use scope for only executed package `--scope <package name>`.
+
+## Publishing
+
+If you want to publish all your contribution first of all you need to check your code with test and lint scripts for all packages by typing:
+```sh
+$ lerna run test
+
+$ lerna run lint
+
+$ lerna publish
+```
