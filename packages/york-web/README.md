@@ -5,9 +5,9 @@
 
 If you prefer test your changes in a real application instead TDD, you can do the following:
 
-2. Run `npm link && npm run watch` in `york-web` repository
-3. `cd` to your application, run `npm link york-web` to point to your local repository for test.
-4. Run your react application and rock on
+1. Run `npm link && npm run watch` in `york-web` repository
+2. `cd` to your application, run `npm link york-web` to point to your local repository for test.
+3. Run your react application and rock on
 
 #### Adding new component
 1. Create file with component in `src/<Component name>` folder

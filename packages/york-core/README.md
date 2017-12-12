@@ -5,9 +5,9 @@
 
 If you prefer test your changes in a real application instead TDD, you can do the following:
 
-2. Run `npm link && npm run watch` in `york-core` repository
-3. `cd` to your application, run `npm link york-core` to point to your local repository for test.
-4. Run your utility target application and rock on
+1. Run `npm link && npm run watch` in `york-core` repository
+2. `cd` to your application, run `npm link york-core` to point to your local repository for test.
+3. Run your utility target application and rock on
 
 #### Adding new utility
 1. Create file with utility in `src` folder
