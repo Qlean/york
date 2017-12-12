@@ -9,9 +9,9 @@
 ```sh
 $ lerna exec npm link
 ```
-or if you need to produce only `york-web` link for example
+or if you need to produce only `york-core` link for example
 ```sh
-$ lerna exec npm link --scope york-web
+$ lerna exec npm link --scope york-core
 ```
 Then inside your target application folder type `npm link <package name>`.
 4. If you want to execute single build you can use `lerna run build` or for watch type `lerna run --parallel watch`. Ignoring package with `--ignore <package name>` flag or use scope for only executed package `--scope <package name>`.
