@@ -21,5 +21,8 @@ Then inside your target application folder type `npm link <package name>`.
 If you want to publish all your contribution first of all you need to check your code with test and lint scripts for all packages by typing:
 ```sh
 $ lerna run test
-lerna run link
+
+$ lerna run lint
+
+$ lerna publish
 ```
