@@ -46,7 +46,7 @@
     "york-core": "^1.0.0"
   },
   "peerDependencies": {
-    "react": ">=15",
-    "react-native": ">=0.46"
+    "react": ">=16",
+    "react-native": ">=0.50"
   }
 }
