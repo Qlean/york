@@ -2,4 +2,3 @@
 .eslintrc
 .eslintignore
 src/**/*.test.js
-node_modules

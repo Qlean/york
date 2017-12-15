@@ -3,4 +3,3 @@
 .eslintignore
 rollup.config.js
 __test__
-node_modules

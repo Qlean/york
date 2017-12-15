@@ -4,7 +4,7 @@
 ## Development Process
 
 1. Install [lerna](https://github.com/lerna/lerna) globally with command `npm i -g lerna` and clone this repo. We recommend to investigate `lerna` for advanced usage with all benefits.
-2. Move to your clonned project folder and type `lerna bootstrap`. All your packages will symlink each other and install their dependencies.
+2. Move to your cloned project folder and type `lerna bootstrap`. All your packages will symlink each other and install their dependencies.
 3. (Optional) If you need to link all this packages for using them in your applications you can simply type:
 ```sh
 $ lerna exec npm link
