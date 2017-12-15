@@ -1,5 +1,18 @@
 # York - Qlean utils and UI Components libraries
 
+## Packages
+
+* `york-core` - Utils
+* `york-web` - React UI Components
+* `york-react-native` - React Native UI Components
+
+## Installation
+
+Install required package with command:
+```sh
+$ npm install --save @qlean/<package name>
+```
+
 ## Development
 
 1. Install [lerna](https://github.com/lerna/lerna) globally:
@@ -37,10 +50,10 @@ npm link <package name>
 
 ## Contributing
 
-1. Follow existing pattern of adding your code to package, use it in your application and be confident that it is exporting as expected.
-2. Write tests and try to cover as much cases of use in your application as it's possible.
-3. If you're extending existing component don't forget about backward compatibility.
-4. Use [semantic versioning](https://semver.org/) in your releases.
+* Follow existing export patterns
+* Write tests
+* Write API docs
+* Use [semantic versioning](https://semver.org/)
 
 ## Publishing
 

@@ -1,7 +1,6 @@
 {
   "name": "york-react-native",
   "version": "1.0.0",
-  "description": "Qlean React Native components library",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib --ignore test.js",
@@ -13,18 +12,6 @@
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
-  "keywords": [
-    "ui",
-    "components",
-    "ios",
-    "android"
-  ],
-  "author": "Vadim Shvetsov <vadim@shvetsov.io>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qlean/york/issues"
-  },
-  "homepage": "https://github.com/qlean/york#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
