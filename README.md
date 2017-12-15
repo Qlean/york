@@ -1,20 +1,46 @@
 # York - Qlean utils and UI Components libraries
 
-<a name="development"></a>
-## Development Process
+## Development
 
-1. Install [lerna](https://github.com/lerna/lerna) globally with command `npm i -g lerna` and clone this repo. We recommend to investigate `lerna` for advanced usage with all benefits.
-2. Move to your cloned project folder and type `lerna bootstrap`. All your packages will symlink each other and install their dependencies.
-3. (Optional) If you need to link all this packages for using them in your applications you can simply type:
+1. Install [lerna](https://github.com/lerna/lerna) globally:
+```sh
+$ npm i -g lerna
+```
+2. Clone and move inside repo:
+```sh
+$ git clone git@github.com:Qlean/york.git && cd york
+```
+3. Install packages dependencies and symlink them each other:
+```sh
+$ lerna bootstrap
+```
+4. Link your packages to use in target application:
 ```sh
 $ lerna exec npm link
 ```
-or if you need to produce only `york-core` link for example
+5. If you want to execute single _build_ for all packages use:
 ```sh
-$ lerna exec npm link --scope york-core
+$ lerna run build
 ```
-Then inside your target application folder type `npm link <package name>`.
-4. If you want to execute single build you can use `lerna run build` or for watch type `lerna run --parallel watch`. Ignoring package with `--ignore <package name>` flag or use scope for only executed package `--scope <package name>`.
+or for _watch_ all packages type:
+```sh
+$ lerna run --parallel watch
+```
+You also can use watch only for one package with flag `--scope` or `--ignore` for exception:
+```sh
+$ lerna run --parallel watch --ignore york-react-native
+```
+6. Within target application directory link required package:
+```sh
+npm link <package name>
+```
+
+## Contributing
+
+1. Follow existing pattern of adding your code to package, use it in your application and be confident that it is exporting as expected.
+2. Write tests and try to cover as much cases of use in your application as it's possible.
+3. If you're extending existing component don't forget about backward compatibility.
+4. Use [semantic versioning](https://semver.org/) in your releases.
 
 ## Publishing
 
