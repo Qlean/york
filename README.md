@@ -1,43 +1,67 @@
-# Установка
-`npm install https://github.com/Qlean/york`
+# York - Qlean utils and UI Components libraries
 
-# Описание
-Библиотека включает в себя набор компонентов, вспомогательных утилит и всевозможные ассеты, необходимые в работе. На основании этого проект разделен на 4 части:
+## Packages
 
-- `assets`
-- `components`
-- `styles`
-- `utils`
+* `york-core` - Utils
+* `york-web` - React UI Components
+* `york-react-native` - React Native UI Components
 
-# Storybook
-К проекту подключен storybook, который позволим вам ознакомиться со всеми компонентами, которые реализованы в проекте.
+## Installation
 
-Для запуска storybook используейте команду: `npm run storybook`
-
-К storybook подключены 2 аддона: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) и [info](https://github.com/storybooks/storybook/tree/master/addons/info)
-
-## Knobs
-Позволяет выводить элементы управления компонента, с помощью которых можно посмотреть все вариации компонента на основе props.
-
-## Info
-Показывает доступные props, способ подключения и описание.
-
-![Example](https://github.com/Qlean/york/blob/master/storybook.png)
-
-# Детали
-Внутри каждой папки находится документация по разделу.
-
-# Работа из соседней папки
-1. Для корректной работы из соседней папки нужно запустить проект в режиме watch через команду `npm run watch`.
-2. В develop конфиг webpack'а прописать алиас:
-  `{ york: path.resolve(PATH_TO_YORK_DIR) }`
-
-
-> Или можно добавить в общий конфиг:
+Install required package with command:
+```sh
+$ npm install --save @qlean/<package name>
 ```
-if (process.env.NODE_ENV !== 'production') {
-  commonConfig.resolve.alias.york = resolve(PATH_TO_YORK_DIR);
-}
+
+## Development
+
+1. Install [lerna](https://github.com/lerna/lerna) globally:
+```sh
+$ npm i -g lerna
 ```
-# Работа с исходниками
-На текущий момент существует проблема с sourcemaps, а именно с конкатенацией sourcemap'ов york'а и проекта, в котором он используется. Если на проде нужны sourcemaps с данными из york, то можно испортировать компоненты напрямую из папки `src`
+2. Clone and move inside repo:
+```sh
+$ git clone git@github.com:Qlean/york.git && cd york
+```
+3. Install packages dependencies and symlink them each other:
+```sh
+$ lerna bootstrap
+```
+4. Link your packages to use in target application:
+```sh
+$ lerna exec npm link
+```
+5. If you want to execute single _build_ for all packages use:
+```sh
+$ lerna run build
+```
+or for _watch_ all packages type:
+```sh
+$ lerna run --parallel watch
+```
+You also can use watch only for one package with flag `--scope` or `--ignore` for exception:
+```sh
+$ lerna run --parallel watch --ignore york-react-native
+```
+6. Within target application directory link required package:
+```sh
+npm link <package name>
+```
+
+## Contributing
+
+* Follow existing export patterns
+* Write tests
+* Write API docs
+* Use [semantic versioning](https://semver.org/)
+
+## Publishing
+
+If you want to publish all your contribution first of all you need to check your code with test and lint scripts for all packages by typing:
+```sh
+$ lerna run test
+
+$ lerna run lint
+
+$ lerna publish
+```
