@@ -1,6 +1,6 @@
 {
   "name": "york-react-native",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib --ignore test.js",
