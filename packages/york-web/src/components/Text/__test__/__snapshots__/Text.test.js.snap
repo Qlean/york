@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> should have bold font 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 25px;
+  color: #222222;
+}
+
+<span
+  className="c0"
+  color="nero"
+  fontSize={16}
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should have color #123456 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #123456;
+}
+
+<span
+  className="c0"
+  color="#123456"
+  fontSize={16}
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should have elfGreen (#20A052) from york-core colors 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #20A052;
+}
+
+<span
+  className="c0"
+  color="elfGreen"
+  fontSize={16}
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should have font-size 20px and line-height 30px 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #222222;
+}
+
+<span
+  className="c0"
+  color="nero"
+  fontSize="20"
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should have light font 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 25px;
+  color: #222222;
+}
+
+<span
+  className="c0"
+  color="nero"
+  fontSize={16}
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should have text 'Test' 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #222222;
+}
+
+<span
+  className="c0"
+  color="nero"
+  fontSize={16}
+>
+  Test
+</span>
+`;
+
+exports[`<Text /> should match snapshot with default props 1`] = `
+.c0 {
+  font-family: MuseoSansCyrl;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #222222;
+}
+
+<span
+  className="c0"
+  color="nero"
+  fontSize={16}
+>
+  Test
+</span>
+`;
