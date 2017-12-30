@@ -2,7 +2,7 @@
   "name": "york-react-native",
   "version": "0.1.0",
   "main": "lib/index.js",
-  "module": "lib/index.js",
+  "module": "es/index.js",
   "scripts": {
     "build": "npm run build:cjs && npm run build:es",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src -d lib --ignore test.js",
