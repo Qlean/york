@@ -4,23 +4,23 @@ import { colors } from 'york-core';
 import fonts from '../../styles/fonts';
 
 const Text = styled.span`
-  ${({ font }) => fonts[font]}
+  ${({ fontWeight }) => fonts[fontWeight]}
   font-size: ${({ fontSize }) => `${fontSize}px`};
   line-height: ${({ lineHeight }) => `${lineHeight}px`};
   color: ${({ color }) => colors[color] || color};
 `;
 
 Text.defaultProps = {
-  font: 'normal',
+  fontWeight: 'normal',
   fontSize: 16,
   lineHeight: 25,
   color: 'coal',
 };
 
 Text.propTypes = {
-  font: PropTypes.oneOf(['bold', 'normal', 'light']),
-  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  lineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  fontWeight: PropTypes.oneOf(['bold', 'normal', 'light']),
+  fontSize: PropTypes.number,
+  lineHeight: PropTypes.number,
   color: PropTypes.string,
 };
 

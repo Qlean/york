@@ -34,13 +34,13 @@ describe('<Text />', () => {
     expect(text).toMatchSnapshot();
   });
   test('should have bold font', () => {
-    const text = shallow(<Text font="bold">Test</Text>);
+    const text = shallow(<Text fontWeight="bold">Test</Text>);
     expect(text).toHaveStyleRule('font-weight', '700');
     expect(text).toHaveStyleRule('font-family', 'MuseoSansCyrl');
     expect(text).toMatchSnapshot();
   });
   test('should have light font', () => {
-    const text = shallow(<Text font="light">Test</Text>);
+    const text = shallow(<Text fontWeight="light">Test</Text>);
     expect(text).toHaveStyleRule('font-weight', '300');
     expect(text).toHaveStyleRule('font-family', 'MuseoSansCyrl');
     expect(text).toMatchSnapshot();

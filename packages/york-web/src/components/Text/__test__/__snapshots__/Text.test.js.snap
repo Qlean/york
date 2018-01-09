@@ -13,6 +13,7 @@ exports[`<Text /> should have bold font 1`] = `
   className="c0"
   color="coal"
   fontSize={16}
+  fontWeight="bold"
 >
   Test
 </span>
@@ -31,6 +32,7 @@ exports[`<Text /> should have color #123456 1`] = `
   className="c0"
   color="#123456"
   fontSize={16}
+  fontWeight="normal"
 >
   Test
 </span>
@@ -49,6 +51,7 @@ exports[`<Text /> should have font-size 20px and line-height 30px 1`] = `
   className="c0"
   color="coal"
   fontSize="20"
+  fontWeight="normal"
 >
   Test
 </span>
@@ -67,6 +70,7 @@ exports[`<Text /> should have green (#20A052) from york-core colors 1`] = `
   className="c0"
   color="green"
   fontSize={16}
+  fontWeight="normal"
 >
   Test
 </span>
@@ -85,6 +89,7 @@ exports[`<Text /> should have light font 1`] = `
   className="c0"
   color="coal"
   fontSize={16}
+  fontWeight="light"
 >
   Test
 </span>
@@ -103,6 +108,7 @@ exports[`<Text /> should have text 'Test' 1`] = `
   className="c0"
   color="coal"
   fontSize={16}
+  fontWeight="normal"
 >
   Test
 </span>
@@ -121,6 +127,7 @@ exports[`<Text /> should match snapshot with default props 1`] = `
   className="c0"
   color="coal"
   fontSize={16}
+  fontWeight="normal"
 >
   Test
 </span>
