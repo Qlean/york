@@ -22,8 +22,8 @@ describe('<Text />', () => {
     expect(text).toHaveStyleRule('color', '#123456');
     expect(text).toMatchSnapshot();
   });
-  test('should have elfGreen (#20A052) from york-core colors', () => {
-    const text = shallow(<Text color="elfGreen">Test</Text>);
+  test('should have green (#20A052) from york-core colors', () => {
+    const text = shallow(<Text color="green">Test</Text>);
     expect(text).toHaveStyleRule('color', '#20A052');
     expect(text).toMatchSnapshot();
   });

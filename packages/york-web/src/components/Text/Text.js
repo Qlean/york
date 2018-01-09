@@ -14,7 +14,7 @@ Text.defaultProps = {
   font: 'normal',
   fontSize: 16,
   lineHeight: 25,
-  color: 'nero',
+  color: 'coal',
 };
 
 Text.propTypes = {
