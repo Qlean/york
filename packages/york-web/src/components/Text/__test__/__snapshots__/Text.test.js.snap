@@ -235,6 +235,10 @@ exports[`<Text /> should have link preset 1`] = `
   font-size: 15px;
   line-height: 25px;
   color: #222222;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -243,6 +247,7 @@ exports[`<Text /> should have link preset 1`] = `
   color="coal"
   font-size="15"
   font-weight="700"
+  letter-spacing="1"
 >
   Test
 </span>
@@ -369,6 +374,10 @@ exports[`<Text /> should remove link preset uppercase transform 1`] = `
   font-size: 15px;
   line-height: 25px;
   color: #222222;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
   text-transform: none;
 }
 
@@ -377,6 +386,7 @@ exports[`<Text /> should remove link preset uppercase transform 1`] = `
   color="coal"
   font-size="15"
   font-weight="700"
+  letter-spacing="0"
 >
   Test
 </span>

@@ -53,6 +53,7 @@ const presets = {
     fontSize: 15,
     lineHeight: 25,
     fontWeight: 700,
+    letterSpacing: 1,
     textTransform: 'uppercase',
   },
   caption1: {
@@ -74,6 +75,7 @@ const StyledText = styled.span`
   line-height: ${({ lineHeight }) => `${lineHeight}px`};
   color: ${({ color }) => colors[color] || color};
   ${({ fontStyle }) => fontStyle && `font-style: ${fontStyle};`}
+  ${({ letterSpacing }) => letterSpacing !== undefined && `letter-spacing: ${letterSpacing}${letterSpacing !== 0 ? 'px' : ''};`}
   ${({ textTransform }) => textTransform && `text-transform: ${textTransform};`}
 `;
 
@@ -88,6 +90,7 @@ StyledText.propTypes = {
   color: PropTypes.string,
   fontStyle: PropTypes.oneOf(['normal', 'italic']),
   textTransform: PropTypes.oneOf(['uppercase', 'lowercase', 'capitalize', 'none']),
+  letterSpacing: PropTypes.number,
 };
 
 const Text = ({ preset, ...rest }) => (<StyledText {...presets[preset]} {...rest}/>);

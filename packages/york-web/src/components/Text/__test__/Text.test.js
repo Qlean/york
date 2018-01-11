@@ -124,6 +124,7 @@ describe('<Text />', () => {
     expect(text).toHaveStyleRule('font-size', '15px');
     expect(text).toHaveStyleRule('line-height', '25px');
     expect(text).toHaveStyleRule('text-transform', 'uppercase');
+    expect(text).toHaveStyleRule('letter-spacing', '1px');
     expect(text).toHaveStyleRule('font-family', 'MuseoSansCyrl');
     expect(text.render()).toMatchSnapshot();
   });
@@ -155,12 +156,13 @@ describe('<Text />', () => {
     expect(text.render()).toMatchSnapshot();
   });
   test('should remove link preset uppercase transform', () => {
-    const text = shallow(<Text preset="link" textTransform="none">Test</Text>);
+    const text = shallow(<Text preset="link" textTransform="none" letterSpacing={0}>Test</Text>);
     expect(text).toHaveStyleRule('color', '#222222');
     expect(text).toHaveStyleRule('font-weight', '700');
     expect(text).toHaveStyleRule('font-size', '15px');
     expect(text).toHaveStyleRule('line-height', '25px');
     expect(text).toHaveStyleRule('text-transform', 'none');
+    expect(text).toHaveStyleRule('letter-spacing', '0');
     expect(text).toHaveStyleRule('font-family', 'MuseoSansCyrl');
     expect(text.render()).toMatchSnapshot();
   });
