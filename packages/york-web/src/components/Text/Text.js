@@ -93,11 +93,7 @@ StyledText.propTypes = {
   letterSpacing: PropTypes.number,
 };
 
-const Text = ({ preset, ...rest }) => (<StyledText {...presets[preset]} {...rest}/>);
-
-Text.defaultProps = {
-  preset: 'text2',
-};
+const Text = ({ preset = 'text2', ...rest }) => <StyledText {...presets[preset]} {...rest}/>;
 
 Text.propTypes = {
   preset: PropTypes.oneOf(Object.keys(presets)),
