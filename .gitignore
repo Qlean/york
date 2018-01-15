@@ -1,3 +1,4 @@
 node_modules
 *.log
 packages/york-*/lib
+packages/york-*/es
