@@ -9,6 +9,7 @@
     "build:es": "cross-env BABEL_ENV=es babel src -d es",
     "clean": "rimraf es/* lib/*",
     "lint": "eslint .",
+    "prepublish": "npm run build && npm run test && npm run lint",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
