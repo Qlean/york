@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-core",
-  "version": "0.1.1-2",
+  "version": "0.1.1-3",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
