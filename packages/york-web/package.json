@@ -47,7 +47,6 @@
   },
   "dependencies": {
     "@qlean/york-core": "^0.1.0",
-    "@qlean/york-react-native": "^0.1.0",
     "prop-types": "^15.6.0",
     "styled-components": "^2.2.4"
   },
