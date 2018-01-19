@@ -6,13 +6,5 @@
   },
   "devDependencies": {
     "lerna": "^2.5.1"
-  },
-  "commands": {
-    "bootstrap": {
-      "scope": "qlean"
-    },
-    "publish": {
-      "allowBranch": "master"
-    }
   }
 }
