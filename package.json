@@ -4,6 +4,9 @@
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
+  "scripts": {
+    "release": "lerna run build && lerna run test && lerna run lint && lerna publish"
+  },
   "devDependencies": {
     "lerna": "^2.5.1"
   }

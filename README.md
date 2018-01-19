@@ -57,12 +57,9 @@ npm link <package name>
 
 ## Publishing
 
-If you want to publish all your contribution first of all you need to check your code with test and lint scripts for all packages by typing:
+If you want to publish all your contribution check your code with test and lint scripts for all packages by typing:
 ```sh
 $ git checkout master
 $ git pull
-$ lerna run build
-$ lerna run test
-$ lerna run lint
-$ lerna publish
+$ npm run release
 ```
