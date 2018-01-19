@@ -1,10 +1,10 @@
 {
+  "name": "york",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qlean/york.git"
+  },
   "devDependencies": {
     "lerna": "^2.5.1"
-  },
-  "commands": {
-    "bootstrap": {
-      "scope": "qlean"
-    }
   }
 }
