@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "build:es": "cross-env BABEL_ENV=es babel src -d es --ignore __test__",
     "clean": "rimraf es/* lib/*",
     "lint": "eslint .",
+    "prepublish": "npm run build && npm run test && npm run lint",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
