@@ -9,7 +9,6 @@
     "build:es": "cross-env BABEL_ENV=es babel src -d es --ignore test.js",
     "clean": "rimraf es/* lib/*",
     "lint": "eslint src",
-    "prepublish": "npm run build && npm run lint",
     "watch": "babel src -d lib --ignore test.js -w"
   },
   "repository": {
