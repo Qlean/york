@@ -1,8 +1,8 @@
 import { injectGlobal } from 'styled-components';
 
-import MuseoSansCyrl300 from 'york-core/fonts/MuseoSansCyrl-300.otf';
-import MuseoSansCyrl500 from 'york-core/fonts/MuseoSansCyrl-500.otf';
-import MuseoSansCyrl700 from 'york-core/fonts/MuseoSansCyrl-700.otf';
+import MuseoSansCyrl300 from '@qlean/york-core/fonts/MuseoSansCyrl-300.otf';
+import MuseoSansCyrl500 from '@qlean/york-core/fonts/MuseoSansCyrl-500.otf';
+import MuseoSansCyrl700 from '@qlean/york-core/fonts/MuseoSansCyrl-700.otf';
 
 /* eslint-disable no-unused-expressions */
 injectGlobal`

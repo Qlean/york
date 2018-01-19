@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors } from 'york-core';
+import { colors } from '@qlean/york-core';
 
 const presets = {
   ph1: {
