@@ -53,7 +53,7 @@ npm link <package name>
 * Follow existing export patterns
 * Write tests
 * Write API docs
-* Use [semantic versioning](https://semver.org/)
+* Use [semantic versioning](https://semver.org/) 
 
 ## Publishing
 
