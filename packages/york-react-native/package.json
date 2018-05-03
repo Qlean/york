@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-react-native",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "rimraf": "^2.6.2"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.1.0",
+    "@qlean/york-core": "^0.2.0",
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
