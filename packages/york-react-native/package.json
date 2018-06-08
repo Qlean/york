@@ -2,7 +2,6 @@
   "name": "@qlean/york-react-native",
   "version": "0.1.0",
   "main": "lib/index.js",
-  "module": "es/index.js",
   "description": "",
   "license": "UNLICENSED",
   "repository": {
@@ -10,9 +9,7 @@
     "url": "git://github.com/qlean/york.git"
   },
   "scripts": {
-    "build": "npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=cjs babel src -d lib --ignore test.js",
-    "build:es": "BABEL_ENV=es babel src -d es --ignore test.js",
+    "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf es lib",
     "lint": "eslint src --ext .js",
     "watch": "babel src -d lib --ignore test.js -w"

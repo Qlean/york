@@ -1,8 +1,7 @@
 {
   "name": "@qlean/york-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "lib/index.js",
-  "module": "es/index.js",
   "description": "",
   "license": "UNLICENSED",
   "repository": {
@@ -10,15 +9,13 @@
     "url": "git://github.com/qlean/york.git"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=cjs babel src -d lib",
-    "build:es": "BABEL_ENV=es babel src -d es",
-    "clean": "rimraf coverage es lib",
+    "build": "npm run clean && babel src -d lib --ignore test.js",
+    "clean": "rimraf coverage lib",
     "lint": "eslint . --ext .js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "watch": "babel src -d lib -w"
+    "watch": "babel src -d lib --ignore test.js -w"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -27,6 +24,10 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "jest": "^21.2.1",
+    "ramda": "^0.25.0",
     "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "ramda": "*"
   }
 }
