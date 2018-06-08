@@ -1,4 +1,6 @@
-# York - Qlean utils and UI Components libraries
+# York
+
+Qlean utils and UI Components libraries
 
 ## Packages
 
@@ -8,9 +10,8 @@
 
 ## Installation
 
-Install required package with command:
 ```sh
-$ npm install --save @qlean/<package name>
+$ npm install @qlean/<package name>
 ```
 
 ## Development
