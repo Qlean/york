@@ -1,5 +1,4 @@
 .babelrc
 .eslintrc
 .eslintignore
-rollup.config.js
 __test__

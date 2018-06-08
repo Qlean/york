@@ -3,24 +3,29 @@
   "version": "0.1.0",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "scripts": {
-    "build": "npm run build:cjs && npm run build:es",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src -d lib --ignore test.js",
-    "build:es": "cross-env BABEL_ENV=es babel src -d es --ignore test.js",
-    "clean": "rimraf es/* lib/*",
-    "lint": "eslint src",
-    "watch": "babel src -d lib --ignore test.js -w"
-  },
+  "description": "",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"
+  },
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:es",
+    "build:cjs": "BABEL_ENV=cjs babel src -d lib --ignore test.js",
+    "build:es": "BABEL_ENV=es babel src -d es --ignore test.js",
+    "clean": "rimraf es lib",
+    "lint": "eslint src --ext .js",
+    "watch": "babel src -d lib --ignore test.js -w"
+  },
+  "dependencies": {
+    "@qlean/york-core": "^0.1.0",
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-preset-react-native": "^4.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "cross-env": "^5.1.3",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-qlean-react-native": "^1.0.0",
@@ -32,10 +37,6 @@
     "react": "^16.2.0",
     "react-native": "0.50",
     "rimraf": "^2.6.2"
-  },
-  "dependencies": {
-    "@qlean/york-core": "^0.1.0",
-    "prop-types": "^15.6.0"
   },
   "peerDependencies": {
     "react": ">=16",

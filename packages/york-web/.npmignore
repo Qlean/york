@@ -1,5 +1,0 @@
-.babelrc
-.eslintrc
-.eslintignore
-src/**/*.test.js
-setupTests.js
