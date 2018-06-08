@@ -5,7 +5,6 @@ Qlean utils and UI Components libraries
 ## Packages
 
 * `york-core` - Utils
-* `york-web` - React UI Components
 * `york-react-native` - React Native UI Components
 
 ## Installation
