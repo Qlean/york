@@ -1,4 +1,4 @@
-import { formatPhoneForHref } from '../src';
+import formatPhoneForHref from '../formatPhoneForHref';
 
 describe('Format phone to href text', () => {
   const finalResult = 'tel:84955454819';

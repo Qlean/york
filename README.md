@@ -1,16 +1,16 @@
-# York - Qlean utils and UI Components libraries
+# York
+
+Qlean utils and UI Components libraries
 
 ## Packages
 
 * `york-core` - Utils
-* `york-web` - React UI Components
 * `york-react-native` - React Native UI Components
 
 ## Installation
 
-Install required package with command:
 ```sh
-$ npm install --save @qlean/<package name>
+$ npm install @qlean/<package name>
 ```
 
 ## Development
