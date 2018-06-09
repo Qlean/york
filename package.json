@@ -8,6 +8,6 @@
     "release": "lerna run build && lerna run test && lerna run lint && lerna publish"
   },
   "devDependencies": {
-    "lerna": "^2.5.1"
+    "lerna": "2.11.0"
   }
 }

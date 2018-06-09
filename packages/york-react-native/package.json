@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "npm run clean && babel src -d lib --ignore test.js",
-    "clean": "rimraf es lib",
+    "clean": "rimraf lib",
     "lint": "eslint src --ext .js",
     "watch": "babel src -d lib --ignore test.js -w"
   },
