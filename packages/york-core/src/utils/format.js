@@ -6,9 +6,9 @@ const getFormattedMoney = (number) => {
 };
 
 const formattersMap = {
-  money: getFormattedMoney
+  money: getFormattedMoney,
 };
 
 export default function format(formatter, value) {
   return formattersMap[formatter](value);
-};
+}
