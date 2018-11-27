@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import capitalize from './capitalize';
 
 const getErrorData = (error) => {
-  const data = R.propOr({}, 'data', error);
+  const data = R.prop('data', error) || {};
   const errors = data.errors || data.error || [];
   return (typeof errors === 'string') ? [errors] : errors;
 };
