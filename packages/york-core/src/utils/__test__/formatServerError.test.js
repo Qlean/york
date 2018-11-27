@@ -45,5 +45,6 @@ describe('formatServerError', () => {
   test('Works fine with empty errors', () => {
     expect(formatServerError()).toEqual({});
     expect(formatServerError({ data: { error: {} } })).toEqual({});
+    expect(formatServerError({ data: undefined })).toEqual({});
   });
 });
