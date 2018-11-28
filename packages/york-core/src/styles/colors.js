@@ -10,4 +10,5 @@ export default {
   coal: '#222222',
   black: '#000000',
   blue: '#2FAFDE',
+  transparent: 'transparent',
 };
