@@ -38,24 +38,6 @@ const links = [
   // },
 ];
 
-const presets = {
-  lightBackground: {
-    logo: 'green',
-    link: 'coal',
-    linkHover: 'grey'
-  },
-  darkBackground: {
-    logo: 'white',
-    link: 'white',
-    linkHover: 'silver'
-  },
-  mobile: {
-    logo: 'black',
-    link: 'black',
-    linkHover: 'black'
-  },
-}
-
 const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
 `;
@@ -75,8 +57,8 @@ export default class NewNavigation extends Component {
         justifyContentMobile="flex-start"
         flexDirectionMobile="column"
       >
-        <Header isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu}/>
-        <Menu isMenuOpened={isMenuOpened} links={links}/>
+        <Header preset="darkBackground" isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu}/>
+        <Menu isMenuOpened={isMenuOpened} links={links} linkColor="green"/>
       </StyledNavigation>
     );
   }

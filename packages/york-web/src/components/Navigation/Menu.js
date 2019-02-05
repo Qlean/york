@@ -67,7 +67,7 @@ const StyledAdditionalServicesButton = styled(MenuItem)`
   `};
 `;
 
-const Menu = ({ isMenuOpened, links }) => (
+const Menu = ({ isMenuOpened, links, linkColor }) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
       alignItems="center"
@@ -83,12 +83,12 @@ const Menu = ({ isMenuOpened, links }) => (
           {category.hidden
             ? (
               <StyledButtonContainer>
-                <StyledAdditionalServicesButton>{category.title}</StyledAdditionalServicesButton>
+                <StyledAdditionalServicesButton color={linkColor}>{category.title}</StyledAdditionalServicesButton>
                 <StyledFloatingMenu links={category.items}/>
               </StyledButtonContainer>
             )
             : category.items.map(link => (
-              <MenuItem key={link.title} href={link.href}>{link.title}</MenuItem>
+              <MenuItem color={linkColor} key={link.title} href={link.href}>{link.title}</MenuItem>
             ))
           }
           <Separator width={1}/>

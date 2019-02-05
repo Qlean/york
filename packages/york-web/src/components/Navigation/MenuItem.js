@@ -5,11 +5,11 @@ import { colors } from '@qlean/york-core';
 
 import { media } from 'utils/styles';
 
-const css = `
+const getCss = ({ color }) => `
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
-  color: ${colors.coal};
+  color: ${colors[color] || colors.coal};
   font-size: 15px;
   font-weight: 700;
   padding: 10px;
@@ -20,21 +20,22 @@ const css = `
     text-decoration: none;
   }
 
-  ${media.mobile`
+  ${media.mobile(`
     padding: 10px 0;
-  `}
+    color: ${colors.coal};
+  `)}
 `;
 
-const StyledLink = styled(Link)`${css}`;
-const StyledA = styled.a`${css}`;
-const StyledDiv = styled.div`${css}`;
+const StyledLink = styled(Link)`${getCss}`;
+const StyledA = styled.a`${getCss}`;
+const StyledDiv = styled.div`${getCss}`;
 
-const MenuItem = ({ href, children, ...rest }) => {
+const MenuItem = ({ href, children, color, ...rest }) => {
   return !href
-    ? <StyledDiv {...rest}>{children}</StyledDiv>
+    ? <StyledDiv color={color} {...rest}>{children}</StyledDiv>
     : href[0] === '/'
-    ? <StyledLink to={href} {...rest}>{children}</StyledLink>
-    : <StyledA href={href} {...rest}>{children}</StyledA>;
+    ? <StyledLink to={href} color={color} {...rest}>{children}</StyledLink>
+    : <StyledA href={href} color={color} {...rest}>{children}</StyledA>;
 };
 
 export default MenuItem;

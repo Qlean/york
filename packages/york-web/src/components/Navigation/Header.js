@@ -7,6 +7,7 @@ import { FlexBase } from 'components/flex';
 
 import HeaderLogo from './HeaderLogo';
 import Toggler from './Toggler';
+import { presets } from './utils';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 1;
@@ -34,15 +35,15 @@ const StyledToggler = styled(Toggler)`
   `};
 `;
 
-const Header = ({ isMenuOpened, toggleMenu }) => (
+const Header = ({ isMenuOpened, toggleMenu, preset }) => (
   <StyledHeaderWrapper isMenuOpened={isMenuOpened}>
     <StyledHeader
       alignItems="center"
       justifyContentMobile="space-between"
       isMenuOpened={isMenuOpened}
     >
-      <HeaderLogo/>
-      <StyledToggler isActive={isMenuOpened} onClick={toggleMenu}/>
+      <HeaderLogo color={isMenuOpened ? 'black' : presets[preset].logo}/>
+      <StyledToggler color={isMenuOpened ? 'black' : presets[preset].toggler} isActive={isMenuOpened} onClick={toggleMenu}/>
     </StyledHeader>
   </StyledHeaderWrapper>
 );

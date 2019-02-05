@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors } from '@qlean/york-core';
 
 const StyledToggler = styled.div`
   transition: all ease .2s;
@@ -21,7 +22,7 @@ const StyledToggler = styled.div`
     border-radius: 3px;
     left: 50%;
     top: 50%;
-    background-color: black;
+    background-color: ${({ color }) => colors[color] || colors.black};
   }
 
   &:before {
@@ -52,12 +53,14 @@ export default function HeaderMobileMenuToggler(props) {
   const {
     onClick,
     isActive,
+    color,
     ...rest
   } = props;
   return (
     <StyledToggler
       isActive={isActive}
       onClick={onClick}
+      color={color}
       {...rest}
     />
   );
