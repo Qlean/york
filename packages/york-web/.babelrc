@@ -5,7 +5,7 @@
       "uglifyPure": false,
       "ssr": true
     }],
-    ["module-resolver", {
+    ["babel-plugin-module-resolver", {
       "root": ["./src"],
       "alias": {
         "components": "./src/components",
