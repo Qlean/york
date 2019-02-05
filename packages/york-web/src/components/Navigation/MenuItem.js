@@ -14,6 +14,7 @@ const getCss = ({ color }) => `
   font-weight: 700;
   padding: 10px;
   width: 100%;
+  transition: all .3s ease;
 
   &:hover {
     color: ${colors.grey};
