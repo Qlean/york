@@ -38,6 +38,24 @@ const links = [
   // },
 ];
 
+const presets = {
+  lightBackground: {
+    logo: 'green',
+    link: 'coal',
+    linkHover: 'grey'
+  },
+  darkBackground: {
+    logo: 'white',
+    link: 'white',
+    linkHover: 'silver'
+  },
+  mobile: {
+    logo: 'black',
+    link: 'black',
+    linkHover: 'black'
+  },
+}
+
 const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
 `;

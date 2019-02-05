@@ -4,8 +4,8 @@ import { colors } from '@qlean/york-core';
 
 import { media } from 'utils/styles';
 import { FlexBase } from 'components/flex';
-// import HeaderLogo from 'components/Header/HeaderLogo';
 
+import HeaderLogo from './HeaderLogo';
 import Toggler from './Toggler';
 
 const StyledHeaderWrapper = styled.div`
@@ -41,7 +41,7 @@ const Header = ({ isMenuOpened, toggleMenu }) => (
       justifyContentMobile="space-between"
       isMenuOpened={isMenuOpened}
     >
-      {/* <HeaderLogo/> */}
+      <HeaderLogo/>
       <StyledToggler isActive={isMenuOpened} onClick={toggleMenu}/>
     </StyledHeader>
   </StyledHeaderWrapper>
