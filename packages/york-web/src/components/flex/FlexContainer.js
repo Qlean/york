@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { GRID_GUTTER, MOBILE_PADDING, legacyMedia, mediaMaxWidths } from '../../utils/styles';
+import { GRID_GUTTER, MOBILE_PADDING, legacyMedia, mediaMaxWidths } from 'utils/styles';
 
 import FlexBase from './FlexBase';
 

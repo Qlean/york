@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import R from 'ramda';
 
-import { GRID_COLUMNS, GRID_GUTTER, media, withResponsiveProps } from '../../utils/styles';
+import { GRID_COLUMNS, GRID_GUTTER, media, withResponsiveProps } from 'utils/styles';
 
 import FlexBase from './FlexBase';
 

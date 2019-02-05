@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { g, withResponsiveProps, legacyMedia } from '../../utils/styles';
 import R from 'ramda';
+
+import { g, withResponsiveProps, legacyMedia } from 'utils/styles';
 
 const sizes = {
   0: 0,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { FlexBase } from '../flex';
+import { FlexBase } from 'components/flex';
 
 import Menu from './Menu';
 import Header from './Header';

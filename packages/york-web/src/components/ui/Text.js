@@ -10,7 +10,7 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from '../../utils/styles';
+} from 'utils/styles';
 
 export const htmlTags = [
   'h1',

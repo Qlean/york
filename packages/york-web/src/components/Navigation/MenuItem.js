@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
-import colors from '@qlean/york-core/lib/styles/colors';
+import { colors } from '@qlean/york-core';
 
-import { media } from '../../utils/styles';
+import { media } from 'utils/styles';
 
 const css = `
   text-transform: uppercase;

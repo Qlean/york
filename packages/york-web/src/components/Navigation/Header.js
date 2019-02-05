@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '@qlean/york-core/lib/styles/colors';
+import { colors } from '@qlean/york-core';
 
-import { media } from '../../utils/styles';
-import { FlexBase } from '../flex';
+import { media } from 'utils/styles';
+import { FlexBase } from 'components/flex';
 // import HeaderLogo from 'components/Header/HeaderLogo';
 
 import Toggler from './Toggler';

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '@qlean/york-core/lib/styles/colors';
+import { colors } from '@qlean/york-core';
 
-import { borderRadiuses, shadows, media } from '../../utils/styles';
+import { borderRadiuses, shadows, media } from 'utils/styles';
 
 import MenuItem from './MenuItem';
 

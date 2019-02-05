@@ -2,7 +2,7 @@
   "name": "@qlean/york-web",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf lib",
@@ -10,13 +10,14 @@
     "watch": "babel src -d lib --ignore test.js -w"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.3.4",
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
+    "@qlean/york-core": "^0.3.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-plugin-module-resolver": "^3.1.3",
     "babel-plugin-react-remove-properties": "^0.2.4",
     "babel-plugin-styled-components": "^1.8.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -37,11 +38,14 @@
     "eslint-plugin-react": "7.4.0",
     "ramda": "^0.24.1",
     "react": "^16.7.0",
+    "react-router": "^3.2.1",
     "rimraf": "^2.6.2",
     "styled-components": "^3.4.10"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "@qlean/york-core": "^0.3.4",
+    "react": ">=16",
+    "styled-components": "^3.4.10"
   },
   "keywords": [],
   "author": "",

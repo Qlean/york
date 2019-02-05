@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import R from 'ramda';
 
-import { legacyMedia, withResponsiveProps } from '../../utils/styles';
+import { legacyMedia, withResponsiveProps } from 'utils/styles';
 
 const FlexBase = styled.div`
   display: flex;

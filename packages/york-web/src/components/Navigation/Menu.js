@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import colors from '@qlean/york-core/lib/styles/colors';
 
-import { media } from '../../utils/styles';
+import { media } from 'utils/styles';
 
-import { Separator, Text } from '../ui';
-import { FlexBase } from '../flex';
+import { Separator, Text } from 'components/ui';
+import { FlexBase } from 'components/flex';
 
 import FloatingMenu from './FloatingMenu';
 import MenuItem from './MenuItem';
