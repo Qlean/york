@@ -93,7 +93,7 @@ export const presets = {
   },
 };
 
-const getBaseCss = ({
+export const getBaseCss = ({
   color,
   fontWeight,
   fontSize,

@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.3.6-alfa-0",
+  "version": "0.3.6-alfa-1",
   "description": "",
   "main": "dist/main.js",
   "scripts": {

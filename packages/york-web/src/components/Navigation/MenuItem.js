@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
 import { media } from 'utils/styles';
+// import { getBaseTextCss, textPresets } from 'components/ui';
 
 const getCss = ({ color }) => `
   text-transform: uppercase;
@@ -14,7 +15,6 @@ const getCss = ({ color }) => `
   font-weight: 700;
   padding: 10px;
   width: 100%;
-  transition: all .3s ease;
 
   &:hover {
     color: ${colors.grey};

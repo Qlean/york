@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import colors from '@qlean/york-core/lib/styles/colors';
 
 import { media } from 'utils/styles';
@@ -68,6 +68,18 @@ const StyledAdditionalServicesButton = styled(MenuItem)`
   `};
 `;
 
+const GlobalStyled = createGlobalStyle`
+  body {
+    ${({ isMenuOpened }) => (isMenuOpened ? `
+      ${media.mobile`
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      `}
+    ` : '')};
+  }
+`;
+
 const Menu = ({ isMenuOpened, links, preset }) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
@@ -96,6 +108,7 @@ const Menu = ({ isMenuOpened, links, preset }) => (
         </Fragment>
       ))}
     </StyledMenu>
+    <GlobalStyled isMenuOpened={isMenuOpened}/>
   </StyledMenuWrapper>
 );
 
