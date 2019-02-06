@@ -78,10 +78,10 @@ const Menu = ({ isMenuOpened, links, preset }) => (
     >
       {links.map(category => (
         <Fragment key={category.title}>
-          {category.hiddenMobile || (
+          {category.isMobileTitleHidden || (
             <StyledCategoryTitle preset="text2" color="grey">{category.title}</StyledCategoryTitle>
           )}
-          {category.hidden
+          {category.isTooltip
             ? (
               <StyledButtonContainer>
                 <StyledAdditionalServicesButton color={presets[preset].link}>{category.title}</StyledAdditionalServicesButton>

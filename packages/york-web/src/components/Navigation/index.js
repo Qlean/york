@@ -7,38 +7,6 @@ import Menu from './Menu';
 import Header from './Header';
 import { withResponsiveProps } from '../../utils/styles';
 
-const links = [
-  {
-    title: 'Услуги',
-    items: [
-      { title: 'Стандартная уборка', href: '/' },
-      { title: 'Генеральная уборка', href: '/' },
-      { title: 'После ремонта', href: '/' },
-    ],
-  },
-  {
-    title: 'Все услуги',
-    hidden: true,
-    hiddenMobile: true,
-    items: [
-      { title: 'Поддерживающая уборка', href: '/' },
-      { title: 'Офисы', href: '/' },
-      { title: 'Химчистка квартиры', href: '/' },
-    ],
-  },
-  // {
-  //   title: 'Личный кабинет',
-  //   hidden: true,
-  //   items: [
-  //     { title: 'Скидка за друзей', href: '/' },
-  //     { title: 'Мои заказы', href: '/' },
-  //     { title: 'Мои клинеры', href: '/' },
-  //     { title: 'Оплата', href: '/' },
-  //     { title: 'Настройки профиля', href: '/' },
-  //   ],
-  // },
-];
-
 const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
 `;
@@ -52,7 +20,7 @@ class NewNavigation extends Component {
 
   render() {
     const { isMenuOpened } = this.state;
-    const { preset, presetMobile } = this.props;
+    const { menuItems, preset, presetMobile } = this.props;
     return (
       <StyledNavigation
         justifyContent="space-between"
@@ -60,7 +28,7 @@ class NewNavigation extends Component {
         flexDirectionMobile="column"
       >
         <Header preset={preset} presetMobile={presetMobile} isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu}/>
-        <Menu preset={preset} isMenuOpened={isMenuOpened} links={links}/>
+        <Menu preset={preset} isMenuOpened={isMenuOpened} links={menuItems}/>
       </StyledNavigation>
     );
   }
