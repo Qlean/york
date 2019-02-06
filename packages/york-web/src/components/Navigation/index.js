@@ -5,6 +5,7 @@ import { FlexBase } from 'components/flex';
 
 import Menu from './Menu';
 import Header from './Header';
+import { withResponsiveProps } from '../../utils/styles';
 
 const links = [
   {
@@ -42,7 +43,7 @@ const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
 `;
 
-export default class NewNavigation extends Component {
+class NewNavigation extends Component {
   state = {
     isMenuOpened: false,
   };
@@ -51,15 +52,20 @@ export default class NewNavigation extends Component {
 
   render() {
     const { isMenuOpened } = this.state;
+    const { preset, presetMobile } = this.props;
     return (
       <StyledNavigation
         justifyContent="space-between"
         justifyContentMobile="flex-start"
         flexDirectionMobile="column"
       >
-        <Header preset="darkBackground" isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu}/>
-        <Menu isMenuOpened={isMenuOpened} links={links} linkColor="green"/>
+        <Header preset={preset} presetMobile={presetMobile} isMenuOpened={isMenuOpened} toggleMenu={this.toggleMenu}/>
+        <Menu preset={preset} isMenuOpened={isMenuOpened} links={links}/>
       </StyledNavigation>
     );
   }
 }
+
+export default withResponsiveProps([
+  { name: 'preset', defaultValue: 'lightBackground' },
+])(NewNavigation);

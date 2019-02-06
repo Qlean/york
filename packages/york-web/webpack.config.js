@@ -1,0 +1,59 @@
+const path = require('path');
+
+const rootPath = path.resolve(__dirname, './');
+
+module.exports = {
+  mode: 'production',
+  entry: __dirname + '/src/index.js',
+  output: {
+    path: __dirname + '/dist',
+    filename: 'main.js',
+    library: 'main',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    globalObject: 'this',
+  },
+  node: {
+    fs: 'empty',
+  },
+  // context: rootPath,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'file-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                { removeTitle: true },
+                { removeViewBox: false },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        use: 'file-loader',
+      },
+      {
+        test: /\.(woff|eot|ttf)$/i,
+        use: 'file-loader',
+      },
+    ],
+  },
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+    },
+  },
+  externals: { 'styled-components': 'styled-components' },
+};

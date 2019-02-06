@@ -56,7 +56,7 @@ const StyledCloseIcon = styled.div`
   right: ${g(2)}px;
   width: ${g(10)}px;
   height: ${g(10)}px;
-  /* background-image: url(${require('./close.svg')}); */
+  background-image: url(${require('./close.svg')});
 `;
 
 const GlobalStyled = createGlobalStyle`

@@ -11,10 +11,4 @@ export const presets = {
     link: 'white',
     linkHover: 'silver'
   },
-  mobile: {
-    logo: 'black',
-    toggler: 'black',
-    link: 'black',
-    linkHover: 'black'
-  },
 }

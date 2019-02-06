@@ -79,7 +79,7 @@ const StyledMessenger = styled.a`
   &:after {
     background-repeat: no-repeat;
     background-position: center;
-    /* background-image: ${({ code }) => `url(${require(`./assets/${code}.svg`)})`}; */
+    background-image: ${({ code }) => `url(${require(`./assets/${code}.svg`)})`};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

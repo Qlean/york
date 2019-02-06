@@ -35,15 +35,15 @@ const StyledToggler = styled(Toggler)`
   `};
 `;
 
-const Header = ({ isMenuOpened, toggleMenu, preset }) => (
+const Header = ({ isMenuOpened, toggleMenu, preset, presetMobile }) => (
   <StyledHeaderWrapper isMenuOpened={isMenuOpened}>
     <StyledHeader
       alignItems="center"
       justifyContentMobile="space-between"
       isMenuOpened={isMenuOpened}
     >
-      <HeaderLogo color={isMenuOpened ? 'black' : presets[preset].logo}/>
-      <StyledToggler color={isMenuOpened ? 'black' : presets[preset].toggler} isActive={isMenuOpened} onClick={toggleMenu}/>
+      <HeaderLogo color={isMenuOpened ? 'black' : presets[preset].logo} colorMobile={isMenuOpened ? 'black' : presets[presetMobile].logo}/>
+      <StyledToggler color={isMenuOpened ? 'black' : presets[presetMobile || preset].toggler} isActive={isMenuOpened} onClick={toggleMenu}/>
     </StyledHeader>
   </StyledHeaderWrapper>
 );

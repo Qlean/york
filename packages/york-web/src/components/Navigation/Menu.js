@@ -9,6 +9,7 @@ import { FlexBase } from 'components/flex';
 
 import FloatingMenu from './FloatingMenu';
 import MenuItem from './MenuItem';
+import { presets } from './utils';
 
 const StyledFloatingMenu = styled(FloatingMenu)``;
 
@@ -67,7 +68,7 @@ const StyledAdditionalServicesButton = styled(MenuItem)`
   `};
 `;
 
-const Menu = ({ isMenuOpened, links, linkColor }) => (
+const Menu = ({ isMenuOpened, links, preset }) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
       alignItems="center"
@@ -83,12 +84,12 @@ const Menu = ({ isMenuOpened, links, linkColor }) => (
           {category.hidden
             ? (
               <StyledButtonContainer>
-                <StyledAdditionalServicesButton color={linkColor}>{category.title}</StyledAdditionalServicesButton>
+                <StyledAdditionalServicesButton color={presets[preset].link}>{category.title}</StyledAdditionalServicesButton>
                 <StyledFloatingMenu links={category.items}/>
               </StyledButtonContainer>
             )
             : category.items.map(link => (
-              <MenuItem color={linkColor} key={link.title} href={link.href}>{link.title}</MenuItem>
+              <MenuItem color={presets[preset].link} key={link.title} href={link.href}>{link.title}</MenuItem>
             ))
           }
           <Separator width={1}/>
