@@ -37,6 +37,11 @@ const StyledMenu = styled(FlexBase)`
     max-width: 360px;
     margin: 0 auto;
   `}
+
+
+  a, a:hover {
+    text-decoration: none;
+  }
 `;
 
 const StyledCategoryTitle = styled(Text)`
@@ -108,6 +113,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
             <MenuItem
               key={link.title}
               href={link.href}
+              LinkComponent={link.LinkComponent}
               color={presets[preset].link}
               hoverColor={presets[preset].linkHover}
             >

@@ -55,5 +55,7 @@ module.exports = {
       utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
-  externals: { 'styled-components': 'styled-components' },
+  externals: {
+    'styled-components': 'styled-components',
+  },
 };

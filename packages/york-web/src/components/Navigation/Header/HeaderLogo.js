@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
@@ -32,8 +32,8 @@ export default function HeaderLogo({ logoIsUnclickable, color, colorMobile, ...r
   }
 
   return (
-    <Link to="/?noredirect=true">
+    <a href="/?noredirect=true">
       {logoComponent}
-    </Link>
+    </a>
   );
 }

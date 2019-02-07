@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
@@ -27,15 +26,19 @@ const getCss = ({ color, hoverColor }) => `
   `)}
 `;
 
-const StyledLink = styled(Link)`${getCss}`;
 const StyledA = styled.a`${getCss}`;
 const StyledDiv = styled.div`${getCss}`;
 
-const MenuItem = ({ href, children, color, hoverColor, ...rest }) => {
-  return !href
+const MenuItem = ({ href, children, LinkComponent, color, hoverColor, ...rest }) => {
+  return LinkComponent
+    ? (<LinkComponent {...rest} to={href}>
+        <StyledDiv color={color} {...rest}>{children}
+        </StyledDiv>
+      </LinkComponent>)
+    : !href
     ? <StyledDiv color={color} hoverColor={hoverColor} {...rest}>{children}</StyledDiv>
-    : href[0] === '/'
-    ? <StyledLink to={href} color={color} {...rest}>{children}</StyledLink>
+    // : href[0] === '/'
+    // ? <StyledLink to={href} color={color} {...rest}>{children}!</StyledLink>
     : <StyledA href={href} color={color} {...rest}>{children}</StyledA>;
 };
 

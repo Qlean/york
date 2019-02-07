@@ -37,7 +37,7 @@ const StyledFloatingMenu = styled.nav`
 
 const FloatingMenu = ({ links, ...rest }) => (
   <StyledFloatingMenu {...rest}>
-    {links.map(link => <StyledLink key={link.title} to={link.href}>{link.title}</StyledLink>)}
+    {links.map(link => <StyledLink LinkComponent={link.LinkComponent} key={link.title} to={link.href}>{link.title}</StyledLink>)}
   </StyledFloatingMenu>
 );
 
