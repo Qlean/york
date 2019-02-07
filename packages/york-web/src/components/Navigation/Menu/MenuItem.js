@@ -6,7 +6,7 @@ import { colors } from '@qlean/york-core';
 import { media } from 'utils/styles';
 // import { getBaseTextCss, textPresets } from 'components/ui';
 
-const getCss = ({ color }) => `
+const getCss = ({ color, hoverColor }) => `
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
@@ -17,7 +17,7 @@ const getCss = ({ color }) => `
   width: 100%;
 
   &:hover {
-    color: ${colors.grey};
+    color: ${colors[hoverColor] || colors.grey};
     text-decoration: none;
   }
 
@@ -31,9 +31,9 @@ const StyledLink = styled(Link)`${getCss}`;
 const StyledA = styled.a`${getCss}`;
 const StyledDiv = styled.div`${getCss}`;
 
-const MenuItem = ({ href, children, color, ...rest }) => {
+const MenuItem = ({ href, children, color, hoverColor, ...rest }) => {
   return !href
-    ? <StyledDiv color={color} {...rest}>{children}</StyledDiv>
+    ? <StyledDiv color={color} hoverColor={hoverColor} {...rest}>{children}</StyledDiv>
     : href[0] === '/'
     ? <StyledLink to={href} color={color} {...rest}>{children}</StyledLink>
     : <StyledA href={href} color={color} {...rest}>{children}</StyledA>;

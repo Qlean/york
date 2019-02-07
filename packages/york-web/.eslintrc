@@ -3,5 +3,12 @@
   "rules": {
     "camelcase": 0,
     "react/no-typos": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
   }
 }

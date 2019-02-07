@@ -9,7 +9,7 @@ import { FlexBase } from 'components/flex';
 
 import FloatingMenu from './FloatingMenu';
 import MenuItem from './MenuItem';
-import { presets } from './utils';
+import { presets } from '../utils';
 
 const StyledFloatingMenu = styled(FloatingMenu)``;
 
@@ -80,30 +80,40 @@ const GlobalStyled = createGlobalStyle`
   }
 `;
 
-const Menu = ({ isMenuOpened, links, preset }) => (
+const Menu = ({ isMenuOpened, menuItems, preset }) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
       alignItems="center"
       alignItemsMobile="flex-start"
       flexDirectionMobile="column"
-      isMenuOpened={isMenuOpened}
     >
-      {links.map(category => (
+      {menuItems.map(category => (
         <Fragment key={category.title}>
           {category.isMobileTitleHidden || (
-            <StyledCategoryTitle preset="text2" color="grey">{category.title}</StyledCategoryTitle>
+            <StyledCategoryTitle preset="h5" color="grey">
+              {category.title}
+            </StyledCategoryTitle>
           )}
-          {category.isTooltip
-            ? (
-              <StyledButtonContainer>
-                <StyledAdditionalServicesButton color={presets[preset].link}>{category.title}</StyledAdditionalServicesButton>
-                <StyledFloatingMenu links={category.items}/>
-              </StyledButtonContainer>
-            )
-            : category.items.map(link => (
-              <MenuItem color={presets[preset].link} key={link.title} href={link.href}>{link.title}</MenuItem>
-            ))
-          }
+          {category.isTooltip ? (
+            <StyledButtonContainer>
+              <StyledAdditionalServicesButton
+                color={presets[preset].link}
+                hoverColor={presets[preset].linkHover}
+              >
+                {category.title}
+              </StyledAdditionalServicesButton>
+              <StyledFloatingMenu links={category.items}/>
+            </StyledButtonContainer>
+          ) : category.items.map(link => (
+            <MenuItem
+              key={link.title}
+              href={link.href}
+              color={presets[preset].link}
+              hoverColor={presets[preset].linkHover}
+            >
+              {link.title}
+            </MenuItem>
+          ))}
           <Separator width={1}/>
         </Fragment>
       ))}

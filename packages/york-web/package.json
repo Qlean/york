@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.3.6-alfa-1",
+  "version": "0.3.6-alfa-2",
   "description": "",
   "main": "dist/main.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^7.1.5",
     "babel-plugin-inline-react-svg": "^0.5.4",
     "babel-plugin-module-resolver": "^3.1.3",

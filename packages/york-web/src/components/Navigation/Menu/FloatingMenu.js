@@ -27,7 +27,7 @@ const StyledFloatingMenu = styled.nav`
     background: ${colors.white};
     border-radius: ${borderRadiuses.medium};
     box-shadow: ${shadows.strong};
-    padding: 20px 10px;
+    padding: 20px 40px 20px 10px;
   `)}
 
   ${media.mobile`

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
@@ -7,7 +8,7 @@ import { FlexBase } from 'components/flex';
 
 import HeaderLogo from './HeaderLogo';
 import Toggler from './Toggler';
-import { presets } from './utils';
+import { presets } from '../utils';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 1;
@@ -35,17 +36,33 @@ const StyledToggler = styled(Toggler)`
   `};
 `;
 
-const Header = ({ isMenuOpened, toggleMenu, preset, presetMobile }) => (
+const Header = ({
+  isMenuOpened, toggleMenu, preset, presetMobile,
+}) => (
   <StyledHeaderWrapper isMenuOpened={isMenuOpened}>
     <StyledHeader
       alignItems="center"
       justifyContentMobile="space-between"
       isMenuOpened={isMenuOpened}
     >
-      <HeaderLogo color={isMenuOpened ? 'black' : presets[preset].logo} colorMobile={isMenuOpened ? 'black' : presets[presetMobile].logo}/>
-      <StyledToggler color={isMenuOpened ? 'black' : presets[presetMobile || preset].toggler} isActive={isMenuOpened} onClick={toggleMenu}/>
+      <HeaderLogo
+        color={isMenuOpened ? 'black' : presets[preset].logo}
+        colorMobile={isMenuOpened ? 'black' : presets[presetMobile].logo}
+      />
+      <StyledToggler
+        color={isMenuOpened ? 'black' : presets[presetMobile].toggler}
+        isActive={isMenuOpened}
+        onClick={toggleMenu}
+      />
     </StyledHeader>
   </StyledHeaderWrapper>
 );
+
+Header.propTypes = {
+  isMenuOpened: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
+  presetMobile: PropTypes.oneOf(['lightBackground', 'darkBackground']),
+};
 
 export default Header;
