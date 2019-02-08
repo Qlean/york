@@ -43,6 +43,7 @@
     "rimraf": "^2.6.2",
     "svgo": "^1.1.1",
     "svgo-loader": "^2.2.0",
+    "url-loader": "^1.1.2",
     "webpack": "^4.29.1",
     "webpack-cli": "^3.2.3"
   },

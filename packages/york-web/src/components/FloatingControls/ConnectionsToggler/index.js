@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import throttle from 'lodash.throttle';
-
 import { colors } from '@qlean/york-core';
+
 import { g, shadows } from 'utils/styles';
+import Icon from './messengers.svg';
 
 // import Svg from 'components/Svg';
 import { FlexBase } from 'components/flex';
@@ -51,11 +52,10 @@ class ConnectionsToggler extends Component {
           alignItems="center"
           onClick={this.onThrottledToggleVisibility}
         >
-          {/* <Svg
-            src={require('./messengers.svg')}
+          <Icon
             width={26}
             height={25}
-          /> */}
+          />
         </StyledIconWrapper>
         <Connections
           {...this.props}

@@ -4,18 +4,6 @@ import { colors } from '@qlean/york-core';
 
 import { borderRadiuses, shadows, media } from 'utils/styles';
 
-import MenuItem from './MenuItem';
-
-const StyledLink = styled(MenuItem)`
-  ${media.desktop(`
-    &:hover {
-      border-radius: ${borderRadiuses.small};
-      background: ${colors.smoke};
-      color: ${colors.coal};
-    }
-  `)}
-`;
-
 const StyledFloatingMenu = styled.nav`
   display: none;
   flex-direction: column;
@@ -27,7 +15,7 @@ const StyledFloatingMenu = styled.nav`
     background: ${colors.white};
     border-radius: ${borderRadiuses.medium};
     box-shadow: ${shadows.strong};
-    padding: 20px 40px 20px 10px;
+    padding: 20px 10px;
   `)}
 
   ${media.mobile`
@@ -35,9 +23,9 @@ const StyledFloatingMenu = styled.nav`
   `}
 `;
 
-const FloatingMenu = ({ links, ...rest }) => (
+const FloatingMenu = ({ children, ...rest }) => (
   <StyledFloatingMenu {...rest}>
-    {links.map(link => <StyledLink LinkComponent={link.LinkComponent} key={link.title} to={link.href}>{link.title}</StyledLink>)}
+    {children}
   </StyledFloatingMenu>
 );
 

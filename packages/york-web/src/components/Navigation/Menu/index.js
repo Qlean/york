@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import colors from '@qlean/york-core/lib/styles/colors';
 
-import { media } from 'utils/styles';
+import { media, borderRadiuses } from 'utils/styles';
 
 import { Separator, Text } from 'components/ui';
 import { FlexBase } from 'components/flex';
@@ -16,15 +16,15 @@ const StyledFloatingMenu = styled(FloatingMenu)``;
 const StyledMenuWrapper = styled.div`
   ${({ isMenuOpened }) => `
     ${media.mobile(`
-      padding-top: 60px;
-      transition: top .2s ease, opacity .4s ease;
-      position: fixed;
-      top: ${isMenuOpened ? '0' : '-100%'};
-      opacity: ${isMenuOpened ? '1' : '0'};
-      overflow: scroll;
       height: 100%;
+      overflow: scroll;
+      position: fixed;
       left: 0;
       right: 0;
+      top: ${isMenuOpened ? '0' : '-100%'};
+      opacity: ${isMenuOpened ? '1' : '0'};
+      padding-top: 60px;
+      transition: top .2s ease, opacity .4s ease;
       background: ${colors.white};
     `)}
   `}
@@ -33,11 +33,11 @@ const StyledMenuWrapper = styled.div`
 const StyledMenu = styled(FlexBase)`
   height: 100%;
   padding: 0 30px;
+
   ${media.mobile`
     max-width: 360px;
     margin: 0 auto;
   `}
-
 
   a, a:hover {
     text-decoration: none;
@@ -71,6 +71,17 @@ const StyledAdditionalServicesButton = styled(MenuItem)`
   ${media.mobile`
     display: none;
   `};
+`;
+
+const StyledFloatingLink = styled(MenuItem)`
+  ${media.desktop(`
+    padding-right: 30px;
+    &:hover {
+      border-radius: ${borderRadiuses.small};
+      background: ${colors.smoke};
+      color: ${colors.coal};
+    }
+  `)}
 `;
 
 const GlobalStyled = createGlobalStyle`
@@ -107,7 +118,17 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
               >
                 {category.title}
               </StyledAdditionalServicesButton>
-              <StyledFloatingMenu links={category.items}/>
+              <StyledFloatingMenu>
+                {category.items.map(link => (
+                  <StyledFloatingLink
+                    LinkComponent={link.LinkComponent}
+                    key={link.title}
+                    to={link.href}
+                  >
+                    {link.title}
+                  </StyledFloatingLink>
+                  ))}
+              </StyledFloatingMenu>
             </StyledButtonContainer>
           ) : category.items.map(link => (
             <MenuItem
