@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
-import { borderRadiuses, shadows, media } from 'utils/styles';
+import { g, borderRadiuses, shadows, media } from 'utils/styles';
 
 const StyledFloatingMenu = styled.nav`
   display: none;
@@ -15,7 +16,7 @@ const StyledFloatingMenu = styled.nav`
     background: ${colors.white};
     border-radius: ${borderRadiuses.medium};
     box-shadow: ${shadows.strong};
-    padding: 20px 10px;
+    padding: ${g(4)}px ${g(2)}px;
   `)}
 
   ${media.mobile`
@@ -28,5 +29,9 @@ const FloatingMenu = ({ children, ...rest }) => (
     {children}
   </StyledFloatingMenu>
 );
+
+FloatingMenu.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default FloatingMenu;

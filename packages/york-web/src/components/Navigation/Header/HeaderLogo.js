@@ -1,11 +1,11 @@
 import React from 'react';
-// import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
 import { media } from 'utils/styles';
 
-import Logo from './logo.svg';
+import Logo from './assets/logo.svg';
 
 const StyledLogo = styled(Logo)`
   ${({ color, colorMobile }) => `
@@ -16,8 +16,8 @@ const StyledLogo = styled(Logo)`
   `}
 `;
 
-export default function HeaderLogo({ logoIsUnclickable, color, colorMobile, ...rest }) {
-  const logoComponent = (
+const HeaderLogo = ({ color, colorMobile, ...rest }) => (
+  <a href="/?noredirect=true">
     <StyledLogo
       color={color}
       colorMobile={colorMobile}
@@ -25,15 +25,12 @@ export default function HeaderLogo({ logoIsUnclickable, color, colorMobile, ...r
       height={30}
       {...rest}
     />
-  );
+  </a>
+);
 
-  if (logoIsUnclickable) {
-    return logoComponent;
-  }
+HeaderLogo.propTypes = {
+  color: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  colorMobile: PropTypes.oneOf(Object.keys(colors)).isRequired,
+};
 
-  return (
-    <a href="/?noredirect=true">
-      {logoComponent}
-    </a>
-  );
-}
+export default HeaderLogo;

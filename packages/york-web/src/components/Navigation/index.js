@@ -13,19 +13,15 @@ const StyledNavigation = styled(FlexBase)`
 
 class NewNavigation extends Component {
   static propTypes = {
-    menuItems: PropTypes.arrayOf(
-      PropTypes.shape({
+    menuItems: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
-        items: PropTypes.arrayOf(
-          PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            href: PropTypes.string,
-          }).isRequired,
-        ).isRequired,
-        isMobileTitleHidden: PropTypes.bool,
-        isTooltip: PropTypes.bool,
-      }).isRequired,
-    ).isRequired,
+        href: PropTypes.string,
+      }).isRequired).isRequired,
+      isMobileTitleHidden: PropTypes.bool,
+      isTooltip: PropTypes.bool,
+    }).isRequired).isRequired,
     preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
     presetMobile: PropTypes.oneOf(['lightBackground', 'darkBackground']),
   }

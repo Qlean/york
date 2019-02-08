@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
+import { g } from 'utils/styles';
+
 const StyledToggler = styled.div`
-  transition: all ease .2s;
+  transition: all linear .2s;
   position: relative;
   cursor: pointer;
-  height: 20px;
-  width: 20px;
+  height: ${g(4)}px;
+  width: ${g(4)}px;
   z-index: 1;
 
   &:before,
@@ -69,4 +71,5 @@ export default function HeaderMobileMenuToggler(props) {
 HeaderMobileMenuToggler.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
+  color: PropTypes.oneOf(Object.keys(colors)).isRequired,
 };

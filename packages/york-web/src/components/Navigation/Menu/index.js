@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
-import colors from '@qlean/york-core/lib/styles/colors';
+import { colors } from '@qlean/york-core';
 
-import { media, borderRadiuses } from 'utils/styles';
+import { g, media, borderRadiuses } from 'utils/styles';
 
 import { Separator, Text } from 'components/ui';
 import { FlexBase } from 'components/flex';
@@ -23,7 +24,7 @@ const StyledMenuWrapper = styled.div`
       right: 0;
       top: ${isMenuOpened ? '0' : '-100%'};
       opacity: ${isMenuOpened ? '1' : '0'};
-      padding-top: 60px;
+      padding-top: ${g(12)}px;
       transition: top .2s ease, opacity .4s ease;
       background: ${colors.white};
     `)}
@@ -32,12 +33,12 @@ const StyledMenuWrapper = styled.div`
 
 const StyledMenu = styled(FlexBase)`
   height: 100%;
-  padding: 0 30px;
+  padding: 0 ${g(6)}px;
 
-  ${media.mobile`
-    max-width: 360px;
+  ${media.mobile(`
+    max-width: ${g(72)}px;
     margin: 0 auto;
-  `}
+  `)}
 
   a, a:hover {
     text-decoration: none;
@@ -46,8 +47,8 @@ const StyledMenu = styled(FlexBase)`
 
 const StyledCategoryTitle = styled(Text)`
   display: none;
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding-top: ${g(6)}px;
+  padding-bottom: ${g(2)}px;
   ${media.mobile`
     display: block;
   `};
@@ -67,7 +68,7 @@ const StyledButtonContainer = styled.div`
   }
 `;
 
-const StyledAdditionalServicesButton = styled(MenuItem)`
+const StyledHoverButton = styled(MenuItem)`
   ${media.mobile`
     display: none;
   `};
@@ -75,7 +76,7 @@ const StyledAdditionalServicesButton = styled(MenuItem)`
 
 const StyledFloatingLink = styled(MenuItem)`
   ${media.desktop(`
-    padding-right: 30px;
+    padding-right: ${g(6)}px;
     &:hover {
       border-radius: ${borderRadiuses.small};
       background: ${colors.smoke};
@@ -112,12 +113,12 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
           )}
           {category.isTooltip ? (
             <StyledButtonContainer>
-              <StyledAdditionalServicesButton
+              <StyledHoverButton
                 color={presets[preset].link}
                 hoverColor={presets[preset].linkHover}
               >
                 {category.title}
-              </StyledAdditionalServicesButton>
+              </StyledHoverButton>
               <StyledFloatingMenu>
                 {category.items.map(link => (
                   <StyledFloatingLink
@@ -148,5 +149,11 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
     <GlobalStyled isMenuOpened={isMenuOpened}/>
   </StyledMenuWrapper>
 );
+
+Menu.propTypes = {
+  isMenuOpened: PropTypes.bool.isRequired,
+  menuItems: PropTypes.array,
+  preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
+};
 
 export default Menu;

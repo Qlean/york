@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
-import { media } from 'utils/styles';
+import { g, media } from 'utils/styles';
 import { FlexBase } from 'components/flex';
 
 import HeaderLogo from './HeaderLogo';
@@ -12,7 +12,7 @@ import { presets } from '../utils';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 1;
-  padding: 0 30px;
+  padding: 0 ${g(6)}px;
   ${({ isMenuOpened }) => `
     ${media.mobile(`
       background: ${isMenuOpened ? colors.white : 'none'};
@@ -21,7 +21,7 @@ const StyledHeaderWrapper = styled.div`
 `;
 
 const StyledHeader = styled(FlexBase)`
-  height: 60px;
+  height: ${g(12)}px;
   ${({ isMenuOpened }) => `
     ${media.mobile(`
       border-bottom: 1px solid ${isMenuOpened ? colors.silver : 'transparent'};
