@@ -228,7 +228,7 @@ function Button({
       name={name}
     >
       <StyledFlex>
-        {isFetching ? "Загрузка" : children}
+        {isFetching ? 'Загрузка' : children}
       </StyledFlex>
     </StyledButton>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
@@ -52,6 +53,14 @@ const MenuItem = ({
         </StyledText>
       </a>
     );
+};
+
+MenuItem.propTypes = {
+  LinkComponent: PropTypes.element,
+  href: PropTypes.string,
+  color: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  hoverColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default MenuItem;
