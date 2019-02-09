@@ -10,7 +10,7 @@ const StyledWrapper = styled.div`
 
 const StyledSvg = styled(ISvg)`
   &,
-  > svg {
+  & > svg {
     width: 100%;
     height: 100%;
   }
@@ -19,8 +19,6 @@ const StyledSvg = styled(ISvg)`
 export default class Svg extends PureComponent {
   static propTypes = {
     src: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
   }
@@ -30,21 +28,12 @@ export default class Svg extends PureComponent {
       src,
       width,
       height,
-      // className,
-      // wrapperClassName,
       ...rest
     } = this.props;
 
     return (
-      <StyledWrapper
-        style={{ width, height }}
-        // className={cn('body', wrapperClassName)}
-      >
-        <StyledSvg
-          src={src}
-          // className={cn('wrapper', className)}
-          {...rest}
-        />
+      <StyledWrapper style={{ width, height }}>
+        <StyledSvg src={src} {...rest}/>
       </StyledWrapper>
     );
   }

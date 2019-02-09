@@ -6,7 +6,6 @@ import { colors } from '@qlean/york-core';
 import { g, borderRadiuses, shadows, media } from 'utils/styles';
 
 const StyledFloatingMenu = styled.nav`
-  display: none;
   flex-direction: column;
 
   ${media.desktop(`
@@ -17,6 +16,12 @@ const StyledFloatingMenu = styled.nav`
     border-radius: ${borderRadiuses.medium};
     box-shadow: ${shadows.strong};
     padding: ${g(4)}px ${g(2)}px;
+
+    /* visually-hidden */
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
   `)}
 
   ${media.mobile`

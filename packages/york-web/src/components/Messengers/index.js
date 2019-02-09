@@ -47,7 +47,7 @@ const StyledMessenger = styled.a`
   text-align: center;
   font-size: 16px;
   color: white;
-  background-color: ${({ code }) => messengersColors[code]};
+  background-color: ${({ messengerCode }) => messengersColors[messengerCode]};
 
   &:not(:last-child) {
     margin-bottom: ${g(2)}px;
@@ -79,7 +79,7 @@ const StyledMessenger = styled.a`
   &:after {
     background-repeat: no-repeat;
     background-position: center;
-    background-image: ${({ code }) => `url(${require(`./assets/${code}.svg`)})`};
+    background-image: ${({ messengerCode }) => `url(${require(`./assets/${messengerCode}.svg`)})`};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -96,8 +96,7 @@ const StyledMessenger = styled.a`
   }
 
   &:hover {
-    background-color: lighten($color, 10%);
-    background-color: ${({ code }) => `lighten(${messengersColors[code]}, 10%)`};
+    background-color: ${({ messengerCode }) => `lighten(${messengersColors[messengerCode]}, 10%)`};
   }
 `;
 
@@ -108,7 +107,7 @@ export default function Messengers({
 }) {
   return (
     <StyledMessengers withMobileFullWidth={withMobileFullWidth}>
-      {(messengers || []).map(messenger => (
+      {messengers.map(messenger => (
         <StyledMessenger
           name="messengerButton"
           data-url={location.pathname}
@@ -117,7 +116,7 @@ export default function Messengers({
           rel="noopener noreferrer"
           target="_blank"
           key={messenger.code}
-          code={messenger.code}
+          messengerCode={messenger.code}
         >
           {messenger.name}
         </StyledMessenger>
@@ -135,5 +134,5 @@ Messengers.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: messengersShape,
+  messengers: messengersShape.isRequired,
 };

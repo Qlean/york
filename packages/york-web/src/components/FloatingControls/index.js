@@ -8,6 +8,7 @@ import { messengersShape } from 'utils/propTypes';
 import { FlexBase } from 'components/flex';
 import { Button, Separator } from 'components/ui';
 import { presets } from 'components/ui/Button';
+
 import ConnectionsToggler from './ConnectionsToggler';
 
 const StyledFloatingControlsWrapper = styled(FlexBase)`
@@ -24,11 +25,11 @@ const StyledFloatingControlsWrapper = styled(FlexBase)`
 const StyledButtonWrapper = styled.div`
   width: ${g(48)}px;
   position: relative;
-  bottom: ${({ isVisible }) => (isVisible ? '0' : `${-g(16)}px`)};
-  transition: ${transitions.long};
+  bottom: ${({ isVisible }) => (isVisible ? '0' : `${-g(20)}px`)};
+  transition: ${transitions.medium};
   @media (max-width: 420px) {
     width: 100%;
-    bottom: ${({ isVisible }) => (isVisible ? '0' : `${-g(14)}px`)};
+    bottom: ${({ isVisible }) => (isVisible ? '0' : `${-g(20)}px`)};
   }
 `;
 

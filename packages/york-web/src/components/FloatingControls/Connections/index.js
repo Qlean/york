@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
 import { colors } from '@qlean/york-core';
@@ -79,7 +79,7 @@ export default function Connections({
   connectionsTitle,
 }) {
   return (
-    <div>
+    <Fragment>
       <StyledOverlay onClick={onClose} isVisible={isVisible}/>
       <StyledConnections isVisible={isVisible}>
         <Separator width={6}/>
@@ -100,7 +100,7 @@ export default function Connections({
         <Separator width={6}/>
       </StyledConnections>
       <GlobalStyled isVisible={isVisible}/>
-    </div>
+    </Fragment>
   );
 }
 

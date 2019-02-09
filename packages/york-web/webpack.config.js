@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const rootPath = path.resolve(__dirname, './');
 
@@ -69,6 +70,12 @@ module.exports = {
       utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': JSON.stringify(true),
+      window: JSON.stringify(true),
+    }),
+  ],
   externals: {
     'styled-components': 'styled-components',
   },

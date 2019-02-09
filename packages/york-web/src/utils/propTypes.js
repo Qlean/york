@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 
+export const legacyOrderShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+});
+
 export const orderShape = PropTypes.shape({
   id: PropTypes.number.isRequired,
+  webId: PropTypes.string.isRequired,
 });
 
 export const userShape = PropTypes.shape({
@@ -250,4 +255,4 @@ export const messengersShape = PropTypes.arrayOf(PropTypes.shape({
   code: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-})).isRequired;
+}).isRequired);
