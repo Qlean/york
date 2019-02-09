@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { colors } from '@qlean/york-core';
 
 import { g, media, borderRadiuses } from 'utils/styles';
+import { menuItemsShape } from 'utils/propTypes';
 
 import { Separator, Text } from 'components/ui';
 import { FlexBase } from 'components/flex';
@@ -155,16 +156,8 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
 
 Menu.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
-  menuItems: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      href: PropTypes.string,
-    }).isRequired).isRequired,
-    isMobileTitleHidden: PropTypes.bool,
-    isTooltip: PropTypes.bool,
-  }).isRequired).isRequired,
-  preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
+  menuItems: menuItemsShape.isRequired,
+  preset: PropTypes.oneOf(Object.keys(presets)),
 };
 
 export default Menu;

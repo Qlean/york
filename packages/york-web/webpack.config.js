@@ -1,13 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const rootPath = path.resolve(__dirname, './');
-
 module.exports = {
   mode: 'production',
-  entry: __dirname + '/src/index.js',
+  entry: path.resolve(__dirname, '/src/index.js'),
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, '/dist'),
     filename: 'main.js',
     library: 'main',
     libraryTarget: 'umd',
@@ -17,7 +15,6 @@ module.exports = {
   node: {
     fs: 'empty',
   },
-  // context: rootPath,
   module: {
     rules: [
       {
@@ -25,29 +22,6 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.svg$/,
-      //   use: [
-      //     { loader: 'file-loader' },
-      //     {
-      //       loader: 'svgo-loader',
-      //       options: {
-      //         plugins: [
-      //           { removeTitle: true },
-      //           { removeViewBox: false },
-      //         ],
-      //       },
-      //     },
-      //   ],
-      // },
-      // {
-      //   test: /\.(jpe?g|png|gif)$/i,
-      //   use: 'file-loader',
-      // },
-      // {
-      //   test: /\.(woff|eot|ttf)$/i,
-      //   use: 'file-loader',
-      // },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
@@ -55,9 +29,9 @@ module.exports = {
             loader: 'url-loader',
             options: {
               fallback: 'file-loader',
-              name: '[name][md5:hash].[ext',
-              outputPath: 'qassets/',
-              publicPath: '/qassets/',
+              name: '[name][md5:hash].[ext]',
+              outputPath: 'assets/',
+              publicPath: '/assets/',
             },
           },
         ],

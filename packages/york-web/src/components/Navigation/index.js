@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { menuItemsShape } from 'utils/propTypes';
+
 import { FlexBase } from 'components/flex';
 
 import Menu from './Menu';
 import Header from './Header';
+import { presets } from './utils';
 
 const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
@@ -13,17 +16,9 @@ const StyledNavigation = styled(FlexBase)`
 
 class NewNavigation extends Component {
   static propTypes = {
-    menuItems: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      items: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        href: PropTypes.string,
-      }).isRequired).isRequired,
-      isMobileTitleHidden: PropTypes.bool,
-      isTooltip: PropTypes.bool,
-    }).isRequired).isRequired,
-    preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
-    presetMobile: PropTypes.oneOf(['lightBackground', 'darkBackground']),
+    menuItems: menuItemsShape.isRequired,
+    preset: PropTypes.oneOf(Object.keys(presets)),
+    presetMobile: PropTypes.oneOf(Object.keys(presets)),
   }
 
   state = {
