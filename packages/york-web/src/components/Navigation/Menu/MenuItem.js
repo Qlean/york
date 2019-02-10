@@ -5,8 +5,7 @@ import { colors } from '@qlean/york-core';
 
 import { g, media } from 'utils/styles';
 
-import { Text } from 'components/ui';
-import InlineButton from '../../ui/InlineButton';
+import { Text, InlineButton } from 'components/ui';
 
 const getCss = ({ color, hoverColor, isAuthButton }) => `
   display: block;
@@ -28,8 +27,8 @@ const getCss = ({ color, hoverColor, isAuthButton }) => `
     color: ${colors.coal};
 
     ${isAuthButton ? `
-      padding-top: ${g(6)}px;
-      padding-bottom: ${g(8)}px;
+      margin-top: ${g(6)}px;
+      margin-bottom: ${g(8)}px;
       color: ${colors.grey};
     ` : ''}
   `)}
@@ -39,7 +38,7 @@ const StyledText = styled(Text)`${getCss}`;
 const StyledButton = styled(InlineButton)`${getCss}`;
 
 const MenuItem = ({
-  LinkComponent, href, color, hoverColor, children, onClick, isAuthButton, ...rest
+  LinkComponent, href, onClick, color, hoverColor, children, isAuthButton, ...rest
 }) => {
   if (LinkComponent) {
     return (
@@ -58,7 +57,7 @@ const MenuItem = ({
         color={color}
         hoverColor={hoverColor}
         onClick={onClick}
-        isAuthButton
+        isAuthButton={isAuthButton}
         {...rest}
       >
         {children}
@@ -83,9 +82,11 @@ const MenuItem = ({
 MenuItem.propTypes = {
   LinkComponent: PropTypes.element,
   href: PropTypes.string,
+  onClick: PropTypes.func,
   color: PropTypes.oneOf(Object.keys(colors)).isRequired,
   hoverColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
   children: PropTypes.node.isRequired,
+  isAuthButton: PropTypes.bool.isRequired,
 };
 
 export default MenuItem;

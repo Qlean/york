@@ -2,7 +2,7 @@
   "name": "@qlean/york-web",
   "version": "0.3.6-alfa-3",
   "description": "",
-  "main": "dist/main.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf lib",

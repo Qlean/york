@@ -5,8 +5,8 @@ module.exports = {
   mode: 'production',
   entry: path.resolve(__dirname, 'src/index.js'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    path: path.resolve(__dirname, 'lib'),
+    filename: 'index.js',
     library: 'main',
     libraryTarget: 'umd',
     umdNamedDefine: true,
