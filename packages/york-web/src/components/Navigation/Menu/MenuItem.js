@@ -6,10 +6,13 @@ import { colors } from '@qlean/york-core';
 import { g, media } from 'utils/styles';
 
 import { Text } from 'components/ui';
+import InlineButton from '../../ui/InlineButton';
 
-const getCss = ({ color, hoverColor }) => `
+const getCss = ({ color, hoverColor, isAuthButton }) => `
   display: block;
   text-transform: uppercase;
+  transition: none;
+  text-align: left;
   white-space: nowrap;
   cursor: pointer;
   color: ${colors[color] || colors.coal};
@@ -23,13 +26,20 @@ const getCss = ({ color, hoverColor }) => `
   ${media.mobile(`
     padding: ${g(2)}px 0;
     color: ${colors.coal};
+
+    ${isAuthButton ? `
+      padding-top: ${g(6)}px;
+      padding-bottom: ${g(8)}px;
+      color: ${colors.grey};
+    ` : ''}
   `)}
 `;
 
 const StyledText = styled(Text)`${getCss}`;
+const StyledButton = styled(InlineButton)`${getCss}`;
 
 const MenuItem = ({
-  LinkComponent, href, color, hoverColor, children, ...rest
+  LinkComponent, href, color, hoverColor, children, onClick, isAuthButton, ...rest
 }) => {
   if (LinkComponent) {
     return (
@@ -38,6 +48,21 @@ const MenuItem = ({
           {children}
         </StyledText>
       </LinkComponent>
+    );
+  }
+
+  if (onClick) {
+    return (
+      <StyledButton
+        textPreset="link"
+        color={color}
+        hoverColor={hoverColor}
+        onClick={onClick}
+        isAuthButton
+        {...rest}
+      >
+        {children}
+      </StyledButton>
     );
   }
 

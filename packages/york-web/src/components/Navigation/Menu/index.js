@@ -129,6 +129,8 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
                     LinkComponent={link.LinkComponent}
                     key={link.title}
                     to={link.href}
+                    onClick={link.onClick}
+                    isAuthButton={link.isAuthButton}
                   >
                     {link.title}
                   </StyledFloatingLink>
@@ -139,6 +141,8 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
             <MenuItem
               key={link.title}
               href={link.href}
+              onClick={link.onClick}
+              isAuthButton={link.isAuthButton}
               LinkComponent={link.LinkComponent}
               color={presets[preset].link}
               hoverColor={presets[preset].linkHover}
