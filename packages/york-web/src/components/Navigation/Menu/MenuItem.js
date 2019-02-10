@@ -43,7 +43,7 @@ const MenuItem = ({
   if (LinkComponent) {
     return (
       <LinkComponent to={href}>
-        <StyledText preset="link" color={color} {...rest}>
+        <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
           {children}
         </StyledText>
       </LinkComponent>
