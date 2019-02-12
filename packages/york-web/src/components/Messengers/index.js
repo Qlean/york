@@ -10,18 +10,23 @@ import TelegramIcon from './assets/telegram.svg';
 import ViberIcon from './assets/viber.svg';
 import VkIcon from './assets/vk.svg';
 
-const messengersColors = {
-  facebook: '#0084FF',
-  vk: '#5C81B3',
-  telegram: '#2CA5E0',
-  viber: '#7C529E',
-};
-
-const messengerIcons = {
-  facebook: <FacebookIcon/>,
-  telegram: <TelegramIcon/>,
-  viber: <ViberIcon/>,
-  vk: <VkIcon/>,
+const messengerUtils = {
+  facebook: {
+    color: '#0084FF',
+    icon: <FacebookIcon/>,
+  },
+  vk: {
+    color: '#5C81B3',
+    icon: <VkIcon/>,
+  },
+  telegram: {
+    color: '#2CA5E0',
+    icon: <TelegramIcon/>,
+  },
+  viber: {
+    color: '#7C529E',
+    icon: <ViberIcon/>,
+  },
 };
 
 /* eslint-disable import/no-dynamic-require */
@@ -60,7 +65,7 @@ const StyledMessenger = styled.a`
   text-align: center;
   font-size: 16px;
   color: white;
-  background-color: ${({ messengerCode }) => messengersColors[messengerCode]};
+  background-color: ${({ messengerCode }) => messengerUtils[messengerCode].color};
 
   &:not(:last-child) {
     margin-bottom: ${g(2)}px;
@@ -108,7 +113,7 @@ const StyledMessenger = styled.a`
   }
 
   &:hover {
-    background-color: ${({ messengerCode }) => `lighten(${messengersColors[messengerCode]}, 10%)`};
+    background-color: ${({ messengerCode }) => `lighten(${messengerUtils[messengerCode].color}, 10%)`};
   }
 `;
 
@@ -130,7 +135,7 @@ export default function Messengers({
           key={messenger.code}
           messengerCode={messenger.code}
         >
-          {messengerIcons[messenger.code]}
+          {messengerUtils[messenger.code].icon}
           {messenger.name}
         </StyledMessenger>
         ))}

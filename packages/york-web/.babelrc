@@ -1,17 +1,24 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": ["@babel/preset-react", "@babel/preset-env"],
   "plugins": [
-    ["babel-plugin-styled-components", {
-      "uglifyPure": false,
-      "ssr": true
-    }],
-    ["module-resolver", {
-      "root": ["./src"],
-      "alias": {
-        "components": "./src/components",
-        "utils": "./src/utils",
+    "inline-react-svg",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "babel-plugin-styled-components",
+      {
+        "uglifyPure": false,
+        "ssr": true
       }
-    }],
-    "inline-react-svg"
+    ],
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "components": "./src/components",
+          "utils": "./src/utils",
+        }
+      }
+    ],
   ]
 }
