@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import R from 'ramda';
+import * as R from 'ramda';
 
 import { legacyMedia, withResponsiveProps } from 'utils/styles';
 

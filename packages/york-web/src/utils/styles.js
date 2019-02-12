@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
 import { colors } from '@qlean/york-core';
-import R from 'ramda';
+import * as R from 'ramda';
 
 export const UI_GRID_POINT = 5;
 
