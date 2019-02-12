@@ -10,6 +10,8 @@ import { FlexBase } from 'components/flex';
 import { Separator, Text } from 'components/ui';
 import Messengers from 'components/Messengers';
 
+import CloseIcon from './close.svg';
+
 const StyledConnections = styled(FlexBase)`
   position: fixed;
   bottom: ${({ isVisible }) => (isVisible ? `${g(18)}px` : `${g(8)}px`)};
@@ -49,14 +51,13 @@ const StyledConnectionsContent = styled.div`
   flex-grow: 1;
 `;
 
-const StyledCloseIcon = styled.div`
+const StyledCloseIcon = styled(CloseIcon)`
   position: absolute;
   cursor: pointer;
   top: ${g(2)}px;
   right: ${g(2)}px;
   width: ${g(10)}px;
   height: ${g(10)}px;
-  background-image: url(${require('./close.svg')});
 `;
 
 const GlobalStyled = createGlobalStyle`

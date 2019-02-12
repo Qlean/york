@@ -5,12 +5,25 @@ import styled from 'styled-components';
 import { messengersShape } from 'utils/propTypes';
 import { g, media } from 'utils/styles';
 
+import FacebookIcon from './assets/facebook.svg';
+import TelegramIcon from './assets/telegram.svg';
+import ViberIcon from './assets/viber.svg';
+import VkIcon from './assets/vk.svg';
+
 const messengersColors = {
   facebook: '#0084FF',
   vk: '#5C81B3',
   telegram: '#2CA5E0',
   viber: '#7C529E',
 };
+
+const messengerIcons = {
+  facebook: <FacebookIcon/>,
+  telegram: <TelegramIcon/>,
+  viber: <ViberIcon/>,
+  vk: <VkIcon/>,
+};
+
 /* eslint-disable import/no-dynamic-require */
 const StyledMessengers = styled.div`
   width: 100%;
@@ -76,10 +89,9 @@ const StyledMessenger = styled.a`
     color: white;
   }
 
-  &:after {
+  & svg {
     background-repeat: no-repeat;
     background-position: center;
-    background-image: ${({ messengerCode }) => `url(${require(`./assets/${messengerCode}.svg`)})`};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -118,6 +130,7 @@ export default function Messengers({
           key={messenger.code}
           messengerCode={messenger.code}
         >
+          {messengerIcons[messenger.code]}
           {messenger.name}
         </StyledMessenger>
         ))}
