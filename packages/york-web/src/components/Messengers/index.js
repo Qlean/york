@@ -29,7 +29,6 @@ const messengerUtils = {
   },
 };
 
-/* eslint-disable import/no-dynamic-require */
 const StyledMessengers = styled.div`
   width: 100%;
 

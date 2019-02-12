@@ -10,7 +10,6 @@ import { FlexBase } from 'components/flex';
 import MessengersIcon from './messengers.svg';
 import Connections from '../Connections';
 
-/* eslint-disable import/no-dynamic-require */
 const StyledIconWrapper = styled(FlexBase)`
   box-shadow: ${shadows.medium};
   background-color: ${colors.white};
