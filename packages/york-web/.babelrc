@@ -1,0 +1,28 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    [
+      "babel-plugin-styled-components",
+      {
+        "uglifyPure": false,
+        "ssr": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "alias": {
+          "components": "./src/components",
+          "utils": "./src/utils",
+        }
+      }
+    ],
+  ]
+}

@@ -12,11 +12,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-styleguidist": "^8.0.6",
     "webpack": "^4.29.3"
   },
   "dependencies": {
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1"
+    "@qlean/york-core": "^0.3.6-test.6"
   }
 }

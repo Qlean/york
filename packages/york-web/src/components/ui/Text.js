@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import R from 'ramda';
+import * as R from 'ramda';
 import { colors } from '@qlean/york-core';
 
 import {
@@ -10,7 +10,7 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from 'utils/styles';
+} from '../../utils/styles';
 
 export const htmlTags = [
   'h1',
@@ -93,7 +93,7 @@ export const presets = {
   },
 };
 
-const getBaseCss = ({
+export const getBaseCss = ({
   color,
   fontWeight,
   fontSize,

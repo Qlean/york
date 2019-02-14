@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
 import { colors } from '@qlean/york-core';
-import R from 'ramda';
+import * as R from 'ramda';
 
 export const UI_GRID_POINT = 5;
 
@@ -15,7 +15,6 @@ export const MOBILE_PADDING = g(6);
 export const BUTTON_HOVER_STYLES = {
   black: `background-color: ${colors.coal}; color: ${colors.white};`,
   green: `filter: brightness(110%); color: ${colors.white};`,
-  grey: `filter: brightness(110%); color: ${colors.white};`,
   grayLinear: `border-color: ${colors.grey}; color: ${colors.coal};`,
   greenLinear: `filter: brightness(130%) saturate(60%); color: ${colors.green};`,
   greenRound: `transform: translateY(-3px); box-shadow: 0 10px 10px 0 rgba(0,59,23,0.10); color: ${colors.white};`,
@@ -56,11 +55,6 @@ export const mediaMaxWidths = {
 export const footerHeights = {
   base: g(61),
   mobile: g(102),
-};
-
-export const jobsFooterHeights = {
-  base: g(44),
-  mobile: g(62),
 };
 
 export const headerHeight = g(12);
