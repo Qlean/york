@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  title: 'QLEAN STYLE',
+  title: 'QLEAN',
   components: '../york-web/src/components/**/*.js',
   exampleMode: 'collapse',
   usageMode: 'expand',
@@ -13,10 +13,25 @@ module.exports = {
   },
   theme: {
     color: {
-      linkHover: '#20A052'
+      link: '#ffffff',
+      linkHover: '#ffffff',
+      sidebarBackground: '#20A052',
+      border: '#D9D9D9',
     },
     fontFamily: {
       base: 'Museo Sans'
+    },
+    borderRadius: 5,
+    sidebarWidth: 250,
+
+  },
+  styles: {
+    Logo: {
+      logo: {
+        color: '#ffffff',
+        fontSize: '26px',
+        fontWeight: 'bold',
+      },
     }
   },
   webpackConfig: {
