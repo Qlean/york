@@ -89,7 +89,7 @@ const StyledFloatingLink = styled(MenuItem)`
   `)}
 `;
 
-const GlobalStyled = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body {
     ${({ isMenuOpened }) => (isMenuOpened ? `
       ${media.mobile`
@@ -154,7 +154,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
         </Fragment>
       ))}
     </StyledMenu>
-    <GlobalStyled isMenuOpened={isMenuOpened}/>
+    <GlobalStyle isMenuOpened={isMenuOpened}/>
   </StyledMenuWrapper>
 );
 

@@ -60,7 +60,7 @@ const StyledCloseIcon = styled(CloseIcon)`
   height: ${g(10)}px;
 `;
 
-const GlobalStyled = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body {
     @media (max-width: 420px) {
       ${({ isVisible }) => (isVisible ? `
@@ -100,7 +100,7 @@ export default function Connections({
         </StyledConnectionsContent>
         <Separator width={6}/>
       </StyledConnections>
-      <GlobalStyled isVisible={isVisible}/>
+      <GlobalStyle isVisible={isVisible}/>
     </Fragment>
   );
 }

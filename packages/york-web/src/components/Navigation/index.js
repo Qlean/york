@@ -14,7 +14,7 @@ const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
 `;
 
-class NewNavigation extends Component {
+class Navigation extends Component {
   static propTypes = {
     menuItems: menuItemsShape.isRequired,
     preset: PropTypes.oneOf(Object.keys(presets)),
@@ -48,4 +48,4 @@ class NewNavigation extends Component {
   }
 }
 
-export default NewNavigation;
+export default Navigation;

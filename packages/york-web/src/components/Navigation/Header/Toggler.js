@@ -69,7 +69,7 @@ export default function HeaderMobileMenuToggler(props) {
 }
 
 HeaderMobileMenuToggler.propTypes = {
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(colors)).isRequired,
 };

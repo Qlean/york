@@ -4,8 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build_": "npm run clean && babel src -d lib --ignore test.js",
-    "build": "babel src -d lib --ignore test.js --copy-files",
+    "build": "npm run clean && babel src -d lib --ignore test.js --copy-files",
     "clean": "rimraf lib",
     "lint": "eslint src --ext .js",
     "watch": "babel src -d lib --ignore test.js -w --copy-files"
