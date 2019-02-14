@@ -12,6 +12,10 @@ import { presets } from './utils';
 
 const StyledNavigation = styled(FlexBase)`
   z-index: 1001;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
 `;
 
 class Navigation extends Component {

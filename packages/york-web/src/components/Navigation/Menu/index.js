@@ -128,7 +128,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
                   <StyledFloatingLink
                     LinkComponent={link.LinkComponent}
                     key={link.title}
-                    to={link.href}
+                    href={link.href}
                     onClick={link.onClick}
                     isAuthButton={link.isAuthButton}
                   >
