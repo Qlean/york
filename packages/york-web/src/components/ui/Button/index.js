@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { colors } from '@qlean/york-core';
 import styled from 'styled-components';
 
-import { textPresets } from '../ui';
+import { textPresets } from '../index';
 
 import {
   g,
@@ -15,7 +15,7 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from '../../utils/styles';
+} from '../../../utils/styles';
 
 export const presets = {
   blank: {},
@@ -190,6 +190,10 @@ const StyledFlex = styled.div`
   height: 100%;
 `;
 
+/**
+ * Компонент кнопки.
+ */
+
 function Button({
   size,
   type,
@@ -236,41 +240,62 @@ function Button({
 
 Button.propTypes = {
   ...getResponsivePropTypes({
+    /** Управление preset самой кнопки. */
     preset: PropTypes.oneOf(Object.keys(presets)),
+    /** Управление preset шрифта кнопки. */
     textPreset: PropTypes.oneOf(Object.keys(textPresets)),
+    /** Управление цветом шрифта кнопки. */
     color: PropTypes.oneOf(Object.keys(colors)),
+    /** Управление цветом background кнопки. */
     backgroundColor: PropTypes.oneOf(Object.keys(colors)),
+    /** Управление цветом border кнопки. */
     borderColor: PropTypes.oneOf(Object.keys(colors)),
+    /** Управление скруглением кнопки. */
     borderRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
+    /** Управление шириной кнопки. */
     width: PropTypes.string,
+    /** Управление размером шрифта кнопки. */
     fontSize: PropTypes.number,
+    /** Управление жирнотой шрифта кнопки. */
     fontWeight: PropTypes.oneOf([500, 700, 900]),
+    /** Управление дополнительными стилями кнопки. */
+    css: PropTypes.string,
     css: PropTypes.string,
   }),
+  /** Размер кнопки */
   size: PropTypes.oneOf(['s', 'm', 'l']),
+  /** Тип кнопки */
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
+  /** Управление возможности взаимодействия с компонентом */
   isDisabled: PropTypes.bool.isRequired,
+  /** Управление возможности взаимодействия с компонентом в состоянии загрузки */
   isFetching: PropTypes.bool,
+  /** Дополнительный класс */
   className: PropTypes.string,
+  /** Имя кнопки в DOM */
   name: PropTypes.string.isRequired,
+  /** Обработчик клика по кнопке */
   onClick: PropTypes.func.isRequired,
+  /** Дочерние элементы кнопки */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  /** Свойства при hover кнопки */
+  hoverProps: PropTypes.obj,
+  /** Свойства при disabled кнопки */
+  disabledProps: PropTypes.obj
 };
 
 Button.defaultProps = {
-  /* eslint-disable react/default-props-match-prop-types */
+  isFetching: false,
   preset: 'black',
   textPreset: 'text2',
   width: '100%',
-  hoverProps: {},
-  disabledProps: {},
-  /* eslint-enable react/default-props-match-prop-types */
-  isFetching: false,
   size: 'm',
   type: 'button',
+  hoverProps: {},
+  disabledProps: {},
 };
 
 export default Button;
