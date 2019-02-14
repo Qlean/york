@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import throttle from 'lodash.throttle';
 
@@ -28,6 +29,10 @@ const StyledIconWrapper = styled(FlexBase)`
 `;
 
 class ConnectionsToggler extends Component {
+  static propTypes = {
+    extraConnections: PropTypes.arrayOf(PropTypes.func),
+  }
+
   state = {
     isConnectionsVisible: false,
   }
@@ -44,6 +49,8 @@ class ConnectionsToggler extends Component {
 
   render() {
     const { isConnectionsVisible } = this.state;
+    const { extraConnections } = this.props;
+
     return (
       <Fragment>
         <StyledIconWrapper
@@ -57,6 +64,7 @@ class ConnectionsToggler extends Component {
           {...this.props}
           onClose={this.onCloseVisibility}
           isVisible={isConnectionsVisible}
+          extraConnections={extraConnections}
         />
       </Fragment>
     );
