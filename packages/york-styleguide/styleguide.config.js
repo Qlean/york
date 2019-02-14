@@ -8,17 +8,6 @@ module.exports = {
     const dir = path.basename(path.dirname(componentPath))
     return `import { ${dir} } from '@qlean/york-react-native';`
   },
-  template: {
-    favicon: 'https://assets-cdn.github.com/favicon.ico',
-    head: {
-      links: [
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css?family=Roboto'
-        }
-      ]
-    }
-  },
   theme: {
     color: {
       linkHover: '#20A052'
@@ -27,15 +16,26 @@ module.exports = {
       base: 'Museo Sans'
     }
   },
-  webpackConfig: {
-    module: {
-      rules: [
-        {
-          test: /\.js?$/,
+  	webpackConfig: {
+		module: {
+			rules: [
+				{
+					test: /\.js?$/,
           exclude: /node_modules/,
           loader: 'babel-loader'
+				},
+				{
+					test: /\.css$/,
+					use: ["style-loader", "css-loader"],
         },
-      ]
-    },
+        {
+          test: /\.(woff|eot|ttf)$/i,
+          use: 'file-loader',
+        },
+			],
+		},
   },
-};
+  require: [
+    path.join(__dirname, 'assets/fonts/index.css')
+  ]
+}

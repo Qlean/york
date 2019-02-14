@@ -15,9 +15,12 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-styleguidist": "^8.0.6",
+    "style-loader": "^0.23.1",
     "webpack": "^4.29.3"
   },
   "dependencies": {
