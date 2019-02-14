@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
   title: 'QLEAN STYLE',
   components: '../york-web/src/components/**/*.js',
+  exampleMode: 'collapse',
+  usageMode: 'expand',
+  pagePerSection: true,
   getComponentPathLine(componentPath) {
     const name = path.basename(componentPath, '.js')
     const dir = path.basename(path.dirname(componentPath))
@@ -16,7 +19,7 @@ module.exports = {
       base: 'Museo Sans'
     }
   },
-  	webpackConfig: {
+  webpackConfig: {
 		module: {
 			rules: [
 				{
