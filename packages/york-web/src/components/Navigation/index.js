@@ -39,6 +39,7 @@ class Navigation extends Component {
         justifyContent="space-between"
         justifyContentMobile="flex-start"
         flexDirectionMobile="column"
+        name="headerNavigation"
       >
         <Header
           preset={preset}

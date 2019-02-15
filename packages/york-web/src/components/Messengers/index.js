@@ -125,7 +125,7 @@ export default function Messengers({
     <StyledMessengers withMobileFullWidth={withMobileFullWidth}>
       {messengers.map(messenger => (
         <StyledMessenger
-          name="messengerButton"
+          name={`messengerButton.${messenger.code}`}
           data-url={location.pathname}
           data-name={`footer-${messenger.code}`}
           href={messenger.url}

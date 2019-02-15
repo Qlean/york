@@ -56,6 +56,7 @@ class ConnectionsToggler extends Component {
         <StyledIconWrapper
           justifyContent="center"
           alignItems="center"
+          name="connectionsToggler"
           onClick={this.onThrottledToggleVisibility}
         >
           <MessengersIcon width={26} height={25}/>

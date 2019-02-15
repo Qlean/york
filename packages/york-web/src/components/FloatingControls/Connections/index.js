@@ -83,11 +83,11 @@ export default function Connections({
   return (
     <Fragment>
       <StyledOverlay onClick={onClose} isVisible={isVisible}/>
-      <StyledConnections isVisible={isVisible}>
+      <StyledConnections isVisible={isVisible} name="connections">
         <Separator width={6}/>
         <StyledConnectionsContent>
           <Separator height={6}/>
-          <StyledCloseIcon onClick={onClose}/>
+          <StyledCloseIcon onClick={onClose} name="close"/>
           <Text preset="h4">
             {connectionsTitle}
           </Text>

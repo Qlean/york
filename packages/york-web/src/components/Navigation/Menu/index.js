@@ -129,6 +129,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
                     LinkComponent={link.LinkComponent}
                     key={link.title}
                     href={link.href}
+                    name={link.name}
                     onClick={link.onClick}
                     isAuthButton={link.isAuthButton}
                   >
@@ -141,6 +142,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
             <MenuItem
               key={link.title}
               href={link.href}
+              name={link.name}
               onClick={link.onClick}
               isAuthButton={link.isAuthButton}
               LinkComponent={link.LinkComponent}

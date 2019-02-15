@@ -17,7 +17,7 @@ const StyledLogo = styled(Logo)`
 `;
 
 const HeaderLogo = ({ color, colorMobile, ...rest }) => (
-  <a href="/?noredirect=true">
+  <a href="/?noredirect=true" name="logo">
     <StyledLogo
       color={color}
       colorMobile={colorMobile}
