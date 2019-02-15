@@ -52,18 +52,21 @@ export default function FloatingControls({
   buttonTitle,
   connectionsTitle,
   extraConnections,
+  extraButtonCss,
+  togglerColor,
 }) {
   return (
     <StyledFloatingControlsWrapper>
       <StyledButtonWrapper isVisible={isVisible}>
         <StyledButton
           name="promocodeTimerButton"
-          preset="greenRound"
+          preset={extraButtonCss ? 'blank' : 'greenRound'}
           isDisabled={false}
           onClick={onClick}
           hoverProps={{
             css: buttonHoverStyles,
           }}
+          css={extraButtonCss}
         >
           {buttonTitle}
         </StyledButton>
@@ -76,6 +79,7 @@ export default function FloatingControls({
             messengers={messengers}
             connectionsTitle={connectionsTitle}
             extraConnections={extraConnections}
+            togglerColor={togglerColor}
           />
         </Fragment>
       )}
@@ -97,4 +101,6 @@ FloatingControls.propTypes = {
     PropTypes.node,
   ]).isRequired,
   extraConnections: PropTypes.arrayOf(PropTypes.func),
+  extraButtonCss: PropTypes.string,
+  togglerColor: PropTypes.string,
 };

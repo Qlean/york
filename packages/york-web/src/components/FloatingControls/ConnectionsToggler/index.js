@@ -31,6 +31,7 @@ const StyledIconWrapper = styled(FlexBase)`
 class ConnectionsToggler extends Component {
   static propTypes = {
     extraConnections: PropTypes.arrayOf(PropTypes.func),
+    togglerColor: PropTypes.string,
   }
 
   state = {
@@ -49,7 +50,7 @@ class ConnectionsToggler extends Component {
 
   render() {
     const { isConnectionsVisible } = this.state;
-    const { extraConnections } = this.props;
+    const { extraConnections, togglerColor } = this.props;
 
     return (
       <Fragment>
@@ -59,7 +60,7 @@ class ConnectionsToggler extends Component {
           name="connectionsToggler"
           onClick={this.onThrottledToggleVisibility}
         >
-          <MessengersIcon width={26} height={25}/>
+          <MessengersIcon width={26} height={25} {...togglerColor && { fill: togglerColor }}/>
         </StyledIconWrapper>
         <Connections
           {...this.props}
