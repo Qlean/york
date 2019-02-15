@@ -51,6 +51,7 @@ export default function FloatingControls({
   messengers,
   buttonTitle,
   connectionsTitle,
+  extraConnections,
 }) {
   return (
     <StyledFloatingControlsWrapper>
@@ -74,6 +75,7 @@ export default function FloatingControls({
             location={location}
             messengers={messengers}
             connectionsTitle={connectionsTitle}
+            extraConnections={extraConnections}
           />
         </Fragment>
       )}
@@ -94,4 +96,5 @@ FloatingControls.propTypes = {
     PropTypes.string,
     PropTypes.node,
   ]).isRequired,
+  extraConnections: PropTypes.arrayOf(PropTypes.func),
 };

@@ -78,6 +78,7 @@ export default function Connections({
   location,
   messengers,
   connectionsTitle,
+  extraConnections,
 }) {
   return (
     <Fragment>
@@ -91,6 +92,15 @@ export default function Connections({
             {connectionsTitle}
           </Text>
           <Separator height={4}/>
+          {
+            extraConnections && extraConnections.length > 0 &&
+            extraConnections.map(Connection => (
+              <Fragment key={Connection.name}>
+                <Connection/>
+                <Separator height={2}/>
+              </Fragment>
+            ))
+          }
           <Messengers
             location={location}
             messengers={messengers}
@@ -116,4 +126,5 @@ Connections.propTypes = {
     PropTypes.string,
     PropTypes.node,
   ]).isRequired,
+  extraConnections: PropTypes.arrayOf(PropTypes.func),
 };
