@@ -21,7 +21,7 @@ const StyledToggler = styled.div`
     content: "";
     width: 24px;
     height: 3px;
-    border-radius: 3px;
+    border-radius: 1.5px;
     left: 50%;
     top: 50%;
     background-color: ${({ color }) => colors[color] || colors.black};

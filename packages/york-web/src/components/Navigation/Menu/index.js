@@ -65,10 +65,10 @@ const StyledButtonContainer = styled.div`
   `)}
 
   &:hover > ${StyledFloatingMenu} {
-    clip: initial;
-    width: initial;
-    height: initial;
-    margin: initial;
+    clip: auto;
+    width: auto;
+    height: auto;
+    margin: 0;
   }
 `;
 
