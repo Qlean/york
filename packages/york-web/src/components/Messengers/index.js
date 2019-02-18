@@ -151,5 +151,5 @@ Messengers.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: messengersShape.isRequired,
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
 };

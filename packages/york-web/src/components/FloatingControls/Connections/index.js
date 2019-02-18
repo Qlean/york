@@ -121,7 +121,7 @@ Connections.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: messengersShape,
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
   connectionsTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,

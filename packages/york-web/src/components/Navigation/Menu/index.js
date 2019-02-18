@@ -162,7 +162,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
 
 Menu.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
-  menuItems: menuItemsShape.isRequired,
+  menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
   preset: PropTypes.oneOf(Object.keys(presets)),
 };
 

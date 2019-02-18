@@ -13,7 +13,7 @@ class FloatingFormScroller extends Component {
   static propTypes = {
     getRefHandler: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
-    creationFormProps: creationFormPropsShape.isRequired,
+    creationFormProps: PropTypes.shape(creationFormPropsShape).isRequired,
     renderFloatingForm: PropTypes.func.isRequired,
   };
 

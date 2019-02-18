@@ -94,7 +94,7 @@ FloatingControls.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: messengersShape,
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
   buttonTitle: PropTypes.string.isRequired,
   connectionsTitle: PropTypes.oneOfType([
     PropTypes.string,

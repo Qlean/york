@@ -80,14 +80,14 @@ const MenuItem = ({
 };
 
 MenuItem.propTypes = {
-  LinkComponent: PropTypes.element,
+  LinkComponent: PropTypes.func,
   href: PropTypes.string,
   name: PropTypes.string,
   onClick: PropTypes.func,
-  color: PropTypes.oneOf(Object.keys(colors)).isRequired,
-  hoverColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  color: PropTypes.oneOf(Object.keys(colors)),
+  hoverColor: PropTypes.oneOf(Object.keys(colors)),
   children: PropTypes.node.isRequired,
-  isAuthButton: PropTypes.bool.isRequired,
+  isAuthButton: PropTypes.bool,
 };
 
 export default MenuItem;
