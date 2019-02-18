@@ -17,6 +17,7 @@ const getCss = ({ color, hoverColor, isAuthButton }) => `
   color: ${colors[color] || colors.coal};
   padding: ${g(2)}px;
   width: 100%;
+  line-height: 20px;
 
   &:hover {
     color: ${colors[hoverColor] || colors.grey};

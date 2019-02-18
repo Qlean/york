@@ -69,7 +69,7 @@ class ConnectionsToggler extends Component {
           togglerColor={togglerColor}
           togglerColorHovered={togglerColorHovered}
         >
-          <MessengersIcon width={26} height={25}/>
+          <MessengersIcon width={30} height={30}/>
         </StyledIconWrapper>
         <Connections
           {...this.props}

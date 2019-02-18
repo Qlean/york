@@ -101,11 +101,13 @@ export default function Connections({
               </Fragment>
             ))
           }
-          <Messengers
-            location={location}
-            messengers={messengers}
-            withMobileFullWidth
-          />
+          {messengers && (
+            <Messengers
+              location={location}
+              messengers={messengers}
+              withMobileFullWidth
+            />
+          )}
           <Separator height={6}/>
         </StyledConnectionsContent>
         <Separator width={6}/>
@@ -121,7 +123,7 @@ Connections.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired),
   connectionsTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,

@@ -11,7 +11,7 @@ import Header from './Header';
 import { presets } from './utils';
 
 const StyledNavigation = styled(FlexBase)`
-  z-index: 1001;
+  z-index: 9999;
   position: absolute;
   left: 0;
   right: 0;

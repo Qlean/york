@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.3.6-beta-17",
+  "version": "0.3.6-beta-19",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "watch": "babel src -d lib --ignore test.js -w --copy-files"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.3.6-test.6",
+    "@qlean/york-core": "^0.3.6",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
