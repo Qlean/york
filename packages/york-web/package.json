@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.3.6-beta-15",
+  "version": "0.3.6-beta-17",
   "description": "",
   "main": "lib/index.js",
   "scripts": {

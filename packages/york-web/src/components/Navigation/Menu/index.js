@@ -116,7 +116,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
             </StyledCategoryTitle>
           )}
           {category.isTooltip ? (
-            <StyledButtonContainer>
+            <StyledButtonContainer name={category.name}>
               <StyledHoverButton
                 color={presets[preset].link}
                 hoverColor={presets[preset].linkHover}
