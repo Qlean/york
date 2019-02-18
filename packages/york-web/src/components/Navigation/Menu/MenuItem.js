@@ -58,6 +58,7 @@ const MenuItem = ({
         hoverColor={hoverColor}
         onClick={onClick}
         isAuthButton={isAuthButton}
+        name={name}
         {...rest}
       >
         {children}
@@ -67,11 +68,11 @@ const MenuItem = ({
 
   return !href
     ? (
-      <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
+      <StyledText preset="link" color={color} hoverColor={hoverColor} name={name} {...rest}>
         {children}
       </StyledText>
     ) : (
-      <a href={href}>
+      <a href={href} name={name}>
         <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
           {children}
         </StyledText>

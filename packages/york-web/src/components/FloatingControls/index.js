@@ -54,6 +54,7 @@ export default function FloatingControls({
   extraConnections,
   extraButtonCss,
   togglerColor,
+  togglerColorHovered,
 }) {
   return (
     <StyledFloatingControlsWrapper>
@@ -80,6 +81,7 @@ export default function FloatingControls({
             connectionsTitle={connectionsTitle}
             extraConnections={extraConnections}
             togglerColor={togglerColor}
+            togglerColorHovered={togglerColorHovered}
           />
         </Fragment>
       )}
@@ -103,4 +105,5 @@ FloatingControls.propTypes = {
   extraConnections: PropTypes.arrayOf(PropTypes.func),
   extraButtonCss: PropTypes.string,
   togglerColor: PropTypes.string,
+  togglerColorHovered: PropTypes.string,
 };
