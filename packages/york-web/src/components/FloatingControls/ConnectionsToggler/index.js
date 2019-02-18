@@ -21,11 +21,17 @@ const StyledIconWrapper = styled(FlexBase)`
   height: ${g(10)}px;
   cursor: pointer;
 
-  &:hover {
+  ${({ togglerColor = '#20A052' }) => `
     & path {
-      fill: #23B059;
+      fill: ${togglerColor};
     }
-  }
+
+    &:hover {
+      & path {
+        fill: lighten(${togglerColor}, 10%);
+      }
+    }
+  `}
 `;
 
 class ConnectionsToggler extends Component {
@@ -60,7 +66,7 @@ class ConnectionsToggler extends Component {
           name="connectionsToggler"
           onClick={this.onThrottledToggleVisibility}
         >
-          <MessengersIcon width={26} height={25} {...togglerColor && { fill: togglerColor }}/>
+          <MessengersIcon width={26} height={25} togglerColor={togglerColor}/>
         </StyledIconWrapper>
         <Connections
           {...this.props}

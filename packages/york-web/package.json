@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.3.6-beta-13",
+  "version": "0.3.6-beta-14",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "babel-plugin-inline-react-svg": "^1.0.1",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.0",
-    "eslint": "4.12.1",
+    "eslint": "5.14.0",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-config-qlean": "1.0.1",
