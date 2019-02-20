@@ -11,7 +11,7 @@ import Header from './Header';
 import { presets } from './utils';
 
 const StyledNavigation = styled(FlexBase)`
-  z-index: 1001;
+  z-index: 9999;
   position: absolute;
   left: 0;
   right: 0;
@@ -20,7 +20,7 @@ const StyledNavigation = styled(FlexBase)`
 
 class Navigation extends Component {
   static propTypes = {
-    menuItems: menuItemsShape.isRequired,
+    menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
     preset: PropTypes.oneOf(Object.keys(presets)),
     presetMobile: PropTypes.oneOf(Object.keys(presets)),
   }

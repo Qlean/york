@@ -13,10 +13,12 @@ const getCss = ({ color, hoverColor, isAuthButton }) => `
   transition: none;
   text-align: left;
   white-space: nowrap;
+  box-sizing: border-box;
   cursor: pointer;
   color: ${colors[color] || colors.coal};
   padding: ${g(2)}px;
   width: 100%;
+  line-height: 20px;
 
   &:hover {
     color: ${colors[hoverColor] || colors.grey};
@@ -58,6 +60,7 @@ const MenuItem = ({
         hoverColor={hoverColor}
         onClick={onClick}
         isAuthButton={isAuthButton}
+        name={name}
         {...rest}
       >
         {children}
@@ -67,11 +70,11 @@ const MenuItem = ({
 
   return !href
     ? (
-      <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
+      <StyledText preset="link" color={color} hoverColor={hoverColor} name={name} {...rest}>
         {children}
       </StyledText>
     ) : (
-      <a href={href}>
+      <a href={href} name={name}>
         <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
           {children}
         </StyledText>
@@ -80,14 +83,14 @@ const MenuItem = ({
 };
 
 MenuItem.propTypes = {
-  LinkComponent: PropTypes.element,
+  LinkComponent: PropTypes.func,
   href: PropTypes.string,
   name: PropTypes.string,
   onClick: PropTypes.func,
-  color: PropTypes.oneOf(Object.keys(colors)).isRequired,
-  hoverColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  color: PropTypes.oneOf(Object.keys(colors)),
+  hoverColor: PropTypes.oneOf(Object.keys(colors)),
   children: PropTypes.node.isRequired,
-  isAuthButton: PropTypes.bool.isRequired,
+  isAuthButton: PropTypes.bool,
 };
 
 export default MenuItem;

@@ -116,7 +116,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
             </StyledCategoryTitle>
           )}
           {category.isTooltip ? (
-            <StyledButtonContainer>
+            <StyledButtonContainer name={category.name}>
               <StyledHoverButton
                 color={presets[preset].link}
                 hoverColor={presets[preset].linkHover}
@@ -132,6 +132,8 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
                     name={link.name}
                     onClick={link.onClick}
                     isAuthButton={link.isAuthButton}
+                    color={presets[preset].link}
+                    hoverColor={presets[preset].linkHover}
                   >
                     {link.title}
                   </StyledFloatingLink>
@@ -162,7 +164,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
 
 Menu.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
-  menuItems: menuItemsShape.isRequired,
+  menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
   preset: PropTypes.oneOf(Object.keys(presets)),
 };
 

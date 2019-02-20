@@ -21,14 +21,14 @@ const StyledIconWrapper = styled(FlexBase)`
   height: ${g(10)}px;
   cursor: pointer;
 
-  ${({ togglerColor = '#20A052' }) => `
+  ${({ togglerColor = '#20A052', togglerColorHovered = '#23B059' }) => `
     & path {
       fill: ${togglerColor};
     }
 
     &:hover {
       & path {
-        fill: lighten(${togglerColor}, 10%);
+        fill: ${togglerColorHovered};
       }
     }
   `}
@@ -38,6 +38,7 @@ class ConnectionsToggler extends Component {
   static propTypes = {
     extraConnections: PropTypes.arrayOf(PropTypes.func),
     togglerColor: PropTypes.string,
+    togglerColorHovered: PropTypes.string,
   }
 
   state = {
@@ -56,7 +57,7 @@ class ConnectionsToggler extends Component {
 
   render() {
     const { isConnectionsVisible } = this.state;
-    const { extraConnections, togglerColor } = this.props;
+    const { extraConnections, togglerColor, togglerColorHovered } = this.props;
 
     return (
       <Fragment>
@@ -65,8 +66,10 @@ class ConnectionsToggler extends Component {
           alignItems="center"
           name="connectionsToggler"
           onClick={this.onThrottledToggleVisibility}
+          togglerColor={togglerColor}
+          togglerColorHovered={togglerColorHovered}
         >
-          <MessengersIcon width={26} height={25} togglerColor={togglerColor}/>
+          <MessengersIcon width={30} height={30}/>
         </StyledIconWrapper>
         <Connections
           {...this.props}
