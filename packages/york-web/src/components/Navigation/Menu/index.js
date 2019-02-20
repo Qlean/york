@@ -80,6 +80,7 @@ const StyledHoverButton = styled(MenuItem)`
 
 const StyledFloatingLink = styled(MenuItem)`
   ${media.desktop(`
+    color: ${colors.coal};
     padding-right: ${g(6)}px;
     &:hover {
       border-radius: ${borderRadiuses.small};
