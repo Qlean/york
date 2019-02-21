@@ -62,6 +62,7 @@ const StyledMessenger = styled.a`
   line-height: ${g(8)}px;
   letter-spacing: 0;
   text-align: center;
+  text-decoration: none;
   font-size: 16px;
   color: white;
   background-color: ${({ messengerCode }) => messengerUtils[messengerCode].color};
