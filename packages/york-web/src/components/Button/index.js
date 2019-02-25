@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { colors } from '@qlean/york-core';
 import styled from 'styled-components';
 
-import { textPresets } from '../index';
+import { presets as textPresets } from '../Text';
 
 import {
   g,
@@ -15,7 +15,7 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from '../../../utils/styles';
+} from '../../utils/styles';
 
 export const presets = {
   blank: {},

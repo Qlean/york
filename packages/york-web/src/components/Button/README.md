@@ -7,23 +7,23 @@
       { size: 'l', name: 'Текст', width: '140px' },
   ];
   <div>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width}>{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
     <Separator height={4}/>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} isDisabled>{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
   </div>
 ```
 ### Зеленая кнопка
@@ -34,23 +34,23 @@
       { size: 'l', name: 'Текст', width: '140px' },
   ];
   <div>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="green">{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
     <Separator height={4}/>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="green" isDisabled>{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
   </div>
 ```
 ### Серая кнопка
@@ -61,23 +61,23 @@
       { size: 'l', name: 'Текст', width: '140px' },
   ];
   <div>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="grayLinear">{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
     <Separator height={4}/>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="grayLinear" isDisabled>{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
   </div>
 ```
 ### Зеленая полупрозрачная кнопка
@@ -88,22 +88,22 @@
       { size: 'l', name: 'Текст', width: '140px' },
   ];
   <div>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="greenLinear">{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
     <Separator height={4}/>
-    <FlexContainer>
+    <div>
       {buttons.map(({ size, name, width }) => (
-        <FlexBase key={size}>
+        <div key={size}>
           <Button size={size} width={width} preset="greenLinear" isDisabled>{name}</Button>
-          <Separator width={2}/>
-        </FlexBase>
+          <Separator height={2}/>
+        </div>
       ))}
-    </FlexContainer>
+    </div>
   </div>
 ```
