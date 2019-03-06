@@ -12,7 +12,7 @@ import { presets } from '../utils';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 1;
-  padding: 0 ${g(6)}px;
+  padding: 0 ${g(4)}px;
   ${({ isMenuOpened }) => `
     ${media.mobile(`
       background: ${isMenuOpened ? colors.white : 'none'};
