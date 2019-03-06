@@ -7,7 +7,13 @@ import { media } from 'utils/styles';
 
 import Logo from './assets/logo.svg';
 
-const StyledLogo = styled(Logo)`
+const StyledLogo = styled(({
+  /*
+    Logo pass props to attributes, which triggers warnings
+    https://github.com/styled-components/styled-components/issues/135#issuecomment-256018643
+  */
+  colorMobile, ...rest
+}) => <Logo {...rest}/>)`
   ${({ color, colorMobile }) => `
     fill: ${colors[color] || colors.green};
     ${media.mobile(`
