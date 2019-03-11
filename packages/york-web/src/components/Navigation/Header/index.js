@@ -12,7 +12,7 @@ import { presets } from '../utils';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 1;
-  padding: 0 ${g(4)}px;
+  padding: 0 ${g(6)}px;
   ${({ isMenuOpened }) => `
     ${media.mobile(`
       background: ${isMenuOpened ? colors.white : 'none'};
@@ -22,9 +22,9 @@ const StyledHeaderWrapper = styled.div`
 
 const StyledHeader = styled(FlexBase)`
   height: ${g(12)}px;
-  ${({ isMenuOpened }) => `
+  ${({ withBorder }) => `
     ${media.mobile(`
-      border-bottom: 1px solid ${isMenuOpened ? colors.silver : 'transparent'};
+      border-bottom: 1px solid ${withBorder ? colors.silver : 'transparent'};
     `)};
   `};
 `;
@@ -37,13 +37,13 @@ const StyledToggler = styled(Toggler)`
 `;
 
 const Header = ({
-  isMenuOpened, toggleMenu, preset, presetMobile,
+  isMenuOpened, toggleMenu, preset, presetMobile, withBorder,
 }) => (
   <StyledHeaderWrapper isMenuOpened={isMenuOpened}>
     <StyledHeader
       alignItems="center"
       justifyContentMobile="space-between"
-      isMenuOpened={isMenuOpened}
+      withBorder={withBorder || isMenuOpened}
     >
       <HeaderLogo
         color={isMenuOpened ? 'black' : presets[preset].logo}
@@ -60,6 +60,7 @@ const Header = ({
 
 Header.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
+  withBorder: PropTypes.bool,
   toggleMenu: PropTypes.func.isRequired,
   preset: PropTypes.oneOf(['lightBackground', 'darkBackground']),
   presetMobile: PropTypes.oneOf(['lightBackground', 'darkBackground']),

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { transitions, g, shadows } from 'utils/styles';
+import { transitions, g, shadows, media } from 'utils/styles';
 import { messengersShape } from 'utils/propTypes';
 
 import { FlexBase } from 'components/flex';
@@ -20,6 +20,9 @@ const StyledFloatingControlsWrapper = styled(FlexBase)`
     right: ${g(2)}px;
     left: ${g(2)}px;
   }
+  ${media.mobile(`
+    bottom: ${g(2)}px;
+  `)}
 `;
 
 const StyledButtonWrapper = styled.div`

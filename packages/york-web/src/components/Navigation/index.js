@@ -23,6 +23,7 @@ class Navigation extends Component {
     menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
     preset: PropTypes.oneOf(Object.keys(presets)),
     presetMobile: PropTypes.oneOf(Object.keys(presets)),
+    withBorder: PropTypes.bool,
   }
 
   state = {
@@ -33,7 +34,9 @@ class Navigation extends Component {
 
   render() {
     const { isMenuOpened } = this.state;
-    const { menuItems, preset, presetMobile } = this.props;
+    const {
+      menuItems, preset, presetMobile, withBorder,
+    } = this.props;
     return (
       <StyledNavigation
         justifyContent="space-between"
@@ -46,6 +49,7 @@ class Navigation extends Component {
           presetMobile={presetMobile}
           isMenuOpened={isMenuOpened}
           toggleMenu={this.toggleMenu}
+          withBorder={withBorder}
         />
         <Menu preset={preset} isMenuOpened={isMenuOpened} menuItems={menuItems}/>
       </StyledNavigation>
