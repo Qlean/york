@@ -51,7 +51,12 @@ class Navigation extends Component {
           toggleMenu={this.toggleMenu}
           withBorder={withBorder}
         />
-        <Menu preset={preset} isMenuOpened={isMenuOpened} menuItems={menuItems}/>
+        <Menu
+          preset={preset}
+          toggleMenu={this.toggleMenu}
+          isMenuOpened={isMenuOpened}
+          menuItems={menuItems}
+        />
       </StyledNavigation>
     );
   }

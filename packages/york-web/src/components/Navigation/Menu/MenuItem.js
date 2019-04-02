@@ -40,11 +40,24 @@ const StyledText = styled(Text)`${getCss}`;
 const StyledButton = styled(InlineButton)`${getCss}`;
 
 const MenuItem = ({
-  LinkComponent, href, onClick, color, hoverColor, children, isAuthButton, name, ...rest
+  LinkComponent,
+  href,
+  onClick,
+  toggleMenu,
+  color,
+  hoverColor,
+  children,
+  isAuthButton,
+  name,
+  ...rest
 }) => {
   if (LinkComponent) {
     return (
-      <LinkComponent to={href} name={name}>
+      <LinkComponent
+        to={href}
+        onClick={toggleMenu}
+        name={name}
+      >
         <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
           {children}
         </StyledText>
@@ -84,6 +97,7 @@ const MenuItem = ({
 
 MenuItem.propTypes = {
   LinkComponent: PropTypes.func,
+  toggleMenu: PropTypes.func,
   href: PropTypes.string,
   name: PropTypes.string,
   onClick: PropTypes.func,

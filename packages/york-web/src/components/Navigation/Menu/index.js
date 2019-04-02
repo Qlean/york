@@ -102,7 +102,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Menu = ({ isMenuOpened, menuItems, preset }) => (
+const Menu = ({
+  toggleMenu,
+  isMenuOpened,
+  menuItems,
+  preset,
+}) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
       alignItems="center"
@@ -135,6 +140,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
                     isAuthButton={link.isAuthButton}
                     color={presets[preset].link}
                     hoverColor={presets[preset].linkHover}
+                    toggleMenu={toggleMenu}
                   >
                     {link.title}
                   </StyledFloatingLink>
@@ -151,6 +157,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
               LinkComponent={link.LinkComponent}
               color={presets[preset].link}
               hoverColor={presets[preset].linkHover}
+              toggleMenu={toggleMenu}
             >
               {link.title}
             </MenuItem>
@@ -165,6 +172,7 @@ const Menu = ({ isMenuOpened, menuItems, preset }) => (
 
 Menu.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
   menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
   preset: PropTypes.oneOf(Object.keys(presets)),
 };
