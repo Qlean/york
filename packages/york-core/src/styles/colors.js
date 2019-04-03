@@ -5,6 +5,7 @@ export default {
   white: '#FFFFFF',
   smoke: '#F8F8F8',
   silver: '#D9D9D9',
+  whisper: '#ECECEC',
   grey: '#A6A6A6',
   ash: '#595959',
   coal: '#222222',
