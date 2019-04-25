@@ -4,3 +4,4 @@ packages/york-*/lib
 packages/york-*/es
 coverage
 .npmrc
+.vscode
