@@ -2,6 +2,7 @@
   "name": "york-styleguide",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,16 +13,23 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^2.1.0",
+    "react": "^16.7.0",
+    "babel-loader": "^8.0.5",
+    "react-dom": "^16.7.0",
     "file-loader": "^3.0.1",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-styleguidist": "^8.0.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "webpack": "^4.30.0",
+    "@babel/preset-env": "^7.3.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.29.3"
+    "css-loader": "^2.1.1",
+    "@babel/preset-react": "^7.0.0",
+    "react-styleguidist": "^9.0.8",
+    "styled-components": "^4.2.0",
+    "babel-plugin-inline-react-svg": "^1.0.1",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.0"
   },
   "dependencies": {
     "@qlean/york-core": "^0.3.6-test.6"

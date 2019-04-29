@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { transitions, g, shadows, media } from 'utils/styles';
 import { messengersShape } from 'utils/propTypes';
 
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 import { Button, Separator } from 'components/ui';
 import { presets } from 'components/ui/Button';
 
@@ -77,7 +77,7 @@ export default function FloatingControls({
       </StyledButtonWrapper>
       {withConnections && (
         <Fragment>
-          <Separator width={2}/>
+          <Separator width={2} />
           <ConnectionsToggler
             location={location}
             messengers={messengers}

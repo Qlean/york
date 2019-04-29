@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as R from 'ramda';
 
-import { g, withResponsiveProps, legacyMedia } from '../../utils/styles';
+import { g, unwrapResponsiveProps, media, getResponsivePropTypes } from '../../utils/styles';
 
 const sizes = {
   0: 0,
@@ -18,25 +18,48 @@ const sizes = {
   24: g(24),
 };
 
-const Separator = styled.div`
-  flex-shrink: 0;
-  ${({ heightMobile: height, widthMobile: width }) => legacyMedia.mobile`
-    height: ${sizes[height]}px;
-    width: ${sizes[width]}px;
-  `}
-  ${({ heightBase: height, widthBase: width }) => legacyMedia.base`
-    height: ${sizes[height]}px;
-    width: ${sizes[width]}px;
-  `}
-  ${({ heightWide: height, widthWide: width }) => legacyMedia.wide`
-    height: ${sizes[height]}px;
-    width: ${sizes[width]}px;
-  `}
-`;
-
 const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)));
 
-export default withResponsiveProps([
-  { name: 'height', propType: sizesPropTypes, defaultValue: 0 },
-  { name: 'width', propType: sizesPropTypes, defaultValue: 0 },
-])(Separator);
+const defaultProps = {
+  height: 0,
+  width: 0,
+};
+
+export const getBaseCss = ({ height, width }) => `
+  height: ${sizes[height]}px;
+  width: ${sizes[width]}px;
+`;
+
+export const getCss = (initialProps) => {
+  const props = { ...defaultProps, ...initialProps };
+  const {
+    mobileProps,
+    baseProps,
+    wideProps,
+  } = unwrapResponsiveProps([
+    'height',
+    'width',
+  ], props);
+
+  return `
+    flex-shrink: 0;
+    ${media.mobile(getBaseCss(mobileProps))}
+    ${media.base(getBaseCss(baseProps))}
+    ${media.wide(getBaseCss(wideProps))}
+  `;
+};
+
+const Separator = styled.div`
+  ${getCss}
+`;
+
+Separator.propTypes = {
+  height: sizesPropTypes,
+  width: sizesPropTypes,
+  ...getResponsivePropTypes({
+    height: sizesPropTypes,
+    width: sizesPropTypes,
+  }),
+};
+
+export default Separator;

@@ -260,7 +260,6 @@ Button.propTypes = {
     fontWeight: PropTypes.oneOf([500, 700, 900]),
     /** Управление дополнительными стилями кнопки. */
     css: PropTypes.string,
-    css: PropTypes.string,
   }),
   /** Размер кнопки */
   size: PropTypes.oneOf(['s', 'm', 'l']),
@@ -284,7 +283,7 @@ Button.propTypes = {
   /** Свойства при hover кнопки */
   hoverProps: PropTypes.obj,
   /** Свойства при disabled кнопки */
-  disabledProps: PropTypes.obj
+  disabledProps: PropTypes.obj,
 };
 
 Button.defaultProps = {

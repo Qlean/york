@@ -1,20 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  mode: 'production',
-  entry: path.resolve(__dirname, 'src/index.js'),
-  output: {
-    path: path.resolve(__dirname, 'lib'),
-    filename: 'index.js',
-    library: 'main',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    globalObject: 'this',
-  },
-  node: {
-    fs: 'empty',
-  },
   module: {
     rules: [
       {
@@ -46,19 +32,4 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    alias: {
-      components: path.resolve(__dirname, 'src/components/'),
-      utils: path.resolve(__dirname, 'src/utils/'),
-    },
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.BROWSER': JSON.stringify(true),
-      window: JSON.stringify(true),
-    }),
-  ],
-  externals: {
-    'styled-components': 'styled-components',
-  },
-};
+}

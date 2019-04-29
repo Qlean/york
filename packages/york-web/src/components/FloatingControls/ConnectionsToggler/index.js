@@ -6,7 +6,7 @@ import throttle from 'lodash.throttle';
 import { colors } from '@qlean/york-core';
 import { g, shadows } from 'utils/styles';
 
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 
 import MessengersIcon from './messengers.svg';
 import Connections from '../Connections';

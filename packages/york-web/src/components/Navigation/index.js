@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { menuItemsShape } from 'utils/propTypes';
 
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 
 import Menu from './Menu';
 import Header from './Header';

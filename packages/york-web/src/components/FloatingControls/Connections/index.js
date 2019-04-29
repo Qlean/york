@@ -6,7 +6,7 @@ import { colors } from '@qlean/york-core';
 import { transitions, g, shadows } from 'utils/styles';
 import { messengersShape } from 'utils/propTypes';
 
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 import { Separator, Text } from 'components/ui';
 import Messengers from 'components/Messengers';
 
@@ -82,22 +82,22 @@ export default function Connections({
 }) {
   return (
     <Fragment>
-      <StyledOverlay onClick={onClose} isVisible={isVisible}/>
+      <StyledOverlay onClick={onClose} isVisible={isVisible} />
       <StyledConnections isVisible={isVisible} name="connections">
-        <Separator width={6}/>
+        <Separator width={6} />
         <StyledConnectionsContent>
-          <Separator height={6}/>
-          <StyledCloseIcon onClick={onClose} name="close"/>
+          <Separator height={6} />
+          <StyledCloseIcon onClick={onClose} name="close" />
           <Text preset="h4">
             {connectionsTitle}
           </Text>
-          <Separator height={4}/>
+          <Separator height={4} />
           {
             extraConnections && extraConnections.length > 0 &&
             extraConnections.map(Connection => (
               <Fragment key={Connection.name}>
-                <Connection/>
-                <Separator height={2}/>
+                <Connection />
+                <Separator height={2} />
               </Fragment>
             ))
           }
@@ -108,14 +108,14 @@ export default function Connections({
                 messengers={messengers}
                 withMobileFullWidth
               />
-              <Separator height={2}/>
+              <Separator height={2} />
             </Fragment>
           )}
-          <Separator height={4}/>
+          <Separator height={4} />
         </StyledConnectionsContent>
-        <Separator width={6}/>
+        <Separator width={6} />
       </StyledConnections>
-      <GlobalStyle isVisible={isVisible}/>
+      <GlobalStyle isVisible={isVisible} />
     </Fragment>
   );
 }

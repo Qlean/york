@@ -6,9 +6,7 @@
   },
   "scripts": {
     "checkup": "lerna run build && lerna run test && lerna run lint",
-    "release": "npm run checkup && lerna publish",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "release": "npm run checkup && lerna publish"
   },
   "devDependencies": {
     "lerna": "2.11.0"

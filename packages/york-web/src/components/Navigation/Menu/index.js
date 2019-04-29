@@ -7,7 +7,7 @@ import { g, media, borderRadiuses } from 'utils/styles';
 import { menuItemsShape } from 'utils/propTypes';
 
 import { Separator, Text } from 'components/ui';
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 
 import FloatingMenu from './FloatingMenu';
 import MenuItem from './MenuItem';
@@ -144,7 +144,7 @@ const Menu = ({
                   >
                     {link.title}
                   </StyledFloatingLink>
-                  ))}
+                ))}
               </StyledFloatingMenu>
             </StyledButtonContainer>
           ) : category.items.map(link => (

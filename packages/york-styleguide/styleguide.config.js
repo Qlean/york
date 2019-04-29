@@ -1,16 +1,40 @@
 const path = require('path');
 
+const yorkWebPath = path.resolve(__dirname, '../york-web/src')
+const yorkCorePath = path.resolve(__dirname, '../york-core/src')
+
 module.exports = {
   title: 'Qlean Design System',
-  components: '../york-web/src/components/**/*.js',
+  components: [
+    '../york-web/src/components/**/*.js',
+  ],
+  webpackConfig: require('./webpack.config.js'),
   exampleMode: 'collapse',
-  // usageMode: 'expand',
+  skipComponentsWithoutExample: true,
   pagePerSection: true,
-  getComponentPathLine(componentPath) {
-    const name = path.basename(componentPath, '.js')
-    const dir = path.basename(path.dirname(componentPath))
-    return `import { ${dir} } from '@qlean/york-react-native';`
+  moduleAliases: {
+    '@qlean/york-web': yorkWebPath,
+    '@qlean/york-core': yorkCorePath
   },
+  sections: [
+    {
+      name: 'Core',
+      sections: [
+        {
+          name: 'colors',
+          content: './core/colors.md',
+        },
+        {
+          name: 'sizes',
+          content: './core/sizes.md',
+        },
+      ],
+    },
+    {
+      name: 'Web',
+      components: '../york-web/src/components/**/*.js',
+    }
+  ],
   theme: {
     color: {
       link: '#222222',
@@ -19,11 +43,10 @@ module.exports = {
       border: '#D9D9D9',
     },
     fontFamily: {
-      base: 'Museo Sans'
+      base: 'Museo Sans',
     },
     borderRadius: 5,
     sidebarWidth: 250,
-
   },
   styles: {
     Logo: {
@@ -31,28 +54,7 @@ module.exports = {
         color: '#222222',
         fontSize: '20px',
       },
-    }
+    },
   },
-  webpackConfig: {
-		module: {
-			rules: [
-				{
-					test: /\.js?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader'
-				},
-				{
-					test: /\.css$/,
-					use: ["style-loader", "css-loader"],
-        },
-        {
-          test: /\.(woff|eot|ttf)$/i,
-          use: 'file-loader',
-        },
-			],
-		},
-  },
-  require: [
-    path.join(__dirname, 'assets/fonts/index.css')
-  ]
-}
+  require: [path.join(__dirname, 'assets/fonts/index.css')],
+};

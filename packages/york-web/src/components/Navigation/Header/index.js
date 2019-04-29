@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { colors } from '@qlean/york-core';
 
 import { g, media } from 'utils/styles';
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex';
 
 import HeaderLogo from './HeaderLogo';
 import Toggler from './Toggler';
