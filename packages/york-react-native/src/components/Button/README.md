@@ -43,3 +43,13 @@ GrayLinear — может использоваться на белом фоне 
   <Button preset="greyLinear" isDisabled>Кнопка</Button>
 </div>
 ```
+
+Green / Black — используются на карточказ заказа.
+```jsx
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 120px)', gridColumnGap: '5px', gridRowGap: '10px' }}>
+  <Button preset="green" size="s">Кнопка</Button>
+  <Button preset="green" size="s" isDisabled>Кнопка</Button>
+  <Button preset="black" size="s">Кнопка</Button>
+  <Button preset="black" size="s" isDisabled>Кнопка</Button>
+</div>
+```
