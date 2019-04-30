@@ -1,6 +1,7 @@
 const path = require('path')
 
 const yorkWebPath = path.resolve(__dirname, '../york-web/src')
+const yorkReactNativePath = path.resolve(__dirname, '../york-react-native/src')
 const yorkCorePath = path.resolve(__dirname, '../york-core/src')
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
   moduleAliases: {
     '@qlean/york-web': yorkWebPath,
     '@qlean/york-core': yorkCorePath,
+    '@qlean/york-react-native': yorkReactNativePath,
   },
   sections: [
     {
@@ -32,6 +34,11 @@ module.exports = {
       name: 'Web',
       components: '../york-web/src/components/**/*.js',
     },
+    {
+      name: 'Native',
+      components: '../york-react-native/src/components/**/*.js',
+      pagePerSection: true,
+    }
   ],
   theme: {
     color: {

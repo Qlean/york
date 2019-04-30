@@ -15,18 +15,21 @@
   },
   "dependencies": {
     "@qlean/york-core": "^0.1.0",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "react-art": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react-native": "^4.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "react": "^16.2.0",
-    "react-native": "0.50",
+    "react": "^16.8.6",
+    "react-native": "^0.56.1",
+    "react-native-web": "^0.11.2",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
     "react": ">=16",
-    "react-native": ">=0.50"
+    "react-native": ">=0.56.1"
   }
 }
