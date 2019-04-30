@@ -4,10 +4,10 @@
 
 ## Пакеты
 
-* `york-core` — Утилиты, гайдовые цвета
-* `york-web` — UI-компоненты для React
-* `york-react-native` — UI-компоненты для React Native
-* `york-styleguide` — Стайлгайд с компонентами
+- `york-core` — Утилиты, гайдовые цвета
+- `york-web` — UI-компоненты для React
+- `york-react-native` — UI-компоненты для React Native
+- `york-styleguide` — Стайлгайд с компонентами
 
 ## Установка
 
@@ -27,16 +27,19 @@ $ npm start
 Работает только из ветки `master`
 
 Проверить изменения
+
 ```
 $ lerna update
 ```
 
 Собрать, прогнать линтер и тесты, поднять версию, расставить теги, опубликовать в npm
+
 ```
 $ npm run release
 ```
 
 Если что-то пошло не так (не залилось в npm, не проставились теги), то можно попробовать
+
 ```
 $ npm run release -- --force-publish=*
 ```

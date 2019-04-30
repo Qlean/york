@@ -12,4 +12,4 @@ export const presets = {
     link: 'white',
     linkHover: 'silver',
   },
-};
+}

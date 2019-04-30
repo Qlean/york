@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors } from '@qlean/york-core';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { colors } from '@qlean/york-core'
 
-import { g } from 'utils/styles';
+import { g } from 'utils/styles'
 
 const StyledToggler = styled.div`
-  transition: all linear .2s;
+  transition: all linear 0.2s;
   position: relative;
   cursor: pointer;
   height: ${g(4)}px;
@@ -15,10 +15,10 @@ const StyledToggler = styled.div`
 
   &:before,
   &:after {
-    transition: all ease .2s;
+    transition: all ease 0.2s;
     position: absolute;
     margin-left: -13px;
-    content: "";
+    content: '';
     width: 24px;
     height: 3px;
     border-radius: 1.5px;
@@ -35,8 +35,9 @@ const StyledToggler = styled.div`
     margin-top: 3px;
   }
 
-
-  ${({ isActive }) => (isActive ? `
+  ${({ isActive }) =>
+    isActive
+      ? `
     &:before, &:after {
       margin-top: -2px;
     }
@@ -48,16 +49,12 @@ const StyledToggler = styled.div`
     &:after {
       transform: rotate(-45deg);
     }
-  ` : '')}
-`;
+  `
+      : ''}
+`
 
 export default function HeaderMobileMenuToggler(props) {
-  const {
-    onClick,
-    isActive,
-    color,
-    ...rest
-  } = props;
+  const { onClick, isActive, color, ...rest } = props
   return (
     <StyledToggler
       isActive={isActive}
@@ -65,11 +62,11 @@ export default function HeaderMobileMenuToggler(props) {
       color={color}
       {...rest}
     />
-  );
+  )
 }
 
 HeaderMobileMenuToggler.propTypes = {
   onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(colors)).isRequired,
-};
+}

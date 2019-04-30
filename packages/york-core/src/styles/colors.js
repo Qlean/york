@@ -12,4 +12,4 @@ export default {
   ash: '#595959',
   coal: '#222222',
   black: '#000000',
-};
+}

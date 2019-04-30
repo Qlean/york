@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { colors } from '@qlean/york-core';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { colors } from '@qlean/york-core'
+import styled from 'styled-components'
 
-import { presets as textPresets } from '../Text';
+import { presets as textPresets } from '../Text'
 
 import {
   g,
@@ -15,7 +15,7 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from '../../utils/styles';
+} from '../../utils/styles'
 
 export const presets = {
   blank: {},
@@ -111,16 +111,20 @@ export const presets = {
       css: BUTTON_HOVER_STYLES.whiteRound,
     },
   },
-};
+}
 
-const getHeight = (size) => {
+const getHeight = size => {
   switch (size) {
-    case 's': return `${g(8)}px`;
-    case 'm': return `${g(10)}px`;
-    case 'l': return `${g(12)}px`;
-    default: return '';
+    case 's':
+      return `${g(8)}px`
+    case 'm':
+      return `${g(10)}px`
+    case 'l':
+      return `${g(12)}px`
+    default:
+      return ''
   }
-};
+}
 
 const getBaseCss = ({
   color,
@@ -135,30 +139,27 @@ const getBaseCss = ({
   color: ${colors[color]};
   background-color: ${colors[backgroundColor] || 'transparent'};
   ${borderRadius ? `border-radius: ${borderRadiuses[borderRadius]}` : ''};
-  ${(borderColor || backgroundColor)
-    ? `border: 1px solid ${colors[borderColor || backgroundColor]}`
-    : 'border: 1px solid'};
+  ${
+    borderColor || backgroundColor
+      ? `border: 1px solid ${colors[borderColor || backgroundColor]}`
+      : 'border: 1px solid'
+  };
   width: ${width};
   font-size: ${fontSize}px;
   font-weight: ${fontWeight};
 
   ${css || ''};
-`;
+`
 
-const getCss = ({
-  hoverProps,
-  disabledProps,
-  isDisabled,
-  ...rest
-}) => `
+const getCss = ({ hoverProps, disabledProps, isDisabled, ...rest }) => `
   ${getBaseCss(isDisabled ? { ...rest, ...disabledProps } : rest)}
   &:hover {
     ${isDisabled ? '' : getBaseCss({ ...rest, ...hoverProps })}
   }
-`;
+`
 
 const StyledButton = styled.button`
-  font-family: "Museo Sans";
+  font-family: 'Museo Sans';
   transition: ${transitions.short};
   padding: 0;
   appearance: none !important;
@@ -168,12 +169,7 @@ const StyledButton = styled.button`
   line-height: ${g(4)}px;
   height: ${({ size }) => getHeight(size)};
   cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
-  ${({
-    mobileProps,
-    baseProps,
-    wideProps,
-    ...rest
-  }) => `
+  ${({ mobileProps, baseProps, wideProps, ...rest }) => `
     ${media.mobile(`
       height: ${g(10)}px;
       ${getCss({ ...mobileProps, ...rest })}
@@ -181,14 +177,14 @@ const StyledButton = styled.button`
     ${media.base(getCss({ ...baseProps, ...rest }))}
     ${media.wide(getCss({ ...wideProps, ...rest }))}
   `}
-`;
+`
 
 const StyledFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-`;
+`
 
 /**
  * Компонент кнопки.
@@ -210,18 +206,21 @@ function Button({
       {...mergeStyleProps([
         unwrapResponsivePreset('preset', presets, rest),
         unwrapResponsivePreset('textPreset', textPresets, rest),
-        unwrapResponsiveProps([
-          'color',
-          'backgroundColor',
-          'borderColor',
-          'borderRadius',
-          'width',
-          'fontSize',
-          'fontWeight',
-          'css',
-          'hoverProps',
-          'disabledProps',
-        ], rest),
+        unwrapResponsiveProps(
+          [
+            'color',
+            'backgroundColor',
+            'borderColor',
+            'borderRadius',
+            'width',
+            'fontSize',
+            'fontWeight',
+            'css',
+            'hoverProps',
+            'disabledProps',
+          ],
+          rest,
+        ),
       ])}
       size={size}
       type={type}
@@ -231,11 +230,9 @@ function Button({
       onClick={!isDisabled && !isFetching ? onClick : null}
       name={name}
     >
-      <StyledFlex>
-        {isFetching ? 'Загрузка' : children}
-      </StyledFlex>
+      <StyledFlex>{isFetching ? 'Загрузка' : children}</StyledFlex>
     </StyledButton>
-  );
+  )
 }
 
 Button.propTypes = {
@@ -284,7 +281,7 @@ Button.propTypes = {
   hoverProps: PropTypes.obj,
   /** Свойства при disabled кнопки */
   disabledProps: PropTypes.obj,
-};
+}
 
 Button.defaultProps = {
   isFetching: false,
@@ -295,6 +292,6 @@ Button.defaultProps = {
   type: 'button',
   hoverProps: {},
   disabledProps: {},
-};
+}
 
-export default Button;
+export default Button

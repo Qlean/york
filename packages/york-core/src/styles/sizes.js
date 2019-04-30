@@ -1,6 +1,6 @@
-export const UI_GRID_POINT = 5;
+export const UI_GRID_POINT = 5
 
-export const g = (times = 1) => times * UI_GRID_POINT;
+export const g = (times = 1) => times * UI_GRID_POINT
 
 export default {
   0: 0,
@@ -14,4 +14,4 @@ export default {
   16: g(16),
   20: g(20),
   24: g(24),
-};
+}

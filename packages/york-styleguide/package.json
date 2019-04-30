@@ -28,6 +28,7 @@
     "webpack": "^4.30.0"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.3.6-test.6"
+    "@qlean/york-core": "^0.3.6-test.6",
+    "prettier": "^1.17.0"
   }
 }

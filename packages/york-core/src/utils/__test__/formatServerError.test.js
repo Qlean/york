@@ -1,4 +1,4 @@
-import formatServerError from '../formatServerError';
+import formatServerError from '../formatServerError'
 
 describe('formatServerError', () => {
   const error = {
@@ -14,7 +14,7 @@ describe('formatServerError', () => {
         8: null,
       },
     },
-  };
+  }
 
   test('Formats complex error data', () => {
     expect(formatServerError(error)).toEqual({
@@ -24,27 +24,29 @@ describe('formatServerError', () => {
       4: 'Seventh',
       6: 'Eight',
       7: 'Nine',
-    });
-  });
+    })
+  })
 
   test('Formats complex error data with flattening', () => {
-    expect(formatServerError(error, { flattenErrors: true }))
-      .toEqual({
-        _error: 'First, second, third, fourth, fifth, sixth, seventh, eight, nine',
-      });
-  });
+    expect(formatServerError(error, { flattenErrors: true })).toEqual({
+      _error:
+        'First, second, third, fourth, fifth, sixth, seventh, eight, nine',
+    })
+  })
 
   test('Flattens error automatically if error data is not object', () => {
-    expect(formatServerError({ data: { errors: ['first', 'second', 'third'] } }))
-      .toEqual({ _error: 'First, second, third' });
+    expect(
+      formatServerError({ data: { errors: ['first', 'second', 'third'] } }),
+    ).toEqual({ _error: 'First, second, third' })
 
-    expect(formatServerError({ data: { error: 'some string error' } }))
-      .toEqual({ _error: 'Some string error' });
-  });
+    expect(formatServerError({ data: { error: 'some string error' } })).toEqual(
+      { _error: 'Some string error' },
+    )
+  })
 
   test('Works fine with empty errors', () => {
-    expect(formatServerError()).toEqual({});
-    expect(formatServerError({ data: { error: {} } })).toEqual({});
-    expect(formatServerError({ data: undefined })).toEqual({});
-  });
-});
+    expect(formatServerError()).toEqual({})
+    expect(formatServerError({ data: { error: {} } })).toEqual({})
+    expect(formatServerError({ data: undefined })).toEqual({})
+  })
+})

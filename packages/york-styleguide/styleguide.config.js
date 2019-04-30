@@ -1,20 +1,18 @@
-const path = require('path');
+const path = require('path')
 
 const yorkWebPath = path.resolve(__dirname, '../york-web/src')
 const yorkCorePath = path.resolve(__dirname, '../york-core/src')
 
 module.exports = {
   title: 'Qlean Design System',
-  components: [
-    '../york-web/src/components/**/*.js',
-  ],
+  components: ['../york-web/src/components/**/*.js'],
   webpackConfig: require('./webpack.config.js'),
   exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   pagePerSection: true,
   moduleAliases: {
     '@qlean/york-web': yorkWebPath,
-    '@qlean/york-core': yorkCorePath
+    '@qlean/york-core': yorkCorePath,
   },
   sections: [
     {
@@ -33,7 +31,7 @@ module.exports = {
     {
       name: 'Web',
       components: '../york-web/src/components/**/*.js',
-    }
+    },
   ],
   theme: {
     color: {
@@ -57,4 +55,4 @@ module.exports = {
     },
   },
   require: [path.join(__dirname, 'assets/fonts/index.css')],
-};
+}

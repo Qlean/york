@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import styled, { createGlobalStyle } from 'styled-components';
-import { colors } from '@qlean/york-core';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import styled, { createGlobalStyle } from 'styled-components'
+import { colors } from '@qlean/york-core'
 
-import { transitions, g, shadows } from 'utils/styles';
-import { messengersShape } from 'utils/propTypes';
+import { transitions, g, shadows } from 'utils/styles'
+import { messengersShape } from 'utils/propTypes'
 
-import { FlexBase } from 'components/ui/flex';
-import { Separator, Text } from 'components/ui';
-import Messengers from 'components/Messengers';
+import { FlexBase } from 'components/ui/flex'
+import { Separator, Text } from 'components/ui'
+import Messengers from 'components/Messengers'
 
-import CloseIcon from './close.svg';
+import CloseIcon from './close.svg'
 
 const StyledConnections = styled(FlexBase)`
   position: fixed;
@@ -31,7 +31,7 @@ const StyledConnections = styled(FlexBase)`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
-`;
+`
 
 const StyledOverlay = styled.div`
   @media (max-width: 420px) {
@@ -45,11 +45,11 @@ const StyledOverlay = styled.div`
     opacity: ${({ isVisible }) => (isVisible ? '0.5' : '0')};
     visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
   }
-`;
+`
 
 const StyledConnectionsContent = styled.div`
   flex-grow: 1;
-`;
+`
 
 const StyledCloseIcon = styled(CloseIcon)`
   position: absolute;
@@ -58,19 +58,22 @@ const StyledCloseIcon = styled(CloseIcon)`
   right: ${g(2)}px;
   width: ${g(10)}px;
   height: ${g(10)}px;
-`;
+`
 
 const GlobalStyle = createGlobalStyle`
   body {
     @media (max-width: 420px) {
-      ${({ isVisible }) => (isVisible ? `
+      ${({ isVisible }) =>
+        isVisible
+          ? `
         overflow: hidden;
         width: 100%;
         height: 100%;
-      ` : '')};
+      `
+          : ''};
     }
   }
-`;
+`
 
 export default function Connections({
   isVisible,
@@ -88,19 +91,16 @@ export default function Connections({
         <StyledConnectionsContent>
           <Separator height={6} />
           <StyledCloseIcon onClick={onClose} name="close" />
-          <Text preset="h4">
-            {connectionsTitle}
-          </Text>
+          <Text preset="h4">{connectionsTitle}</Text>
           <Separator height={4} />
-          {
-            extraConnections && extraConnections.length > 0 &&
+          {extraConnections &&
+            extraConnections.length > 0 &&
             extraConnections.map(Connection => (
               <Fragment key={Connection.name}>
                 <Connection />
                 <Separator height={2} />
               </Fragment>
-            ))
-          }
+            ))}
           {messengers && (
             <Fragment>
               <Messengers
@@ -117,7 +117,7 @@ export default function Connections({
       </StyledConnections>
       <GlobalStyle isVisible={isVisible} />
     </Fragment>
-  );
+  )
 }
 
 Connections.propTypes = {
@@ -127,9 +127,7 @@ Connections.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired),
-  connectionsTitle: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]).isRequired,
+  connectionsTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+    .isRequired,
   extraConnections: PropTypes.arrayOf(PropTypes.func),
-};
+}

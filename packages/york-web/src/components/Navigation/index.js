@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-import { menuItemsShape } from 'utils/propTypes';
+import { menuItemsShape } from 'utils/propTypes'
 
-import { FlexBase } from 'components/ui/flex';
+import { FlexBase } from 'components/ui/flex'
 
-import Menu from './Menu';
-import Header from './Header';
-import { presets } from './utils';
+import Menu from './Menu'
+import Header from './Header'
+import { presets } from './utils'
 
 const StyledNavigation = styled(FlexBase)`
   z-index: 9999;
@@ -16,11 +16,12 @@ const StyledNavigation = styled(FlexBase)`
   left: 0;
   right: 0;
   top: 0;
-`;
+`
 
 class Navigation extends Component {
   static propTypes = {
-    menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
+    menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired)
+      .isRequired,
     preset: PropTypes.oneOf(Object.keys(presets)),
     presetMobile: PropTypes.oneOf(Object.keys(presets)),
     withBorder: PropTypes.bool,
@@ -28,15 +29,14 @@ class Navigation extends Component {
 
   state = {
     isMenuOpened: false,
-  };
+  }
 
-  toggleMenu = () => this.setState(prevState => ({ isMenuOpened: !prevState.isMenuOpened }))
+  toggleMenu = () =>
+    this.setState(prevState => ({ isMenuOpened: !prevState.isMenuOpened }))
 
   render() {
-    const { isMenuOpened } = this.state;
-    const {
-      menuItems, preset, presetMobile, withBorder,
-    } = this.props;
+    const { isMenuOpened } = this.state
+    const { menuItems, preset, presetMobile, withBorder } = this.props
     return (
       <StyledNavigation
         justifyContent="space-between"
@@ -58,8 +58,8 @@ class Navigation extends Component {
           menuItems={menuItems}
         />
       </StyledNavigation>
-    );
+    )
   }
 }
 
-export default Navigation;
+export default Navigation

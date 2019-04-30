@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-import { transitions, g, shadows, media } from 'utils/styles';
-import { messengersShape } from 'utils/propTypes';
+import { transitions, g, shadows, media } from 'utils/styles'
+import { messengersShape } from 'utils/propTypes'
 
-import { FlexBase } from 'components/ui/flex';
-import { Button, Separator } from 'components/ui';
-import { presets } from 'components/ui/Button';
+import { FlexBase } from 'components/ui/flex'
+import { Button, Separator } from 'components/ui'
+import { presets } from 'components/ui/Button'
 
-import ConnectionsToggler from './ConnectionsToggler';
+import ConnectionsToggler from './ConnectionsToggler'
 
 const StyledFloatingControlsWrapper = styled(FlexBase)`
   z-index: 10;
@@ -23,7 +23,7 @@ const StyledFloatingControlsWrapper = styled(FlexBase)`
   ${media.mobile(`
     bottom: ${g(2)}px;
   `)}
-`;
+`
 
 const StyledButtonWrapper = styled.div`
   width: ${g(48)}px;
@@ -34,17 +34,17 @@ const StyledButtonWrapper = styled.div`
     width: 100%;
     bottom: ${({ isVisible }) => (isVisible ? '0' : `${-g(20)}px`)};
   }
-`;
+`
 
 const StyledButton = styled(Button)`
   box-shadow: ${shadows.medium};
-`;
+`
 
 const buttonHoverStyles = `
   ${presets.green.hoverProps.css};
   transform: none;
   box-shadow: none;
-`;
+`
 
 export default function FloatingControls({
   isVisible,
@@ -89,7 +89,7 @@ export default function FloatingControls({
         </Fragment>
       )}
     </StyledFloatingControlsWrapper>
-  );
+  )
 }
 
 FloatingControls.propTypes = {
@@ -99,14 +99,13 @@ FloatingControls.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired)
+    .isRequired,
   buttonTitle: PropTypes.string.isRequired,
-  connectionsTitle: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]).isRequired,
+  connectionsTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+    .isRequired,
   extraConnections: PropTypes.arrayOf(PropTypes.func),
   extraButtonCss: PropTypes.string,
   togglerColor: PropTypes.string,
   togglerColorHovered: PropTypes.string,
-};
+}
