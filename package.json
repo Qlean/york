@@ -1,5 +1,6 @@
 {
   "name": "york",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"
@@ -8,9 +9,15 @@
     "start": "lerna run --parallel start",
     "bootstrap": "lerna bootstrap",
     "checkup": "lerna run build && lerna run test && lerna run lint",
-    "release": "npm run checkup && lerna publish"
+    "release": "npm run checkup && lerna publish",
+    "lint": "eslint packages/york-web --ext .js"
   },
   "devDependencies": {
+    "@qlean/eslint-config": "4.1.0",
+    "@qlean/eslint-config-react-native": "4.1.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
     "lerna": "2.11.0"
   }
 }

@@ -1,10 +1,4 @@
 {
-  "extends": "qlean",
-  "rules": {
-    "camelcase": 0,
-    "react/no-typos": 0
-  },
-  "parser": "babel-eslint",
   "settings": {
     "import/resolver": {
       "webpack": {

@@ -30,12 +30,10 @@ WORKDIR /app/packages/york-core
 COPY ./packages/york-core/package-lock.json ./packages/york-core/package.json .npmrc ./
 RUN npm i
 
-
 FROM node:10-alpine as york-web
 WORKDIR /app/packages/york-web
 COPY ./packages/york-web/package-lock.json ./packages/york-web/package.json .npmrc ./
 RUN npm i
-
 
 FROM node:10-alpine as build
 WORKDIR /app
@@ -44,7 +42,6 @@ COPY --from=york-web /app/packages/york-web/node_modules ./packages/york-web/nod
 COPY --from=york-core /app/packages/york-core/node_modules ./packages/york-core/node_modules
 COPY --from=york-styleguide /app/packages/york-styleguide/node_modules ./packages/york-styleguide/node_modules
 RUN set -ex; cd ./packages/york-styleguide; npm run styleguide:build
-
 
 FROM base
 WORKDIR /app
