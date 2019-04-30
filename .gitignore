@@ -4,6 +4,6 @@ coverage
 .vscode
 *.log
 
-packages/york-*/lib
-packages/york-*/es
-packages/york-*/styleguide
+lib
+es
+styleguide
