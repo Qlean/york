@@ -5,31 +5,21 @@
 ## Пакеты
 
 * `york-core` — Утилиты, гайдовые цвета
-* `york-react-native` — UI-компоненты для React Navite
+* `york-web` — UI-компоненты для React
+* `york-react-native` — UI-компоненты для React Native
+* `york-styleguide` — Стайлгайд с компонентами
 
 ## Установка
 
 ```
 $ git clone git@github.com:Qlean/york.git && cd york
-$ npm i -g lerna@2.11.0
-$ lerna bootstrap
+$ npm run bootstrap
 ```
 
-## Использование в режиме разработки
+## Запуск
 
-Запустить автоматическую пересборку всех пакетов
 ```
-$ lerna run --parallel watch
-```
-
-Проставить глобальные симлинки на пакеты
-```
-$ lerna exec npm link
-```
-
-Прилинковать нужный пакет (запускать в папке приложения)
-```
-$ npm link <package name>
+$ npm start
 ```
 
 ## Публикация

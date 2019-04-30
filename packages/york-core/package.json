@@ -9,13 +9,12 @@
     "url": "git://github.com/qlean/york.git"
   },
   "scripts": {
+    "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf coverage lib",
     "lint": "eslint . --ext .js",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "watch": "babel src -d lib --ignore test.js -w"
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

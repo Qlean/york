@@ -4,12 +4,10 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "watch": "babel src -d lib --ignore test.js -w --copy-files",
     "build": "npm run clean && babel src -d lib --ignore test.js --copy-files",
     "clean": "rimraf lib",
-    "lint": "eslint src --ext .js",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
-    "watch": "babel src -d lib --ignore test.js -w --copy-files"
+    "lint": "eslint src --ext .js"
   },
   "dependencies": {
     "@qlean/york-core": "^0.3.5",
