@@ -22,17 +22,17 @@ WORKDIR /app
 
 FROM node:10-alpine as york-styleguide
 WORKDIR /app/packages/york-styleguide
-COPY ./packages/york-styleguide/package-lock.json ./packages/york-styleguide/package.json .npmrc ./
+COPY ./packages/york-styleguide/package.json .npmrc ./
 RUN npm i
 
 FROM node:10-alpine as york-core
 WORKDIR /app/packages/york-core
-COPY ./packages/york-core/package-lock.json ./packages/york-core/package.json .npmrc ./
+COPY ./packages/york-core/package.json .npmrc ./
 RUN npm i
 
 FROM node:10-alpine as york-web
 WORKDIR /app/packages/york-web
-COPY ./packages/york-web/package-lock.json ./packages/york-web/package.json .npmrc ./
+COPY ./packages/york-web/package.json .npmrc ./
 RUN npm i
 
 FROM node:10-alpine as build
