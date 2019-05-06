@@ -9,7 +9,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "watch": "babel src -d lib --ignore test.js -w --copy-files",
+    "start": "babel src -d lib --ignore test.js -w --copy-files",
     "build": "npm run clean && babel src -d lib --ignore test.js --copy-files",
     "clean": "rimraf lib",
     "lint": "eslint src --ext .js",
