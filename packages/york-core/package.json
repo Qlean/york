@@ -17,14 +17,7 @@
     "test:watch": "jest --watch",
     "precommit": "lint-staged"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "jest": "^24.7.1",
-    "ramda": "^0.25.0",
-    "rimraf": "^2.6.3"
-  },
   "peerDependencies": {
-    "ramda": "*"
+    "ramda": ">=0.26"
   }
 }

@@ -15,18 +15,10 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.1.0",
-    "prop-types": "^15.6.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-native": "^4.0.0",
-    "babel-preset-react-native-stage-0": "^1.0.1",
-    "react": "^16.2.0",
-    "react-native": "0.50",
-    "rimraf": "^2.6.2"
+    "@qlean/york-core": "^0.1.0"
   },
   "peerDependencies": {
+    "prop-types": ">=15",
     "react": ">=16",
     "react-native": ">=0.50"
   }
