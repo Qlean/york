@@ -18,8 +18,6 @@ RUN set -ex; \
 
 COPY .nginx /etc/nginx/conf.d/default.conf
 
-WORKDIR /app
-
 # For now, only york-web use dependencies
 
 # FROM node:10-alpine as york-core
@@ -39,6 +37,8 @@ RUN npm i
 
 FROM node:10-alpine as build
 WORKDIR /app
+COPY package.json package-lock.json .npmrc /app
+RUN npm i
 COPY . /app
 # COPY --from=york-core /app/packages/york-core/node_modules ./packages/york-core/node_modules
 # COPY --from=york-styleguide /app/packages/york-styleguide/node_modules ./packages/york-styleguide/node_modules
