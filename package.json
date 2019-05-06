@@ -5,6 +5,7 @@
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
