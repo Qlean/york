@@ -6,5 +6,6 @@
     "publish": {
       "allowBranch": "master"
     }
-  }
+  },
+  "npmClientArgs": ["--no-lockfile"]
 }

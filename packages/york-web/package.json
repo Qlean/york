@@ -16,10 +16,10 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@qlean/york-core": "^0.3.5",
     "lodash.throttle": "^4.1.1"
   },
   "peerDependencies": {
+    "@qlean/york-core": "*",
     "prop-types": ">=15",
     "ramda": ">=0.26",
     "react": ">=16",

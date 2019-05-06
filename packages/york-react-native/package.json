@@ -14,10 +14,8 @@
     "clean": "rimraf lib",
     "precommit": "lint-staged"
   },
-  "dependencies": {
-    "@qlean/york-core": "^0.1.0"
-  },
   "peerDependencies": {
+    "@qlean/york-core": "*",
     "prop-types": ">=15",
     "react": ">=16",
     "react-native": ">=0.50"
