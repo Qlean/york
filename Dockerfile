@@ -40,10 +40,12 @@ WORKDIR /app
 COPY package.json package-lock.json .npmrc /app
 RUN npm i
 COPY . /app
+
 # COPY --from=york-core /app/packages/york-core/node_modules ./packages/york-core/node_modules
 # COPY --from=york-styleguide /app/packages/york-styleguide/node_modules ./packages/york-styleguide/node_modules
 COPY --from=york-web /app/packages/york-web/node_modules ./packages/york-web/node_modules
-RUN set -ex; cd ./packages/york-styleguide; npm run build
+
+RUN set -ex; npm run build
 
 FROM base
 WORKDIR /app
