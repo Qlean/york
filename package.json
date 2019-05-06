@@ -5,6 +5,15 @@
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run --concurrency 1 --stream precommit"
+    }
+  },
   "scripts": {
     "start": "lerna run --parallel start",
     "bootstrap": "lerna bootstrap",
@@ -19,7 +28,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-import-resolver-webpack": "^0.11.1",
+    "husky": "^2.2.0",
     "lerna": "3.13.4",
+    "lint-staged": "^8.1.6",
     "prettier": "^1.17.0"
   }
 }

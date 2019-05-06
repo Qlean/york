@@ -14,7 +14,8 @@
     "clean": "rimraf coverage lib",
     "lint": "eslint . --ext .js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

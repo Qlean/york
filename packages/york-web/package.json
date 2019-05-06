@@ -12,7 +12,8 @@
     "watch": "babel src -d lib --ignore test.js -w --copy-files",
     "build": "npm run clean && babel src -d lib --ignore test.js --copy-files",
     "clean": "rimraf lib",
-    "lint": "eslint src --ext .js"
+    "lint": "eslint src --ext .js",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@qlean/york-core": "^0.3.5",

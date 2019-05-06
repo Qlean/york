@@ -11,7 +11,8 @@
   "scripts": {
     "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
-    "clean": "rimraf lib"
+    "clean": "rimraf lib",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@qlean/york-core": "^0.1.0",
