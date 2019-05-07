@@ -21,8 +21,7 @@ const getBaseCss = ({ height, width }) => `
   width: ${sizes[width]}px;
 `
 
-const getCss = initialProps => {
-  const props = { ...defaultProps, ...initialProps }
+const getCss = props => {
   const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
     ['height', 'width'],
     props,
@@ -36,17 +35,25 @@ const getCss = initialProps => {
   `
 }
 
+/**
+ * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать только значения указанные в core/sizes.
+ */
 const Separator = styled.div`
   ${getCss}
 `
 
-Separator.propTypes = {
+const propTypes = {
+  /** Высота разделителя в `UI_GRID_POINT` */
   height: sizesPropTypes,
+  /** Ширина разделителя в `UI_GRID_POINT` */
   width: sizesPropTypes,
-  ...getResponsivePropTypes({
-    height: sizesPropTypes,
-    width: sizesPropTypes,
-  }),
+}
+
+Separator.defaultProps = defaultProps
+
+Separator.propTypes = {
+  ...propTypes,
+  ...getResponsivePropTypes(propTypes),
 }
 
 /** @component */
