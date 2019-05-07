@@ -16,7 +16,8 @@
   },
   "scripts": {
     "start": "lerna run --parallel start",
-    "build": "lerna link && lerna exec --scope @qlean/york-styleguide -- npm run build",
+    "build": "lerna exec --scope @qlean/york-styleguide -- npm run build",
+    "link": "lerna link",
     "bootstrap": "lerna bootstrap",
     "checkup": "lerna run build && lerna run test && lerna run lint",
     "release": "npm run checkup && lerna publish",

@@ -18,22 +18,13 @@ RUN set -ex; \
 
 COPY .nginx /etc/nginx/conf.d/default.conf
 
-# For now, only york-web uses direct dependencies
-
-FROM node:10-alpine as york-web
-WORKDIR /app/packages/york-web
-COPY ./packages/york-web/package.json .npmrc ./
-RUN npm i
-
 FROM node:10-alpine as build
 WORKDIR /app
-COPY package.json package-lock.json .npmrc /app
+COPY package.json package-lock.json .npmrc /app/
 RUN npm i
 COPY . /app
 
-COPY --from=york-web /app/packages/york-web/node_modules ./packages/york-web/node_modules
-
-RUN set -ex; npm run bootstrap
+RUN npm run link
 RUN set -ex; npm run build
 
 FROM base
