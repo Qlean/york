@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Qlean/york.git"
+    "url": "git://github.com/qlean/york.git"
   },
   "private": true,
   "workspaces": [
@@ -20,7 +20,7 @@
     "bootstrap": "lerna bootstrap",
     "checkup": "lerna run build && lerna run test && lerna run lint",
     "release": "npm run checkup && lerna publish",
-    "lint": "eslint packages/york-web --ext .js",
+    "lint": "eslint . --ext .js",
     "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
@@ -43,6 +43,7 @@
     "babel-plugin-styled-components": "^1.10.0",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
+    "eslint-import-resolver-babel-module": "^5.1.0",
     "eslint-import-resolver-webpack": "^0.11.1",
     "file-loader": "^3.0.1",
     "husky": "^2.2.0",

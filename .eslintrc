@@ -1,3 +1,6 @@
 {
-  "extends": "@qlean/eslint-config"
+  "extends": "@qlean/eslint-config",
+  "rules": {
+    "import/no-extraneous-dependencies": 0
+  }
 }
