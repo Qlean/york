@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors } from '@qlean/york-core';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { colors } from '@qlean/york-core'
 
-import { g, borderRadiuses, shadows, media } from 'utils/styles';
+import { g, borderRadiuses, shadows, media } from 'utils/styles'
 
 const StyledFloatingMenu = styled.nav`
   flex-direction: column;
@@ -27,16 +27,14 @@ const StyledFloatingMenu = styled.nav`
   ${media.mobile`
     display: block;
   `}
-`;
+`
 
 const FloatingMenu = ({ children, ...rest }) => (
-  <StyledFloatingMenu {...rest}>
-    {children}
-  </StyledFloatingMenu>
-);
+  <StyledFloatingMenu {...rest}>{children}</StyledFloatingMenu>
+)
 
 FloatingMenu.propTypes = {
   children: PropTypes.node.isRequired,
-};
+}
 
-export default FloatingMenu;
+export default FloatingMenu

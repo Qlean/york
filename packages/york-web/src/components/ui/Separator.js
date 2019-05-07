@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import * as R from 'ramda';
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import * as R from 'ramda'
 
-import { g, withResponsiveProps, legacyMedia } from 'utils/styles';
+import { g, withResponsiveProps, legacyMedia } from 'utils/styles'
 
 const sizes = {
   0: 0,
@@ -16,7 +16,7 @@ const sizes = {
   16: g(16),
   20: g(20),
   24: g(24),
-};
+}
 
 const Separator = styled.div`
   flex-shrink: 0;
@@ -32,11 +32,11 @@ const Separator = styled.div`
     height: ${sizes[height]}px;
     width: ${sizes[width]}px;
   `}
-`;
+`
 
-const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)));
+const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 
 export default withResponsiveProps([
   { name: 'height', propType: sizesPropTypes, defaultValue: 0 },
   { name: 'width', propType: sizesPropTypes, defaultValue: 0 },
-])(Separator);
+])(Separator)

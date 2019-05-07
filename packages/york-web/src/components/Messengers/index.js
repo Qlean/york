@@ -1,33 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-import { messengersShape } from 'utils/propTypes';
-import { g, media } from 'utils/styles';
+import { messengersShape } from 'utils/propTypes'
+import { g, media } from 'utils/styles'
 
-import FacebookIcon from './assets/facebook.svg';
-import TelegramIcon from './assets/telegram.svg';
-import ViberIcon from './assets/viber.svg';
-import VkIcon from './assets/vk.svg';
+import FacebookIcon from './assets/facebook.svg'
+import TelegramIcon from './assets/telegram.svg'
+import ViberIcon from './assets/viber.svg'
+import VkIcon from './assets/vk.svg'
 
 const messengerUtils = {
   facebook: {
     color: '#0084FF',
-    icon: <FacebookIcon/>,
+    icon: <FacebookIcon />,
   },
   vk: {
     color: '#5C81B3',
-    icon: <VkIcon/>,
+    icon: <VkIcon />,
   },
   telegram: {
     color: '#2CA5E0',
-    icon: <TelegramIcon/>,
+    icon: <TelegramIcon />,
   },
   viber: {
     color: '#7C529E',
-    icon: <ViberIcon/>,
+    icon: <ViberIcon />,
   },
-};
+}
 
 const StyledMessengers = styled.div`
   width: 100%;
@@ -36,7 +36,8 @@ const StyledMessengers = styled.div`
     text-align: left;
   }
 
-  ${({ withMobileFullWidth }) => media.mobile(`
+  ${({ withMobileFullWidth }) =>
+    media.mobile(`
     min-width: ${withMobileFullWidth ? '100%' : `${g(52)}px`};
     width: ${withMobileFullWidth ? '100%' : '80%'};
     max-width: ${g(60)}px;
@@ -48,7 +49,7 @@ const StyledMessengers = styled.div`
     width: 100%;
     max-width: 100%;
   }
-`;
+`
 
 const StyledMessenger = styled.a`
   position: relative;
@@ -56,7 +57,7 @@ const StyledMessenger = styled.a`
   height: ${g(8)}px;
   width: 100%;
   vertical-align: middle;
-  transition: background ease .3s;
+  transition: background ease 0.3s;
   border-radius: ${g(20)}px;
   padding-left: ${g(3)}px;
   line-height: ${g(8)}px;
@@ -65,7 +66,8 @@ const StyledMessenger = styled.a`
   text-decoration: none;
   font-size: 16px;
   color: white;
-  background-color: ${({ messengerCode }) => messengerUtils[messengerCode].color};
+  background-color: ${({ messengerCode }) =>
+    messengerUtils[messengerCode].color};
 
   &:not(:last-child) {
     margin-bottom: ${g(2)}px;
@@ -89,7 +91,8 @@ const StyledMessenger = styled.a`
     line-height: ${g(10)}px;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     text-decoration: none;
     color: white;
   }
@@ -100,7 +103,7 @@ const StyledMessenger = styled.a`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    content: "";
+    content: '';
     left: ${g(2)}px;
     top: 50%;
     height: ${g(4)}px;
@@ -113,9 +116,10 @@ const StyledMessenger = styled.a`
   }
 
   &:hover {
-    background-color: ${({ messengerCode }) => `lighten(${messengerUtils[messengerCode].color}, 10%)`};
+    background-color: ${({ messengerCode }) =>
+      `lighten(${messengerUtils[messengerCode].color}, 10%)`};
   }
-`;
+`
 
 export default function Messengers({
   location,
@@ -138,19 +142,20 @@ export default function Messengers({
           {messengerUtils[messenger.code].icon}
           {messenger.name}
         </StyledMessenger>
-        ))}
+      ))}
     </StyledMessengers>
-  );
+  )
 }
 
 Messengers.defaultProps = {
   withMobileFullWidth: false,
-};
+}
 
 Messengers.propTypes = {
   withMobileFullWidth: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired).isRequired,
-};
+  messengers: PropTypes.arrayOf(PropTypes.shape(messengersShape).isRequired)
+    .isRequired,
+}

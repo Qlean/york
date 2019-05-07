@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import * as R from 'ramda';
-import { colors } from '@qlean/york-core';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import * as R from 'ramda'
+import { colors } from '@qlean/york-core'
 
 import {
   media,
@@ -10,18 +10,9 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from 'utils/styles';
+} from 'utils/styles'
 
-export const htmlTags = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'div',
-  'span',
-];
+export const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span']
 
 export const presets = {
   ph1: {
@@ -91,7 +82,7 @@ export const presets = {
     lineHeight: 15,
     fontWeight: 500,
   },
-};
+}
 
 export const getBaseCss = ({
   color,
@@ -113,52 +104,51 @@ export const getBaseCss = ({
   ${letterSpacing ? `letter-spacing: ${letterSpacing}px` : ''};
   ${textTransform ? `text-transform: ${textTransform}` : ''};
   ${textDecoration ? `text-decoration: ${textDecoration}` : ''};
-`;
+`
 
 const defaultProps = {
   preset: 'text2',
   color: 'coal',
-};
+}
 
-export const getCss = (initialProps) => {
-  const props = { ...defaultProps, ...initialProps };
-  const {
-    mobileProps,
-    baseProps,
-    wideProps,
-  } = mergeStyleProps([
+export const getCss = initialProps => {
+  const props = { ...defaultProps, ...initialProps }
+  const { mobileProps, baseProps, wideProps } = mergeStyleProps([
     unwrapResponsivePreset('preset', presets, props),
-    unwrapResponsiveProps([
-      'color',
-      'fontWeight',
-      'fontSize',
-      'textAlign',
-      'lineHeight',
-      'textDecoration',
-      'textTransform',
-    ], props),
-  ]);
+    unwrapResponsiveProps(
+      [
+        'color',
+        'fontWeight',
+        'fontSize',
+        'textAlign',
+        'lineHeight',
+        'textDecoration',
+        'textTransform',
+      ],
+      props,
+    ),
+  ])
   return `
     font-family: "Museo Sans";
     margin: 0;
     ${media.mobile(getBaseCss(mobileProps))}
     ${media.base(getBaseCss(baseProps))}
     ${media.wide(getBaseCss(wideProps))}
-  `;
-};
+  `
+}
 
 const StyledText = styled.span`
   ${getCss}
-`;
+`
 
 const components = R.pipe(
   R.map(tag => [tag, StyledText.withComponent(tag)]),
   R.fromPairs,
-)(htmlTags);
+)(htmlTags)
 
 export default function Text({ htmlTag, ...rest }) {
-  const StyledTextComponent = components[htmlTag];
-  return <StyledTextComponent {...rest}/>;
+  const StyledTextComponent = components[htmlTag]
+  return <StyledTextComponent {...rest} />
 }
 
 Text.propTypes = {
@@ -171,8 +161,8 @@ Text.propTypes = {
     lineHeight: PropTypes.number,
     fontSize: PropTypes.number,
   }),
-};
+}
 
 Text.defaultProps = {
   htmlTag: 'span',
-};
+}

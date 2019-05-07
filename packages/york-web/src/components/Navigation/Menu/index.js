@@ -1,19 +1,19 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import styled, { createGlobalStyle } from 'styled-components';
-import { colors } from '@qlean/york-core';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import styled, { createGlobalStyle } from 'styled-components'
+import { colors } from '@qlean/york-core'
 
-import { g, media, borderRadiuses } from 'utils/styles';
-import { menuItemsShape } from 'utils/propTypes';
+import { g, media, borderRadiuses } from 'utils/styles'
+import { menuItemsShape } from 'utils/propTypes'
 
-import { Separator, Text } from 'components/ui';
-import { FlexBase } from 'components/flex';
+import { Separator, Text } from 'components/ui'
+import { FlexBase } from 'components/ui/flex'
 
-import FloatingMenu from './FloatingMenu';
-import MenuItem from './MenuItem';
-import { presets } from '../utils';
+import FloatingMenu from './FloatingMenu'
+import MenuItem from './MenuItem'
+import { presets } from '../utils'
 
-const StyledFloatingMenu = styled(FloatingMenu)``;
+const StyledFloatingMenu = styled(FloatingMenu)``
 
 const StyledMenuWrapper = styled.div`
   ${({ isMenuOpened }) => `
@@ -30,7 +30,7 @@ const StyledMenuWrapper = styled.div`
       background: ${colors.white};
     `)}
   `}
-`;
+`
 
 const StyledMenu = styled(FlexBase)`
   height: 100%;
@@ -44,7 +44,7 @@ const StyledMenu = styled(FlexBase)`
   a, a:hover {
     text-decoration: none;
   }
-`;
+`
 
 const StyledCategoryTitle = styled(Text)`
   display: none;
@@ -53,7 +53,7 @@ const StyledCategoryTitle = styled(Text)`
   ${media.mobile`
     display: block;
   `};
-`;
+`
 
 const StyledButtonContainer = styled.div`
   position: relative;
@@ -70,13 +70,13 @@ const StyledButtonContainer = styled.div`
     height: auto;
     margin: 0;
   }
-`;
+`
 
 const StyledHoverButton = styled(MenuItem)`
   ${media.mobile`
     display: none;
   `};
-`;
+`
 
 const StyledFloatingLink = styled(MenuItem)`
   ${media.desktop(`
@@ -88,26 +88,24 @@ const StyledFloatingLink = styled(MenuItem)`
       color: ${colors.coal};
     }
   `)}
-`;
+`
 
 const GlobalStyle = createGlobalStyle`
   body {
-    ${({ isMenuOpened }) => (isMenuOpened ? `
+    ${({ isMenuOpened }) =>
+      isMenuOpened
+        ? `
       ${media.mobile`
         overflow: hidden;
         width: 100%;
         height: 100%;
       `}
-    ` : '')};
+    `
+        : ''};
   }
-`;
+`
 
-const Menu = ({
-  toggleMenu,
-  isMenuOpened,
-  menuItems,
-  preset,
-}) => (
+const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
   <StyledMenuWrapper isMenuOpened={isMenuOpened}>
     <StyledMenu
       alignItems="center"
@@ -144,37 +142,40 @@ const Menu = ({
                   >
                     {link.title}
                   </StyledFloatingLink>
-                  ))}
+                ))}
               </StyledFloatingMenu>
             </StyledButtonContainer>
-          ) : category.items.map(link => (
-            <MenuItem
-              key={link.title}
-              href={link.href}
-              name={link.name}
-              onClick={link.onClick}
-              isAuthButton={link.isAuthButton}
-              LinkComponent={link.LinkComponent}
-              color={presets[preset].link}
-              hoverColor={presets[preset].linkHover}
-              toggleMenu={toggleMenu}
-            >
-              {link.title}
-            </MenuItem>
-          ))}
-          <Separator width={1}/>
+          ) : (
+            category.items.map(link => (
+              <MenuItem
+                key={link.title}
+                href={link.href}
+                name={link.name}
+                onClick={link.onClick}
+                isAuthButton={link.isAuthButton}
+                LinkComponent={link.LinkComponent}
+                color={presets[preset].link}
+                hoverColor={presets[preset].linkHover}
+                toggleMenu={toggleMenu}
+              >
+                {link.title}
+              </MenuItem>
+            ))
+          )}
+          <Separator width={1} />
         </Fragment>
       ))}
     </StyledMenu>
-    <GlobalStyle isMenuOpened={isMenuOpened}/>
+    <GlobalStyle isMenuOpened={isMenuOpened} />
   </StyledMenuWrapper>
-);
+)
 
 Menu.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
-  menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired).isRequired,
+  menuItems: PropTypes.arrayOf(PropTypes.shape(menuItemsShape).isRequired)
+    .isRequired,
   preset: PropTypes.oneOf(Object.keys(presets)),
-};
+}
 
-export default Menu;
+export default Menu

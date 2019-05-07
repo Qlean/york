@@ -9,25 +9,15 @@
     "url": "git://github.com/qlean/york.git"
   },
   "scripts": {
+    "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf coverage lib",
     "lint": "eslint . --ext .js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "watch": "babel src -d lib --ignore test.js -w"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "eslint": "^4.12.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "jest": "^21.2.1",
-    "ramda": "^0.25.0",
-    "rimraf": "^2.6.2"
+    "precommit": "lint-staged"
   },
   "peerDependencies": {
-    "ramda": "*"
+    "ramda": ">=0.26"
   }
 }

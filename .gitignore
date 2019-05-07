@@ -1,7 +1,9 @@
 node_modules
-*.log
-packages/york-*/lib
-packages/york-*/es
 coverage
-.npmrc
+.DS_Store
 .vscode
+*.log
+
+lib
+es
+styleguide

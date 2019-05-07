@@ -1,0 +1,3 @@
+{
+  "extends": "@qlean/eslint-config"
+}

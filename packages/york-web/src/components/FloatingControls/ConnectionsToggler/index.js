@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import throttle from 'lodash.throttle';
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import throttle from 'lodash.throttle'
 
-import { colors } from '@qlean/york-core';
-import { g, shadows } from 'utils/styles';
+import { colors } from '@qlean/york-core'
+import { g, shadows } from 'utils/styles'
 
-import { FlexBase } from 'components/flex';
+import { FlexBase } from 'components/ui/flex'
 
-import MessengersIcon from './messengers.svg';
-import Connections from '../Connections';
+import MessengersIcon from './messengers.svg'
+import Connections from '../Connections'
 
 const StyledIconWrapper = styled(FlexBase)`
   box-shadow: ${shadows.medium};
@@ -32,7 +32,7 @@ const StyledIconWrapper = styled(FlexBase)`
       }
     }
   `}
-`;
+`
 
 class ConnectionsToggler extends Component {
   static propTypes = {
@@ -46,18 +46,18 @@ class ConnectionsToggler extends Component {
   }
 
   onToggleVisibility = () => {
-    this.setState({ isConnectionsVisible: !this.state.isConnectionsVisible });
+    this.setState({ isConnectionsVisible: !this.state.isConnectionsVisible })
   }
 
   onCloseVisibility = () => {
-    this.setState({ isConnectionsVisible: false });
+    this.setState({ isConnectionsVisible: false })
   }
 
-  onThrottledToggleVisibility = throttle(this.onToggleVisibility, 500);
+  onThrottledToggleVisibility = throttle(this.onToggleVisibility, 500)
 
   render() {
-    const { isConnectionsVisible } = this.state;
-    const { extraConnections, togglerColor, togglerColorHovered } = this.props;
+    const { isConnectionsVisible } = this.state
+    const { extraConnections, togglerColor, togglerColorHovered } = this.props
 
     return (
       <Fragment>
@@ -69,7 +69,7 @@ class ConnectionsToggler extends Component {
           togglerColor={togglerColor}
           togglerColorHovered={togglerColorHovered}
         >
-          <MessengersIcon width={30} height={30}/>
+          <MessengersIcon width={30} height={30} />
         </StyledIconWrapper>
         <Connections
           {...this.props}
@@ -78,8 +78,8 @@ class ConnectionsToggler extends Component {
           extraConnections={extraConnections}
         />
       </Fragment>
-    );
+    )
   }
 }
 
-export default ConnectionsToggler;
+export default ConnectionsToggler

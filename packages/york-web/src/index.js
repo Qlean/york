@@ -1,8 +1,9 @@
-export { default as Navigation } from 'components/Navigation';
+// export { default as Navigation } from 'components/Navigation';
 
-export { default as FloatingControls } from 'components/FloatingControls';
-export { floatingFormRefNames, default as FloatingFormScroller } from 'components/FloatingFormScroller';
+// export { default as FloatingControls } from 'components/FloatingControls';
+export { default as Text } from './components/Text'
+// export { floatingFormRefNames, default as FloatingFormScroller } from 'components/FloatingFormScroller';
 
-const test = 'test';
+const test = 'test'
 
-export default test;
+export default test
