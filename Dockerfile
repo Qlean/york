@@ -20,10 +20,9 @@ COPY .nginx /etc/nginx/conf.d/default.conf
 
 FROM node:10-alpine as build
 WORKDIR /app
-# COPY package.json package-lock.json .npmrc /app/
-# RUN npm i
-COPY . /app
+COPY package.json package-lock.json .npmrc /app/
 RUN npm i
+COPY . /app
 
 RUN set -ex; npm run build
 
