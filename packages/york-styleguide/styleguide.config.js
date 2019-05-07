@@ -1,11 +1,19 @@
 const path = require('path')
 
+const getComponentPathLine = originalPath => {
+  const pathSections = originalPath.split('/')
+  const lib = pathSections[1]
+  const component = pathSections[4]
+  return `import { ${component} } from '@qlean/${lib}'`
+}
+
 module.exports = {
   title: 'Qlean Design System',
   webpackConfig: require('./webpack.config.js'),
   exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   pagePerSection: true,
+  getComponentPathLine,
   sections: [
     {
       name: 'Core',
