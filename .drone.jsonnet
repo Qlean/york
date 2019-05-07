@@ -31,7 +31,7 @@ local docker_build_command(tag=docker_img(), target='') =
       { name: 'label', value: 'maintainer=${DRONE_COMMIT_AUTHOR}' },
     ];
 
-  'DOCKER_BUILDKIT=1 docker build . --no-cache ' +
+  'DOCKER_BUILDKIT=1 docker build . ' +
   (if target != '' then std.format('--target %s ', target) else '') +
   std.format('--tag %s ', tag) +
   std.join(' ', std.map(add_docker_param, default_docker_params))
