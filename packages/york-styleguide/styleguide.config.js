@@ -1,19 +1,20 @@
 const path = require('path')
 
-const yorkWebPath = path.resolve(__dirname, '../york-web/src')
-const yorkCorePath = path.resolve(__dirname, '../york-core/src')
+const getComponentPathLine = originalPath => {
+  const pathSections = originalPath.split('/')
+  const lib = pathSections[1]
+  const component = pathSections[4]
+  return `import { ${component} } from '@qlean/${lib}'`
+}
 
 module.exports = {
   title: 'Qlean Design System',
-  components: ['../york-web/src/components/**/*.js'],
   webpackConfig: require('./webpack.config.js'),
+  styleguideDir: 'lib',
   exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   pagePerSection: true,
-  moduleAliases: {
-    '@qlean/york-web': yorkWebPath,
-    '@qlean/york-core': yorkCorePath,
-  },
+  getComponentPathLine,
   sections: [
     {
       name: 'Core',

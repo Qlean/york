@@ -9,14 +9,11 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "babel src -d lib --ignore test.js -w --copy-files",
-    "build": "npm run clean && babel src -d lib --ignore test.js --copy-files",
+    "start": "npm run clean && babel src -d lib -w --copy-files",
+    "build": "npm run clean && babel src -d lib --copy-files",
     "clean": "rimraf lib",
     "lint": "eslint src --ext .js",
     "precommit": "lint-staged"
-  },
-  "dependencies": {
-    "lodash.throttle": "^4.1.1"
   },
   "peerDependencies": {
     "@qlean/york-core": "*",

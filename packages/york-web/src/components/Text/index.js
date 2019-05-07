@@ -10,11 +10,11 @@ import {
   unwrapResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from '../../utils/styles'
+} from 'styles'
 
-export const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span']
+const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span']
 
-export const presets = {
+const presets = {
   ph1: {
     fontSize: 70,
     lineHeight: 75,
@@ -84,7 +84,7 @@ export const presets = {
   },
 }
 
-export const getBaseCss = ({
+const getBaseCss = ({
   color,
   fontWeight,
   fontSize,
@@ -111,7 +111,7 @@ const defaultProps = {
   color: 'coal',
 }
 
-export const getCss = initialProps => {
+const getCss = initialProps => {
   const props = { ...defaultProps, ...initialProps }
   const { mobileProps, baseProps, wideProps } = mergeStyleProps([
     unwrapResponsivePreset('preset', presets, props),

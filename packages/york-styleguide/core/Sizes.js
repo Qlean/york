@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import colors from '../../york-core/src/styles/colors'
-import sizes from '../../york-core/src/styles/sizes'
+import { colors } from '@qlean/york-core'
+import { sizes } from '@qlean/york-web'
 
 const StyledSpace = styled.div`
   background-color: ${colors.blue};
@@ -16,8 +16,8 @@ const StyledSpace = styled.div`
 
 const Spaces = () => (
   <div>
-    {Object.values(sizes).map((size, index) => (
-      <StyledSpace height={size} key={index} />
+    {Object.values(sizes).map(size => (
+      <StyledSpace height={size} key={size} />
     ))}
   </div>
 )

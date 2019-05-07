@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import colors from '../../york-core/src/styles/colors'
+import { colors } from '@qlean/york-core'
 
 const StyledColorBlock = styled.div`
   height: 140px;
@@ -37,10 +38,15 @@ const Color = ({ name, code }) => (
   </StyledColor>
 )
 
+Color.propTypes = {
+  name: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
+}
+
 const ColorsPalette = () => (
   <StyledColors>
-    {Object.entries(colors).map(([name, code], index) => (
-      <Color name={name} code={code} key={index} />
+    {Object.entries(colors).map(([name, code]) => (
+      <Color name={name} code={code} key={name} />
     ))}
   </StyledColors>
 )
