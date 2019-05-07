@@ -10,6 +10,7 @@ const getComponentPathLine = originalPath => {
 module.exports = {
   title: 'Qlean Design System',
   webpackConfig: require('./webpack.config.js'),
+  styleguideDir: 'lib',
   exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   pagePerSection: true,

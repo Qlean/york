@@ -1,9 +1,3 @@
 **/node_modules
-.git
-.DS_Store
-.vscode
-*.log
-
 **/lib
-**/es
-**/styleguide
+.git

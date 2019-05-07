@@ -28,6 +28,6 @@ RUN set -ex; npm run build
 
 FROM base
 WORKDIR /app
-COPY --from=build /app/packages/york-styleguide/styleguide ./build
+COPY --from=build /app/packages/york-styleguide/lib ./build
 CMD ["nginx", "-g", "daemon off;"]
 EXPOSE 80
