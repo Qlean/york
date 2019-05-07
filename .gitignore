@@ -3,7 +3,3 @@ coverage
 .DS_Store
 .vscode
 *.log
-
-lib
-es
-styleguide
