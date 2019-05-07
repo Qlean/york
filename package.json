@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git://github.com/qlean/york.git"
+    "url": "git@github.com:Qlean/york.git"
   },
   "private": true,
   "workspaces": [
