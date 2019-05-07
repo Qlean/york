@@ -33,6 +33,7 @@ COPY . /app
 
 COPY --from=york-web /app/packages/york-web/node_modules ./packages/york-web/node_modules
 
+RUN set -ex; npm run bootstrap
 RUN set -ex; npm run build
 
 FROM base
