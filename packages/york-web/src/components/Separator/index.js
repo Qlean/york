@@ -26,7 +26,6 @@ const getCss = props => {
     ['height', 'width'],
     props,
   )
-
   return `
     flex-shrink: 0;
     ${media.mobile(getBaseCss(mobileProps))}
