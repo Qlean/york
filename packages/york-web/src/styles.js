@@ -77,6 +77,9 @@ const mediaTypePropNames = ['mobileProps', 'baseProps', 'wideProps']
 
 export const unwrapResponsiveProps = (propsNames, props) => {
   let unwrappedProps = {}
+  mediaTypePropNames.forEach(mediaType => {
+    unwrappedProps[mediaType] = {}
+  })
   propsNames.forEach(propName => {
     mediaTypePropNames.forEach(mediaType => {
       const responsiveValue = R.path([mediaType, propName], props)
