@@ -14,7 +14,7 @@ const Box = () => (
   />
 )
 
-;<View flexDirection="row" mobileProps={{ flexDirection: 'column' }}>
+;<View mobileProps={{ flexDirection: 'column' }}>
   <Box />
   <Separator width={2} height={2} />
   <Box />

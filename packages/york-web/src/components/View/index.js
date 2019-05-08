@@ -3,17 +3,13 @@ import styled from 'styled-components'
 
 import { media, unwrapResponsiveProps, getResponsivePropTypes } from 'styles'
 
-const defaultProps = {
-  flexDirection: 'column',
-}
-
 const getBaseCss = ({
   flexDirection,
   alignItems,
   justifyContent,
   flexWrap,
 }) => `
-  flex-direction: ${flexDirection};
+  ${flexDirection ? `flex-direction: ${flexDirection};` : ''}
   ${alignItems ? `align-items: ${alignItems};` : ''}
   ${justifyContent ? `justify-content: ${justifyContent};` : ''}
   ${flexWrap ? `flex-wrap: ${flexWrap};` : ''}
@@ -55,8 +51,6 @@ const propTypes = {
   ]),
   flexWrap: PropTypes.oneOf(['nowrap', 'wrap', 'wrap-reverse']),
 }
-
-View.defaultProps = defaultProps
 
 View.propTypes = {
   ...propTypes,
