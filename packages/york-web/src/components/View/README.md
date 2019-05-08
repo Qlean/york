@@ -1,5 +1,3 @@
-Text example:
-
 ```js
 import { colors } from '@qlean/york-core'
 import { View, Separator } from '@qlean/york-web'
