@@ -7,9 +7,11 @@ const StyledBox = styled(Example.Box)`
   width: auto;
 `
 
-;<GridContainer>
-  <GridColumn>
-    <StyledBox>12</StyledBox>
-  </GridColumn>
-</GridContainer>
+;<Example.Container>
+  <GridContainer>
+    <GridColumn>
+      <StyledBox>12</StyledBox>
+    </GridColumn>
+  </GridContainer>
+</Example.Container>
 ```

@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
+import { sizes } from 'styles'
+
 import Text from './Text'
 
 const StyledBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: ${sizes[8]}px;
+  height: ${sizes[8]}px;
   background-color: ${colors.blue};
 `
 
@@ -31,6 +33,13 @@ Box.propTypes = {
   children: PropTypes.node,
 }
 
-const Example = { Box }
+const StyledContainer = styled.div`
+  overflow: auto;
+`
+
+const Example = {
+  Box,
+  Container: StyledContainer,
+}
 
 export default Example

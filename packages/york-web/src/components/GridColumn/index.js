@@ -2,28 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { media, unwrapResponsiveProps, getResponsivePropTypes } from 'styles'
+import {
+  media,
+  mediaMaxWidths,
+  unwrapResponsiveProps,
+  getResponsivePropTypes,
+} from 'styles'
 
 import View from '../View'
 import GridContainer from '../GridContainer'
 
-const columnWidth = 100 / 12
+const getStaticColumn = ({ columns }, containerWidth) =>
+  columns
+    ? `width: ${columns * ((containerWidth + GridContainer.GUTTER) / 12)}px;`
+    : 'display: none;'
 
-const getBaseCss = ({ columns }) =>
-  columns ? `width: ${columns * columnWidth}%;` : 'display: none;'
+const getFlexibleColumn = ({ columns }) =>
+  columns ? `width: ${(columns * 100) / 12}%;` : 'display: none;'
 
 const getCss = props => {
   const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
     ['columns'],
     props,
   )
+  if (process.env.NODE_ENV !== 'production' && !props.isChildOfGridContainer) {
+    // eslint-disable-next-line no-console
+    console.warn('GridColumn should be direct child of GridContainer')
+  }
   return `
     padding-left: ${GridContainer.GUTTER}px;
     box-sizing: border-box;
     flex-shrink: 0;
-    ${media.mobile(getBaseCss(mobileProps))}
-    ${media.base(getBaseCss(baseProps))}
-    ${media.wide(getBaseCss(wideProps))}
+    ${media.mobile(getFlexibleColumn(mobileProps))}
+    ${media.base(getStaticColumn(baseProps, mediaMaxWidths.base))}
+    ${media.wide(getStaticColumn(wideProps, mediaMaxWidths.wide))}
   `
 }
 
@@ -41,7 +53,7 @@ const GridColumn = props => (
 const defaultProps = { columns: 12 }
 
 const propTypes = {
-  /** Ширина колонки в двенадцатых долях от максимальной ширины контейнера */
+  /** Ширина колонки в двенадцатых долях от ширины контейнера на мобилах и от максимальной ширины контейнера на декстопе */
   columns: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
 }
 
