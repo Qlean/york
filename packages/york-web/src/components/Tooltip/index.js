@@ -75,7 +75,7 @@ export default function Tooltip({ tooltip, children }) {
   }
 
   /*
-    It's preferrable to use onMouseOver with useLayoutEffect because when component mounts, fonts
+    It's mandatory to use onMouseOver with useLayoutEffect because when component mounts, fonts
     are stll not loaded, and getBoundingClientRect will return wrong values. There is still no
     cross-browser way to set a callback to "all fonts are loaded" event. Also it works with SSR.
 
