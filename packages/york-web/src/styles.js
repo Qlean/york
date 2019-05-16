@@ -38,6 +38,8 @@ export const borderRadiuses = {
   none: 'none',
 }
 
+export const minScreenWidth = 320
+
 export const mediaBreakpoints = {
   base: 991,
   wide: 1280,
