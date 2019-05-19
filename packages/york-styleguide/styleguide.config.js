@@ -33,6 +33,11 @@ module.exports = {
       name: 'Web',
       components: '../york-web/src/components/**/*.js',
     },
+    {
+      name: 'Native',
+      components: '../york-react-native/src/components/**/*.js',
+      pagePerSection: true,
+    },
   ],
   theme: {
     color: {
