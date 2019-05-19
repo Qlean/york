@@ -6,12 +6,10 @@ import { colors } from '@qlean/york-core'
 const sizes = {
   m: {
     height: 50,
-    borderRadius: 4,
   },
   s: {
     height: 35,
     width: 120,
-    borderRadius: 4,
   },
 }
 
@@ -31,16 +29,22 @@ const presets = {
     text: { color: colors.green },
   },
   greyLinear: {
-    button: { backgroundColor: colors.white, borderColor: '#EEEEEE' },
+    button: { backgroundColor: colors.white, borderColor: colors.grey },
     text: { color: colors.coal },
   },
 }
 
 const style = StyleSheet.create({
-  main: { alignItems: 'center', justifyContent: 'center' },
+  main: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    borderWidth: 1,
+  },
   text: { color: colors.white },
   disabled: { backgroundColor: colors.smoke, borderColor: colors.smoke },
   disabledText: { color: colors.grey },
+  /* eslint-disable react-native/no-unused-styles */
   s: { ...sizes.s },
   m: { ...sizes.m },
   green: { ...presets.green.button },
@@ -51,12 +55,13 @@ const style = StyleSheet.create({
   greenLinearText: { ...presets.greenLinear.text },
   greyLinear: { ...presets.greyLinear.button },
   greyLinearText: { ...presets.greyLinear.text },
+  /* eslint-disable react-native/no-unused-styles */
 })
 
 /**
  * Компонент кнопки.
  */
-const Button = ({ children, isDisabled, preset, size }) => (
+const Button = ({ children, isDisabled, preset, size, ...props }) => (
   <TouchableOpacity
     style={[
       style.main,
@@ -66,6 +71,7 @@ const Button = ({ children, isDisabled, preset, size }) => (
     ]}
     disabled={isDisabled}
     activeOpacity={0.8}
+    {...props}
   >
     <Text
       style={[
@@ -80,6 +86,7 @@ const Button = ({ children, isDisabled, preset, size }) => (
 )
 
 Button.defaultProps = {
+  isDisabled: false,
   preset: 'green',
   size: 'm',
 }

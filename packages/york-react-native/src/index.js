@@ -1,1 +1,1 @@
-export { default as Text } from './Text/Text' //eslint-disable-line
+export { default as Button } from './components/Button' //eslint-disable-line

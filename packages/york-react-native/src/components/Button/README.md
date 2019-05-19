@@ -4,7 +4,7 @@
 Green — основная, может использоваться только на белом #FFFFFF или светло-сером #F8F8F8 фоне
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button preset="green">Кнопка</Button>
+  <Button onPress={() => {}} preset="green">Кнопка</Button>
   <Button preset="green" isDisabled>Кнопка</Button>
 </div>
 ```
