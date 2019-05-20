@@ -22,6 +22,22 @@ $ npm run bootstrap
 $ npm start
 ```
 
+## Линковка
+
+### React-native
+Стандартный `react-native` сборщик не дружит с `npm link`, поэтому для линковки используется [wml](https://github.com/wix/wml).
+
+Сначала создадим линк.
+```
+npm install -g wml
+wml add /path-to-york/packages/york-react-native/ /path-to-react-native-app/node_modules/@qlean/york-react-native
+```
+
+Теперь, всякий раз при локальном использовании йорка достаточно использовать
+```
+wml start
+```
+
 ## Публикация
 
 Работает только из ветки `master`

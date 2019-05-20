@@ -3,16 +3,6 @@ import PropTypes from 'prop-types'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-const sizes = {
-  m: {
-    height: 50,
-  },
-  s: {
-    height: 35,
-    width: 120,
-  },
-}
-
 const presets = {
   green: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
@@ -45,23 +35,26 @@ const style = StyleSheet.create({
   disabled: { backgroundColor: colors.smoke, borderColor: colors.smoke },
   disabledText: { color: colors.grey },
   /* eslint-disable react-native/no-unused-styles */
-  s: { ...sizes.s },
-  m: { ...sizes.m },
-  green: { ...presets.green.button },
-  black: { ...presets.black.button },
-  grey: { ...presets.grey.button },
-  greyText: { ...presets.grey.text },
-  greenLinear: { ...presets.greenLinear.button },
-  greenLinearText: { ...presets.greenLinear.text },
-  greyLinear: { ...presets.greyLinear.button },
-  greyLinearText: { ...presets.greyLinear.text },
+  s: { height: 50 },
+  m: {
+    height: 35,
+    width: 120,
+  },
   /* eslint-disable react-native/no-unused-styles */
+  ...Object.keys(presets).reduce(
+    (acc, preset) => ({
+      ...acc,
+      [preset]: presets[preset].button,
+      [`${preset}Text`]: presets[preset].text || {},
+    }),
+    {},
+  ),
 })
 
 /**
  * Компонент кнопки.
  */
-const Button = ({ children, isDisabled, preset, size, ...props }) => (
+const Button = ({ children, isDisabled, preset, size, Icon, ...props }) => (
   <TouchableOpacity
     style={[
       style.main,
@@ -73,6 +66,8 @@ const Button = ({ children, isDisabled, preset, size, ...props }) => (
     activeOpacity={0.8}
     {...props}
   >
+    {/* Temporary solution. Use iconName when Icon component will ready  */}
+    {Icon ? <Icon /> : null}
     <Text
       style={[
         style.text,
@@ -89,6 +84,7 @@ Button.defaultProps = {
   isDisabled: false,
   preset: 'green',
   size: 'm',
+  Icon: null,
 }
 
 Button.propTypes = {
@@ -97,7 +93,9 @@ Button.propTypes = {
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
-  size: PropTypes.oneOf(Object.keys(sizes)),
+  size: PropTypes.oneOf(Object.keys(['s', 'm'])),
+  children: PropTypes.node.isRequired,
+  Icon: PropTypes.element,
 }
 
 export default Button
