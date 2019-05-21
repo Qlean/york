@@ -2,23 +2,35 @@
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { GridContainer, GridColumn, Example } from '@qlean/york-web'
+import { media } from 'styles'
 
-const StyledBox = styled(Example.Box)`
+const StyledBoxDesktop = styled(Example.Box)`
   width: auto;
+  ${media.mobile('display: none;')}
 `
+
+const StyledBoxMobile = styled(Example.Box)`
+  width: auto;
+  ${media.desktop('display: none;')}
+`
+
 ;<Example.Container>
   <GridContainer>
-    <GridColumn columns={1}>
-      <StyledBox>1</StyledBox>
+    <GridColumn columns={1} mobileProps={{ columns: 3 }}>
+      <StyledBoxDesktop>1</StyledBoxDesktop>
+      <StyledBoxMobile>3</StyledBoxMobile>
     </GridColumn>
-    <GridColumn columns={2}>
-      <StyledBox>2</StyledBox>
+    <GridColumn columns={2} mobileProps={{ columns: 3 }}>
+      <StyledBoxDesktop>2</StyledBoxDesktop>
+      <StyledBoxMobile>3</StyledBoxMobile>
     </GridColumn>
-    <GridColumn columns={3}>
-      <StyledBox>3</StyledBox>
+    <GridColumn columns={3} mobileProps={{ columns: 3 }}>
+      <StyledBoxDesktop>3</StyledBoxDesktop>
+      <StyledBoxMobile>3</StyledBoxMobile>
     </GridColumn>
-    <GridColumn columns={6}>
-      <StyledBox>6</StyledBox>
+    <GridColumn columns={6} mobileProps={{ columns: 3 }}>
+      <StyledBoxDesktop>6</StyledBoxDesktop>
+      <StyledBoxMobile>3</StyledBoxMobile>
     </GridColumn>
   </GridContainer>
 </Example.Container>

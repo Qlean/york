@@ -8,9 +8,14 @@ const StyledBox = styled(Example.Box)`
 `
 
 ;<Example.Container>
-  <GridContainer>
-    <GridColumn>
-      <StyledBox>12</StyledBox>
+  <GridContainer
+    mobileProps={{ flexDirection: 'column', alignItems: 'center' }}
+  >
+    <GridColumn columns={6}>
+      <StyledBox>6</StyledBox>
+    </GridColumn>
+    <GridColumn columns={6}>
+      <StyledBox>6</StyledBox>
     </GridColumn>
   </GridContainer>
 </Example.Container>
