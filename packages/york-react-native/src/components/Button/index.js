@@ -35,11 +35,11 @@ const style = StyleSheet.create({
   disabled: { backgroundColor: colors.smoke, borderColor: colors.smoke },
   disabledText: { color: colors.grey },
   /* eslint-disable react-native/no-unused-styles */
-  s: { height: 50 },
-  m: {
+  s: {
     height: 35,
     width: 120,
   },
+  m: { height: 50 },
   /* eslint-disable react-native/no-unused-styles */
   ...Object.keys(presets).reduce(
     (acc, preset) => ({
