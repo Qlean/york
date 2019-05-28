@@ -1,14 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { colors } from '@qlean/york-core'
+import { Example, sizes, borderRadiuses } from '@qlean/york-web'
 
 const StyledColorBlock = styled.div`
-  height: 140px;
-  width: 140px;
+  height: ${sizes[20]}px;
+  width: ${sizes[20]}px;
   background-color: ${({ code }) => code};
-  border-radius: 5px;
+  border-radius: ${borderRadiuses.medium};
   border: 1px solid ${colors.whisper};
 `
 
@@ -18,37 +18,19 @@ const StyledColorLabel = styled.div`
   font-size: 15px;
   line-height: 20px;
   text-transform: capitalize;
-  margin-top: 5px;
+  margin-top: ${sizes[1]}px;
 `
-
-const StyledColors = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const StyledColor = styled.div`
-  margin: 10px;
-`
-
-const Color = ({ name, code }) => (
-  <StyledColor>
-    <StyledColorBlock code={code} />
-    <StyledColorLabel>{name}</StyledColorLabel>
-    <StyledColorLabel>{code}</StyledColorLabel>
-  </StyledColor>
-)
-
-Color.propTypes = {
-  name: PropTypes.string.isRequired,
-  code: PropTypes.string.isRequired,
-}
 
 const ColorsPalette = () => (
-  <StyledColors>
+  <Example.Palette>
     {Object.entries(colors).map(([name, code]) => (
-      <Color name={name} code={code} key={name} />
+      <Example.PaletteItem key={name}>
+        <StyledColorBlock code={code} />
+        <StyledColorLabel>{name}</StyledColorLabel>
+        <StyledColorLabel>{code}</StyledColorLabel>
+      </Example.PaletteItem>
     ))}
-  </StyledColors>
+  </Example.Palette>
 )
 
 export default ColorsPalette

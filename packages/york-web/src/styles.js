@@ -20,6 +20,7 @@ export const sizes = {
 }
 
 export const shadows = {
+  none: 'none',
   light: '0 1px 2px 0 rgba(0,0,0,0.10)',
   medium: '0 1px 2px rgba(0,0,0,0.25)',
   strong: '0 2px 6px 0 rgba(0,0,0,0.30)',
@@ -32,10 +33,10 @@ export const transitions = {
 }
 
 export const borderRadiuses = {
+  none: 'none',
   small: '4px',
   medium: '6px',
   round: '100px',
-  none: 'none',
 }
 
 export const minScreenWidth = 320

@@ -111,7 +111,7 @@ export default function Tooltip({ tooltip, children }) {
 }
 
 Tooltip.propTypes = {
-  /** Содержимое тултипа. Если это строка, она будет обернута в Text с параметрами по умолчанию. */
+  /** Содержимое тултипа. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
   tooltip: PropTypes.node.isRequired,
   /** Элемент, относительно коротого позиционируется тултип. Может быть как строчным, так и блочным. */
   children: PropTypes.node.isRequired,

@@ -44,7 +44,7 @@ const StyledGridColumn = styled(View)`
 `
 
 /**
- * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме GridContainer. Основана на View и поддерживает все его пропсы.
+ * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме `<GridContainer>`. Основана на `<View>` и поддерживает все его пропсы.
  */
 const GridColumn = props => (
   <StyledGridColumn flexDirection="column" {...props} />

@@ -20,7 +20,7 @@ const StyledGridContent = styled(View)`
 `
 
 /**
- * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме GridColumn. Основан на View и поддерживает все его пропсы.
+ * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме `<GridColumn>`. Основан на `<View>` и поддерживает все его пропсы.
  */
 export default function GridContainer({ children, ...rest }) {
   return process.env.NODE_ENV === 'production' ? (
@@ -46,7 +46,7 @@ export default function GridContainer({ children, ...rest }) {
 }
 
 GridContainer.propTypes = {
-  /** Колонки, должны иметь тип GridColumn */
+  /** Колонки, должны иметь тип `GridColumn` */
   children: PropTypes.node.isRequired,
 }
 

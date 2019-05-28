@@ -10,7 +10,7 @@ const StyledSpace = styled.div`
   width: 100%;
 
   &:not(:last-child) {
-    margin-bottom: 30px;
+    margin-bottom: ${sizes[6]}px;
   }
 `
 

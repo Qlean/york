@@ -48,10 +48,19 @@ module.exports = {
     sidebarWidth: 250,
   },
   styles: {
-    Logo: {
-      logo: {
-        color: '#222222',
-        fontSize: '20px',
+    StyleGuide: {
+      footer: {
+        display: 'none',
+      },
+    },
+    Table: {
+      cell: {
+        lineHeight: '20px',
+      },
+    },
+    Code: {
+      code: {
+        color: '#767676',
       },
     },
   },

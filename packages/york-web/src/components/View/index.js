@@ -29,26 +29,30 @@ const getCss = props => {
 }
 
 /**
- * Универсальный контейнер, аналог View из React Native.
+ * Универсальный контейнер, аналог `<View>` из React Native.
  */
 const View = styled.div`
   ${getCss}
 `
 
 const propTypes = {
+  /** Аналог `flex-direction` */
   flexDirection: PropTypes.oneOf([
     'column',
     'column-reverse',
     'row',
     'row-reverse',
   ]),
+  /** Аналог `align-items` */
   alignItems: PropTypes.oneOf(['stretch', 'center', 'flex-start', 'flex-end']),
+  /** Аналог `justify-content` */
   justifyContent: PropTypes.oneOf([
     'flex-start',
     'center',
     'flex-end',
     'space-between',
   ]),
+  /** Аналог `flex-wrap` */
   flexWrap: PropTypes.oneOf(['nowrap', 'wrap', 'wrap-reverse']),
 }
 
