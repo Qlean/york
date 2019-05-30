@@ -113,6 +113,7 @@ const getCss = props => {
   )
   return `
     appearance: none !important;
+    outline: none !important;
     box-sizing: border-box;
     padding: 0 ${sizes[2]}px;
     transition: ${transitions.short};
@@ -121,9 +122,6 @@ const getCss = props => {
     cursor: ${isDisabled ? 'default' : 'pointer'};
     border-radius: ${borderRadiuses[borderRadius]};
     box-shadow: ${shadows[shadow]};
-    :focus {
-      outline: 2px solid ${colors.silver};
-    }
     ${media.mobile(`
       height: ${getHeight('m')};
       ${getMediaCss({ ...props, ...mobileProps })}
