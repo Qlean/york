@@ -163,7 +163,7 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
 
 const defaultProps = {
   // eslint-disable-next-line react/default-props-match-prop-types
-  preset: 'black',
+  preset: 'primary',
   size: 'm',
   borderRadius: 'medium',
   shadow: 'none',
