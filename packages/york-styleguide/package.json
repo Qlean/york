@@ -9,5 +9,8 @@
     "build": "styleguidist build",
     "lint": "eslint . --ext .js",
     "precommit": "lint-staged"
+  },
+  "peerDependencies": {
+    "ramda": "*"
   }
 }

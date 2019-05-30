@@ -140,3 +140,5 @@ export const getResponsivePropTypes = propTypes => ({
     R.fromPairs,
   )(mediaTypePropNames),
 })
+
+export default 'wat'

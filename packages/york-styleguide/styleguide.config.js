@@ -1,5 +1,7 @@
 const path = require('path')
 
+const propsParser = require('./propsParser')
+
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
@@ -34,6 +36,7 @@ module.exports = {
       components: '../york-web/src/components/**/*.js',
     },
   ],
+  propsParser,
   theme: {
     color: {
       link: '#222222',

@@ -17,168 +17,56 @@ import {
 import Text from '../Text'
 
 const presets = {
-  blank: {},
-  transparent: {
-    color: 'green',
-    borderColor: 'transparent',
-    hoverProps: {
-      css: `
-        color: #5FC083;
-      `,
-    },
-    disabledProps: {
-      css: `
-        color: #A2DDB8;
-      `,
-    },
-  },
   primary: {
     color: 'white',
     backgroundColor: 'green',
     hoverProps: {
       backgroundColor: 'jungle',
     },
+    activeProps: {
+      backgroundColor: 'green',
+    },
     disabledProps: {
       color: 'grey',
       backgroundColor: 'whisper',
     },
   },
-  transparentLinear: {
-    borderColor: 'silver',
-    borderRadius: 'small',
-    backgroundColor: 'transparent',
-    color: 'coal',
+  secondary: {
+    color: 'green',
+    backgroundColor: 'white',
+    borderColor: 'green',
     hoverProps: {
-      css: `
-        border-color: ${colors.grey};
-        color: ${colors.coal};
-      `,
-    },
-    disabledProps: {
-      color: 'grey',
-      css: 'border-color: #efefef;',
-    },
-  },
-  black: {
-    borderRadius: 'small',
-    backgroundColor: 'black',
-    color: 'white',
-    hoverProps: {
-      css: `
-        background-color: ${colors.coal};
-        color: ${colors.white};
-      `,
-    },
-    disabledProps: {
-      backgroundColor: 'grey',
-    },
-  },
-  green: {
-    borderRadius: 'small',
-    backgroundColor: 'green',
-    color: 'white',
-    hoverProps: {
-      css: `
-        background-color: #23B059;
-        border-color: #23B059;
-      `,
-    },
-    disabledProps: {
-      css: `
-        background-color: #8AD4A6;
-        border-color: #8AD4A6;
-      `,
-    },
-  },
-  grey: {
-    borderColor: 'grey',
-    borderRadius: 'small',
-    backgroundColor: 'grey',
-    color: 'white',
-    hoverProps: {
-      css: `
-        filter: brightness(110%);
-        color: ${colors.white};
-      `,
-    },
-    disabledProps: {
       color: 'white',
-      css: `border-color: ${colors.grey};`,
+      backgroundColor: 'jungle',
     },
-  },
-  grayLinear: {
-    borderColor: 'silver',
-    borderRadius: 'small',
-    backgroundColor: 'white',
-    color: 'coal',
-    hoverProps: {
-      css: `
-        border-color: ${colors.grey};
-        color: ${colors.coal};
-      `,
+    activeProps: {
+      color: 'white',
+      backgroundColor: 'green',
     },
     disabledProps: {
       color: 'grey',
-      css: 'border-color: #efefef;',
+      borderColor: 'silver',
     },
   },
-  greenLinear: {
-    borderColor: 'green',
-    borderRadius: 'small',
-    color: 'green',
-    hoverProps: {
-      css: `
-        border-color: #5FC083;
-        color: #5FC083;
-      `,
-    },
-    disabledProps: {
-      css: `
-        border-color: #A2DDB8;
-        color: #A2DDB8;
-      `,
-    },
-  },
-  greenRound: {
-    borderRadius: 'round',
-    backgroundColor: 'green',
-    color: 'white',
-    hoverProps: {
-      css: `
-        transform: translateY(-3px);
-        box-shadow: 0 10px 10px 0 rgba(0,59,23,0.10);
-        color: ${colors.white};
-      `,
-    },
-  },
-  greenRoundLinear: {
-    borderColor: 'green',
-    borderRadius: 'round',
-    color: 'green',
-    hoverProps: {
-      css: `
-        transform: translateY(-3px);
-        box-shadow: 0 10px 10px 0 rgba(0,59,23,0.10);
-        color: ${colors.green};
-      `,
-    },
-    disabledProps: {
-      css: `
-        border-color: #A2DDB8;
-        color: #A2DDB8;
-      `,
-    },
-  },
-  whiteRound: {
-    borderRadius: 'round',
+  tertiary: {
+    color: 'black',
     backgroundColor: 'white',
-    color: 'coal',
+    borderColor: 'silver',
     hoverProps: {
-      css: `
-        transform: translateY(-3px);
-        box-shadow: 0 10px 10px 0 rgba(0,59,23,0.10);
-        color: ${colors.coal};
-      `,
+      backgroundColor: 'smoke',
+    },
+    activeProps: {
+      backgroundColor: 'white',
+    },
+    disabledProps: {
+      color: 'grey',
+      borderColor: 'silver',
+    },
+  },
+  blank: {
+    backgroundColor: 'transparent',
+    disabledProps: {
+      color: 'black',
     },
   },
 }
@@ -194,26 +82,30 @@ const getHeight = size => {
   }
 }
 
-const getBaseCss = ({ color, backgroundColor, borderColor, css }) => `
+const getBaseCss = ({ color, backgroundColor, borderColor }) => `
   color: ${colors[color]};
   background-color: ${colors[backgroundColor] || 'transparent'};
-  ${
-    borderColor || backgroundColor
-      ? `border: 1px solid ${colors[borderColor || backgroundColor]};`
-      : 'border: 1px solid;'
-  }
-  ${css || ''};
+  border: 1px solid ${colors[borderColor || backgroundColor]};
 `
 
-const getMediaCss = ({ hoverProps, disabledProps, isDisabled, ...rest }) => `
+const getMediaCss = ({
+  hoverProps,
+  activeProps,
+  disabledProps,
+  isDisabled,
+  ...rest
+}) => `
   ${getBaseCss(isDisabled ? { ...rest, ...disabledProps } : rest)}
   &:hover {
     ${isDisabled ? '' : getBaseCss({ ...rest, ...hoverProps })}
   }
+  &:active {
+    ${isDisabled ? '' : getBaseCss({ ...rest, ...activeProps })}
+  }
 `
 
 const getCss = props => {
-  const { size, borderRadius, isDisabled } = props
+  const { shadow, size, borderRadius, isDisabled } = props
   const { mobileProps, baseProps, wideProps } = unwrapResponsivePreset(
     'preset',
     presets,
@@ -221,7 +113,6 @@ const getCss = props => {
   )
   return `
     appearance: none !important;
-    outline: none !important;
     box-sizing: border-box;
     padding: 0 ${sizes[2]}px;
     transition: ${transitions.short};
@@ -229,6 +120,10 @@ const getCss = props => {
     width: 100%;
     cursor: ${isDisabled ? 'default' : 'pointer'};
     border-radius: ${borderRadiuses[borderRadius]};
+    box-shadow: ${shadows[shadow]};
+    :focus {
+      outline: 2px solid ${colors.silver};
+    }
     ${media.mobile(`
       height: ${getHeight('m')};
       ${getMediaCss({ ...props, ...mobileProps })}
@@ -288,8 +183,10 @@ Button.propTypes = {
   ...propTypes,
   ...getResponsivePropTypes(propTypes),
   /** Размер кнопки, влияет только на высоту */
-  size: PropTypes.oneOf(['m', 'l']),
+  size: PropTypes.oneOf(['s', 'm']),
+  /** Радиус скругления */
   borderRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
+  /** Тень */
   shadow: PropTypes.oneOf(Object.keys(shadows)),
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
