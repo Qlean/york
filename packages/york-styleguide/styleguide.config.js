@@ -19,7 +19,8 @@ module.exports = {
   getComponentPathLine,
   sections: [
     {
-      name: 'Core',
+      name: 'york-core',
+      description: 'Стили и утилиты для всех приложений',
       sections: [
         {
           name: 'colors',
@@ -32,7 +33,9 @@ module.exports = {
       ],
     },
     {
-      name: 'Web',
+      name: 'york-web',
+      description: 'Компоненты и утилиты для веб-приложений',
+      content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
     },
   ],

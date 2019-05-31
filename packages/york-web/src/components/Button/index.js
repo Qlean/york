@@ -113,7 +113,6 @@ const getCss = props => {
   )
   return `
     appearance: none !important;
-    outline: none !important;
     box-sizing: border-box;
     padding: 0 ${sizes[2]}px;
     transition: ${transitions.short};
@@ -146,6 +145,10 @@ const StyledText = styled(Text)`
   color: inherit;
 `
 
+/**
+ *  Кнопка, используется для всякого кликабельного. Главный параметр отвечающий за внеший вид — `preset`.
+ *  Пресет `blank` не используется в дизайне, но полезен для элементов на основе кнопки, например, табов.
+ */
 function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
   return (
     <StyledButton
@@ -155,7 +158,11 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
       onClick={!isDisabled && !isSubmitting ? onClick : null}
     >
       <StyledContent>
-        <StyledText>{isSubmitting ? 'Загрузка...' : children}</StyledText>
+        {typeof children === 'string' ? (
+          <StyledText>{isSubmitting ? 'Загрузка...' : children}</StyledText>
+        ) : (
+          children
+        )}
       </StyledContent>
     </StyledButton>
   )
@@ -188,8 +195,8 @@ Button.propTypes = {
   shadow: PropTypes.oneOf(Object.keys(shadows)),
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
-  /** Текст на кнопке */
-  children: PropTypes.string.isRequired,
+  /** Содержимое кнопки. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  children: PropTypes.node.isRequired,
   /** Активна ли кнопка */
   isDisabled: PropTypes.bool.isRequired,
   /** Идет ли отправка данных. Показывает на кнопке лоадер и дизейблит ее. */
