@@ -18,7 +18,7 @@ import { Separator } from '@qlean/york-web'
     Header 2
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Заголовок блоков страниц в десктопной версии
   </Text>
   <Text htmlTag="div" preset="header2">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -29,7 +29,7 @@ import { Separator } from '@qlean/york-web'
     Header 3
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Заголовок страницы в мобильной версии, выделение контента внутри блока на десктопе
   </Text>
   <Text htmlTag="div" preset="header3">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -40,7 +40,7 @@ import { Separator } from '@qlean/york-web'
     Header 4
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Заголовок блока в мобильной версии, название секций в формах и личном кабинете
   </Text>
   <Text htmlTag="div" preset="header4">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -51,7 +51,7 @@ import { Separator } from '@qlean/york-web'
     Header 5
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Заголовок страницы в десктопной версии
   </Text>
   <Text htmlTag="div" preset="header5">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -62,7 +62,7 @@ import { Separator } from '@qlean/york-web'
     Text Large
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Текст на лендингах
   </Text>
   <Text htmlTag="div" preset="textLarge">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -73,7 +73,7 @@ import { Separator } from '@qlean/york-web'
     Text Strong
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+     
   </Text>
   <Text htmlTag="div" preset="textStrong">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -84,7 +84,7 @@ import { Separator } from '@qlean/york-web'
     Text
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+    Обычный текст
   </Text>
   <Text htmlTag="div" preset="text">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
@@ -94,7 +94,7 @@ import { Separator } from '@qlean/york-web'
     Caption
   </Text>
   <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
+     
   </Text>
   <Text htmlTag="div" preset="caption">
     Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
