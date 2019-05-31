@@ -15,52 +15,42 @@ import {
 const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span']
 
 const presets = {
-  ph1: {
+  header1: {
     fontSize: 70,
     lineHeight: 75,
     fontWeight: 700,
   },
-  ph2: {
-    fontSize: 60,
-    lineHeight: 65,
-    fontWeight: 700,
-  },
-  ph3: {
-    fontSize: 50,
-    lineHeight: 55,
-    fontWeight: 700,
-  },
-  h1: {
+  header2: {
     fontSize: 40,
     lineHeight: 45,
     fontWeight: 700,
   },
-  h2: {
+  header3: {
     fontSize: 30,
     lineHeight: 35,
     fontWeight: 700,
   },
-  h3: {
+  header4: {
     fontSize: 25,
     lineHeight: 30,
     fontWeight: 700,
   },
-  h4: {
+  header5: {
     fontSize: 20,
     lineHeight: 25,
     fontWeight: 700,
   },
-  h5: {
+  textStrong: {
     fontSize: 16,
     lineHeight: 25,
     fontWeight: 700,
   },
-  text1: {
+  textLarge: {
     fontSize: 20,
     lineHeight: 30,
     fontWeight: 500,
   },
-  text2: {
+  text: {
     fontSize: 16,
     lineHeight: 25,
     fontWeight: 500,
@@ -72,12 +62,12 @@ const presets = {
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
-  caption1: {
+  caption: {
     fontSize: 14,
     lineHeight: 20,
     fontWeight: 500,
   },
-  caption2: {
+  captionSmall: {
     fontSize: 12,
     lineHeight: 15,
     fontWeight: 500,
@@ -107,7 +97,7 @@ const getBaseCss = ({
 `
 
 const defaultProps = {
-  preset: 'text2',
+  preset: 'text',
   color: 'coal',
 }
 
@@ -115,18 +105,7 @@ const getCss = initialProps => {
   const props = { ...defaultProps, ...initialProps }
   const { mobileProps, baseProps, wideProps } = mergeStyleProps([
     unwrapResponsivePreset('preset', presets, props),
-    unwrapResponsiveProps(
-      [
-        'color',
-        'fontWeight',
-        'fontSize',
-        'textAlign',
-        'lineHeight',
-        'textDecoration',
-        'textTransform',
-      ],
-      props,
-    ),
+    unwrapResponsiveProps(['color'], props),
   ])
   return `
     font-family: "Museo Sans";
@@ -151,18 +130,18 @@ export default function Text({ htmlTag, ...rest }) {
   return <StyledTextComponent {...rest} />
 }
 
+const propTypes = {
+  preset: PropTypes.oneOf(Object.keys(presets)),
+  color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
+}
+
 Text.propTypes = {
   htmlTag: PropTypes.oneOf(htmlTags),
-  ...getResponsivePropTypes({
-    preset: PropTypes.oneOf(Object.keys(presets)),
-    color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
-    fontWeight: PropTypes.oneOf([500, 700, 900]),
-    textAlign: PropTypes.oneOf(['left', 'center', 'right']),
-    lineHeight: PropTypes.number,
-    fontSize: PropTypes.number,
-  }),
+  ...propTypes,
+  ...getResponsivePropTypes(propTypes),
 }
 
 Text.defaultProps = {
   htmlTag: 'span',
+  ...defaultProps,
 }
