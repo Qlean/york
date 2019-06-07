@@ -1,5 +1,6 @@
 ```js
 import { Separator } from '@qlean/york-web'
+
 const presets = [
   {
     title: 'Header 1',

@@ -12,7 +12,7 @@ import {
   getResponsivePropTypes,
 } from 'styles'
 
-const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span']
+const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p']
 
 const presets = {
   header1: {
@@ -125,6 +125,9 @@ const components = R.pipe(
   R.fromPairs,
 )(htmlTags)
 
+/**
+ * Используется для типографики. Поддерживает пресеты и все цвета из палитры.
+ */
 export default function Text({ htmlTag, ...rest }) {
   const StyledTextComponent = components[htmlTag]
   return <StyledTextComponent {...rest} />
