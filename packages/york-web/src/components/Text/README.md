@@ -54,11 +54,11 @@ const presets = [
       <Text htmlTag="div" preset="text">
         {text.title}
       </Text>
-      <Text htmlTag="div" color="grey"preset="text">
+      <Text htmlTag="div" preset="text" color="grey">
         {text.caption}
+      </Text>
       <Text htmlTag="div" preset={text.preset}>
         Шнауцеры — крепкие, довольно коренастые собаки квадратного формата с чуть наклонной спиной
-      </Text>
       </Text>
       <Separator height={8} />
     </div>

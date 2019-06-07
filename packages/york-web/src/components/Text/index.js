@@ -131,11 +131,14 @@ export default function Text({ htmlTag, ...rest }) {
 }
 
 const propTypes = {
+  /** Пресет */
   preset: PropTypes.oneOf(Object.keys(presets)),
+  /** Цвет текста */
   color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
 }
 
 Text.propTypes = {
+  /** HTML-тег, который будет использован как обёртка для текста */
   htmlTag: PropTypes.oneOf(htmlTags),
   ...propTypes,
   ...getResponsivePropTypes(propTypes),
