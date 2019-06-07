@@ -47,6 +47,8 @@ const presets = {
   },
 }
 
+const shadowColor = 'rgb(13, 40, 19)'
+
 const style = StyleSheet.create({
   main: {
     alignItems: 'center',
@@ -75,12 +77,25 @@ const style = StyleSheet.create({
     }),
     {},
   ),
+  shadow: {
+    shadowColor,
+    shadowOpacity: 0.16,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 14,
+  },
 })
 
 /**
  * Компонент кнопки.
  */
-const Button = ({ children, isDisabled, preset, size, ...props }) => (
+const Button = ({
+  children,
+  isDisabled,
+  preset,
+  size,
+  withShadow,
+  ...props
+}) => (
   <TouchableOpacity
     style={[
       style.main,
@@ -88,6 +103,7 @@ const Button = ({ children, isDisabled, preset, size, ...props }) => (
       style[preset],
       isDisabled && style.disabled,
       isDisabled && style[`${preset}Disabled`],
+      withShadow && style.shadow,
     ]}
     disabled={isDisabled}
     activeOpacity={0.8}
@@ -108,6 +124,7 @@ const Button = ({ children, isDisabled, preset, size, ...props }) => (
 Button.defaultProps = {
   preset: 'green',
   size: 'm',
+  withShadow: false,
 }
 
 Button.propTypes = {
@@ -117,6 +134,7 @@ Button.propTypes = {
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
   size: PropTypes.oneOf(Object.keys(['s', 'm'])),
+  withShadow: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
 
