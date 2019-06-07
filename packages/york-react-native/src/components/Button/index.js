@@ -3,24 +3,47 @@ import PropTypes from 'prop-types'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
 
+const disabledStates = {
+  main: {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    borderColor: colors.transparent,
+  },
+  linear: { borderColor: 'rgba(0, 0, 0, 0.05)' },
+  text: {},
+}
+
 const presets = {
-  green: {
+  primaryLightBg: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
+    disabled: disabledStates.main,
   },
-  black: {
+  primaryColoredBg: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
+    disabled: disabledStates.main,
   },
-  grey: {
-    button: { backgroundColor: '#EEEEEE', borderColor: '#EEEEEE' },
+  secondary: {
+    button: { backgroundColor: colors.transparent, borderColor: colors.green },
+    text: { color: colors.green },
+    disabled: disabledStates.linear,
+  },
+  tertiary: {
+    button: { backgroundColor: colors.transparent, borderColor: colors.silver },
     text: { color: colors.coal },
+    disabled: disabledStates.linear,
   },
-  greenLinear: {
-    button: { backgroundColor: colors.white, borderColor: colors.green },
+  quoternaryLightBg: {
+    button: {
+      backgroundColor: colors.transparent,
+      borderColor: colors.transparent,
+    },
     text: { color: colors.green },
   },
-  greyLinear: {
-    button: { backgroundColor: colors.white, borderColor: colors.grey },
-    text: { color: colors.coal },
+  quoternaryDarkBg: {
+    button: {
+      backgroundColor: colors.transparent,
+      borderColor: colors.transparent,
+    },
+    text: { color: colors.black },
   },
 }
 
@@ -31,9 +54,11 @@ const style = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
   },
-  text: { color: colors.white },
-  disabled: { backgroundColor: colors.smoke, borderColor: colors.smoke },
-  disabledText: { color: colors.grey },
+  text: { fontSize: 16, lineHeight: 25, color: colors.white },
+  disabled: {
+    // opacity: 0.2
+  },
+  disabledText: { color: colors.black, opacity: 0.2 },
   /* eslint-disable react-native/no-unused-styles */
   s: {
     height: 35,
@@ -45,6 +70,7 @@ const style = StyleSheet.create({
     (acc, preset) => ({
       ...acc,
       [preset]: presets[preset].button,
+      [`${preset}Disabled`]: presets[preset].disabled || {},
       [`${preset}Text`]: presets[preset].text || {},
     }),
     {},
@@ -54,20 +80,19 @@ const style = StyleSheet.create({
 /**
  * Компонент кнопки.
  */
-const Button = ({ children, isDisabled, preset, size, Icon, ...props }) => (
+const Button = ({ children, isDisabled, preset, size, ...props }) => (
   <TouchableOpacity
     style={[
       style.main,
       style[size],
       style[preset],
       isDisabled && style.disabled,
+      isDisabled && style[`${preset}Disabled`],
     ]}
     disabled={isDisabled}
     activeOpacity={0.8}
     {...props}
   >
-    {/* Temporary solution. Use iconName when Icon component will ready  */}
-    {Icon ? <Icon /> : null}
     <Text
       style={[
         style.text,
@@ -81,21 +106,18 @@ const Button = ({ children, isDisabled, preset, size, Icon, ...props }) => (
 )
 
 Button.defaultProps = {
-  isDisabled: false,
   preset: 'green',
   size: 'm',
-  Icon: null,
 }
 
 Button.propTypes = {
   /** Доступна ли кнопка для нажатия */
-  isDisabled: PropTypes.bool,
+  isDisabled: PropTypes.bool.isRequired,
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
   size: PropTypes.oneOf(Object.keys(['s', 'm'])),
   children: PropTypes.node.isRequired,
-  Icon: PropTypes.element,
 }
 
 export default Button

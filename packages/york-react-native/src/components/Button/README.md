@@ -1,55 +1,53 @@
 ## Primary
 Обозначает ключевое действие. На экране может быть только одна главная кнопка. Главные кнопки используются во всю ширину экрана.
 
-Green — основная, может использоваться только на белом #FFFFFF или светло-сером #F8F8F8 фоне
+PrimaryLightBg — основная, может использоваться только на белом #FFFFFF или светло-сером #F8F8F8 фоне
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button onPress={() => {}} preset="green">Кнопка</Button>
-  <Button preset="green" isDisabled>Кнопка</Button>
+  <Button onPress={() => {}} preset="primaryLightBg">Кнопка</Button>
+  <Button preset="primaryLightBg" isDisabled>Кнопка</Button>
 </div>
 ```
 
-Black — используется реже, восновном на цветных фонах #FAE12E #20A052
+primaryColoredBg — используется реже, восновном на цветных фонах #FAE12E #20A052
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button preset="black">Кнопка</Button>
-  <Button preset="black" isDisabled>Кнопка</Button>
+  <Button preset="primaryColoredBg">Кнопка</Button>
+  <Button preset="primaryColoredBg" isDisabled>Кнопка</Button>
 </div>
 ```
 
 ## Secondary
 Обозначает второстеменное действие. Чаще всего используется в паре с главной кнопкой.
 
-Grey — может использоваться только на белом фоне #FFFFFF
+Secondary — может использоваться только на белом фоне #FFFFFF
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button preset="grey">Кнопка</Button>
-  <Button preset="grey" isDisabled>Кнопка</Button>
+  <Button preset="secondary">Кнопка</Button>
+  <Button preset="secondary" isDisabled>Кнопка</Button>
 </div>
 ```
 
-GreenLinear — может использоваться только на белом фоне #FFFFFF
+Tertiary — может использоваться только на белом фоне #FFFFFF
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button preset="greenLinear">Кнопка</Button>
-  <Button preset="greenLinear" isDisabled>Кнопка</Button>
+  <Button preset="tertiary">Кнопка</Button>
+  <Button preset="tertiary" isDisabled>Кнопка</Button>
 </div>
 ```
 
-GrayLinear — может использоваться на белом фоне #FFFFFF, светло-сером #F8F8F8 или желтом фоне #FAE12E
+quoternaryLightBg — может использоваться на белом фоне #FFFFFF, светло-сером #F8F8F8 или желтом фоне #FAE12E
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
-  <Button preset="greyLinear">Кнопка</Button>
-  <Button preset="greyLinear" isDisabled>Кнопка</Button>
+  <Button preset="quoternaryLightBg">Кнопка</Button>
+  <Button preset="quoternaryLightBg" isDisabled>Кнопка</Button>
 </div>
 ```
 
-Green / Black — используются на карточказ заказа.
+quoternaryDarkBg — используются на карточказ заказа.
 ```jsx
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 120px)', gridColumnGap: '5px', gridRowGap: '10px' }}>
-  <Button preset="green" size="s">Кнопка</Button>
-  <Button preset="green" size="s" isDisabled>Кнопка</Button>
-  <Button preset="black" size="s">Кнопка</Button>
-  <Button preset="black" size="s" isDisabled>Кнопка</Button>
+  <Button preset="quoternaryDarkBg">Кнопка</Button>
+  <Button preset="quoternaryDarkBg" isDisabled>Кнопка</Button>
 </div>
 ```
