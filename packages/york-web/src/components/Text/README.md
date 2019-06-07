@@ -1,103 +1,67 @@
-Text example:
-
 ```js
 import { Separator } from '@qlean/york-web'
+const presets = [
+  {
+    title: 'Header 1',
+    caption: 'Заголовок страниц десктопной версии',
+    preset: 'header1',
+  },
+  {
+    title: 'Header 2',
+    caption: 'Заголовок блоков страниц в десктопной версии',
+    preset: 'header2',
+  },
+  {
+    title: 'Header 3',
+    caption:
+      'Заголовок страницы в мобильной версии, выделение контента внутри блока на десктопе',
+    preset: 'header3',
+  },
+  {
+    title: 'Header 4',
+    caption:
+      'Заголовок блока в мобильной версии, название секций в формах и личном кабинете',
+    preset: 'header4',
+  },
+  {
+    title: 'Header 5',
+    caption: 'Заголовок страницы в десктопной версии',
+    preset: 'header5',
+  },
+  {
+    title: 'Text Large',
+    caption: 'Текст на лендингах',
+    preset: 'textLarge',
+  },
+  {
+    title: 'Text Strong',
+    preset: 'textStrong',
+  },
+  {
+    title: 'Text',
+    caption: 'Обычный текст',
+    preset: 'text',
+  },
+  {
+    title: 'Caption',
+    preset: 'caption',
+  },
+]
+
 ;<>
-  <Text htmlTag="div" preset="text">
-    Header 1
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страниц десктопной версии
-  </Text>
-  <Text htmlTag="div" preset="header1">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Header 2
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Заголовок блоков страниц в десктопной версии
-  </Text>
-  <Text htmlTag="div" preset="header2">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Header 3
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страницы в мобильной версии, выделение контента внутри блока на десктопе
-  </Text>
-  <Text htmlTag="div" preset="header3">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Header 4
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Заголовок блока в мобильной версии, название секций в формах и личном кабинете
-  </Text>
-  <Text htmlTag="div" preset="header4">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Header 5
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Заголовок страницы в десктопной версии
-  </Text>
-  <Text htmlTag="div" preset="header5">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Text Large
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Текст на лендингах
-  </Text>
-  <Text htmlTag="div" preset="textLarge">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Text Strong
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-     
-  </Text>
-  <Text htmlTag="div" preset="textStrong">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-
-  <Text htmlTag="div" preset="text">
-    Text
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-    Обычный текст
-  </Text>
-  <Text htmlTag="div" preset="text">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
-  <Separator height={8} />
-  <Text htmlTag="div" preset="text">
-    Caption
-  </Text>
-  <Text htmlTag="div" color="grey" preset="text">
-     
-  </Text>
-  <Text htmlTag="div" preset="caption">
-    Здесь собраны все клинеры, которые когда-либо делали у вас уборку.
-  </Text>
+  {presets.map((text, index) => (
+    <div key={index}>
+      <Text htmlTag="div" preset="text">
+        {text.title}
+      </Text>
+      <Text htmlTag="div" color="grey"preset="text">
+        {text.caption}
+      <Text htmlTag="div" preset={text.preset}>
+        Шнауцеры — крепкие, довольно коренастые собаки квадратного формата с чуть наклонной спиной
+      </Text>
+      </Text>
+      <Separator height={8} />
+    </div>
+  ))}
 </>
 ```
