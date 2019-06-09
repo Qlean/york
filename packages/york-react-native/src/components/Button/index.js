@@ -117,6 +117,7 @@ const useAnimation = config => {
 const Button = ({
   children,
   isDisabled,
+  isSubmitting,
   preset,
   size,
   withShadow,
@@ -126,11 +127,12 @@ const Button = ({
     initialValue: isDisabled ? 1 : 0,
     toValue: isDisabled ? 0 : 1,
     useNativeDriver: true,
-    duration: 150,
+    duration: 200,
   })
+  const buttonText = isSubmitting ? 'Подождите' : children
   return (
     <TouchableOpacity
-      disabled={isDisabled}
+      disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
       style={withShadow && style.shadow}
       {...props}
@@ -138,7 +140,7 @@ const Button = ({
       <Animated.View
         style={[style.main, style[size], style[preset], { opacity }]}
       >
-        <Text style={[style.text, style[`${preset}Text`]]}>{children}</Text>
+        <Text style={[style.text, style[`${preset}Text`]]}>{buttonText}</Text>
       </Animated.View>
       <View
         style={[
@@ -148,7 +150,7 @@ const Button = ({
           style[`${preset}Disabled`],
         ]}
       >
-        <Text style={[style.text, style.disabledText]}>{children}</Text>
+        <Text style={[style.text, style.disabledText]}>{buttonText}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -158,11 +160,13 @@ Button.defaultProps = {
   preset: 'primaryLightBg',
   size: 'm',
   withShadow: false,
+  isSubmitting: false,
 }
 
 Button.propTypes = {
   /** Доступна ли кнопка для нажатия */
   isDisabled: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool,
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
