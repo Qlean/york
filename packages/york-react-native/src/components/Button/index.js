@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -9,15 +9,13 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
-
 const disabledStates = {
   main: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     borderColor: colors.transparent,
   },
   linear: { borderColor: 'rgba(0, 0, 0, 0.05)' },
-  text: {},
+  text: { borderColor: colors.transparent },
 }
 
 const presets = {
@@ -45,6 +43,7 @@ const presets = {
       borderColor: colors.transparent,
     },
     text: { color: colors.green },
+    disabled: disabledStates.text,
   },
   quoternaryDarkBg: {
     button: {
@@ -52,6 +51,7 @@ const presets = {
       borderColor: colors.transparent,
     },
     text: { color: colors.black },
+    disabled: disabledStates.text,
   },
 }
 
@@ -65,18 +65,12 @@ const style = StyleSheet.create({
     borderWidth: 1,
   },
   text: { fontSize: 16, lineHeight: 25, color: colors.white },
-  disabled: {
-    // opacity: 0.2
-  },
   disabledText: {
     color: colors.black,
-    // opacity: 0.2
+    opacity: 0.5,
   },
   /* eslint-disable react-native/no-unused-styles */
-  s: {
-    height: 35,
-    width: 120,
-  },
+  s: { height: 35 },
   m: { height: 50 },
   /* eslint-disable react-native/no-unused-styles */
   ...Object.keys(presets).reduce(
@@ -104,27 +98,9 @@ const style = StyleSheet.create({
   },
 })
 
-const usePulse = isDisabled => {
-  const scale = useRef(new Animated.Value(isDisabled ? 1 : 0)).current
-
-  const pulse = () => {
-    Animated.sequence([
-      Animated.timing(scale, { toValue: 1, duration: 200 }),
-      Animated.timing(scale, { toValue: 0, duration: 200 }),
-    ]).start(() => pulse())
-  }
-
-  // useEffect(() => {
-  //   pulse()
-  // }, [])
-
-  Animated.timing(scale, { toValue: isDisabled ? 0 : 1, duration: 200 }).start()
-
-  return scale
-}
-
 const useAnimation = config => {
-  const animatedValue = useRef(new Animated.Value(1)).current
+  const { initialValue = 0 } = config
+  const animatedValue = useRef(new Animated.Value(initialValue)).current
 
   const animate = () => {
     Animated.timing(animatedValue, config).start()
@@ -146,71 +122,40 @@ const Button = ({
   withShadow,
   ...props
 }) => {
-  // const scale = usePulse(isDisabled)
-  // console.log(scale)
-  // const scale = useRef(new Animated.Value(isDisabled ? 0 : 1)).current
-  // const [bool, setBool] = useState(isDisabled)
-  // const toggle = () => setBool(!bool)
-
-  const scale = useAnimation({
+  const opacity = useAnimation({
+    initialValue: isDisabled ? 1 : 0,
     toValue: isDisabled ? 0 : 1,
     useNativeDriver: true,
     duration: 150,
   })
   return (
-    <View>
+    <TouchableOpacity
+      disabled={isDisabled}
+      activeOpacity={0.8}
+      style={withShadow && style.shadow}
+      {...props}
+    >
       <Animated.View
-        style={[
-          style.main,
-          style[size],
-          style[preset],
-          // isDisabled && style.disabled,
-          // isDisabled && style[`${preset}Disabled`],
-          withShadow && style.shadow,
-          { opacity: scale },
-        ]}
-        disabled={isDisabled}
-        activeOpacity={0.8}
-        {...props}
+        style={[style.main, style[size], style[preset], { opacity }]}
       >
-        <Text
-          style={[
-            style.text,
-            style[`${preset}Text`],
-            // isDisabled && style.disabledText,
-          ]}
-        >
-          {children}
-        </Text>
+        <Text style={[style.text, style[`${preset}Text`]]}>{children}</Text>
       </Animated.View>
       <View
         style={[
           style.fake,
           style.main,
           style[size],
-          // isDisabled && style.disabled,
-          // isDisabled && style[`${preset}Disabled`],
-          style.disabled,
           style[`${preset}Disabled`],
         ]}
       >
-        <Text
-          style={[
-            style.text,
-            // isDisabled && style.disabledText
-            style.disabledText,
-          ]}
-        >
-          {children}
-        </Text>
+        <Text style={[style.text, style.disabledText]}>{children}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
 Button.defaultProps = {
-  // preset: 'primaryLightBg',
-  preset: 'secondary',
+  preset: 'primaryLightBg',
   size: 'm',
   withShadow: false,
 }
