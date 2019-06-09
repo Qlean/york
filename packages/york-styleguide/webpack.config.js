@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   resolve: {
-    modules: ['node_modules', path.resolve(__dirname, '../york-web/src')],
+    modules: ['node_modules', path.resolve(__dirname, '../york-web/lib')],
   },
   module: {
     rules: [

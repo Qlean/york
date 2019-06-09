@@ -1,11 +1,11 @@
 ```js
 import { Text } from '@qlean/york-web'
 ;<div>
-  <Text preset="h2" htmlTag="h1">
+  <Text preset="header2" htmlTag="h1">
     Йоркширский терьер
   </Text>
   <Separator height={1} />
-  <Text preset="caption1" htmlTag="h2" color="grey">
+  <Text preset="caption" htmlTag="h2" color="grey">
     Материал из Википедии — свободной энциклопедии
   </Text>
   <Separator height={2} />

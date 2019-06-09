@@ -98,7 +98,7 @@ export default function Tooltip({ tooltip, children }) {
         <StyledTooltipPointer ref={tooltipPointerRef} />
         <StyledTooltipContent ref={tooltipContentRef}>
           {typeof tooltip === 'string' ? (
-            <Text htmTag="div" color="white" preset="caption1">
+            <Text htmTag="div" color="white" preset="caption">
               {tooltip}
             </Text>
           ) : (
