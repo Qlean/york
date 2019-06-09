@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+} from 'react-native'
 import { colors } from '@qlean/york-core'
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
 
 const disabledStates = {
   main: {
@@ -60,7 +68,10 @@ const style = StyleSheet.create({
   disabled: {
     // opacity: 0.2
   },
-  disabledText: { color: colors.black, opacity: 0.2 },
+  disabledText: {
+    color: colors.black,
+    // opacity: 0.2
+  },
   /* eslint-disable react-native/no-unused-styles */
   s: {
     height: 35,
@@ -83,7 +94,46 @@ const style = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     shadowRadius: 14,
   },
+  fake: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
 })
+
+const usePulse = isDisabled => {
+  const scale = useRef(new Animated.Value(isDisabled ? 1 : 0)).current
+
+  const pulse = () => {
+    Animated.sequence([
+      Animated.timing(scale, { toValue: 1, duration: 200 }),
+      Animated.timing(scale, { toValue: 0, duration: 200 }),
+    ]).start(() => pulse())
+  }
+
+  // useEffect(() => {
+  //   pulse()
+  // }, [])
+
+  Animated.timing(scale, { toValue: isDisabled ? 0 : 1, duration: 200 }).start()
+
+  return scale
+}
+
+const useAnimation = config => {
+  const animatedValue = useRef(new Animated.Value(1)).current
+
+  const animate = () => {
+    Animated.timing(animatedValue, config).start()
+  }
+
+  useEffect(animate, [config.toValue])
+
+  return animatedValue
+}
 
 /**
  * Компонент кнопки.
@@ -95,34 +145,72 @@ const Button = ({
   size,
   withShadow,
   ...props
-}) => (
-  <TouchableOpacity
-    style={[
-      style.main,
-      style[size],
-      style[preset],
-      isDisabled && style.disabled,
-      isDisabled && style[`${preset}Disabled`],
-      withShadow && style.shadow,
-    ]}
-    disabled={isDisabled}
-    activeOpacity={0.8}
-    {...props}
-  >
-    <Text
-      style={[
-        style.text,
-        style[`${preset}Text`],
-        isDisabled && style.disabledText,
-      ]}
-    >
-      {children}
-    </Text>
-  </TouchableOpacity>
-)
+}) => {
+  // const scale = usePulse(isDisabled)
+  // console.log(scale)
+  // const scale = useRef(new Animated.Value(isDisabled ? 0 : 1)).current
+  // const [bool, setBool] = useState(isDisabled)
+  // const toggle = () => setBool(!bool)
+
+  const scale = useAnimation({
+    toValue: isDisabled ? 0 : 1,
+    useNativeDriver: true,
+    duration: 150,
+  })
+  return (
+    <View>
+      <Animated.View
+        style={[
+          style.main,
+          style[size],
+          style[preset],
+          // isDisabled && style.disabled,
+          // isDisabled && style[`${preset}Disabled`],
+          withShadow && style.shadow,
+          { opacity: scale },
+        ]}
+        disabled={isDisabled}
+        activeOpacity={0.8}
+        {...props}
+      >
+        <Text
+          style={[
+            style.text,
+            style[`${preset}Text`],
+            // isDisabled && style.disabledText,
+          ]}
+        >
+          {children}
+        </Text>
+      </Animated.View>
+      <View
+        style={[
+          style.fake,
+          style.main,
+          style[size],
+          // isDisabled && style.disabled,
+          // isDisabled && style[`${preset}Disabled`],
+          style.disabled,
+          style[`${preset}Disabled`],
+        ]}
+      >
+        <Text
+          style={[
+            style.text,
+            // isDisabled && style.disabledText
+            style.disabledText,
+          ]}
+        >
+          {children}
+        </Text>
+      </View>
+    </View>
+  )
+}
 
 Button.defaultProps = {
-  preset: 'green',
+  // preset: 'primaryLightBg',
+  preset: 'secondary',
   size: 'm',
   withShadow: false,
 }
@@ -133,7 +221,7 @@ Button.propTypes = {
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
-  size: PropTypes.oneOf(Object.keys(['s', 'm'])),
+  size: PropTypes.oneOf(['s', 'm']),
   withShadow: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
