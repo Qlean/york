@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  Platform,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
@@ -13,26 +14,26 @@ const presets = {
   primaryLightBg: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
     disabled: {
-      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      backgroundColor: colors.whisper,
       borderColor: colors.transparent,
     },
   },
   primaryColoredBg: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
     disabled: {
-      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      backgroundColor: colors.whisper,
       borderColor: colors.transparent,
     },
   },
   secondary: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
-    disabled: { borderColor: 'rgba(0, 0, 0, 0.05)' },
+    disabled: { borderColor: colors.silver },
   },
   tertiary: {
     button: { backgroundColor: colors.white, borderColor: colors.silver },
     text: { color: colors.coal },
-    disabled: { borderColor: 'rgba(0, 0, 0, 0.05)' },
+    disabled: { borderColor: colors.silver },
   },
   quoternaryLightBg: {
     button: {
@@ -76,20 +77,19 @@ const style = StyleSheet.create({
     borderWidth: 1,
   },
   text: { fontSize: 16, lineHeight: 25, color: colors.white },
-  disabledText: {
-    color: colors.black,
-    opacity: 0.5,
-  },
+  disabledText: { color: colors.grey },
   icon: { marginRight: 5 },
-  disabledIcon: {
-    tintColor: colors.black,
-    opacity: 0.5,
-  },
+  disabledIcon: { tintColor: colors.black },
   shadow: {
-    shadowColor,
-    shadowOpacity: 0.16,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 14,
+    ...Platform.select({
+      ios: {
+        shadowColor,
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 6 },
+        shadowRadius: 14,
+      },
+      android: { elevation: 1 },
+    }),
   },
   fakeDisabled: {
     position: 'absolute',
@@ -195,8 +195,8 @@ Button.propTypes = {
   withShadow: PropTypes.bool,
   /**
    * Иконка слева от текста. Передавать с пробросом пропов
-   * для правильного отображения disabled состояния
-   * Icon={props => <Icon name="qlean" {...props}}/>
+   * для правильного отображения disabled состояния:
+   * Icon={props => \<Icon name="qlean" {...props}}/>
    */
   Icon: PropTypes.element,
   children: PropTypes.node.isRequired,
