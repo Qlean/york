@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  Platform,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
@@ -53,12 +54,26 @@ const presets = {
     text: { color: colors.black },
     disabled: disabledStates.text,
   },
+  quoternaryWhite: {
+    button: {
+      backgroundColor: colors.transparent,
+      borderColor: colors.transparent,
+    },
+    text: { color: colors.white },
+    disabled: disabledStates.text,
+  },
+}
+
+const sizes = {
+  s: { height: 35 },
+  m: { height: 50 },
 }
 
 const shadowColor = 'rgb(13, 40, 19)'
 
 const style = StyleSheet.create({
   main: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 4,
@@ -69,26 +84,20 @@ const style = StyleSheet.create({
     color: colors.black,
     opacity: 0.5,
   },
-  /* eslint-disable react-native/no-unused-styles */
-  s: { height: 35 },
-  m: { height: 50 },
-  /* eslint-disable react-native/no-unused-styles */
-  ...Object.keys(presets).reduce(
-    (acc, preset) => ({
-      ...acc,
-      [preset]: presets[preset].button,
-      [`${preset}Disabled`]: presets[preset].disabled || {},
-      [`${preset}Text`]: presets[preset].text || {},
-    }),
-    {},
-  ),
+  icon: {
+    marginRight: 5,
+  },
+  disabledIcon: {
+    tintColor: colors.black,
+    opacity: 0.5,
+  },
   shadow: {
     shadowColor,
     shadowOpacity: 0.16,
     shadowOffset: { width: 0, height: 6 },
     shadowRadius: 14,
   },
-  fake: {
+  fakeDisabled: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -96,6 +105,16 @@ const style = StyleSheet.create({
     bottom: 0,
     zIndex: -1,
   },
+  ...sizes,
+  ...Object.keys(presets).reduce(
+    (acc, preset) => ({
+      ...acc,
+      [preset]: presets[preset].button,
+      [`${preset}Disabled`]: presets[preset].disabled,
+      [`${preset}Text`]: presets[preset].text,
+    }),
+    {},
+  ),
 })
 
 const useAnimation = config => {
@@ -121,6 +140,7 @@ const Button = ({
   preset,
   size,
   withShadow,
+  Icon,
   ...props
 }) => {
   const opacity = useAnimation({
@@ -140,16 +160,18 @@ const Button = ({
       <Animated.View
         style={[style.main, style[size], style[preset], { opacity }]}
       >
+        {Icon ? <Icon style={style.icon} /> : null}
         <Text style={[style.text, style[`${preset}Text`]]}>{buttonText}</Text>
       </Animated.View>
       <View
         style={[
-          style.fake,
           style.main,
           style[size],
+          style.fakeDisabled,
           style[`${preset}Disabled`],
         ]}
       >
+        {Icon ? <Icon style={[style.icon, style.disabledIcon]} /> : null}
         <Text style={[style.text, style.disabledText]}>{buttonText}</Text>
       </View>
     </TouchableOpacity>
@@ -161,6 +183,7 @@ Button.defaultProps = {
   size: 'm',
   withShadow: false,
   isSubmitting: false,
+  Icon: null,
 }
 
 Button.propTypes = {
@@ -170,9 +193,10 @@ Button.propTypes = {
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Размер кнопки */
-  size: PropTypes.oneOf(['s', 'm']),
+  size: PropTypes.oneOf(Object.keys(sizes)),
   withShadow: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  Icon: PropTypes.element,
 }
 
 export default Button

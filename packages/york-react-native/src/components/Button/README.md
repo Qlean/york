@@ -3,18 +3,20 @@
 
 PrimaryLightBg — основная, может использоваться только на белом #FFFFFF или светло-сером #F8F8F8 фоне
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button onPress={() => {}} preset="primaryLightBg">Кнопка</Button>
   <Button preset="primaryLightBg" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```
 
 primaryColoredBg — используется реже, восновном на цветных фонах #FAE12E #20A052
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button preset="primaryColoredBg">Кнопка</Button>
   <Button preset="primaryColoredBg" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```
 
 ## Secondary
@@ -22,32 +24,36 @@ primaryColoredBg — используется реже, восновном на 
 
 Secondary — может использоваться только на белом фоне #FFFFFF
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button preset="secondary">Кнопка</Button>
   <Button preset="secondary" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```
 
 Tertiary — может использоваться только на белом фоне #FFFFFF
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button preset="tertiary">Кнопка</Button>
   <Button preset="tertiary" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```
 
 quoternaryLightBg — может использоваться на белом фоне #FFFFFF, светло-сером #F8F8F8 или желтом фоне #FAE12E
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 160px)', gridColumnGap: '15px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button preset="quoternaryLightBg">Кнопка</Button>
   <Button preset="quoternaryLightBg" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```
 
 quoternaryDarkBg — используются на карточказ заказа.
 ```jsx
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 120px)', gridColumnGap: '5px', gridRowGap: '10px' }}>
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
   <Button preset="quoternaryDarkBg">Кнопка</Button>
   <Button preset="quoternaryDarkBg" isDisabled>Кнопка</Button>
-</div>
+</Example.Grid>
 ```

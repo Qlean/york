@@ -13,6 +13,7 @@
 
 ```
 $ git clone git@github.com:Qlean/york.git && cd york
+$ npm i
 $ npm run bootstrap
 ```
 
