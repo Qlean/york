@@ -6,37 +6,33 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
-  Platform,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-
-const disabledStates = {
-  main: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    borderColor: colors.transparent,
-  },
-  linear: { borderColor: 'rgba(0, 0, 0, 0.05)' },
-  text: { borderColor: colors.transparent },
-}
 
 const presets = {
   primaryLightBg: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
-    disabled: disabledStates.main,
+    disabled: {
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      borderColor: colors.transparent,
+    },
   },
   primaryColoredBg: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    disabled: disabledStates.main,
+    disabled: {
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      borderColor: colors.transparent,
+    },
   },
   secondary: {
-    button: { backgroundColor: colors.transparent, borderColor: colors.green },
+    button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
-    disabled: disabledStates.linear,
+    disabled: { borderColor: 'rgba(0, 0, 0, 0.05)' },
   },
   tertiary: {
-    button: { backgroundColor: colors.transparent, borderColor: colors.silver },
+    button: { backgroundColor: colors.white, borderColor: colors.silver },
     text: { color: colors.coal },
-    disabled: disabledStates.linear,
+    disabled: { borderColor: 'rgba(0, 0, 0, 0.05)' },
   },
   quoternaryLightBg: {
     button: {
@@ -44,7 +40,7 @@ const presets = {
       borderColor: colors.transparent,
     },
     text: { color: colors.green },
-    disabled: disabledStates.text,
+    disabled: { borderColor: colors.transparent },
   },
   quoternaryDarkBg: {
     button: {
@@ -52,15 +48,15 @@ const presets = {
       borderColor: colors.transparent,
     },
     text: { color: colors.black },
-    disabled: disabledStates.text,
+    disabled: { borderColor: colors.transparent },
   },
-  quoternaryWhite: {
+  quoternaryDarkBg2: {
     button: {
       backgroundColor: colors.transparent,
       borderColor: colors.transparent,
     },
     text: { color: colors.white },
-    disabled: disabledStates.text,
+    disabled: { borderColor: colors.transparent },
   },
 }
 
@@ -84,9 +80,7 @@ const style = StyleSheet.create({
     color: colors.black,
     opacity: 0.5,
   },
-  icon: {
-    marginRight: 5,
-  },
+  icon: { marginRight: 5 },
   disabledIcon: {
     tintColor: colors.black,
     opacity: 0.5,
@@ -131,7 +125,7 @@ const useAnimation = config => {
 }
 
 /**
- * Компонент кнопки.
+ * Кнопка
  */
 const Button = ({
   children,
@@ -144,10 +138,10 @@ const Button = ({
   ...props
 }) => {
   const opacity = useAnimation({
-    initialValue: isDisabled ? 1 : 0,
+    initialValue: isDisabled ? 0 : 1,
     toValue: isDisabled ? 0 : 1,
     useNativeDriver: true,
-    duration: 200,
+    duration: 100,
   })
   const buttonText = isSubmitting ? 'Подождите' : children
   return (
@@ -187,16 +181,25 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  /** Доступна ли кнопка для нажатия */
+  /** Делает кнопку недоступной для нажатия. Меняется с анимацией */
   isDisabled: PropTypes.bool.isRequired,
+  /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
   isSubmitting: PropTypes.bool,
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
-  /** Размер кнопки */
+  /** Размер кнопки. Меняется только высота,
+   * т. к. кнопка всегда занимает всю ширину контейнера
+   */
   size: PropTypes.oneOf(Object.keys(sizes)),
+  /** Тень кнопки. Используется только в кнопках в футере */
   withShadow: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  /**
+   * Иконка слева от текста. Передавать с пробросом пропов
+   * для правильного отображения disabled состояния
+   * Icon={props => <Icon name="qlean" {...props}}/>
+   */
   Icon: PropTypes.element,
+  children: PropTypes.node.isRequired,
 }
 
 export default Button

@@ -1,7 +1,7 @@
 ## Primary
 Обозначает ключевое действие. На экране может быть только одна главная кнопка. Главные кнопки используются во всю ширину экрана.
 
-PrimaryLightBg — основная, может использоваться только на белом #FFFFFF или светло-сером #F8F8F8 фоне
+primaryLightBg — основная, может использоваться только на светлом фоне.
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid>
@@ -10,19 +10,19 @@ import { Example } from '@qlean/york-react-native'
 </Example.Grid>
 ```
 
-primaryColoredBg — используется реже, восновном на цветных фонах #FAE12E #20A052
+primaryColoredBg — используется реже, во основном на цветных фонах.
 ```jsx
 import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
+;<Example.Grid backgroundColor="yellow">
   <Button preset="primaryColoredBg">Кнопка</Button>
   <Button preset="primaryColoredBg" isDisabled>Кнопка</Button>
 </Example.Grid>
 ```
 
-## Secondary
-Обозначает второстеменное действие. Чаще всего используется в паре с главной кнопкой.
+## Secondary и Tetriary
+Обозначает второстепенное действие. Чаще всего используется в паре с главной кнопкой.
 
-Secondary — может использоваться только на белом фоне #FFFFFF
+secondary — может использоваться только на белом фоне.
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid>
@@ -31,7 +31,7 @@ import { Example } from '@qlean/york-react-native'
 </Example.Grid>
 ```
 
-Tertiary — может использоваться только на белом фоне #FFFFFF
+tertiary — может использоваться только на белом фоне, используется как дополнение к secondary.
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid>
@@ -40,7 +40,10 @@ import { Example } from '@qlean/york-react-native'
 </Example.Grid>
 ```
 
-quoternaryLightBg — может использоваться на белом фоне #FFFFFF, светло-сером #F8F8F8 или желтом фоне #FAE12E
+## Quoternary
+Текстовая кнопка, имеет такие же размеры, как и остальные кнопки, поэтому может использоваться как дополнение к ним.
+
+quoternaryLightBg — может использоваться только на светлом фоне.
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid>
@@ -49,11 +52,20 @@ import { Example } from '@qlean/york-react-native'
 </Example.Grid>
 ```
 
-quoternaryDarkBg — используются на карточказ заказа.
+quoternaryDarkBg — может использоваться только на темном фоне.
 ```jsx
 import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
+;<Example.Grid backgroundColor="yellow">
   <Button preset="quoternaryDarkBg">Кнопка</Button>
   <Button preset="quoternaryDarkBg" isDisabled>Кнопка</Button>
+</Example.Grid>
+```
+
+quoternaryDarkBg2 — может использоваться только на темном фоне, если quoternaryDarkBg не сочетается с ним.
+```jsx
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid backgroundColor="green">
+  <Button preset="quoternaryDarkBg2">Кнопка</Button>
+  <Button preset="quoternaryDarkBg2" isDisabled>Кнопка</Button>
 </Example.Grid>
 ```
