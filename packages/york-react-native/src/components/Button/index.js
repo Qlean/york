@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -10,19 +9,21 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
+const disabledColor = 'rgba(0, 0, 0, 0.05)'
+
 const presets = {
   primaryLightBg: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
     disabled: {
-      backgroundColor: colors.whisper,
-      borderColor: colors.transparent,
+      backgroundColor: disabledColor,
+      borderColor: disabledColor,
     },
   },
   primaryColoredBg: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
     disabled: {
-      backgroundColor: colors.whisper,
-      borderColor: colors.transparent,
+      backgroundColor: disabledColor,
+      borderColor: disabledColor,
     },
   },
   secondary: {
@@ -58,6 +59,7 @@ const presets = {
     },
     text: { color: colors.white },
     disabled: { borderColor: colors.transparent },
+    disabledText: { color: colors.white },
   },
 }
 
@@ -69,35 +71,37 @@ const sizes = {
 const shadowColor = 'rgb(13, 40, 19)'
 
 const style = StyleSheet.create({
-  main: {
+  container: {
+    borderRadius: 4,
+  },
+  layer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 4,
     borderWidth: 1,
-  },
-  text: { fontSize: 16, lineHeight: 25, color: colors.white },
-  disabledText: { color: colors.grey },
-  icon: { marginRight: 5 },
-  disabledIcon: { tintColor: colors.black },
-  shadow: {
-    ...Platform.select({
-      ios: {
-        shadowColor,
-        shadowOpacity: 0.2,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 14,
-      },
-      android: { elevation: 1 },
-    }),
-  },
-  fakeDisabled: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: -1,
+  },
+  disabledLayer: { zIndex: -1 },
+  text: { fontSize: 16, lineHeight: 25, color: colors.white },
+  disabledText: { color: colors.black, opacity: 0.2 },
+  icon: { marginRight: 5 },
+  disabledIcon: { tintColor: colors.black, opacity: 0.2 },
+  shadow: {
+    backgroundColor: colors.white,
+    ...Platform.select({
+      ios: {
+        shadowColor,
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 0, height: 5 },
+        shadowRadius: 7,
+      },
+      android: { elevation: 7 },
+    }),
   },
   ...sizes,
   ...Object.keys(presets).reduce(
@@ -106,6 +110,7 @@ const style = StyleSheet.create({
       [preset]: presets[preset].button,
       [`${preset}Disabled`]: presets[preset].disabled,
       [`${preset}Text`]: presets[preset].text,
+      [`${preset}DisabledText`]: presets[preset].disabledText,
     }),
     {},
   ),
@@ -137,9 +142,15 @@ const Button = ({
   Icon,
   ...props
 }) => {
-  const opacity = useAnimation({
+  const enabledLayerOpacity = useAnimation({
     initialValue: isDisabled ? 0 : 1,
     toValue: isDisabled ? 0 : 1,
+    useNativeDriver: true,
+    duration: 100,
+  })
+  const disabledLayerOpacity = useAnimation({
+    initialValue: isDisabled ? 1 : 0,
+    toValue: isDisabled ? 1 : 0,
     useNativeDriver: true,
     duration: 100,
   })
@@ -148,26 +159,34 @@ const Button = ({
     <TouchableOpacity
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
-      style={withShadow && style.shadow}
+      style={[style.container, style[size], withShadow && style.shadow]}
       {...props}
     >
       <Animated.View
-        style={[style.main, style[size], style[preset], { opacity }]}
+        style={[style.layer, style[preset], { opacity: enabledLayerOpacity }]}
       >
         {Icon ? <Icon style={style.icon} /> : null}
         <Text style={[style.text, style[`${preset}Text`]]}>{buttonText}</Text>
       </Animated.View>
-      <View
+      <Animated.View
         style={[
-          style.main,
-          style[size],
-          style.fakeDisabled,
+          style.layer,
+          style.disabledLayer,
           style[`${preset}Disabled`],
+          { opacity: disabledLayerOpacity },
         ]}
       >
         {Icon ? <Icon style={[style.icon, style.disabledIcon]} /> : null}
-        <Text style={[style.text, style.disabledText]}>{buttonText}</Text>
-      </View>
+        <Text
+          style={[
+            style.text,
+            style.disabledText,
+            style[`${preset}DisabledText`],
+          ]}
+        >
+          {buttonText}
+        </Text>
+      </Animated.View>
     </TouchableOpacity>
   )
 }
