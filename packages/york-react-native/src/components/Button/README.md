@@ -1,71 +1,91 @@
-## Primary
-Обозначает ключевое действие. На экране может быть только одна главная кнопка. Главные кнопки используются во всю ширину экрана.
+## Кнопки
 
-primaryLightBg — основная, может использоваться только на светлом фоне.
+whiteBg1
+```jsx
+import { Example } from '@qlean/york-react-native'
+;<>
+  <Example.Grid>
+    <Button onPress={() => {}} preset="whiteBg1">Кнопка</Button>
+    <Button preset="whiteBg1" isDisabled>Кнопка</Button>
+  </Example.Grid>
+  <Example.Grid>
+    <Button withShadow onPress={() => {}} preset="whiteBg1">Кнопка</Button>
+    <Button withShadow preset="whiteBg1" isDisabled>Кнопка</Button>
+  </Example.Grid>
+</>
+```
+
+whiteBg2
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid>
-  <Button onPress={() => {}} preset="primaryLightBg">Кнопка</Button>
-  <Button preset="primaryLightBg" isDisabled>Кнопка</Button>
+  <Button preset="whiteBg2">Кнопка</Button>
+  <Button preset="whiteBg2" isDisabled>Кнопка</Button>
 </Example.Grid>
 ```
 
-primaryColoredBg — используется реже, во основном на цветных фонах.
+whiteBg3
+```jsx
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
+  <Button preset="whiteBg3">Кнопка</Button>
+  <Button preset="whiteBg3" isDisabled>Кнопка</Button>
+</Example.Grid>
+```
+
+whiteBg4
+```jsx
+import { Example } from '@qlean/york-react-native'
+;<Example.Grid>
+  <Button preset="whiteBg4">Кнопка</Button>
+  <Button preset="whiteBg4" isDisabled>Кнопка</Button>
+</Example.Grid>
+```
+
+lightBg1
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid backgroundColor="yellow">
-  <Button preset="primaryColoredBg">Кнопка</Button>
-  <Button preset="primaryColoredBg" isDisabled>Кнопка</Button>
+  <Button preset="lightBg1">Кнопка</Button>
+  <Button preset="lightBg1" isDisabled>Кнопка</Button>
 </Example.Grid>
 ```
 
-## Secondary и Tetriary
-Обозначает второстепенное действие. Чаще всего используется в паре с главной кнопкой.
-
-secondary — может использоваться только на белом фоне.
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button preset="secondary">Кнопка</Button>
-  <Button preset="secondary" isDisabled>Кнопка</Button>
-</Example.Grid>
-```
-
-tertiary — может использоваться только на белом фоне, используется как дополнение к secondary.
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button preset="tertiary">Кнопка</Button>
-  <Button preset="tertiary" isDisabled>Кнопка</Button>
-</Example.Grid>
-```
-
-## Quoternary
-Текстовая кнопка, имеет такие же размеры, как и остальные кнопки, поэтому может использоваться как дополнение к ним.
-
-quoternaryLightBg — может использоваться только на светлом фоне.
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button preset="quoternaryLightBg">Кнопка</Button>
-  <Button preset="quoternaryLightBg" isDisabled>Кнопка</Button>
-</Example.Grid>
-```
-
-quoternaryDarkBg — может использоваться только на темном фоне.
+lightBg4
 ```jsx
 import { Example } from '@qlean/york-react-native'
 ;<Example.Grid backgroundColor="yellow">
-  <Button preset="quoternaryDarkBg">Кнопка</Button>
-  <Button preset="quoternaryDarkBg" isDisabled>Кнопка</Button>
+  <Button preset="lightBg4">Кнопка</Button>
+  <Button preset="lightBg4" isDisabled>Кнопка</Button>
 </Example.Grid>
 ```
 
-quoternaryDarkBg2 — может использоваться только на темном фоне, если quoternaryDarkBg не сочетается с ним.
+darkBg1
 ```jsx
 import { Example } from '@qlean/york-react-native'
-;<Example.Grid backgroundColor="green">
-  <Button preset="quoternaryDarkBg2">Кнопка</Button>
-  <Button preset="quoternaryDarkBg2" isDisabled>Кнопка</Button>
-</Example.Grid>
+;<>
+  <Example.Grid  backgroundColor="green">
+    <Button preset="darkBg1">Кнопка</Button>
+    <Button preset="darkBg1" isDisabled>Кнопка</Button>
+  </Example.Grid>
+  <Example.Grid  backgroundColor="blue">
+    <Button preset="darkBg1">Кнопка</Button>
+    <Button preset="darkBg1" isDisabled>Кнопка</Button>
+  </Example.Grid>
+</>
+```
+
+darkBg4
+```jsx
+import { Example } from '@qlean/york-react-native'
+;<>
+  <Example.Grid backgroundColor="green">
+    <Button preset="darkBg4">Кнопка</Button>
+    <Button preset="darkBg4" isDisabled>Кнопка</Button>
+  </Example.Grid>
+  <Example.Grid backgroundColor="blue">
+    <Button preset="darkBg4">Кнопка</Button>
+    <Button preset="darkBg4" isDisabled>Кнопка</Button>
+  </Example.Grid>
+</>
 ```

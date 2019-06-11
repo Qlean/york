@@ -10,55 +10,43 @@ import {
 import { colors } from '@qlean/york-core'
 
 const disabledColor = 'rgba(0, 0, 0, 0.05)'
+const shadowColor = 'rgb(13, 40, 19)'
 
 const presets = {
-  primaryLightBg: {
+  whiteBg1: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
-    disabled: {
-      backgroundColor: disabledColor,
-      borderColor: disabledColor,
-    },
+    disabled: { backgroundColor: disabledColor },
   },
-  primaryColoredBg: {
+  lightBg1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    disabled: {
-      backgroundColor: disabledColor,
-      borderColor: disabledColor,
-    },
+    disabled: { backgroundColor: disabledColor },
   },
-  secondary: {
+  darkBg1: {
+    button: { backgroundColor: colors.black, borderColor: colors.black },
+    disabled: { backgroundColor: disabledColor },
+    disabledText: { color: colors.white },
+  },
+  whiteBg2: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
-    disabled: { borderColor: colors.silver },
+    disabled: { borderColor: colors.whisper },
   },
-  tertiary: {
+  whiteBg3: {
     button: { backgroundColor: colors.white, borderColor: colors.silver },
-    text: { color: colors.coal },
-    disabled: { borderColor: colors.silver },
-  },
-  quoternaryLightBg: {
-    button: {
-      backgroundColor: colors.transparent,
-      borderColor: colors.transparent,
-    },
-    text: { color: colors.green },
-    disabled: { borderColor: colors.transparent },
-  },
-  quoternaryDarkBg: {
-    button: {
-      backgroundColor: colors.transparent,
-      borderColor: colors.transparent,
-    },
     text: { color: colors.black },
-    disabled: { borderColor: colors.transparent },
+    disabled: { borderColor: colors.whisper },
   },
-  quoternaryDarkBg2: {
-    button: {
-      backgroundColor: colors.transparent,
-      borderColor: colors.transparent,
-    },
+  whiteBg4: {
+    button: { backgroundColor: colors.transparent },
+    text: { color: colors.green },
+  },
+  lightBg4: {
+    button: { backgroundColor: colors.transparent },
+    text: { color: colors.black },
+  },
+  darkBg4: {
+    button: { backgroundColor: colors.transparent },
     text: { color: colors.white },
-    disabled: { borderColor: colors.transparent },
     disabledText: { color: colors.white },
   },
 }
@@ -67,8 +55,6 @@ const sizes = {
   s: { height: 35 },
   m: { height: 50 },
 }
-
-const shadowColor = 'rgb(13, 40, 19)'
 
 const style = StyleSheet.create({
   container: {
@@ -80,6 +66,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 4,
     borderWidth: 1,
+    borderColor: colors.transparent,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -101,6 +88,13 @@ const style = StyleSheet.create({
         shadowRadius: 7,
       },
       android: { elevation: 7 },
+      /* react-native-web */
+      default: {
+        shadowColor,
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 0, height: 5 },
+        shadowRadius: 7,
+      },
     }),
   },
   ...sizes,
