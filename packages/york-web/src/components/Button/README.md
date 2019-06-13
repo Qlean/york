@@ -4,14 +4,24 @@ import { Button, Separator, View, Example } from '@qlean/york-web'
 
 import { sizes, media } from 'styles'
 
-const StyledPaletteItem = styled(Example.PaletteItem)`
+const StyledShowcaseItem = styled(Example.ShowcaseItem)`
   width: 25%;
   ${media.mobile(`width: 100%;`)}
 `
 
+const whiteBackdropRanks = [1, 2, 3]
+const darkBackdropRanks = [1, 2]
+const lightBackdropRanks = [1, 2]
+
 const ExampleComponent = () => {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const buttonProps = {
+    name: 'example',
+    isDisabled,
+    isSubmitting,
+    onClick: () => {},
+  }
 
   return (
     <>
@@ -30,22 +40,38 @@ const ExampleComponent = () => {
           isSubmitting
         </Example.Checkbox>
       </View>
-      <Separator height={4} />
-      <Example.Palette>
-        {Object.keys(Button.presets).map(preset => (
-          <StyledPaletteItem key={preset}>
-            <Button
-              preset={preset}
-              name="example"
-              isDisabled={isDisabled}
-              isSubmitting={isSubmitting}
-              onClick={() => {}}
-            >
-              {preset}
+
+      <Example.Showcase withVerticalPadding>
+        {whiteBackdropRanks.map(rank => (
+          <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
+            <Button rank={rank} {...buttonProps}>
+              White Backdrop
             </Button>
-          </StyledPaletteItem>
+          </StyledShowcaseItem>
         ))}
-      </Example.Palette>
+      </Example.Showcase>
+      <Example.Showcase backgroundColor="green" withVerticalPadding>
+        {darkBackdropRanks.map(rank => (
+          <StyledShowcaseItem
+            key={rank}
+            title={`Rank ${rank}`}
+            titleProps={{ color: 'white' }}
+          >
+            <Button rank={rank} backdropColor="dark" {...buttonProps}>
+              Dark Backdrop
+            </Button>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+      <Example.Showcase backgroundColor="yellow" withVerticalPadding>
+        {lightBackdropRanks.map(rank => (
+          <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
+            <Button rank={rank} backdropColor="light" {...buttonProps}>
+              Light Backdrop
+            </Button>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
     </>
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
+import * as R from 'ramda'
 
 import {
   g,
@@ -10,57 +11,82 @@ import {
   borderRadiuses,
   shadows,
   transitions,
-  unwrapResponsivePreset,
+  normalizeResponsivePreset,
   getResponsivePropTypes,
+  hexToRgba,
 } from 'styles'
 
 import Text from '../Text'
 
 const presets = {
-  primary: {
+  whiteBackdropRank1: {
     color: 'white',
     backgroundColor: 'green',
     hoverProps: {
       backgroundColor: 'jungle',
-    },
-    activeProps: {
-      backgroundColor: 'green',
     },
     disabledProps: {
       color: 'grey',
       backgroundColor: 'whisper',
     },
   },
-  secondary: {
+  whiteBackdropRank2: {
     color: 'green',
     backgroundColor: 'white',
     borderColor: 'green',
     hoverProps: {
-      color: 'white',
-      backgroundColor: 'jungle',
-    },
-    activeProps: {
-      color: 'white',
-      backgroundColor: 'green',
+      opacity: 0.5,
     },
     disabledProps: {
       color: 'grey',
       borderColor: 'silver',
     },
   },
-  tertiary: {
+  whiteBackdropRank3: {
     color: 'black',
     backgroundColor: 'white',
     borderColor: 'silver',
     hoverProps: {
-      backgroundColor: 'smoke',
-    },
-    activeProps: {
-      backgroundColor: 'white',
+      borderColor: 'grey',
     },
     disabledProps: {
       color: 'grey',
       borderColor: 'silver',
+    },
+  },
+  darkBackdropRank1: {
+    color: 'white',
+    backgroundColor: 'black',
+    hoverProps: {
+      opacity: 0.7,
+    },
+    disabledProps: {
+      opacity: 0.2,
+      contentOpacity: 0.5,
+    },
+  },
+  darkBackdropRank2: {
+    color: 'white',
+    borderColor: 'white',
+    opacity: 0.5,
+    hoverProps: {
+      opacity: 1,
+    },
+    disabledProps: {
+      opacity: 0.2,
+      contentOpacity: 0.5,
+    },
+  },
+  lightBackdropRank2: {
+    color: 'coal',
+    borderColor: 'coal',
+    opacity: 0.2,
+    hoverProps: {
+      opacity: 0.4,
+    },
+    disabledProps: {
+      opacity: 0.1,
+      contentOpacity: 0.5,
     },
   },
   blank: {
@@ -69,6 +95,17 @@ const presets = {
       color: 'black',
     },
   },
+}
+
+const presetsByBackdropColorAndRank = {
+  white0: presets.blank,
+  white1: presets.whiteBackdropRank1,
+  white2: presets.whiteBackdropRank2,
+  white3: presets.whiteBackdropRank3,
+  dark1: presets.darkBackdropRank1,
+  dark2: presets.darkBackdropRank2,
+  light1: presets.darkBackdropRank1,
+  light2: presets.lightBackdropRank2,
 }
 
 const getHeight = size => {
@@ -82,37 +119,62 @@ const getHeight = size => {
   }
 }
 
-const getBaseCss = ({ color, backgroundColor, borderColor }) => `
-  color: ${colors[color]};
-  background-color: ${colors[backgroundColor] || 'transparent'};
-  border: 1px solid ${colors[borderColor || backgroundColor]};
+const StyledContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `
 
-const getMediaCss = ({
-  hoverProps,
-  activeProps,
-  disabledProps,
-  isDisabled,
-  ...rest
-}) => `
+const normalizeColor = (color, opacity) => {
+  const hexColor = colors[color]
+  if (!hexColor) return 'transparent'
+  if (R.isNil(opacity)) return hexColor
+  const { red, green, blue } = hexToRgba(hexColor)
+  return `rgba(${red}, ${green}, ${blue}, ${opacity})`
+}
+
+const getBaseCss = ({
+  color,
+  backgroundColor,
+  borderColor,
+  opacity,
+  contentOpacity,
+}) => {
+  const normalizedBackgroundColor = normalizeColor(backgroundColor, opacity)
+  const normalizedBorderColor = normalizeColor(borderColor, opacity)
+  return `
+    color: ${colors[color]};
+    background-color: ${normalizedBackgroundColor};
+    border: 1px solid ${normalizedBorderColor || normalizedBackgroundColor};
+    &>${StyledContent} {
+      opacity: ${R.isNil(contentOpacity) ? 1 : contentOpacity};
+    }
+  `
+}
+
+const getMediaCss = ({ hoverProps, disabledProps, isDisabled, ...rest }) => `
   ${getBaseCss(isDisabled ? { ...rest, ...disabledProps } : rest)}
-  &:hover {
+  &:hover, &:focus {
     ${isDisabled ? '' : getBaseCss({ ...rest, ...hoverProps })}
   }
   &:active {
-    ${isDisabled ? '' : getBaseCss({ ...rest, ...activeProps })}
+    ${isDisabled ? '' : getBaseCss(rest)}
   }
 `
 
 const getCss = props => {
-  const { shadow, size, borderRadius, isDisabled } = props
-  const { mobileProps, baseProps, wideProps } = unwrapResponsivePreset(
-    'preset',
-    presets,
-    props,
-  )
+  const {
+    normalizedProps: { mobileProps, baseProps, wideProps },
+    shadow,
+    size,
+    borderRadius,
+    isDisabled,
+  } = props
   return `
     appearance: none !important;
+    outline: none;
+    user-select: none;
     box-sizing: border-box;
     padding: 0 ${sizes[2]}px;
     transition: ${transitions.short};
@@ -134,43 +196,46 @@ const StyledButton = styled.button`
   ${getCss}
 `
 
-const StyledContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`
-
 const StyledText = styled(Text)`
   color: inherit;
 `
 
+const getPreset = ({ backdropColor, rank }) => `${backdropColor}${rank}`
+
 /**
- *  Кнопка, используется для всякого кликабельного. Главный параметр отвечающий за внеший вид — `preset`.
- *  Пресет `blank` не используется в дизайне, но полезен для элементов на основе кнопки, например, табов.
+ * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
+ * Первый отражает важность кнопки на странице, а второй отвечает за текст подложки.
  */
 function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
+  const normalizedProps = normalizeResponsivePreset(
+    getPreset,
+    presetsByBackdropColorAndRank,
+    rest,
+  )
+  const content =
+    typeof children === 'string' ? (
+      <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
+    ) : (
+      children
+    )
   return (
     <StyledButton
       {...rest}
+      normalizedProps={normalizedProps}
       disabled={isDisabled || isSubmitting}
       isDisabled={isDisabled || isSubmitting}
       onClick={!isDisabled && !isSubmitting ? onClick : null}
     >
-      <StyledContent>
-        {typeof children === 'string' ? (
-          <StyledText>{isSubmitting ? 'Загрузка...' : children}</StyledText>
-        ) : (
-          children
-        )}
-      </StyledContent>
+      <StyledContent>{content}</StyledContent>
     </StyledButton>
   )
 }
 
 const defaultProps = {
-  // eslint-disable-next-line react/default-props-match-prop-types
-  preset: 'primary',
+  /* eslint-disable react/default-props-match-prop-types */
+  rank: 1,
+  backdropColor: 'white',
+  /* eslint-enable react/default-props-match-prop-types */
   size: 'm',
   borderRadius: 'medium',
   shadow: 'none',
@@ -178,8 +243,10 @@ const defaultProps = {
 }
 
 const propTypes = {
-  /** Пресет, определяет общий вид кнопки */
-  preset: PropTypes.oneOf(Object.keys(presets)),
+  /** Важность кнопки на странице */
+  rank: PropTypes.oneOf([0, 1, 2, 3]),
+  /** Цвет фона на котором будет располагаться кнопка */
+  backdropColor: PropTypes.oneOf(['white', 'dark', 'light']),
 }
 
 Button.defaultProps = defaultProps

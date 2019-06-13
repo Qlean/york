@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import {
   sizes,
   media,
-  unwrapResponsiveProps,
+  normalizeResponsiveProps,
   getResponsivePropTypes,
 } from 'styles'
 
@@ -22,7 +22,7 @@ const getBaseCss = ({ height, width }) => `
 `
 
 const getCss = props => {
-  const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
+  const { mobileProps, baseProps, wideProps } = normalizeResponsiveProps(
     ['height', 'width'],
     props,
   )

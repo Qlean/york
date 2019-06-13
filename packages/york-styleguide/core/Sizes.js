@@ -1,25 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { colors } from '@qlean/york-core'
-import { sizes } from '@qlean/york-web'
+import { Example, g } from '@qlean/york-web'
 
-const StyledSpace = styled.div`
-  background-color: ${colors.blue};
-  height: ${({ height }) => height}px;
+const StyledBox = styled(Example.Box)`
+  height: ${({ size }) => g(size)}px;
   width: 100%;
-
-  &:not(:last-child) {
-    margin-bottom: ${sizes[6]}px;
-  }
 `
 
-const Spaces = () => (
-  <div>
-    {Object.values(sizes).map(size => (
-      <StyledSpace height={size} key={size} />
-    ))}
-  </div>
+const Sizes = ({ sizes }) => (
+  <Example.Showcase flexDirection="column">
+    {Object.values(sizes)
+      .filter(a => a)
+      .map(size => (
+        <Example.ShowcaseItem title={String(size)} key={size}>
+          <StyledBox size={size} />
+        </Example.ShowcaseItem>
+      ))}
+  </Example.Showcase>
 )
 
-export default Spaces
+Sizes.propTypes = {
+  sizes: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
+}
+
+export default Sizes

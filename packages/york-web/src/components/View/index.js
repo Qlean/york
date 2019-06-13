@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { media, unwrapResponsiveProps, getResponsivePropTypes } from 'styles'
+import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
 
 const getBaseCss = ({
   flexDirection,
@@ -16,7 +16,7 @@ const getBaseCss = ({
 `
 
 const getCss = props => {
-  const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
+  const { mobileProps, baseProps, wideProps } = normalizeResponsiveProps(
     ['flexDirection', 'alignItems', 'justifyContent', 'flexWrap'],
     props,
   )

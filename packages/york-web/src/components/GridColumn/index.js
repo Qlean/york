@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {
   media,
   mediaMaxWidths,
-  unwrapResponsiveProps,
+  normalizeResponsiveProps,
   getResponsivePropTypes,
 } from 'styles'
 
@@ -21,7 +21,7 @@ const getFlexibleColumn = ({ columns }) =>
   columns ? `width: ${(columns * 100) / 12}%;` : 'display: none;'
 
 const getCss = props => {
-  const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
+  const { mobileProps, baseProps, wideProps } = normalizeResponsiveProps(
     ['columns'],
     props,
   )

@@ -1,6 +1,7 @@
 const reactDocgen = require('react-docgen')
 const R = require('ramda')
 
+const { default: colors } = require('@qlean/york-core/lib/styles/colors')
 const { borderRadiuses, shadows } = require('@qlean/york-web/lib/styles')
 
 /*
@@ -9,21 +10,35 @@ const { borderRadiuses, shadows } = require('@qlean/york-web/lib/styles')
   seems enough.
 */
 
-const formatEnumTypeValue = (type, values) => ({
-  ...type,
-  value: R.map(value => ({ value, computed: false }), values),
-})
+const formatEnumTypeValues = R.map(value => ({ value, computed: false }))
 
-const formatEnumType = type => {
-  switch (type.value) {
+const formatEnumTypeStringValue = string => {
+  switch (string) {
     case 'Object.keys(borderRadiuses)':
-      return formatEnumTypeValue(type, R.keys(borderRadiuses))
+      return formatEnumTypeValues(R.keys(borderRadiuses))
     case 'Object.keys(shadows)':
-      return formatEnumTypeValue(type, R.keys(shadows))
+      return formatEnumTypeValues(R.keys(shadows))
+    case '...Object.keys(colors)':
+      return formatEnumTypeValues(R.keys(colors))
     default:
-      return type
+      return string
   }
 }
+
+const formatEnumTypeArrayValue = R.pipe(
+  R.map(value => {
+    const formattedValue = formatEnumTypeStringValue(value.value)
+    return typeof formattedValue === 'string' ? value : formattedValue
+  }),
+  R.flatten,
+)
+
+const formatEnumType = type => ({
+  ...type,
+  value: Array.isArray(type.value)
+    ? formatEnumTypeArrayValue(type.value)
+    : formatEnumTypeStringValue(type.value),
+})
 
 const formatProp = prop => {
   const { type } = prop

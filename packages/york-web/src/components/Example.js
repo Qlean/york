@@ -7,6 +7,7 @@ import { sizes } from 'styles'
 
 import Text from './Text'
 import View from './View'
+import Separator from './Separator'
 
 const StyledBox = styled.div`
   display: flex;
@@ -55,24 +56,77 @@ Checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const itemMargin = sizes[3]
+const itemMargin = sizes[4]
 
-const Palette = styled(View)`
+const StyledShowcase = styled(View)`
+  margin: 0 -16px;
+  ${({ withVerticalPadding, backgroundColor }) => `
+    padding: ${withVerticalPadding ? '15px' : 0} 16px;  
+    background-color: ${colors[backgroundColor]};
+  `}
+`
+
+const StyledShowcaseContent = styled(View)`
+  width: 100%;
   flex-wrap: wrap;
   margin: 0 -${itemMargin}px -${itemMargin}px 0;
 `
 
-const PaletteItem = styled.div`
+const Showcase = ({ backgroundColor, withVerticalPadding, ...rest }) => (
+  <StyledShowcase
+    backgroundColor={backgroundColor}
+    withVerticalPadding={withVerticalPadding}
+  >
+    <StyledShowcaseContent {...rest} />
+  </StyledShowcase>
+)
+
+Showcase.propTypes = {
+  backgroundColor: PropTypes.oneOf(Object.keys(colors)),
+  withVerticalPadding: PropTypes.bool,
+}
+
+Showcase.defaultProps = {
+  backgroundColor: 'white',
+  withVerticalPadding: false,
+}
+
+const StyledShowcaseItem = styled.div`
   box-sizing: border-box;
   padding: 0 ${itemMargin}px ${itemMargin}px 0;
 `
+
+const ShowcaseItem = ({ title, titleProps, caption, children, ...rest }) => (
+  <StyledShowcaseItem {...rest}>
+    <Text htmlTag="div" {...titleProps}>
+      {title}
+    </Text>
+    <Text htmlTag="div" color="grey">
+      {caption}
+    </Text>
+    <Separator height={1} />
+    <div>{children}</div>
+  </StyledShowcaseItem>
+)
+
+ShowcaseItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  titleProps: PropTypes.shape(Text.propTypes.isRequired),
+  caption: PropTypes.string,
+  children: PropTypes.node.isRequired,
+}
+
+ShowcaseItem.defaultProps = {
+  titleProps: {},
+  caption: '',
+}
 
 const Example = {
   Box,
   Container: StyledContainer,
   Checkbox,
-  Palette,
-  PaletteItem,
+  Showcase,
+  ShowcaseItem,
 }
 
 export default Example
