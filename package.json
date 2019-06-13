@@ -1,6 +1,6 @@
 {
   "name": "york",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"

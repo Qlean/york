@@ -2,7 +2,7 @@
   "name": "@qlean/york-web",
   "version": "0.7.0",
   "description": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"
