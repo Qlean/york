@@ -1,7 +1,12 @@
 {
   "name": "@qlean/york-styleguide",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qlean/york.git"
+  },
   "private": true,
   "main": "index.js",
   "scripts": {
