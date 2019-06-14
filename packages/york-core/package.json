@@ -1,13 +1,13 @@
 {
   "name": "@qlean/york-core",
-  "version": "0.7.0",
-  "main": "lib/index.js",
+  "version": "0.7.1",
   "description": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
+  "main": "lib/index.js",
   "scripts": {
     "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
