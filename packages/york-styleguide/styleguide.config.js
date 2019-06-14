@@ -1,5 +1,7 @@
 const path = require('path')
 
+const propsParser = require('./propsParser')
+
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
@@ -17,7 +19,8 @@ module.exports = {
   getComponentPathLine,
   sections: [
     {
-      name: 'Core',
+      name: 'york-core',
+      description: 'Стили и утилиты для всех приложений',
       sections: [
         {
           name: 'colors',
@@ -30,10 +33,13 @@ module.exports = {
       ],
     },
     {
-      name: 'Web',
+      name: 'york-web',
+      description: 'Компоненты и утилиты для веб-приложений',
+      content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
     },
   ],
+  propsParser,
   theme: {
     color: {
       link: '#222222',
@@ -48,10 +54,19 @@ module.exports = {
     sidebarWidth: 250,
   },
   styles: {
-    Logo: {
-      logo: {
-        color: '#222222',
-        fontSize: '20px',
+    StyleGuide: {
+      footer: {
+        display: 'none',
+      },
+    },
+    Table: {
+      cell: {
+        lineHeight: '20px',
+      },
+    },
+    Code: {
+      code: {
+        color: '#767676',
       },
     },
   },

@@ -15,7 +15,7 @@
     }
   },
   "scripts": {
-    "start": "lerna run --parallel start",
+    "start": "lerna exec --ignore @qlean/york-styleguide -- npm run build  && lerna run --parallel start",
     "build": "lerna exec --ignore @qlean/york-styleguide -- npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
     "bootstrap": "lerna bootstrap",
     "checkup": "lerna run build && lerna run test && npm run lint",

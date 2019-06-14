@@ -6,8 +6,8 @@ import { colors } from '@qlean/york-core'
 
 import {
   media,
-  unwrapResponsivePreset,
-  unwrapResponsiveProps,
+  normalizeResponsivePreset,
+  normalizeResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
 } from 'styles'
@@ -16,8 +16,8 @@ const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p']
 
 const presets = {
   header1: {
-    fontSize: 70,
-    lineHeight: 75,
+    fontSize: 50,
+    lineHeight: 55,
     fontWeight: 700,
   },
   header2: {
@@ -104,8 +104,8 @@ const defaultProps = {
 const getCss = initialProps => {
   const props = { ...defaultProps, ...initialProps }
   const { mobileProps, baseProps, wideProps } = mergeStyleProps([
-    unwrapResponsivePreset('preset', presets, props),
-    unwrapResponsiveProps(['color'], props),
+    normalizeResponsivePreset(({ preset }) => preset, presets, props),
+    normalizeResponsiveProps(['color'], props),
   ])
   return `
     font-family: "Museo Sans";
@@ -126,7 +126,7 @@ const components = R.pipe(
 )(htmlTags)
 
 /**
- * Используется для типографики. Поддерживает пресеты и все цвета из палитры.
+ * Компонент для оформления текста, использует шрифт Museo Sans.
  */
 export default function Text({ htmlTag, ...rest }) {
   const StyledTextComponent = components[htmlTag]
@@ -134,7 +134,7 @@ export default function Text({ htmlTag, ...rest }) {
 }
 
 const propTypes = {
-  /** Пресет */
+  /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Цвет текста */
   color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),

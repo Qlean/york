@@ -1,25 +1,15 @@
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
+import { sizes as coreSizes } from '@qlean/york-core'
 
 export const UI_GRID_POINT = 5
 
 export const g = (times = 1) => times * UI_GRID_POINT
 
-export const sizes = {
-  0: 0,
-  1: g(1),
-  2: g(2),
-  3: g(3),
-  4: g(4),
-  6: g(6),
-  8: g(8),
-  12: g(12),
-  16: g(16),
-  20: g(20),
-  24: g(24),
-}
+export const sizes = R.map(g, coreSizes)
 
 export const shadows = {
+  none: 'none',
   light: '0 1px 2px 0 rgba(0,0,0,0.10)',
   medium: '0 1px 2px rgba(0,0,0,0.25)',
   strong: '0 2px 6px 0 rgba(0,0,0,0.30)',
@@ -32,10 +22,10 @@ export const transitions = {
 }
 
 export const borderRadiuses = {
+  none: 'none',
   small: '4px',
   medium: '6px',
   round: '100px',
-  none: 'none',
 }
 
 export const minScreenWidth = 320
@@ -77,7 +67,7 @@ export const media = {
 
 const mediaTypePropNames = ['mobileProps', 'baseProps', 'wideProps']
 
-export const unwrapResponsiveProps = (propsNames, props) => {
+export const normalizeResponsiveProps = (propsNames, props) => {
   let unwrappedProps = {}
   mediaTypePropNames.forEach(mediaType => {
     unwrappedProps[mediaType] = {}
@@ -99,11 +89,11 @@ export const unwrapResponsiveProps = (propsNames, props) => {
   return unwrappedProps
 }
 
-export const unwrapResponsivePreset = (presetKey, presets, props) =>
+export const normalizeResponsivePreset = (presetGetter, presets, props) =>
   R.pipe(
     R.map(mediaType => {
-      const responsivePresetName = R.path([mediaType, presetKey], props)
-      const defaultPresetName = props[presetKey]
+      const defaultPresetName = presetGetter(props)
+      const responsivePresetName = presets[presetGetter(props[mediaType] || {})]
       const presetName = R.isNil(responsivePresetName)
         ? defaultPresetName
         : responsivePresetName
@@ -139,3 +129,12 @@ export const getResponsivePropTypes = propTypes => ({
     R.fromPairs,
   )(mediaTypePropNames),
 })
+
+export const hexToRgba = hexColor => {
+  const [red, green, blue, alpha] = R.pipe(
+    R.tail,
+    R.splitEvery(2),
+    R.map(hex => parseInt(hex, 16)),
+  )(hexColor)
+  return { red, green, blue, alpha }
+}

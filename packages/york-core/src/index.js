@@ -1,4 +1,5 @@
 export { default as colors } from './styles/colors'
+export { default as sizes } from './styles/sizes'
 
 export { default as capitalize } from './utils/capitalize'
 export { default as formatPhoneForHref } from './utils/formatPhoneForHref'
