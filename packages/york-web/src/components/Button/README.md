@@ -40,7 +40,6 @@ const ExampleComponent = () => {
           isSubmitting
         </Example.Checkbox>
       </View>
-
       <Example.Showcase withVerticalPadding>
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
