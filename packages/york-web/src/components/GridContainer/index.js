@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { g, media, mediaMaxWidths } from 'styles'
+import { UI_POINT, media, mediaMaxWidths } from 'styles'
 
 import View from '../View'
 
-const GUTTER = g(4)
+const GUTTER = UI_POINT * 4
 
 const StyledGridContainer = styled.div`
   margin: 0 auto;

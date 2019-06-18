@@ -19,24 +19,33 @@ module.exports = {
   getComponentPathLine,
   sections: [
     {
+      name: 'york',
+      content: './README.md',
+    },
+    {
       name: 'york-core',
-      description: 'Стили и утилиты для всех приложений',
+      content: '../york-core/README.md',
       sections: [
         {
           name: 'colors',
-          content: './core/colors.md',
+          content: './york-core/colors.md',
         },
         {
           name: 'sizes',
-          content: './core/sizes.md',
+          content: './york-core/sizes.md',
         },
       ],
     },
     {
       name: 'york-web',
-      description: 'Компоненты и утилиты для веб-приложений',
       content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
+      sections: [
+        {
+          name: 'sizes',
+          content: './york-web/sizes.md',
+        },
+      ],
     },
   ],
   propsParser,

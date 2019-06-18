@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { sizes as coreSizes } from '@qlean/york-core'
 
-export const UI_GRID_POINT = 5
+export const UI_POINT = 5
 
-export const g = (times = 1) => times * UI_GRID_POINT
+export const g = (times = 1) => times * UI_POINT
 
 export const sizes = R.map(g, coreSizes)
 

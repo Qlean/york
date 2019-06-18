@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { Example, g } from '@qlean/york-web'
+import { Example, UI_POINT } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
-  height: ${({ size }) => g(size)}px;
+  height: ${({ size }) => size * UI_POINT}px;
   width: 100%;
 `
 
@@ -14,7 +14,7 @@ const Sizes = ({ sizes }) => (
     {Object.values(sizes)
       .filter(a => a)
       .map(size => (
-        <Example.ShowcaseItem title={String(size)} key={size}>
+        <Example.ShowcaseItem title={`${size} pt / ${size * 5} px`} key={size}>
           <StyledBox size={size} />
         </Example.ShowcaseItem>
       ))}
