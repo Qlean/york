@@ -2,19 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  media,
-  mediaMaxWidths,
-  normalizeResponsiveProps,
-  getResponsivePropTypes,
-} from 'styles'
+import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
 
 import View from '../View'
 import GridContainer from '../GridContainer'
 
+const { gutter, maxWidths } = GridContainer
+
 const getStaticColumn = ({ columns }, containerWidth) =>
   columns
-    ? `width: ${columns * ((containerWidth + GridContainer.GUTTER) / 12)}px;`
+    ? `width: ${columns * ((containerWidth + gutter) / 12)}px;`
     : 'display: none;'
 
 const getFlexibleColumn = ({ columns }) =>
@@ -30,12 +27,12 @@ const getCss = props => {
     console.warn('GridColumn should be direct child of GridContainer')
   }
   return `
-    padding-left: ${GridContainer.GUTTER}px;
+    padding-left: ${gutter}px;
     box-sizing: border-box;
     flex-shrink: 0;
     ${media.mobile(getFlexibleColumn(mobileProps))}
-    ${media.base(getStaticColumn(baseProps, mediaMaxWidths.base))}
-    ${media.wide(getStaticColumn(wideProps, mediaMaxWidths.wide))}
+    ${media.base(getStaticColumn(baseProps, maxWidths.base))}
+    ${media.wide(getStaticColumn(wideProps, maxWidths.wide))}
   `
 }
 

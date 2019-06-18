@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { Example, UI_POINT } from '@qlean/york-web'
+import { Example, uiPoint } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
-  height: ${({ size }) => size * UI_POINT}px;
+  height: ${({ size }) => size * uiPoint}px;
   width: 100%;
 `
 

@@ -45,6 +45,22 @@ module.exports = {
           name: 'sizes',
           content: './york-web/sizes.md',
         },
+        {
+          name: 'media',
+          content: './york-web/media.md',
+        },
+        {
+          name: 'shadows',
+          content: './york-web/shadows.md',
+        },
+        {
+          name: 'transitions',
+          content: './york-web/transitions.md',
+        },
+        {
+          name: 'borderRadiuses',
+          content: './york-web/borderRadiuses.md',
+        },
       ],
     },
   ],
