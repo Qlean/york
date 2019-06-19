@@ -1,8 +1,6 @@
 ```js
 import styled from 'styled-components'
-import { Button, Separator, View, Example } from '@qlean/york-web'
-
-import { sizes, media } from 'styles'
+import { Button, Separator, View, Example, sizes, media } from '@qlean/york-web'
 
 const StyledShowcaseItem = styled(Example.ShowcaseItem)`
   width: 25%;

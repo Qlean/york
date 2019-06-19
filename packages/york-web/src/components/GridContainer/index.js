@@ -57,3 +57,4 @@ GridContainer.propTypes = {
 }
 
 GridContainer.gutter = gutter
+GridContainer.maxWidths = maxWidths

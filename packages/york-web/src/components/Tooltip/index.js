@@ -18,7 +18,7 @@ const StyledTooltipContainer = styled.div`
   justify-content: center;
   transform: translate(-50%, -100%);
   width: ${minScreenWidth - screenMargin * 2}px;
-  transition: ${transitions.medium}, left 0s;
+  transition: ${transitions.medium}, left 0;
   opacity: 0;
   pointer-events: none;
 `

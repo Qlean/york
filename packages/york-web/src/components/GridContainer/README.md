@@ -7,7 +7,7 @@ const StyledBox = styled(Example.Box)`
   width: auto;
 `
 
-;<Example.Container>
+;<div style={{ overflow: 'auto' }}>
   <GridContainer
     mobileProps={{ flexDirection: 'column', alignItems: 'center' }}
   >
@@ -18,5 +18,5 @@ const StyledBox = styled(Example.Box)`
       <StyledBox>6</StyledBox>
     </GridColumn>
   </GridContainer>
-</Example.Container>
+</div>
 ```
