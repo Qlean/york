@@ -28,11 +28,11 @@ module.exports = {
       sections: [
         {
           name: 'colors',
-          content: './york-core/colors.md',
+          content: '../york-core/docs/colors.md',
         },
         {
           name: 'sizes',
-          content: './york-core/sizes.md',
+          content: '../york-core/docs/sizes.md',
         },
       ],
     },
@@ -43,23 +43,23 @@ module.exports = {
       sections: [
         {
           name: 'sizes',
-          content: './york-web/sizes.md',
+          content: '../york-web/docs/sizes.md',
         },
         {
           name: 'media',
-          content: './york-web/media.md',
+          content: '../york-web/docs/media.md',
         },
         {
           name: 'shadows',
-          content: './york-web/shadows.md',
+          content: '../york-web/docs/shadows.md',
         },
         {
           name: 'transitions',
-          content: './york-web/transitions.md',
+          content: '../york-web/docs/transitions.md',
         },
         {
           name: 'borderRadiuses',
-          content: './york-web/borderRadiuses.md',
+          content: '../york-web/docs/borderRadiuses.md',
         },
       ],
     },
