@@ -2,11 +2,9 @@ import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { sizes as coreSizes } from '@qlean/york-core'
 
-export const UI_GRID_POINT = 5
+export const uiPoint = 5
 
-export const g = (times = 1) => times * UI_GRID_POINT
-
-export const sizes = R.map(g, coreSizes)
+export const sizes = R.map(size => size * uiPoint, coreSizes)
 
 export const shadows = {
   none: 'none',
@@ -30,15 +28,9 @@ export const borderRadiuses = {
 
 export const minScreenWidth = 320
 
-export const mediaBreakpoints = {
+const mediaBreakpoints = {
   base: 991,
   wide: 1280,
-}
-
-export const mediaMaxWidths = {
-  base: 940,
-  wide: 1120,
-  mobile: 360,
 }
 
 export const media = {
@@ -48,8 +40,8 @@ export const media = {
     }
   `,
   base: string => `
-    @media (min-width: ${mediaBreakpoints.base +
-      1}px) and (max-width: ${mediaBreakpoints.wide - 1}px) {
+    @media (min-width: ${mediaBreakpoints.base + 1}px)
+    and (max-width: ${mediaBreakpoints.wide - 1}px) {
       ${string}
     }
   `,

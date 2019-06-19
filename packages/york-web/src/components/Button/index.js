@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 
 import {
-  g,
+  uiPoint,
   sizes,
   media,
   borderRadiuses,
@@ -111,9 +111,9 @@ const presetsByBackdropColorAndRank = {
 const getHeight = size => {
   switch (size) {
     case 's':
-      return `${g(8)}px`
+      return `${uiPoint * 8}px`
     case 'm':
-      return `${g(10)}px`
+      return `${uiPoint * 10}px`
     default:
       return ''
   }

@@ -40,7 +40,7 @@ const presets = [
   },
 ]
 
-;<Example.Showcase>
+;<Example.Showcase overflow="hidden">
   {presets.map(({ preset, caption }) => (
     <Example.ShowcaseItem key={preset} title={preset} caption={caption}>
       <Text preset={preset}>

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import { sizes } from 'styles'
@@ -13,9 +14,11 @@ const StyledBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${sizes[8]}px;
-  height: ${sizes[8]}px;
   background-color: ${colors.blue};
+  ${({ width, height }) => `
+    width: ${R.isNil(width) ? sizes[8] : sizes[width]}px;
+    height: ${R.isNil(height) ? sizes[8] : sizes[height]}px;
+  `}
 `
 
 const StyledText = styled(Text)`
@@ -34,10 +37,6 @@ Box.propTypes = {
   // eslint-disable-next-line react/require-default-props
   children: PropTypes.node,
 }
-
-const StyledContainer = styled.div`
-  overflow: auto;
-`
 
 const StyledLabel = styled.label`
   user-select: none;
@@ -60,22 +59,29 @@ const itemMargin = sizes[4]
 
 const StyledShowcase = styled(View)`
   margin: 0 -16px;
-  ${({ withVerticalPadding, backgroundColor }) => `
+  ${({ withVerticalPadding, backgroundColor, overflow }) => `
     padding: ${withVerticalPadding ? '15px' : 0} 16px;  
     background-color: ${colors[backgroundColor]};
+    overflow: ${overflow};
   `}
 `
 
 const StyledShowcaseContent = styled(View)`
-  width: 100%;
   flex-wrap: wrap;
-  margin: 0 -${itemMargin}px -${itemMargin}px 0;
+  margin: 0 0 -${itemMargin}px -${itemMargin}px;
+  width: calc(100% + ${itemMargin}px);
 `
 
-const Showcase = ({ backgroundColor, withVerticalPadding, ...rest }) => (
+const Showcase = ({
+  backgroundColor,
+  withVerticalPadding,
+  overflow,
+  ...rest
+}) => (
   <StyledShowcase
     backgroundColor={backgroundColor}
     withVerticalPadding={withVerticalPadding}
+    overflow={overflow}
   >
     <StyledShowcaseContent {...rest} />
   </StyledShowcase>
@@ -84,16 +90,18 @@ const Showcase = ({ backgroundColor, withVerticalPadding, ...rest }) => (
 Showcase.propTypes = {
   backgroundColor: PropTypes.oneOf(Object.keys(colors)),
   withVerticalPadding: PropTypes.bool,
+  overflow: PropTypes.string,
 }
 
 Showcase.defaultProps = {
   backgroundColor: 'white',
   withVerticalPadding: false,
+  overflow: 'visible',
 }
 
 const StyledShowcaseItem = styled.div`
   box-sizing: border-box;
-  padding: 0 ${itemMargin}px ${itemMargin}px 0;
+  padding: 0 0 ${itemMargin}px ${itemMargin}px;
 `
 
 const ShowcaseItem = ({ title, titleProps, caption, children, ...rest }) => (
@@ -123,7 +131,6 @@ ShowcaseItem.defaultProps = {
 
 const Example = {
   Box,
-  Container: StyledContainer,
   Checkbox,
   Showcase,
   ShowcaseItem,

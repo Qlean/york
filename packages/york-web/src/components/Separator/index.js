@@ -42,9 +42,9 @@ const Separator = styled.div`
 `
 
 const propTypes = {
-  /** Высота разделителя в `UI_GRID_POINT` */
+  /** Высота разделителя в `uiPoint` */
   height: sizesPropTypes,
-  /** Ширина разделителя в `UI_GRID_POINT` */
+  /** Ширина разделителя в `uiPoint` */
   width: sizesPropTypes,
 }
 

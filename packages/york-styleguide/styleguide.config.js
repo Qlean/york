@@ -19,24 +19,49 @@ module.exports = {
   getComponentPathLine,
   sections: [
     {
+      name: 'york',
+      content: './README.md',
+    },
+    {
       name: 'york-core',
-      description: 'Стили и утилиты для всех приложений',
+      content: '../york-core/README.md',
       sections: [
         {
           name: 'colors',
-          content: './core/colors.md',
+          content: '../york-core/docs/colors.md',
         },
         {
           name: 'sizes',
-          content: './core/sizes.md',
+          content: '../york-core/docs/sizes.md',
         },
       ],
     },
     {
       name: 'york-web',
-      description: 'Компоненты и утилиты для веб-приложений',
       content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
+      sections: [
+        {
+          name: 'sizes',
+          content: '../york-web/docs/sizes.md',
+        },
+        {
+          name: 'media',
+          content: '../york-web/docs/media.md',
+        },
+        {
+          name: 'shadows',
+          content: '../york-web/docs/shadows.md',
+        },
+        {
+          name: 'transitions',
+          content: '../york-web/docs/transitions.md',
+        },
+        {
+          name: 'borderRadiuses',
+          content: '../york-web/docs/borderRadiuses.md',
+        },
+      ],
     },
   ],
   propsParser,
