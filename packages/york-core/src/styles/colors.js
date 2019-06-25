@@ -1,5 +1,6 @@
 export default {
   green: '#20A052',
+  jungle: '#23B059',
   red: '#D13737',
   blue: '#2FAFDE',
   yellow: '#FAE12E',

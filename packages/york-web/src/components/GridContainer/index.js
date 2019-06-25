@@ -2,25 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { g, media, mediaMaxWidths } from 'styles'
+import { uiPoint, media } from 'styles'
 
 import View from '../View'
 
-const GUTTER = g(4)
+const gutter = uiPoint * 4
+
+const maxWidths = {
+  base: 940,
+  wide: 1120,
+  mobile: 360,
+}
 
 const StyledGridContainer = styled.div`
   margin: 0 auto;
-  ${media.mobile(`max-width: ${mediaMaxWidths.mobile}px;`)}
-  ${media.base(`max-width: ${mediaMaxWidths.base}px;`)}
-  ${media.wide(`max-width: ${mediaMaxWidths.wide}px;`)}
+  ${media.mobile(`max-width: ${maxWidths.mobile}px;`)}
+  ${media.base(`max-width: ${maxWidths.base}px;`)}
+  ${media.wide(`max-width: ${maxWidths.wide}px;`)}
 `
 
 const StyledGridContent = styled(View)`
-  margin-left: ${-GUTTER}px;
+  margin-left: ${-gutter}px;
 `
 
 /**
- * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме GridColumn. Основан на View и поддерживает все его пропсы.
+ * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме `<GridColumn>`. Основан на `<View>` и поддерживает все его пропсы.
  */
 export default function GridContainer({ children, ...rest }) {
   return process.env.NODE_ENV === 'production' ? (
@@ -46,8 +52,9 @@ export default function GridContainer({ children, ...rest }) {
 }
 
 GridContainer.propTypes = {
-  /** Колонки, должны иметь тип GridColumn */
+  /** Колонки, должны иметь тип `GridColumn` */
   children: PropTypes.node.isRequired,
 }
 
-GridContainer.GUTTER = GUTTER
+GridContainer.gutter = gutter
+GridContainer.maxWidths = maxWidths

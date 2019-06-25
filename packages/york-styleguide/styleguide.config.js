@@ -1,5 +1,7 @@
 const path = require('path')
 
+const propsParser = require('./propsParser')
+
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
@@ -17,21 +19,49 @@ module.exports = {
   getComponentPathLine,
   sections: [
     {
-      name: 'Core',
+      name: 'york',
+      content: './README.md',
+    },
+    {
+      name: 'york-core',
+      content: '../york-core/README.md',
       sections: [
         {
           name: 'colors',
-          content: './core/colors.md',
+          content: '../york-core/docs/colors.md',
         },
         {
           name: 'sizes',
-          content: './core/sizes.md',
+          content: '../york-core/docs/sizes.md',
         },
       ],
     },
     {
-      name: 'Web',
+      name: 'york-web',
+      content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
+      sections: [
+        {
+          name: 'sizes',
+          content: '../york-web/docs/sizes.md',
+        },
+        {
+          name: 'media',
+          content: '../york-web/docs/media.md',
+        },
+        {
+          name: 'shadows',
+          content: '../york-web/docs/shadows.md',
+        },
+        {
+          name: 'transitions',
+          content: '../york-web/docs/transitions.md',
+        },
+        {
+          name: 'borderRadiuses',
+          content: '../york-web/docs/borderRadiuses.md',
+        },
+      ],
     },
     {
       name: 'Native',
@@ -39,6 +69,7 @@ module.exports = {
       pagePerSection: true,
     },
   ],
+  propsParser,
   theme: {
     color: {
       link: '#222222',
@@ -53,10 +84,19 @@ module.exports = {
     sidebarWidth: 250,
   },
   styles: {
-    Logo: {
-      logo: {
-        color: '#222222',
-        fontSize: '20px',
+    StyleGuide: {
+      footer: {
+        display: 'none',
+      },
+    },
+    Table: {
+      cell: {
+        lineHeight: '20px',
+      },
+    },
+    Code: {
+      code: {
+        color: '#767676',
       },
     },
   },

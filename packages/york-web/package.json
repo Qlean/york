@@ -1,15 +1,15 @@
 {
   "name": "@qlean/york-web",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/qlean/york.git"
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "npm run clean && babel src -d lib -w --copy-files",
+    "start": "babel src -d lib -w --copy-files",
     "build": "npm run clean && babel src -d lib --copy-files",
     "clean": "rimraf lib",
     "lint": "eslint src --ext .js",

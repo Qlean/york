@@ -2,26 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  media,
-  mediaMaxWidths,
-  unwrapResponsiveProps,
-  getResponsivePropTypes,
-} from 'styles'
+import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
 
 import View from '../View'
 import GridContainer from '../GridContainer'
 
+const { gutter, maxWidths } = GridContainer
+
 const getStaticColumn = ({ columns }, containerWidth) =>
   columns
-    ? `width: ${columns * ((containerWidth + GridContainer.GUTTER) / 12)}px;`
+    ? `width: ${columns * ((containerWidth + gutter) / 12)}px;`
     : 'display: none;'
 
 const getFlexibleColumn = ({ columns }) =>
   columns ? `width: ${(columns * 100) / 12}%;` : 'display: none;'
 
 const getCss = props => {
-  const { mobileProps, baseProps, wideProps } = unwrapResponsiveProps(
+  const { mobileProps, baseProps, wideProps } = normalizeResponsiveProps(
     ['columns'],
     props,
   )
@@ -30,12 +27,12 @@ const getCss = props => {
     console.warn('GridColumn should be direct child of GridContainer')
   }
   return `
-    padding-left: ${GridContainer.GUTTER}px;
+    padding-left: ${gutter}px;
     box-sizing: border-box;
     flex-shrink: 0;
     ${media.mobile(getFlexibleColumn(mobileProps))}
-    ${media.base(getStaticColumn(baseProps, mediaMaxWidths.base))}
-    ${media.wide(getStaticColumn(wideProps, mediaMaxWidths.wide))}
+    ${media.base(getStaticColumn(baseProps, maxWidths.base))}
+    ${media.wide(getStaticColumn(wideProps, maxWidths.wide))}
   `
 }
 
@@ -44,7 +41,7 @@ const StyledGridColumn = styled(View)`
 `
 
 /**
- * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме GridContainer. Основана на View и поддерживает все его пропсы.
+ * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме `<GridContainer>`. Основана на `<View>` и поддерживает все его пропсы.
  */
 const GridColumn = props => (
   <StyledGridColumn flexDirection="column" {...props} />

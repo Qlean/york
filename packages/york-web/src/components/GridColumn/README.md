@@ -1,8 +1,7 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { GridContainer, GridColumn, Example } from '@qlean/york-web'
-import { media } from 'styles'
+import { GridContainer, GridColumn, Example, media } from '@qlean/york-web'
 
 const StyledBoxDesktop = styled(Example.Box)`
   width: auto;
@@ -14,7 +13,7 @@ const StyledBoxMobile = styled(Example.Box)`
   ${media.desktop('display: none;')}
 `
 
-;<Example.Container>
+;<div style={{ overflow: 'auto' }}>
   <GridContainer>
     <GridColumn columns={1} mobileProps={{ columns: 3 }}>
       <StyledBoxDesktop>1</StyledBoxDesktop>
@@ -33,5 +32,5 @@ const StyledBoxMobile = styled(Example.Box)`
       <StyledBoxMobile>3</StyledBoxMobile>
     </GridColumn>
   </GridContainer>
-</Example.Container>
+</div>
 ```
