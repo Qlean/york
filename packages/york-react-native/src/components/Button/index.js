@@ -87,7 +87,6 @@ const style = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  disabledLayer: { zIndex: -1 },
   text: { fontSize: 16, lineHeight: 25, color: colors.white },
   disabledText: { color: colors.black, opacity: 0.2 },
   icon: { marginRight: 5 },
@@ -172,7 +171,6 @@ const Button = ({
       <Animated.View
         style={[
           style.layer,
-          style.disabledLayer,
           style[`${preset}Disabled`],
           { opacity: disabledLayerOpacity },
         ]}
