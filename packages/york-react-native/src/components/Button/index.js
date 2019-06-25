@@ -11,52 +11,52 @@ import { colors } from '@qlean/york-core'
 
 import { useAnimation } from '../../utils/hooks'
 
-const disabledColor = 'rgba(0, 0, 0, 0.05)'
+const disabledBackground = 'rgba(0, 0, 0, 0.05)'
 const shadowColor = 'rgb(13, 40, 19)'
 
 const presets = {
-  whiteBg1: {
+  white1: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
     disabledProps: {
-      button: { backgroundColor: disabledColor },
+      button: { backgroundColor: disabledBackground },
     },
   },
-  lightBg1: {
+  light1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
     disabledProps: {
-      button: { backgroundColor: disabledColor },
+      button: { backgroundColor: disabledBackground },
     },
   },
-  darkBg1: {
+  dark1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
     disabledProps: {
-      button: { backgroundColor: disabledColor },
+      button: { backgroundColor: disabledBackground },
       text: { color: colors.white },
     },
   },
-  whiteBg2: {
+  white2: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
     disabledProps: {
       button: { borderColor: colors.whisper },
     },
   },
-  whiteBg3: {
+  white3: {
     button: { backgroundColor: colors.white, borderColor: colors.silver },
     text: { color: colors.black },
     disabledProps: {
       button: { borderColor: colors.whisper },
     },
   },
-  whiteBg4: {
+  white4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.green },
   },
-  lightBg4: {
+  light4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.black },
   },
-  darkBg4: {
+  dark4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.white },
     disabledProps: {
@@ -131,8 +131,9 @@ const Button = ({
   children,
   isDisabled,
   isSubmitting,
-  preset,
   size,
+  rank,
+  backdropColor,
   withShadow,
   Icon,
   ...props
@@ -149,6 +150,7 @@ const Button = ({
     useNativeDriver: true,
     duration: 100,
   })
+  const preset = `${backdropColor}${rank}`
   const buttonText = isSubmitting ? 'Подождите...' : children
   return (
     <TouchableOpacity
@@ -160,7 +162,11 @@ const Button = ({
       <Animated.View
         style={[style.layer, style[preset], { opacity: enabledLayerOpacity }]}
       >
-        {Icon ? <Icon style={style.icon} /> : null}
+        {Icon
+          ? React.cloneElement(Icon, {
+              style: [Icon.props.style, style.icon],
+            })
+          : null}
         <Text style={[style.text, style[`${preset}Text`]]}>{buttonText}</Text>
       </Animated.View>
       <Animated.View
@@ -171,7 +177,11 @@ const Button = ({
           { opacity: disabledLayerOpacity },
         ]}
       >
-        {Icon ? <Icon style={[style.icon, style.disabledIcon]} /> : null}
+        {Icon
+          ? React.cloneElement(Icon, {
+              style: [Icon.props.style, style.icon, style.disabledIcon],
+            })
+          : null}
         <Text
           style={[
             style.text,
@@ -187,7 +197,8 @@ const Button = ({
 }
 
 Button.defaultProps = {
-  preset: 'primaryLightBg',
+  rank: 1,
+  backdropColor: 'white',
   size: 'm',
   withShadow: false,
   isSubmitting: false,
@@ -199,15 +210,18 @@ Button.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
   isSubmitting: PropTypes.bool,
-  /** Пресет кнопки */
-  preset: PropTypes.oneOf(Object.keys(presets)),
+  /** Важность кнопки на странице. Нулевой ранг сбрасывает стили и используется для расширения кнопки */
+  rank: PropTypes.oneOf([1, 2, 3, 4]),
+  /** Цвет фона на котором будет располагаться кнопка */
+  backdropColor: PropTypes.oneOf(['white', 'dark', 'light']),
   /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
   size: PropTypes.oneOf(Object.keys(sizes)),
   /** Тень кнопки. Используется только в кнопках в футере */
   withShadow: PropTypes.bool,
-  /** Иконка слева от текста. Передавать с пробросом пропов для правильного отображения disabled состояния: Icon={props => \<Icon name="qlean" {...props}}/> */
+  /** Иконка слева от текста. */
   Icon: PropTypes.element,
-  children: PropTypes.node.isRequired,
+  /** Содержимое кнопки. Может быть только строкой */
+  children: PropTypes.string.isRequired,
 }
 
 export default Button
