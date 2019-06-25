@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Text,
@@ -9,32 +9,44 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
+import { useAnimation } from '../../utils/hooks'
+
 const disabledColor = 'rgba(0, 0, 0, 0.05)'
 const shadowColor = 'rgb(13, 40, 19)'
 
 const presets = {
   whiteBg1: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
-    disabled: { backgroundColor: disabledColor },
+    disabledProps: {
+      button: { backgroundColor: disabledColor },
+    },
   },
   lightBg1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    disabled: { backgroundColor: disabledColor },
+    disabledProps: {
+      button: { backgroundColor: disabledColor },
+    },
   },
   darkBg1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    disabled: { backgroundColor: disabledColor },
-    disabledText: { color: colors.white },
+    disabledProps: {
+      button: { backgroundColor: disabledColor },
+      text: { color: colors.white },
+    },
   },
   whiteBg2: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
-    disabled: { borderColor: colors.whisper },
+    disabledProps: {
+      button: { borderColor: colors.whisper },
+    },
   },
   whiteBg3: {
     button: { backgroundColor: colors.white, borderColor: colors.silver },
     text: { color: colors.black },
-    disabled: { borderColor: colors.whisper },
+    disabledProps: {
+      button: { borderColor: colors.whisper },
+    },
   },
   whiteBg4: {
     button: { backgroundColor: colors.transparent },
@@ -47,7 +59,9 @@ const presets = {
   darkBg4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.white },
-    disabledText: { color: colors.white },
+    disabledProps: {
+      text: { color: colors.white },
+    },
   },
 }
 
@@ -102,26 +116,13 @@ const style = StyleSheet.create({
     (acc, preset) => ({
       ...acc,
       [preset]: presets[preset].button,
-      [`${preset}Disabled`]: presets[preset].disabled,
       [`${preset}Text`]: presets[preset].text,
-      [`${preset}DisabledText`]: presets[preset].disabledText,
+      [`${preset}Disabled`]: (presets[preset].disabledProps || {}).button,
+      [`${preset}DisabledText`]: (presets[preset].disabledProps || {}).text,
     }),
     {},
   ),
 })
-
-const useAnimation = config => {
-  const { initialValue = 0 } = config
-  const animatedValue = useRef(new Animated.Value(initialValue)).current
-
-  const animate = () => {
-    Animated.timing(animatedValue, config).start()
-  }
-
-  useEffect(animate, [config.toValue])
-
-  return animatedValue
-}
 
 /**
  * Кнопка
@@ -148,7 +149,7 @@ const Button = ({
     useNativeDriver: true,
     duration: 100,
   })
-  const buttonText = isSubmitting ? 'Подождите' : children
+  const buttonText = isSubmitting ? 'Подождите...' : children
   return (
     <TouchableOpacity
       disabled={isDisabled || isSubmitting}
@@ -200,17 +201,11 @@ Button.propTypes = {
   isSubmitting: PropTypes.bool,
   /** Пресет кнопки */
   preset: PropTypes.oneOf(Object.keys(presets)),
-  /** Размер кнопки. Меняется только высота,
-   * т. к. кнопка всегда занимает всю ширину контейнера
-   */
+  /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
   size: PropTypes.oneOf(Object.keys(sizes)),
   /** Тень кнопки. Используется только в кнопках в футере */
   withShadow: PropTypes.bool,
-  /**
-   * Иконка слева от текста. Передавать с пробросом пропов
-   * для правильного отображения disabled состояния:
-   * Icon={props => \<Icon name="qlean" {...props}}/>
-   */
+  /** Иконка слева от текста. Передавать с пробросом пропов для правильного отображения disabled состояния: Icon={props => \<Icon name="qlean" {...props}}/> */
   Icon: PropTypes.element,
   children: PropTypes.node.isRequired,
 }

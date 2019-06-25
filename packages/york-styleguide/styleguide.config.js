@@ -66,7 +66,6 @@ module.exports = {
     {
       name: 'Native',
       components: '../york-react-native/src/components/**/*.js',
-      pagePerSection: true,
     },
   ],
   propsParser,
