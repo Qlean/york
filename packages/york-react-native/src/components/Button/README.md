@@ -1,91 +1,77 @@
-## Кнопки
+```js
+import styled from 'styled-components'
+import { Separator, View, Example, media } from '@qlean/york-web'
+import { Button } from '@qlean/york-react-native'
 
-white1
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<>
-  <Example.Grid>
-    <Button onPress={() => {}} backdropColor="white" rank={1}>Кнопка</Button>
-    <Button backdropColor="white" rank={1} isDisabled>Кнопка</Button>
-  </Example.Grid>
-  <Example.Grid>
-    <Button withShadow onPress={() => {}} backdropColor="white" rank={1}>Кнопка</Button>
-    <Button withShadow backdropColor="white" rank={1} isDisabled>Кнопка</Button>
-  </Example.Grid>
-</>
-```
+const StyledShowcaseItem = styled(Example.ShowcaseItem)`
+  width: 25%;
+  ${media.mobile(`width: 100%;`)}
+`
 
-white2
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button backdropColor="white" rank={2}>Кнопка</Button>
-  <Button backdropColor="white" rank={2} isDisabled>Кнопка</Button>
-</Example.Grid>
-```
+const whiteBackdropRanks = [1, 2, 3, 4]
+const darkBackdropRanks = [1, 4]
+const lightBackdropRanks = [1, 4]
 
-white3
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button backdropColor="white" rank={3}>Кнопка</Button>
-  <Button backdropColor="white" rank={3} isDisabled>Кнопка</Button>
-</Example.Grid>
-```
+const ExampleComponent = () => {
+  const [isDisabled, setIsDisabled] = React.useState(false)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const buttonProps = {
+    isDisabled,
+    isSubmitting,
+    onClick: () => {},
+  }
 
-white4
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid>
-  <Button backdropColor="white" rank={4}>Кнопка</Button>
-  <Button backdropColor="white" rank={4} isDisabled>Кнопка</Button>
-</Example.Grid>
-```
+  return (
+    <>
+      <View>
+        <Example.Checkbox
+          value={isDisabled}
+          onChange={() => setIsDisabled(!isDisabled)}
+        >
+          isDisabled
+        </Example.Checkbox>
+        <Separator width={2} />
+        <Example.Checkbox
+          value={isSubmitting}
+          onChange={() => setIsSubmitting(!isSubmitting)}
+        >
+          isSubmitting
+        </Example.Checkbox>
+      </View>
+      <Example.Showcase withVerticalPadding>
+        {whiteBackdropRanks.map(rank => (
+          <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
+            <Button rank={rank} {...buttonProps}>
+              White Backdrop
+            </Button>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+      <Example.Showcase backgroundColor="green" withVerticalPadding>
+        {darkBackdropRanks.map(rank => (
+          <StyledShowcaseItem
+            key={rank}
+            title={`Rank ${rank}`}
+            titleProps={{ color: 'white' }}
+          >
+            <Button rank={rank} backdropColor="dark" {...buttonProps}>
+              Dark Backdrop
+            </Button>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+      <Example.Showcase backgroundColor="yellow" withVerticalPadding>
+        {lightBackdropRanks.map(rank => (
+          <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
+            <Button rank={rank} backdropColor="light" {...buttonProps}>
+              Light Backdrop
+            </Button>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+    </>
+  )
+}
 
-light1
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid backgroundColor="yellow">
-  <Button backdropColor="light" rank={1}>Кнопка</Button>
-  <Button backdropColor="light" rank={1} isDisabled>Кнопка</Button>
-</Example.Grid>
-```
-
-light4
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<Example.Grid backgroundColor="yellow">
-  <Button backdropColor="light" rank={4}>Кнопка</Button>
-  <Button backdropColor="light" rank={4} isDisabled>Кнопка</Button>
-</Example.Grid>
-```
-
-dark1
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<>
-  <Example.Grid  backgroundColor="green">
-    <Button backdropColor="dark" rank={1}>Кнопка</Button>
-    <Button backdropColor="dark" rank={1} isDisabled>Кнопка</Button>
-  </Example.Grid>
-  <Example.Grid  backgroundColor="blue">
-    <Button backdropColor="dark" rank={1}>Кнопка</Button>
-    <Button backdropColor="dark" rank={1} isDisabled>Кнопка</Button>
-  </Example.Grid>
-</>
-```
-
-dark4
-```jsx
-import { Example } from '@qlean/york-react-native'
-;<>
-  <Example.Grid backgroundColor="green">
-    <Button backdropColor="dark" rank={4}>Кнопка</Button>
-    <Button backdropColor="dark" rank={4} isDisabled>Кнопка</Button>
-  </Example.Grid>
-  <Example.Grid backgroundColor="blue">
-    <Button backdropColor="dark" rank={4}>Кнопка</Button>
-    <Button backdropColor="dark" rank={4} isDisabled>Кнопка</Button>
-  </Example.Grid>
-</>
+;<ExampleComponent />
 ```
