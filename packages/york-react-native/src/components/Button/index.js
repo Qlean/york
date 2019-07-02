@@ -74,7 +74,7 @@ const style = StyleSheet.create({
   container: {
     borderRadius: 4,
   },
-  layer: {
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -155,7 +155,7 @@ const Button = ({
     >
       <Animated.View
         style={[
-          style.layer,
+          style.content,
           style[preset],
           {
             opacity: opacity.interpolate({
@@ -174,7 +174,7 @@ const Button = ({
       </Animated.View>
       <Animated.View
         style={[
-          style.layer,
+          style.content,
           style[`${preset}Disabled`],
           {
             opacity: opacity.interpolate({
