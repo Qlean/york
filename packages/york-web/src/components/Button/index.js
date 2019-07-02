@@ -204,7 +204,7 @@ const getPreset = ({ backdropColor, rank }) => `${backdropColor}${rank}`
 
 /**
  * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
- * Первый отражает важность кнопки на странице, а второй отвечает за текст подложки.
+ * Первый отражает важность кнопки на странице, а второй отвечает за цвет подложки.
  */
 function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(

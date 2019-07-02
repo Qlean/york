@@ -124,7 +124,8 @@ const style = StyleSheet.create({
 })
 
 /**
- * Кнопка
+ * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
+ * Первый отражает важность кнопки на экране, а второй отвечает за цвет подложки.
  */
 const Button = ({
   children,
@@ -137,13 +138,7 @@ const Button = ({
   Icon,
   ...props
 }) => {
-  const enabledLayerOpacity = useAnimation({
-    initialValue: isDisabled ? 0 : 1,
-    toValue: isDisabled ? 0 : 1,
-    useNativeDriver: true,
-    duration: 100,
-  })
-  const disabledLayerOpacity = useAnimation({
+  const opacity = useAnimation({
     initialValue: isDisabled ? 1 : 0,
     toValue: isDisabled ? 1 : 0,
     useNativeDriver: true,
@@ -159,7 +154,16 @@ const Button = ({
       {...props}
     >
       <Animated.View
-        style={[style.layer, style[preset], { opacity: enabledLayerOpacity }]}
+        style={[
+          style.layer,
+          style[preset],
+          {
+            opacity: opacity.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 0],
+            }),
+          },
+        ]}
       >
         {Icon
           ? React.cloneElement(Icon, {
@@ -172,7 +176,12 @@ const Button = ({
         style={[
           style.layer,
           style[`${preset}Disabled`],
-          { opacity: disabledLayerOpacity },
+          {
+            opacity: opacity.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 1],
+            }),
+          },
         ]}
       >
         {Icon
