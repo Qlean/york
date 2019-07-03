@@ -17,18 +17,23 @@ const shadowColor = 'rgb(13, 40, 19)'
 const presets = {
   white1: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
+    text: { color: colors.white },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
+      text: { color: colors.black },
     },
   },
   light1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
+    text: { color: colors.white },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
+      text: { color: colors.black },
     },
   },
   dark1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
+    text: { color: colors.white },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
       text: { color: colors.white },
@@ -39,6 +44,7 @@ const presets = {
     text: { color: colors.green },
     disabledProps: {
       button: { borderColor: colors.whisper },
+      text: { color: colors.black },
     },
   },
   white3: {
@@ -46,15 +52,22 @@ const presets = {
     text: { color: colors.black },
     disabledProps: {
       button: { borderColor: colors.whisper },
+      text: { color: colors.black },
     },
   },
   white4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.green },
+    disabledProps: {
+      text: { color: colors.black },
+    },
   },
   light4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.black },
+    disabledProps: {
+      text: { color: colors.black },
+    },
   },
   dark4: {
     button: { backgroundColor: colors.transparent },
@@ -87,8 +100,8 @@ const style = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  text: { fontSize: 16, lineHeight: 25, color: colors.white },
-  disabledText: { color: colors.black, opacity: 0.2 },
+  text: { fontSize: 16, lineHeight: 25 },
+  disabledText: { opacity: 0.2 },
   icon: { marginRight: 5 },
   disabledIcon: { tintColor: colors.black, opacity: 0.2 },
   shadow: {
