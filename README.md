@@ -13,6 +13,7 @@
 
 ```
 $ git clone git@github.com:Qlean/york.git && cd york
+$ npm i
 $ npm run bootstrap
 ```
 
@@ -20,6 +21,24 @@ $ npm run bootstrap
 
 ```
 $ npm start
+```
+
+## Линковка
+
+Иногда требуется проверять новые версии пакета локально в реальных проектах до паблиша. В большинстве случаев хватает `npm link`, но есть особые случаи.
+
+### york-react-native
+Стандартный `react-native` сборщик не дружит с `npm link`, поэтому для линковки используется [wml](https://github.com/wix/wml).
+
+Сначала создадим линк.
+```
+npm install -g wml
+wml add /path-to-york/packages/york-react-native/ /path-to-react-native-app/node_modules/@qlean/york-react-native
+```
+
+Теперь, всякий раз при локальном использовании йорка достаточно использовать
+```
+wml start
 ```
 
 ## Публикация

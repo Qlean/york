@@ -9,8 +9,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "babel src -d lib --ignore test.js -w",
-    "build": "npm run clean && babel src -d lib --ignore test.js",
+    "start": "npm run clean && babel src -d lib -w --copy-files",
+    "build": "npm run clean && babel src -d lib --copy-files",
     "clean": "rimraf lib",
     "precommit": "lint-staged"
   },
@@ -18,6 +18,6 @@
     "@qlean/york-core": "*",
     "prop-types": ">=15",
     "react": ">=16",
-    "react-native": ">=0.50"
+    "react-native": ">=0.56.1"
   }
 }
