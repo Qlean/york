@@ -23,22 +23,6 @@ const presets = {
       text: { color: colors.black },
     },
   },
-  light1: {
-    button: { backgroundColor: colors.black, borderColor: colors.black },
-    text: { color: colors.white },
-    disabledProps: {
-      button: { backgroundColor: disabledBackground },
-      text: { color: colors.black },
-    },
-  },
-  dark1: {
-    button: { backgroundColor: colors.black, borderColor: colors.black },
-    text: { color: colors.white },
-    disabledProps: {
-      button: { backgroundColor: disabledBackground },
-      text: { color: colors.white },
-    },
-  },
   white2: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
     text: { color: colors.green },
@@ -62,11 +46,27 @@ const presets = {
       text: { color: colors.black },
     },
   },
+  light1: {
+    button: { backgroundColor: colors.black, borderColor: colors.black },
+    text: { color: colors.white },
+    disabledProps: {
+      button: { backgroundColor: disabledBackground },
+      text: { color: colors.black },
+    },
+  },
   light4: {
     button: { backgroundColor: colors.transparent },
     text: { color: colors.black },
     disabledProps: {
       text: { color: colors.black },
+    },
+  },
+  dark1: {
+    button: { backgroundColor: colors.black, borderColor: colors.black },
+    text: { color: colors.white },
+    disabledProps: {
+      button: { backgroundColor: disabledBackground },
+      text: { color: colors.white },
     },
   },
   dark4: {
@@ -151,6 +151,16 @@ const Button = ({
   Icon,
   ...props
 }) => {
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    withShadow === true &&
+    (rank !== 1 || backdropColor !== 'white')
+  ) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Shadow can only be used with the rank 1 and white backdrop color',
+    )
+  }
   const opacity = useAnimation({
     initialValue: isDisabled ? 1 : 0,
     toValue: isDisabled ? 1 : 0,
@@ -226,32 +236,21 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  /** Делает кнопку недоступной для нажатия. Меняется с анимацией */
+  /** Делает кнопку недоступной для нажатия. */
   isDisabled: PropTypes.bool.isRequired,
   /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
   isSubmitting: PropTypes.bool,
-  /** Важность кнопки на странице. Нулевой ранг сбрасывает стили и используется для расширения кнопки */
+  /** Важность кнопки на странице. */
   rank: PropTypes.oneOf([1, 2, 3, 4]),
   /** Цвет фона на котором будет располагаться кнопка */
   backdropColor: PropTypes.oneOf(['white', 'dark', 'light']),
   /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
   size: PropTypes.oneOf(Object.keys(sizes)),
-  /** Тень кнопки. Используется только в кнопках в футере */
-  withShadow: props => {
-    const { withShadow, rank, backdropColor } = props
-    if (withShadow === true && (rank !== 1 || backdropColor !== 'white'))
-      return new Error(
-        'Shadow can only be used with the rank 1 and white backdrop color',
-      )
-    if (typeof withShadow !== 'boolean')
-      return new Error(
-        'Invalid prop type `withShadow` supplied to `Button`, expected `boolean`.',
-      )
-    return null
-  },
+  /** Тень кнопки. Используется только с белым backdropColor. */
+  withShadow: PropTypes.bool,
   /** Иконка слева от текста. */
   Icon: PropTypes.element,
-  /** Содержимое кнопки. Может быть только строкой */
+  /** Текст на кнопке. */
   children: PropTypes.string.isRequired,
 }
 

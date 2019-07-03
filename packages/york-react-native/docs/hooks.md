@@ -1,10 +1,24 @@
 ### useAnimation()
 `import { useAnimation } from '@qlean/york-react-native'`
 
-Хук для анимации. Принимает все параметры, которые использует `Animated.timing`, а также `fromValue`.
-* `duration`: Длительность анимации в миллисекундах. По умолчанию `500`.
-* `easing`: Easing функция анимации. По умолчанию `Easing.inOut(Easing.ease)`.
-* `delay`: Задержка перед анимацией в миллисекундах. По умолчанию `0`.
-* `useNativeDriver`: Использование нативного драйвера. Работает не со всеми свойствами, но строго рекомендуем к использованию. По умолчанию `false`.
-* `toValue`: Финальное значение анимации.
-* `fromValue`: Начальное значение анимации.
+Хук для анимации. Принимает все параметры, которые использует `Animated.timing`, а также `fromValue` для начального значения анимации.
+
+Официальная документация `Animated.timing` – https://facebook.github.io/react-native/docs/animated#timing
+
+Пример использования:
+```js static
+const AnimatedComponent = ({ isDisabled }) => {
+  const opacity = useAnimation({
+    initialValue: isDisabled ? 1 : 0,
+    toValue: isDisabled ? 1 : 0,
+    useNativeDriver: true,
+    duration: 100,
+  })
+
+  return (
+    <Animated.View style={{ opacity }}>
+      <Text>Hello</Text>
+    </Animated.View>
+  )
+}
+```
