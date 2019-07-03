@@ -64,8 +64,15 @@ module.exports = {
       ],
     },
     {
-      name: 'Native',
+      name: 'york-react-native',
+      content: '../york-react-native/README.md',
       components: '../york-react-native/src/components/**/*.js',
+      sections: [
+        {
+          name: 'hooks',
+          content: '../york-react-native/docs/hooks.md',
+        },
+      ],
     },
   ],
   propsParser,

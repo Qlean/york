@@ -3,7 +3,7 @@
 ### Установка
 
 ```shell static
-$ npm i @qlean/york-core
+$ npm i @qlean/york-web
 ```
 
 Для нормальной работы компонентов в CSS должен быть доступен шрифт Museo Sans.
