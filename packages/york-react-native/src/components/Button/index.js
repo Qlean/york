@@ -224,7 +224,18 @@ Button.propTypes = {
   /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
   size: PropTypes.oneOf(Object.keys(sizes)),
   /** Тень кнопки. Используется только в кнопках в футере */
-  withShadow: PropTypes.bool,
+  withShadow: props => {
+    const { withShadow, rank, backdropColor } = props
+    if (withShadow === true && (rank !== 1 || backdropColor !== 'white'))
+      return new Error(
+        'Shadow can only be used with the rank 1 and white backdrop color',
+      )
+    if (typeof withShadow !== 'boolean')
+      return new Error(
+        'Invalid prop type `withShadow` supplied to `Button`, expected `boolean`.',
+      )
+    return null
+  },
   /** Иконка слева от текста. */
   Icon: PropTypes.element,
   /** Содержимое кнопки. Может быть только строкой */
