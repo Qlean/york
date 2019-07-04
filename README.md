@@ -12,7 +12,6 @@
 ## Установка
 
 ```
-$ git clone git@github.com:Qlean/york.git && cd york
 $ npm i
 $ npm run bootstrap
 ```
@@ -44,12 +43,6 @@ wml start
 ## Публикация
 
 Работает только из ветки `master`
-
-Проверить изменения
-
-```
-$ lerna update
-```
 
 Собрать, прогнать линтер и тесты, поднять версию, расставить теги, опубликовать в npm
 
