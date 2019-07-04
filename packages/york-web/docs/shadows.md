@@ -1,4 +1,4 @@
-`import { shadows } from '@qlean/york-core'`
+`import { shadows } from '@qlean/york-web'`
 
 Константы для теней.
 

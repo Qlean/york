@@ -1,4 +1,4 @@
-`import { borderRadiuses } from '@qlean/york-core'`
+`import { borderRadiuses } from '@qlean/york-web'`
 
 Константы для скругленных углов.
 

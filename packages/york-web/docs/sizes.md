@@ -1,4 +1,4 @@
-`import { uiPoint, sizes } from '@qlean/york-core'`
+`import { uiPoint, sizes } from '@qlean/york-web'`
 
 `uiPoint` это пункт интерфейсной сетки, все элементы интерфейса и все оступы должны быть кратны ему. Сейчас он равен 5 [пикселям]. Объект `sizes` аналогичен `sizes` из `york-core`, но возвращает все допустимые оступы сразу в пикселях, уже переменоженными на `uiPoint`.
 
