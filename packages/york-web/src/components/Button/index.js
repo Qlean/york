@@ -201,10 +201,10 @@ const StyledText = styled(Text)`
 `
 
 const getPreset = (mediaProps, props) => {
-  const rank = R.isNil(mediaProps.rank) ? props.rank : mediaProps.rank
-  const backdropColor = !mediaProps.backdropColor
-    ? props.backdropColor
-    : mediaProps.backdropColor
+  const rank = !R.isNil(mediaProps.rank) ? mediaProps.rank : props.rank
+  const backdropColor = mediaProps.backdropColor
+    ? mediaProps.backdropColor
+    : props.backdropColor
   return `${backdropColor}${rank}`
 }
 
