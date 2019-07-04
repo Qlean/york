@@ -12,8 +12,7 @@
   "scripts": {
     "start": "styleguidist server",
     "build": "styleguidist build",
-    "lint": "eslint . --ext .js",
-    "precommit": "lint-staged"
+    "lint": "eslint . --ext .js"
   },
   "peerDependencies": {
     "ramda": "*"

@@ -14,8 +14,7 @@
     "clean": "rimraf coverage lib",
     "lint": "eslint . --ext .js",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "precommit": "lint-staged"
+    "test:watch": "jest --watch"
   },
   "peerDependencies": {
     "ramda": ">=0.26"

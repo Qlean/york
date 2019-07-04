@@ -28,19 +28,19 @@ export const borderRadiuses = {
 
 export const minScreenWidth = 320
 
-const mediaBreakpoints = {
-  base: 991,
+export const mediaBreakpoints = {
+  base: 990,
   wide: 1280,
 }
 
 export const media = {
   mobile: string => `
-    @media (max-width: ${mediaBreakpoints.base}px) {
+    @media (max-width: ${mediaBreakpoints.base - 1}px) {
       ${string}
     }
   `,
   base: string => `
-    @media (min-width: ${mediaBreakpoints.base + 1}px)
+    @media (min-width: ${mediaBreakpoints.base}px)
     and (max-width: ${mediaBreakpoints.wide - 1}px) {
       ${string}
     }
@@ -51,7 +51,7 @@ export const media = {
     }
   `,
   desktop: string => `
-    @media (min-width: ${mediaBreakpoints.base + 1}px) {
+    @media (min-width: ${mediaBreakpoints.base}px) {
       ${string}
     }
   `,

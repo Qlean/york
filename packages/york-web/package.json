@@ -12,8 +12,7 @@
     "start": "babel src -d lib -w --copy-files",
     "build": "npm run clean && babel src -d lib --copy-files",
     "clean": "rimraf lib",
-    "lint": "eslint src --ext .js",
-    "precommit": "lint-staged"
+    "lint": "eslint src --ext .js"
   },
   "peerDependencies": {
     "@qlean/york-core": "*",

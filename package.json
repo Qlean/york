@@ -21,7 +21,8 @@
     "checkup": "lerna run build && lerna run test && npm run lint",
     "release": "npm run checkup && lerna publish",
     "lint": "eslint . --ext .js",
-    "format": "prettier --write '**/*.*'"
+    "format": "prettier --write '**/*.*'",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
