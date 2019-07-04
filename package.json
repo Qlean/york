@@ -11,7 +11,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit"
+      "pre-commit": "lint-staged"
     }
   },
   "scripts": {
@@ -21,8 +21,7 @@
     "checkup": "lerna run build && lerna run test && npm run lint",
     "release": "npm run checkup && lerna publish",
     "lint": "eslint . --ext .js",
-    "format": "prettier --write '**/*.*'",
-    "precommit": "lint-staged"
+    "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
