@@ -200,7 +200,13 @@ const StyledText = styled(Text)`
   color: inherit;
 `
 
-const getPreset = ({ backdropColor, rank }) => `${backdropColor}${rank}`
+const getPreset = (mediaProps, props) => {
+  const rank = R.isNil(mediaProps.rank) ? props.rank : mediaProps.rank
+  const backdropColor = !mediaProps.backdropColor
+    ? props.backdropColor
+    : mediaProps.backdropColor
+  return `${backdropColor}${rank}`
+}
 
 /**
  * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
