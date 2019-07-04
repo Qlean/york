@@ -84,8 +84,8 @@ export const normalizeResponsiveProps = (propsNames, props) => {
 export const normalizeResponsivePreset = (presetGetter, presets, props) =>
   R.pipe(
     R.map(mediaType => {
-      const defaultPresetName = presetGetter(props)
-      const responsivePresetName = presets[presetGetter(props[mediaType] || {})]
+      const defaultPresetName = presetGetter(props, props)
+      const responsivePresetName = presetGetter(props[mediaType] || {}, props)
       const presetName = R.isNil(responsivePresetName)
         ? defaultPresetName
         : responsivePresetName
