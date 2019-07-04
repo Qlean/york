@@ -11,8 +11,7 @@
   "scripts": {
     "start": "npm run clean && babel src -d lib -w --copy-files",
     "build": "npm run clean && babel src -d lib --copy-files",
-    "clean": "rimraf lib",
-    "precommit": "lint-staged"
+    "clean": "rimraf lib"
   },
   "peerDependencies": {
     "@qlean/york-core": "*",

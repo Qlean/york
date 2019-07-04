@@ -9,9 +9,9 @@ import View from '../View'
 const gutter = uiPoint * 4
 
 const maxWidths = {
+  mobile: 360,
   base: 940,
   wide: 1120,
-  mobile: 360,
 }
 
 const StyledGridContainer = styled.div`
@@ -41,7 +41,7 @@ export default function GridContainer({ children, ...rest }) {
           if (name !== 'GridColumn') {
             // eslint-disable-next-line no-console
             console.warn(
-              `Expected GridColumn as GridContainer's child, intead got ${name}`,
+              `Expected GridColumn as GridContainer's child, instead got ${name}`,
             )
           }
           return React.cloneElement(child, { isChildOfGridContainer: true })

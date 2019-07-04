@@ -1,4 +1,4 @@
-`import { transitions } from '@qlean/york-core'`
+`import { transitions } from '@qlean/york-web'`
 
 Константы для анимации переходов. Задаются для всех css-свойств сразу. Чтобы отключить их для каких-то свойств, задайте длительность соответствующей анимации в `0`, например `transition: ${transitions.medium}, opacity 0;`.
 

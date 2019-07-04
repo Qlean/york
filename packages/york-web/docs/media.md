@@ -1,6 +1,8 @@
-`import { media } from '@qlean/york-core'`
+`import { media, mediaBreakpoints } from '@qlean/york-web'`
 
 Функция `media` облегчает использование медиа-запросов, она предназначена для использования со `styled-components`. Он поддерживает три размера экрана — `mobile`, `base` и `wide`. Кроме того, есть псевдо-размер `desktop`, который объединяет `base` и `wide`.
+
+Кроме того, можно импортировать брейкпоинты напрямую, например для использования со сторонними библиотеками: `mediaBreakpoints.base` содержит минимальную ширину экрана для размера `base`, а `mediaBreakpoints.wide` для размера `wide`.
 
 ```js
 import styled from 'styled-components'
