@@ -2,6 +2,11 @@ const path = require('path')
 
 const propsParser = require('./propsParser')
 
+const lernaConfig = require('../../lerna.json')
+const yorkCorePackage = require('../york-core/package.json')
+const yorkWebPackage = require('../york-web/package.json')
+const yorkReactNativePackage = require('../york-react-native/package.json')
+
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
@@ -11,6 +16,7 @@ const getComponentPathLine = originalPath => {
 
 module.exports = {
   title: 'Qlean Design System',
+  version: lernaConfig.version,
   webpackConfig: require('./webpack.config.js'),
   styleguideDir: 'lib',
   exampleMode: 'collapse',
@@ -20,10 +26,12 @@ module.exports = {
   sections: [
     {
       name: 'york',
+      description: `Версия ${lernaConfig.version}`,
       content: './README.md',
     },
     {
       name: 'york-core',
+      description: `Версия ${yorkCorePackage.version}`,
       content: '../york-core/README.md',
       sections: [
         {
@@ -38,6 +46,7 @@ module.exports = {
     },
     {
       name: 'york-web',
+      description: `Версия ${yorkWebPackage.version}`,
       content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
       sections: [
@@ -69,6 +78,7 @@ module.exports = {
     },
     {
       name: 'york-react-native',
+      description: `Версия ${yorkReactNativePackage.version}`,
       content: '../york-react-native/README.md',
       components: '../york-react-native/src/components/**/*.js',
       sections: [
