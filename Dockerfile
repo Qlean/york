@@ -26,7 +26,7 @@ COPY package.json package-lock.json /app/
 RUN npm i
 COPY . /app
 
-RUN set -ex; npm run build
+RUN set -ex; npm run build:all
 
 FROM base
 ARG USER=app

@@ -42,8 +42,8 @@ module.exports = {
       components: '../york-web/src/components/**/*.js',
       sections: [
         {
-          name: 'sizes',
-          content: '../york-web/docs/sizes.md',
+          name: 'borderRadiuses',
+          content: '../york-web/docs/borderRadiuses.md',
         },
         {
           name: 'media',
@@ -54,12 +54,16 @@ module.exports = {
           content: '../york-web/docs/shadows.md',
         },
         {
+          name: 'sizes',
+          content: '../york-web/docs/sizes.md',
+        },
+        {
           name: 'transitions',
           content: '../york-web/docs/transitions.md',
         },
         {
-          name: 'borderRadiuses',
-          content: '../york-web/docs/borderRadiuses.md',
+          name: 'zIndexes',
+          content: '../york-web/docs/zIndexes.md',
         },
       ],
     },
@@ -96,6 +100,9 @@ module.exports = {
       },
     },
     Table: {
+      table: {
+        marginBottom: 0,
+      },
       cell: {
         lineHeight: '20px',
       },
