@@ -162,8 +162,8 @@ const Button = ({
     )
   }
   const opacity = useAnimation({
-    initialValue: isDisabled ? 1 : 0,
-    toValue: isDisabled ? 1 : 0,
+    initialValue: isDisabled || isSubmitting ? 1 : 0,
+    toValue: isDisabled || isSubmitting ? 1 : 0,
     useNativeDriver: true,
     duration: 100,
   })
