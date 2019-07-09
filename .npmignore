@@ -1,4 +1,4 @@
-.babelrc
+babel.config.js
 .eslintrc
 .eslintignore
 __test__
