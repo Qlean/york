@@ -3,24 +3,31 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { sizes, transitions, borderRadiuses, minScreenWidth } from 'styles'
+import {
+  sizes,
+  transitionTimings,
+  borderRadiuses,
+  minScreenWidth,
+  zIndexes,
+} from 'styles'
 
 import Text from '../Text'
 
 const pointerSize = 14
 const screenMargin = sizes[4]
+const contentMargin = sizes[3]
+const pointerOffset = pointerSize / 2
 
 const StyledTooltipContainer = styled.div`
   position: absolute;
-  top: -${sizes[3]}px;
-  left: 50%;
   display: flex;
   justify-content: center;
-  transform: translate(-50%, -100%);
   width: ${minScreenWidth - screenMargin * 2}px;
-  transition: ${transitions.medium}, left 0;
+  transition: opacity ${transitionTimings.short}s ease-in-out;
+  transition-delay: 0.1s;
   opacity: 0;
   pointer-events: none;
+  z-index: ${zIndexes.dropdown};
 `
 
 const StyledTooltipContent = styled.div`
@@ -31,8 +38,6 @@ const StyledTooltipContent = styled.div`
 
 const StyledTooltipPointer = styled.div`
   position: absolute;
-  left: 50%;
-  bottom: -${pointerSize / 2}px;
   transform: translateX(-50%) rotate(45deg);
   width: ${pointerSize}px;
   height: ${pointerSize}px;
@@ -51,17 +56,26 @@ const StyledTooltip = styled.span`
  * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края экрана.
  */
 export default function Tooltip({ tooltip, children }) {
+  const tooltipRef = useRef(null)
   const tooltipContainerRef = useRef(null)
   const tooltipContentRef = useRef(null)
   const tooltipPointerRef = useRef(null)
   const positionTooltip = () => {
+    const { current: tooltipElement } = tooltipRef
     const { current: tooltipContainerElement } = tooltipContainerRef
     const { current: tooltipContentElement } = tooltipContentRef
     const { current: tooltipPointerElement } = tooltipPointerRef
 
+    // Сброс стилей на значения по умолчанию
     tooltipContainerElement.style.left = '50%'
     tooltipPointerElement.style.left = '50%'
 
+    tooltipContainerElement.style.top = `-${contentMargin}px`
+    tooltipContainerElement.style.transform = 'translate(-50%, -100%)'
+    tooltipPointerElement.style.top = null
+    tooltipPointerElement.style.bottom = `-${pointerOffset}px`
+
+    // Позиционирование лево-право
     const { left, width } = tooltipContentElement.getBoundingClientRect()
     const viewportWidth = document.documentElement.clientWidth
     const right = viewportWidth - left - width
@@ -72,14 +86,27 @@ export default function Tooltip({ tooltip, children }) {
       tooltipContainerElement.style.left = `calc(50% + ${xOffset}px)`
       tooltipPointerElement.style.left = `calc(50% - ${xOffset}px)`
     }
+
+    // Позиционирование верх-низ
+    const { top, height } = tooltipElement.getBoundingClientRect()
+    const viewportHeight = document.documentElement.clientHeight
+    const bottom = viewportHeight - top - height
+
+    if (top < bottom) {
+      tooltipContainerElement.style.top = `calc(100% + ${contentMargin}px)`
+      tooltipContainerElement.style.transform = 'translate(-50%, 0)'
+      tooltipPointerElement.style.top = `-${pointerOffset}px`
+      tooltipPointerElement.style.bottom = null
+    }
   }
 
   /*
-    It's mandatory to use onMouseOver with useLayoutEffect because when component mounts, fonts
-    are stll not loaded, and getBoundingClientRect will return wrong values. There is still no
-    cross-browser way to set a callback to "all fonts are loaded" event. Also it works with SSR.
+    Пересчет размеров тултипа на onMouseOver обязателен, потому что когда компонент монтируется,
+    шрифты не еще будут загружены и getBoundingClientRect вернет не вполне верные значения. На
+    момент написания компонента не существует хорошего кросс-браузерного способа установить коллбэк
+    на событие "все шрифты загружены". Кроме того, этот способ работает с SSR.
 
-    useLayoutEffect is still needed in case of props changes.
+    useLayoutEffect все еще нужен на случай изменения пропсов.
   */
 
   useLayoutEffect(positionTooltip)
@@ -92,7 +119,7 @@ export default function Tooltip({ tooltip, children }) {
   }, [])
 
   return (
-    <StyledTooltip onMouseOver={positionTooltip}>
+    <StyledTooltip onMouseOver={positionTooltip} ref={tooltipRef}>
       {children}
       <StyledTooltipContainer ref={tooltipContainerRef}>
         <StyledTooltipPointer ref={tooltipPointerRef} />

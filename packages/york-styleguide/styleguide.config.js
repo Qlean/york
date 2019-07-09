@@ -2,6 +2,11 @@ const path = require('path')
 
 const propsParser = require('./propsParser')
 
+const lernaConfig = require('../../lerna.json')
+const yorkCorePackage = require('../york-core/package.json')
+const yorkWebPackage = require('../york-web/package.json')
+const yorkReactNativePackage = require('../york-react-native/package.json')
+
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
@@ -11,6 +16,7 @@ const getComponentPathLine = originalPath => {
 
 module.exports = {
   title: 'Qlean Design System',
+  version: lernaConfig.version,
   webpackConfig: require('./webpack.config.js'),
   styleguideDir: 'lib',
   exampleMode: 'collapse',
@@ -20,10 +26,12 @@ module.exports = {
   sections: [
     {
       name: 'york',
+      description: `Версия ${lernaConfig.version}`,
       content: './README.md',
     },
     {
       name: 'york-core',
+      description: `Версия ${yorkCorePackage.version}`,
       content: '../york-core/README.md',
       sections: [
         {
@@ -38,12 +46,13 @@ module.exports = {
     },
     {
       name: 'york-web',
+      description: `Версия ${yorkWebPackage.version}`,
       content: '../york-web/README.md',
       components: '../york-web/src/components/**/*.js',
       sections: [
         {
-          name: 'sizes',
-          content: '../york-web/docs/sizes.md',
+          name: 'borderRadiuses',
+          content: '../york-web/docs/borderRadiuses.md',
         },
         {
           name: 'media',
@@ -54,17 +63,22 @@ module.exports = {
           content: '../york-web/docs/shadows.md',
         },
         {
+          name: 'sizes',
+          content: '../york-web/docs/sizes.md',
+        },
+        {
           name: 'transitions',
           content: '../york-web/docs/transitions.md',
         },
         {
-          name: 'borderRadiuses',
-          content: '../york-web/docs/borderRadiuses.md',
+          name: 'zIndexes',
+          content: '../york-web/docs/zIndexes.md',
         },
       ],
     },
     {
       name: 'york-react-native',
+      description: `Версия ${yorkReactNativePackage.version}`,
       content: '../york-react-native/README.md',
       components: '../york-react-native/src/components/**/*.js',
       sections: [
@@ -96,6 +110,9 @@ module.exports = {
       },
     },
     Table: {
+      table: {
+        marginBottom: 0,
+      },
       cell: {
         lineHeight: '20px',
       },

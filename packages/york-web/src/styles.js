@@ -13,10 +13,16 @@ export const shadows = {
   strong: '0 2px 6px 0 rgba(0,0,0,0.30)',
 }
 
+export const transitionTimings = {
+  short: 0.1,
+  medium: 0.25,
+  long: 0.4,
+}
+
 export const transitions = {
-  short: 'all 0.1s ease-in-out',
-  medium: 'all 0.25s ease-in-out',
-  long: 'all 0.4s ease-in-out',
+  short: `all ${transitionTimings.short}s ease-in-out`,
+  medium: `all ${transitionTimings.medium}s ease-in-out`,
+  long: `all ${transitionTimings.long}s ease-in-out`,
 }
 
 export const borderRadiuses = {
@@ -24,6 +30,11 @@ export const borderRadiuses = {
   small: '4px',
   medium: '6px',
   round: '100px',
+}
+
+export const zIndexes = {
+  dropdown: 1,
+  modal: 100,
 }
 
 export const minScreenWidth = 320
