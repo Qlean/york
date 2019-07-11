@@ -2,7 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
+import {
+  media,
+  normalizeResponsiveProps,
+  getResponsivePropTypes,
+} from 'york-web/utils'
 
 import View from '../View'
 import GridContainer from '../GridContainer'

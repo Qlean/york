@@ -1,4 +1,4 @@
-export * from 'styles'
+export * from 'york-web/utils'
 
 export { default as Button } from './components/Button'
 export { default as GridColumn } from 'components/GridColumn'

@@ -2,7 +2,7 @@ const reactDocgen = require('react-docgen')
 const R = require('ramda')
 
 const { default: colors } = require('@qlean/york-core/lib/styles/colors')
-const { borderRadiuses, shadows } = require('@qlean/york-web/lib/styles')
+const { borderRadiuses, shadows } = require('@qlean/york-web/lib/utils')
 
 /*
   react-docgen does not follow imports, see https://github.com/reactjs/react-docgen/issues/185 and

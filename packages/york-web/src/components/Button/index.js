@@ -14,7 +14,7 @@ import {
   normalizeResponsivePreset,
   getResponsivePropTypes,
   hexToRgba,
-} from 'styles'
+} from 'york-web/utils'
 
 import Text from '../Text'
 

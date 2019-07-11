@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
-import { sizes } from 'styles'
+import { sizes } from 'york-web/utils'
 
 import Text from './Text'
 import View from './View'

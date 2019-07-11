@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { uiPoint, media } from 'styles'
+import { uiPoint, media } from 'york-web/utils'
 
 import View from '../View'
 

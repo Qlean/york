@@ -9,7 +9,7 @@ import {
   borderRadiuses,
   minScreenWidth,
   zIndexes,
-} from 'styles'
+} from 'york-web/utils'
 
 import Text from '../Text'
 
