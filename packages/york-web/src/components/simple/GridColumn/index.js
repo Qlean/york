@@ -8,7 +8,8 @@ import {
   getResponsivePropTypes,
 } from 'york-web/utils'
 
-import View from '../View'
+import { View } from 'york-web/components/primitive'
+
 import GridContainer from '../GridContainer'
 
 const { gutter, maxWidths } = GridContainer

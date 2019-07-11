@@ -5,10 +5,7 @@ import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import { sizes } from 'york-web/utils'
-
-import Text from './Text'
-import View from './View'
-import Separator from './Separator'
+import { Text, View, Separator } from 'york-web/components/primitive'
 
 const StyledBox = styled.div`
   display: flex;

@@ -48,31 +48,47 @@ module.exports = {
       name: 'york-web',
       description: `Версия ${yorkWebPackage.version}`,
       content: '../york-web/README.md',
-      components: '../york-web/src/components/**/*.js',
       sections: [
         {
-          name: 'borderRadiuses',
-          content: '../york-web/docs/borderRadiuses.md',
+          name: 'primitive',
+          description:
+            'Примитивные компоненты, самые базовые строительные блоки интерфейса',
+          components: '../york-web/src/components/primitive/**/*.js',
         },
         {
-          name: 'media',
-          content: '../york-web/docs/media.md',
+          name: 'simple',
+          description: 'Простые компоненты, собираются из примитивов',
+          components: '../york-web/src/components/simple/**/*.js',
         },
         {
-          name: 'shadows',
-          content: '../york-web/docs/shadows.md',
-        },
-        {
-          name: 'sizes',
-          content: '../york-web/docs/sizes.md',
-        },
-        {
-          name: 'transitions',
-          content: '../york-web/docs/transitions.md',
-        },
-        {
-          name: 'zIndexes',
-          content: '../york-web/docs/zIndexes.md',
+          name: 'utils',
+          description: 'Утилиты и константы',
+          sections: [
+            {
+              name: 'borderRadiuses',
+              content: '../york-web/docs/borderRadiuses.md',
+            },
+            {
+              name: 'media',
+              content: '../york-web/docs/media.md',
+            },
+            {
+              name: 'shadows',
+              content: '../york-web/docs/shadows.md',
+            },
+            {
+              name: 'sizes',
+              content: '../york-web/docs/sizes.md',
+            },
+            {
+              name: 'transitions',
+              content: '../york-web/docs/transitions.md',
+            },
+            {
+              name: 'zIndexes',
+              content: '../york-web/docs/zIndexes.md',
+            },
+          ],
         },
       ],
     },

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { uiPoint, media } from 'york-web/utils'
-
-import View from '../View'
+import { View } from 'york-web/components/primitive'
 
 const gutter = uiPoint * 4
 

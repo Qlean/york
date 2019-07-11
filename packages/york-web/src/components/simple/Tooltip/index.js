@@ -11,7 +11,7 @@ import {
   zIndexes,
 } from 'york-web/utils'
 
-import Text from '../Text'
+import { Text } from 'york-web/components/primitive'
 
 const pointerSize = 14
 const screenMargin = sizes[4]
