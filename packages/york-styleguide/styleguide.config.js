@@ -10,7 +10,7 @@ const yorkReactNativePackage = require('../york-react-native/package.json')
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
-  const component = pathSections[4]
+  const component = pathSections[pathSections.length - 2]
   return `import { ${component} } from '@qlean/${lib}'`
 }
 
