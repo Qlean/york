@@ -11,7 +11,7 @@ const inputSizes = {
   m: uiPoint * 10,
 }
 
-export const getInputCss = ({ size, withError, isFocused, isDisabled }) => `
+export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
   opacity: 1;
   appearance: none;
   width: 100%;
@@ -27,7 +27,7 @@ export const getInputCss = ({ size, withError, isFocused, isDisabled }) => `
   border: 1px solid ${colors.silver};
   border-radius: ${borderRadiuses.small};
   transition: ${transitions.short};
-  ${withError ? `border-color: ${colors.red};` : ''}
+  ${error && !isDisabled ? `border-color: ${colors.red};` : ''}
   ${
     isDisabled
       ? `
@@ -53,23 +53,11 @@ export const getInputCss = ({ size, withError, isFocused, isDisabled }) => `
 export const inputPropTypes = {
   name: PropTypes.string.isRequired,
   size: PropTypes.oneOf(Object.keys(inputSizes)),
-  withError: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  caption: PropTypes.string,
+  error: PropTypes.string,
+  isDisabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-}
-
-export const inputDefaultProps = {
-  size: 'm',
-}
-
-export const textValueShape = (props, propName, componentName) => {
-  const value = props[propName]
-  return (typeof value === 'string' && value.length > 0) || value === null
-    ? null
-    : new Error(
-        `Invalid prop ${propName} in ${componentName}. Expected nonempty string or null, got ${JSON.stringify(
-          value,
-        )}`,
-      )
 }
 
 const StyledText = styled(Text)`
@@ -78,7 +66,7 @@ const StyledText = styled(Text)`
 
 export const asInput = Input => {
   const WrappedInput = props => {
-    const { title, caption, error, isDisabled } = props
+    const { title, caption, error } = props
     return (
       <div>
         {title && <StyledText>{title}</StyledText>}
@@ -88,7 +76,7 @@ export const asInput = Input => {
           </StyledText>
         )}
         {(caption || title) && <Separator height={2} />}
-        <Input withError={Boolean(error) && !isDisabled} {...props} />
+        <Input {...props} />
         {error && (
           <>
             <Separator height={1} />
@@ -101,14 +89,10 @@ export const asInput = Input => {
     )
   }
 
-  WrappedInput.propTypes = {
-    title: PropTypes.string,
-    caption: PropTypes.string,
-    error: PropTypes.string,
-    isDisabled: PropTypes.bool.isRequired,
-  }
+  WrappedInput.propTypes = inputPropTypes
 
   WrappedInput.defaultProps = {
+    size: 'm',
     title: '',
     caption: '',
     error: '',

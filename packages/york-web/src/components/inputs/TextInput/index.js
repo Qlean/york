@@ -2,12 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  inputPropTypes,
-  inputDefaultProps,
-  getInputCss,
-  asInput,
-} from '../utils'
+import { inputPropTypes, getInputCss, asInput } from '../utils'
 
 const StyledText = styled.input`
   ${getInputCss}
@@ -26,7 +21,5 @@ TextInput.propTypes = {
   /** Значение поля */
   value: PropTypes.string.isRequired,
 }
-
-TextInput.defaultProps = inputDefaultProps
 
 export default asInput(TextInput)
