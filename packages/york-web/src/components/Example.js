@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
-import { sizes } from 'york-web/utils'
+import { sizes, media } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
 
 const StyledBox = styled.div`
@@ -51,6 +51,16 @@ Checkbox.propTypes = {
   children: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 }
+
+const StyledInputGroup = styled.div`
+  display: flex;
+  margin-bottom: ${sizes[2]}px;
+  & > *:not(:last-child) {
+    ${media.desktop(`margin-right: ${sizes[2]}px;`)}
+    ${media.mobile(`margin-bottom: ${sizes[1]}px;`)}
+  }
+  ${media.mobile('flex-direction: column;')}
+`
 
 const itemMargin = sizes[4]
 
@@ -129,6 +139,7 @@ ShowcaseItem.defaultProps = {
 const Example = {
   Box,
   Checkbox,
+  InputGroup: StyledInputGroup,
   Showcase,
   ShowcaseItem,
 }

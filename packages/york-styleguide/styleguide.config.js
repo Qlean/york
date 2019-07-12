@@ -61,6 +61,11 @@ module.exports = {
           components: '../york-web/src/components/simple/**/*.js',
         },
         {
+          name: 'inputs',
+          content: '../york-web/docs/inputs.md',
+          components: '../york-web/src/components/inputs/**/*.js',
+        },
+        {
           name: 'utils',
           description: 'Утилиты и константы',
           sections: [
@@ -125,10 +130,12 @@ module.exports = {
         display: 'none',
       },
     },
-    Table: {
-      table: {
+    ReactComponent: {
+      tabs: {
         marginBottom: 0,
       },
+    },
+    Table: {
       cell: {
         lineHeight: '20px',
       },

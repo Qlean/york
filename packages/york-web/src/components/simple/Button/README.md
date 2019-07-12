@@ -23,21 +23,20 @@ const ExampleComponent = () => {
 
   return (
     <>
-      <View>
+      <Example.InputGroup>
         <Example.Checkbox
           value={isDisabled}
           onChange={() => setIsDisabled(!isDisabled)}
         >
           isDisabled
         </Example.Checkbox>
-        <Separator width={2} />
         <Example.Checkbox
           value={isSubmitting}
           onChange={() => setIsSubmitting(!isSubmitting)}
         >
           isSubmitting
         </Example.Checkbox>
-      </View>
+      </Example.InputGroup>
       <Example.Showcase withVerticalPadding>
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
