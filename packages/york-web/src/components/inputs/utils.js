@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { uiPoint, sizes, borderRadiuses, transitions } from 'york-web/utils'
+import {
+  uiPoint,
+  sizes,
+  borderRadiuses,
+  transitions,
+  fontFamily,
+} from 'york-web/utils'
 import { Text, Separator } from 'york-web/components/primitive'
 
 const inputSizes = {
@@ -21,7 +27,7 @@ export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
   background-color: ${colors.white};
   height: ${inputSizes[size]}px;
   padding: 0 ${sizes[3]}px;
-  font-family: "Museo Sans";
+  font-family: ${fontFamily};
   font-size: 16px;
   font-weight: 500;
   border: 1px solid ${colors.silver};

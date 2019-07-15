@@ -74,8 +74,16 @@ module.exports = {
               content: '../york-web/docs/borderRadiuses.md',
             },
             {
+              name: 'fontFamily',
+              content: '../york-web/docs/fontFamily.md',
+            },
+            {
               name: 'media',
               content: '../york-web/docs/media.md',
+            },
+            {
+              name: 'minScreenWidth',
+              content: '../york-web/docs/minScreenWidth.md',
             },
             {
               name: 'shadows',

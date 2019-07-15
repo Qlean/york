@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import {
+  fontFamily,
   media,
   normalizeResponsivePreset,
   normalizeResponsiveProps,
@@ -108,7 +109,7 @@ const getCss = initialProps => {
     normalizeResponsiveProps(['color'], props),
   ])
   return `
-    font-family: "Museo Sans";
+    font-family: ${fontFamily};
     margin: 0;
     ${media.mobile(getBaseCss(mobileProps))}
     ${media.base(getBaseCss(baseProps))}

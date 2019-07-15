@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { inputPropTypes, getInputCss, asInput } from '../utils'
 
-const StyledText = styled.input`
+const StyledTextInput = styled.input`
   ${getInputCss}
 `
 
@@ -13,7 +13,7 @@ const StyledText = styled.input`
  */
 function TextInput(props) {
   const { isDisabled } = props
-  return <StyledText {...props} disabled={isDisabled} />
+  return <StyledTextInput {...props} disabled={isDisabled} />
 }
 
 TextInput.propTypes = {
