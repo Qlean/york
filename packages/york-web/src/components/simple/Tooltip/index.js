@@ -9,9 +9,9 @@ import {
   borderRadiuses,
   minScreenWidth,
   zIndexes,
-} from 'styles'
+} from 'york-web/utils'
 
-import Text from '../Text'
+import { Text } from 'york-web/components/primitive'
 
 const pointerSize = 14
 const screenMargin = sizes[4]
@@ -56,12 +56,10 @@ const StyledTooltip = styled.span`
  * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края экрана.
  */
 export default function Tooltip({ tooltip, children }) {
-  const tooltipRef = useRef(null)
   const tooltipContainerRef = useRef(null)
   const tooltipContentRef = useRef(null)
   const tooltipPointerRef = useRef(null)
   const positionTooltip = () => {
-    const { current: tooltipElement } = tooltipRef
     const { current: tooltipContainerElement } = tooltipContainerRef
     const { current: tooltipContentElement } = tooltipContentRef
     const { current: tooltipPointerElement } = tooltipPointerRef
@@ -75,8 +73,9 @@ export default function Tooltip({ tooltip, children }) {
     tooltipPointerElement.style.top = null
     tooltipPointerElement.style.bottom = `-${pointerOffset}px`
 
+    const { top, left, width } = tooltipContentElement.getBoundingClientRect()
+
     // Позиционирование лево-право
-    const { left, width } = tooltipContentElement.getBoundingClientRect()
     const viewportWidth = document.documentElement.clientWidth
     const right = viewportWidth - left - width
 
@@ -88,11 +87,7 @@ export default function Tooltip({ tooltip, children }) {
     }
 
     // Позиционирование верх-низ
-    const { top, height } = tooltipElement.getBoundingClientRect()
-    const viewportHeight = document.documentElement.clientHeight
-    const bottom = viewportHeight - top - height
-
-    if (top < bottom) {
+    if (top < screenMargin) {
       tooltipContainerElement.style.top = `calc(100% + ${contentMargin}px)`
       tooltipContainerElement.style.transform = 'translate(-50%, 0)'
       tooltipPointerElement.style.top = `-${pointerOffset}px`
@@ -119,7 +114,7 @@ export default function Tooltip({ tooltip, children }) {
   }, [])
 
   return (
-    <StyledTooltip onMouseOver={positionTooltip} ref={tooltipRef}>
+    <StyledTooltip onMouseOver={positionTooltip}>
       {children}
       <StyledTooltipContainer ref={tooltipContainerRef}>
         <StyledTooltipPointer ref={tooltipPointerRef} />

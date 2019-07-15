@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { uiPoint, media } from 'styles'
-
-import View from '../View'
+import { uiPoint, media } from 'york-web/utils'
+import { View } from 'york-web/components/primitive'
 
 const gutter = uiPoint * 4
 
@@ -26,7 +25,10 @@ const StyledGridContent = styled(View)`
 `
 
 /**
- * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме `<GridColumn>`. Основан на `<View>` и поддерживает все его пропсы.
+ * Контейнер для 12-колоночной сетки. Не может быть родителем ничего кроме `<GridColumn>`. Основан
+ * на `<View>` и поддерживает все его пропсы. Компонент не имеет минимальной ширины, только
+ * максимальную, что позволяет использовать его на любом уровне иерархии приложения и даже внутри
+ * других контейнеров.
  */
 export default function GridContainer({ children, ...rest }) {
   return process.env.NODE_ENV === 'production' ? (

@@ -14,6 +14,9 @@ module.exports = {
       'module-resolver',
       {
         root: ['./src'],
+        alias: {
+          'york-web': './src',
+        },
       },
     ],
   ],

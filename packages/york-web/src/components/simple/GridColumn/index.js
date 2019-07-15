@@ -2,9 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
+import {
+  media,
+  normalizeResponsiveProps,
+  getResponsivePropTypes,
+} from 'york-web/utils'
 
-import View from '../View'
+import { View } from 'york-web/components/primitive'
+
 import GridContainer from '../GridContainer'
 
 const { gutter, maxWidths } = GridContainer
@@ -41,7 +46,10 @@ const StyledGridColumn = styled(View)`
 `
 
 /**
- * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме `<GridContainer>`. Основана на `<View>` и поддерживает все его пропсы.
+ * Колонка для 12-колоночной сетки. Не может быть ребенком ничего кроме `<GridContainer>`. Основана
+ * на `<View>` и поддерживает все его пропсы. В декстопной сетке имеет фиксированную ширину
+ * в пикселях равную 1/12 доле максимальной ширины сетки, в мобильной — аналогичную долю, но
+ * в процентах. Таким образом, декстопная сетка фиксированная, а мобильная — резиновая.
  */
 const GridColumn = props => (
   <StyledGridColumn flexDirection="column" {...props} />
@@ -50,7 +58,9 @@ const GridColumn = props => (
 const defaultProps = { columns: 12 }
 
 const propTypes = {
-  /** Ширина колонки в двенадцатых долях от ширины контейнера на мобилах и от максимальной ширины контейнера на декстопе */
+  /** Ширина колонки в двенадцатых долях от ширины контейнера на мобильных устройствах и
+   * от максимальной ширины контейнера на декстопе
+   */
   columns: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
 }
 

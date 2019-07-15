@@ -10,7 +10,7 @@ const yorkReactNativePackage = require('../york-react-native/package.json')
 const getComponentPathLine = originalPath => {
   const pathSections = originalPath.split('/')
   const lib = pathSections[1]
-  const component = pathSections[4]
+  const component = pathSections[pathSections.length - 2]
   return `import { ${component} } from '@qlean/${lib}'`
 }
 
@@ -48,31 +48,60 @@ module.exports = {
       name: 'york-web',
       description: `Версия ${yorkWebPackage.version}`,
       content: '../york-web/README.md',
-      components: '../york-web/src/components/**/*.js',
       sections: [
         {
-          name: 'borderRadiuses',
-          content: '../york-web/docs/borderRadiuses.md',
+          name: 'primitive',
+          description:
+            'Примитивные компоненты, самые базовые строительные блоки интерфейса',
+          components: '../york-web/src/components/primitive/**/*.js',
         },
         {
-          name: 'media',
-          content: '../york-web/docs/media.md',
+          name: 'simple',
+          description: 'Простые компоненты, собираются из примитивов',
+          components: '../york-web/src/components/simple/**/*.js',
         },
         {
-          name: 'shadows',
-          content: '../york-web/docs/shadows.md',
+          name: 'inputs',
+          content: '../york-web/docs/inputs.md',
+          components: '../york-web/src/components/inputs/**/*.js',
         },
         {
-          name: 'sizes',
-          content: '../york-web/docs/sizes.md',
-        },
-        {
-          name: 'transitions',
-          content: '../york-web/docs/transitions.md',
-        },
-        {
-          name: 'zIndexes',
-          content: '../york-web/docs/zIndexes.md',
+          name: 'utils',
+          description: 'Утилиты и константы',
+          sections: [
+            {
+              name: 'borderRadiuses',
+              content: '../york-web/docs/borderRadiuses.md',
+            },
+            {
+              name: 'fontFamily',
+              content: '../york-web/docs/fontFamily.md',
+            },
+            {
+              name: 'media',
+              content: '../york-web/docs/media.md',
+            },
+            {
+              name: 'minScreenWidth',
+              content: '../york-web/docs/minScreenWidth.md',
+            },
+            {
+              name: 'shadows',
+              content: '../york-web/docs/shadows.md',
+            },
+            {
+              name: 'sizes',
+              content: '../york-web/docs/sizes.md',
+            },
+            {
+              name: 'transitions',
+              content: '../york-web/docs/transitions.md',
+            },
+            {
+              name: 'zIndexes',
+              content: '../york-web/docs/zIndexes.md',
+            },
+          ],
         },
       ],
     },
@@ -109,10 +138,12 @@ module.exports = {
         display: 'none',
       },
     },
-    Table: {
-      table: {
+    ReactComponent: {
+      tabs: {
         marginBottom: 0,
       },
+    },
+    Table: {
       cell: {
         lineHeight: '20px',
       },

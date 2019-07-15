@@ -7,7 +7,7 @@ import {
   media,
   normalizeResponsiveProps,
   getResponsivePropTypes,
-} from 'styles'
+} from 'york-web/utils'
 
 const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 

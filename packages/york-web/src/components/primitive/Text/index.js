@@ -5,12 +5,13 @@ import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import {
+  fontFamily,
   media,
   normalizeResponsivePreset,
   normalizeResponsiveProps,
   mergeStyleProps,
   getResponsivePropTypes,
-} from 'styles'
+} from 'york-web/utils'
 
 const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p']
 
@@ -108,7 +109,7 @@ const getCss = initialProps => {
     normalizeResponsiveProps(['color'], props),
   ])
   return `
-    font-family: "Museo Sans";
+    font-family: ${fontFamily};
     margin: 0;
     ${media.mobile(getBaseCss(mobileProps))}
     ${media.base(getBaseCss(baseProps))}

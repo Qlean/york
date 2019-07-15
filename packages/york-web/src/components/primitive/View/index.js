@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { media, normalizeResponsiveProps, getResponsivePropTypes } from 'styles'
+import {
+  media,
+  normalizeResponsiveProps,
+  getResponsivePropTypes,
+} from 'york-web/utils'
 
 const getBaseCss = ({
   flexDirection,

@@ -14,9 +14,9 @@ import {
   normalizeResponsivePreset,
   getResponsivePropTypes,
   hexToRgba,
-} from 'styles'
+} from 'york-web/utils'
 
-import Text from '../Text'
+import { Text } from 'york-web/components/primitive'
 
 const presets = {
   whiteBackdropRank1: {

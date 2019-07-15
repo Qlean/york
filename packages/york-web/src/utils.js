@@ -39,6 +39,8 @@ export const zIndexes = {
 
 export const minScreenWidth = 320
 
+export const fontFamily = '"Museo Sans", sans-serif'
+
 export const mediaBreakpoints = {
   base: 990,
   wide: 1280,
