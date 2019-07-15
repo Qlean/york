@@ -4,6 +4,9 @@ import { View } from 'react-native'
 
 import { sizes } from '../../utils/styles'
 
+/**
+ * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать только значения указанные в core/sizes.
+ */
 const Separator = ({ width, height }) => (
   <View
     style={[
@@ -19,8 +22,10 @@ Separator.defaultProps = {
 }
 
 Separator.propTypes = {
-  width: PropTypes.oneOf(sizes),
-  height: PropTypes.oneOf(sizes),
+  /** Высота разделителя в `uiPoint` */
+  width: PropTypes.oneOf(Object.keys(sizes)),
+  /** Ширина разделителя в `uiPoint` */
+  height: PropTypes.oneOf(Object.keys(sizes)),
 }
 
 export default Separator

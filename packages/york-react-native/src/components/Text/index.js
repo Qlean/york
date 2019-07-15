@@ -9,7 +9,7 @@ const presets = {
   header1: {
     fontSize: 25,
     lineHeight: 30,
-    fontWeight: 700,
+    fontWeight: 700, // TODO: doesnt works with custom fonts
   },
   header2: {
     fontSize: 20,
