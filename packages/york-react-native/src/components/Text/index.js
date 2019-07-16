@@ -47,6 +47,7 @@ const style = StyleSheet.create({
 
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
+ * Для корректной работы шрифтов необходимо добавить в сборку шрифт MuseoSansCyrl-500 и MuseoSansCyrl-700.
  */
 const Text = ({ children, preset, color, style: extraStyle, ...props }) => {
   return (
