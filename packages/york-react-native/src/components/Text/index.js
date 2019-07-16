@@ -46,9 +46,12 @@ const style = StyleSheet.create({
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
  */
-const Text = ({ children, preset, color, ...props }) => {
+const Text = ({ children, preset, color, style: extraStyle, ...props }) => {
   return (
-    <NativeText style={[style[preset], { color: colors[color] }]} {...props}>
+    <NativeText
+      {...props}
+      style={[style[preset], { color: colors[color] }, extraStyle]}
+    >
       {children}
     </NativeText>
   )
@@ -57,6 +60,7 @@ const Text = ({ children, preset, color, ...props }) => {
 Text.defaultProps = {
   color: colors.coal,
   preset: 'text',
+  style: {},
 }
 
 Text.propTypes = {
@@ -64,7 +68,9 @@ Text.propTypes = {
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Цвет текста */
   color: PropTypes.oneOf(Object.keys(colors)),
-  /** Ну вы поняли. */
+  /** Дополнительный стиль, который накатывается поверх предопределенных. Например, используется для opacity в кнопке */
+  style: NativeText.propTypes.style,
+  /** Ну вы поняли */
   children: PropTypes.string.isRequired,
 }
 

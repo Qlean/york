@@ -1,15 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  Platform,
-} from 'react-native'
+import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import { useAnimation } from '../../utils/hooks'
+
+import Text from '../Text'
 
 const disabledBackground = 'rgba(0, 0, 0, 0.05)'
 const shadowColor = 'rgb(13, 40, 19)'
@@ -17,63 +13,63 @@ const shadowColor = 'rgb(13, 40, 19)'
 const presets = {
   white1: {
     button: { backgroundColor: colors.green, borderColor: colors.green },
-    text: { color: colors.white },
+    textProps: { color: 'white' },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   white2: {
     button: { backgroundColor: colors.white, borderColor: colors.green },
-    text: { color: colors.green },
+    textProps: { color: 'green' },
     disabledProps: {
       button: { borderColor: colors.whisper },
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   white3: {
     button: { backgroundColor: colors.white, borderColor: colors.silver },
-    text: { color: colors.black },
+    textProps: { color: 'black' },
     disabledProps: {
       button: { borderColor: colors.whisper },
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   white4: {
     button: { backgroundColor: colors.transparent },
-    text: { color: colors.green },
+    textProps: { color: 'green' },
     disabledProps: {
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   light1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    text: { color: colors.white },
+    textProps: { color: 'white' },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   light4: {
     button: { backgroundColor: colors.transparent },
-    text: { color: colors.black },
+    textProps: { color: 'black' },
     disabledProps: {
-      text: { color: colors.black },
+      textProps: { color: 'black' },
     },
   },
   dark1: {
     button: { backgroundColor: colors.black, borderColor: colors.black },
-    text: { color: colors.white },
+    textProps: { color: 'white' },
     disabledProps: {
       button: { backgroundColor: disabledBackground },
-      text: { color: colors.white },
+      textProps: { color: 'white' },
     },
   },
   dark4: {
     button: { backgroundColor: colors.transparent },
-    text: { color: colors.white },
+    textProps: { color: 'white' },
     disabledProps: {
-      text: { color: colors.white },
+      textProps: { color: 'white' },
     },
   },
 }
@@ -100,7 +96,6 @@ const style = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  text: { fontSize: 16, lineHeight: 25 },
   disabledText: { opacity: 0.2 },
   icon: { marginRight: 5 },
   disabledIcon: { tintColor: colors.black, opacity: 0.2 },
@@ -193,7 +188,7 @@ const Button = ({
               style: [Icon.props.style, style.icon],
             })
           : null}
-        <Text style={[style.text, style[`${preset}Text`]]}>{buttonText}</Text>
+        <Text {...presets[preset].textProps}>{buttonText}</Text>
       </Animated.View>
       <Animated.View
         style={[
@@ -213,11 +208,8 @@ const Button = ({
             })
           : null}
         <Text
-          style={[
-            style.text,
-            style.disabledText,
-            style[`${preset}DisabledText`],
-          ]}
+          {...presets[preset].disabledProps.textProps}
+          style={style.disabledText}
         >
           {buttonText}
         </Text>
