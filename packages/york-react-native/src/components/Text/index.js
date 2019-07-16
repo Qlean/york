@@ -3,37 +3,45 @@ import PropTypes from 'prop-types'
 import { Text as NativeText, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-// TODO: font family
+const normalFont = 'MuseoSansCyrl-500'
+const boldFont = 'MuseoSansCyrl-700'
 
 const presets = {
   header1: {
+    fontFamily: boldFont,
     fontSize: 25,
     lineHeight: 30,
-    fontWeight: 700, // TODO: doesnt works with custom fonts
+    fontWeight: 700,
   },
   header2: {
+    fontFamily: boldFont,
     fontSize: 20,
     lineHeight: 25,
     fontWeight: 700,
   },
   header3: {
+    fontFamily: boldFont,
     fontSize: 16,
     lineHeight: 22,
     fontWeight: 700,
   },
   text: {
+    fontFamily: normalFont,
     fontSize: 16,
     lineHeight: 25,
   },
   caption1: {
+    fontFamily: normalFont,
     fontSize: 16,
     lineHeight: 22,
   },
   caption2: {
+    fontFamily: normalFont,
     fontSize: 14,
     lineHeight: 20,
   },
   captionSmall: {
+    fontFamily: normalFont,
     fontSize: 12,
     lineHeight: 20,
   },
