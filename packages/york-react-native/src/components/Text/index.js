@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text as NativeText, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import { fontFamily, fontFamilyBold } from '../../utils/styles'
+import { fontFamily, fontFamilyBold } from 'york-react-native/utils/styles'
 
 const presets = {
   header1: {

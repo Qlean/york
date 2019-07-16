@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import { useAnimation } from '../../utils/hooks'
+import { useAnimation } from 'york-react-native/utils/hooks'
 
-import Text from '../Text'
+import Text from 'york-react-native/components/Text'
 
 const disabledBackground = 'rgba(0, 0, 0, 0.05)'
 const shadowColor = 'rgb(13, 40, 19)'

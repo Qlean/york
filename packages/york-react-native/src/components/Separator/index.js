@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as R from 'ramda'
 import { View } from 'react-native'
+import * as R from 'ramda'
 
-import { sizes } from '../../utils/styles'
+import { sizes } from 'york-react-native/utils/styles'
 
 const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 
