@@ -3,45 +3,39 @@ import PropTypes from 'prop-types'
 import { Text as NativeText, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-const normalFont = 'MuseoSansCyrl-500'
-const boldFont = 'MuseoSansCyrl-700'
+import { fontFamily, fontFamilyBold } from '../../utils/styles'
 
 const presets = {
   header1: {
-    fontFamily: boldFont,
+    fontFamily: fontFamilyBold,
     fontSize: 25,
     lineHeight: 30,
-    fontWeight: 700,
+    fontWeight: '700',
   },
   header2: {
-    fontFamily: boldFont,
+    fontFamily: fontFamilyBold,
     fontSize: 20,
     lineHeight: 25,
-    fontWeight: 700,
+    fontWeight: '700',
   },
   header3: {
-    fontFamily: boldFont,
+    fontFamily: fontFamilyBold,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: 700,
+    fontWeight: '700',
   },
   text: {
-    fontFamily: normalFont,
+    fontFamily,
     fontSize: 16,
     lineHeight: 25,
   },
-  caption1: {
-    fontFamily: normalFont,
-    fontSize: 16,
-    lineHeight: 22,
-  },
-  caption2: {
-    fontFamily: normalFont,
+  caption: {
+    fontFamily,
     fontSize: 14,
     lineHeight: 20,
   },
   captionSmall: {
-    fontFamily: normalFont,
+    fontFamily,
     fontSize: 12,
     lineHeight: 20,
   },
@@ -66,7 +60,7 @@ const Text = ({ children, preset, color, style: extraStyle, ...props }) => {
 }
 
 Text.defaultProps = {
-  color: colors.coal,
+  color: 'coal',
   preset: 'text',
   style: {},
 }

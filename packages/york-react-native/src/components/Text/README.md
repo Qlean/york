@@ -11,22 +11,16 @@ const presets = [
     preset: 'header2',
   },
   {
-    caption:
-      'Заголовок в хедерах, названия блоков',
+    caption: 'Заголовок в хедерах, названия блоков',
     preset: 'header3',
   },
   {
-    caption:
-      'Обычный текст',
+    caption: 'Обычный текст',
     preset: 'text',
   },
   {
-    caption: 'Названия кнопок, небольшие подписи в 2-3 строки',
-    preset: 'caption1',
-  },
-  {
     caption: 'Подписи к действия, подсказки, алерты',
-    preset: 'caption2',
+    preset: 'caption',
   },
   {
     caption: 'Юридический текст',

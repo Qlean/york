@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import * as R from 'ramda'
 import { View } from 'react-native'
 
 import { sizes } from '../../utils/styles'
+
+const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 
 /**
  * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать только значения указанные в core/sizes.
@@ -23,9 +26,9 @@ Separator.defaultProps = {
 
 Separator.propTypes = {
   /** Высота разделителя в `uiPoint` */
-  width: PropTypes.oneOf(Object.keys(sizes)),
+  width: sizesPropTypes,
   /** Ширина разделителя в `uiPoint` */
-  height: PropTypes.oneOf(Object.keys(sizes)),
+  height: sizesPropTypes,
 }
 
 export default Separator
