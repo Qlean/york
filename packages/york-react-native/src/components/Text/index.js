@@ -51,7 +51,7 @@ const style = StyleSheet.create({
 })
 
 /**
- * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить в сборку начертания MuseoSansCyrl-500 и MuseoSansCyrl-700.
+ * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
  */
 const Text = ({ preset, color, style: extraStyle, ...props }) => {
   return (

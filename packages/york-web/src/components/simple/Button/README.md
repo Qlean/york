@@ -7,7 +7,7 @@ const StyledShowcaseItem = styled(Example.ShowcaseItem)`
   ${media.mobile(`width: 100%;`)}
 `
 
-const whiteBackdropRanks = [1, 2, 3]
+const whiteBackdropRanks = [1, 2, 3, 0]
 const darkBackdropRanks = [1, 2]
 const lightBackdropRanks = [1, 2]
 

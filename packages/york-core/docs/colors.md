@@ -1,16 +1,22 @@
-`import { colors } from '@qlean/york-core'`
+`import { colors, rgbaColors } from '@qlean/york-core'`
 
-Палитра цветов. Во всех других компонентах используются только они.
+Палитра цветов. Во всех других компонентах используются только они. Цвета экспортируются в двух вариантах:
+
+- `colors` — rgba-формат, готовый для использования как в CSS, так и в стиля React Native.  
+  Пример: `rgba(32, 160, 82, 1)`
+
+- `rgbaColors` — тот же rgba-формат, но разбитый по каналам. Альфа-канал уже нормализован.  
+  Пример: `{ r: 32, g: 160, b: 82, a: 1 }`
 
 ```js
 import styled from 'styled-components'
 
 import { colors } from '@qlean/york-core'
-import { Example, sizes, borderRadiuses } from '@qlean/york-web'
+import { Example, uiPoint, sizes, borderRadiuses } from '@qlean/york-web'
 
 const StyledColor = styled.div`
-  height: ${sizes[20]}px;
-  width: ${sizes[20]}px;
+  height: ${sizes[12]}px;
+  width: ${uiPoint * 30}px;
   background-color: ${({ color }) => color};
   border-radius: ${borderRadiuses.medium};
   border: 1px solid ${colors.whisper};

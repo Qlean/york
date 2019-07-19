@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { colors } from '@qlean/york-core'
+import { colors, rgbaColors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
 
@@ -13,7 +13,6 @@ import {
   transitions,
   normalizeResponsivePreset,
   getResponsivePropTypes,
-  hexToRgba,
 } from 'york-web/utils'
 
 import { Text } from 'york-web/components/primitive'
@@ -127,11 +126,11 @@ const StyledContent = styled.div`
 `
 
 const normalizeColor = (color, opacity) => {
-  const hexColor = colors[color]
-  if (!hexColor) return 'transparent'
-  if (R.isNil(opacity)) return hexColor
-  const { red, green, blue } = hexToRgba(hexColor)
-  return `rgba(${red}, ${green}, ${blue}, ${opacity})`
+  const rgbaColor = rgbaColors[color]
+  if (!rgbaColor || !rgbaColor.a) return colors.transparent
+  if (R.isNil(opacity)) return colors[color]
+  const { r, g, b } = rgbaColor
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
 
 const getBaseCss = ({

@@ -6,6 +6,7 @@ module.exports = {
       {
         root: ['./src'],
         alias: {
+          'york-web': '../york-web/src',
           'york-react-native': './src',
         },
       },
