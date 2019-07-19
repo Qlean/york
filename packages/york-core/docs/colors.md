@@ -1,6 +1,12 @@
-`import { colors, hexColors, rgbaColors } from '@qlean/york-core'`
+`import { colors, rgbaColors } from '@qlean/york-core'`
 
-Палитра цветов. Во всех других компонентах используются только они.
+Палитра цветов. Во всех других компонентах используются только они. Цвета экспортируются в двух вариантах:
+
+- `colors` — rgba-формат, готовый для использования как в CSS, так и в стиля React Native.  
+  Пример: `rgba(32, 160, 82, 1)`
+
+- `rgbaColors` — тот же rbga-формат, но разбитый по каналам. Альфа-канал уже нормализован.  
+  Пример: `{ r: 32, g: 160, b: 82, a: 1 }`
 
 ```js
 import styled from 'styled-components'

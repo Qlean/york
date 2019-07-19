@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-export const hexColors = {
+const hexColors = {
   green: 0x20a052ff,
   jungle: 0x23b059ff,
   red: 0xd13737ff,
