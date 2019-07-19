@@ -18,6 +18,7 @@ const formatEnumTypeStringValue = string => {
       return formatEnumTypeValues(R.keys(borderRadiuses))
     case 'Object.keys(shadows)':
       return formatEnumTypeValues(R.keys(shadows))
+    case 'Object.keys(colors)':
     case '...Object.keys(colors)':
       return formatEnumTypeValues(R.keys(colors))
     default:
