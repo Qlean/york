@@ -1,41 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Text as NativeText, StyleSheet } from 'react-native'
+import { Text as NativeText, StyleSheet, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import { fontFamily, fontFamilyBold } from 'york-react-native/utils/styles'
+import { fontFamily as fontFamilyWeb } from 'york-web/utils'
+
+const getFontFamily = isBold =>
+  Platform.select({
+    ios: { fontFamily: isBold ? fontFamilyBold : fontFamily },
+    android: { fontFamily: isBold ? fontFamilyBold : fontFamily },
+    web: { fontFamily: fontFamilyWeb, fontWeight: isBold ? '700' : '500' },
+  })
 
 const presets = {
   header1: {
-    fontFamily: fontFamilyBold,
+    ...getFontFamily(true),
     fontSize: 25,
     lineHeight: 30,
-    fontWeight: '700',
   },
   header2: {
-    fontFamily: fontFamilyBold,
+    ...getFontFamily(true),
     fontSize: 20,
     lineHeight: 25,
-    fontWeight: '700',
   },
   header3: {
-    fontFamily: fontFamilyBold,
+    ...getFontFamily(true),
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '700',
   },
   text: {
-    fontFamily,
+    ...getFontFamily(false),
     fontSize: 16,
     lineHeight: 25,
   },
   caption: {
-    fontFamily,
+    ...getFontFamily(false),
     fontSize: 14,
     lineHeight: 20,
   },
   captionSmall: {
-    fontFamily,
+    ...getFontFamily(false),
     fontSize: 12,
     lineHeight: 20,
   },
@@ -46,17 +51,14 @@ const style = StyleSheet.create({
 })
 
 /**
- * Компонент для оформления текста, использует шрифт Museo Sans.
- * Для корректной работы шрифтов необходимо добавить в сборку шрифт MuseoSansCyrl-500 и MuseoSansCyrl-700.
+ * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить в сборку начертания MuseoSansCyrl-500 и MuseoSansCyrl-700.
  */
-const Text = ({ children, preset, color, style: extraStyle, ...props }) => {
+const Text = ({ preset, color, style: extraStyle, ...props }) => {
   return (
     <NativeText
       {...props}
       style={[style[preset], { color: colors[color] }, extraStyle]}
-    >
-      {children}
-    </NativeText>
+    />
   )
 }
 
@@ -73,8 +75,6 @@ Text.propTypes = {
   color: PropTypes.oneOf(Object.keys(colors)),
   /** Дополнительный стиль, который накатывается поверх предопределенных. Например, используется для opacity в кнопке */
   style: NativeText.propTypes.style,
-  /** Ну вы поняли */
-  children: PropTypes.string.isRequired,
 }
 
 export default Text

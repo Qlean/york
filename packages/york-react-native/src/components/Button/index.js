@@ -109,8 +109,7 @@ const style = StyleSheet.create({
         shadowRadius: 7,
       },
       android: { elevation: 7 },
-      /* react-native-web */
-      default: {
+      web: {
         shadowColor,
         shadowOpacity: 0.3,
         shadowOffset: { width: 0, height: 5 },
