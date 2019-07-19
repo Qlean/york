@@ -134,12 +134,3 @@ export const getResponsivePropTypes = propTypes => ({
     R.fromPairs,
   )(mediaTypePropNames),
 })
-
-export const hexToRgba = hexColor => {
-  const [red, green, blue, alpha] = R.pipe(
-    R.tail,
-    R.splitEvery(2),
-    R.map(hex => parseInt(hex, 16)),
-  )(hexColor)
-  return { red, green, blue, alpha }
-}

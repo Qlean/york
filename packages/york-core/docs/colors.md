@@ -1,4 +1,4 @@
-`import { colors } from '@qlean/york-core'`
+`import { colors, hexColors, rgbaColors } from '@qlean/york-core'`
 
 Палитра цветов. Во всех других компонентах используются только они.
 
@@ -6,11 +6,11 @@
 import styled from 'styled-components'
 
 import { colors } from '@qlean/york-core'
-import { Example, sizes, borderRadiuses } from '@qlean/york-web'
+import { Example, uiPoint, sizes, borderRadiuses } from '@qlean/york-web'
 
 const StyledColor = styled.div`
-  height: ${sizes[20]}px;
-  width: ${sizes[20]}px;
+  height: ${sizes[12]}px;
+  width: ${uiPoint * 30}px;
   background-color: ${({ color }) => color};
   border-radius: ${borderRadiuses.medium};
   border: 1px solid ${colors.whisper};

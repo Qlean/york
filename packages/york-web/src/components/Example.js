@@ -116,7 +116,7 @@ const ShowcaseItem = ({ title, titleProps, caption, children, ...rest }) => (
     <Text htmlTag="div" {...titleProps}>
       {title}
     </Text>
-    <Text htmlTag="div" color="grey">
+    <Text htmlTag="div" color="grey" preset="caption">
       {caption}
     </Text>
     <Separator height={1} />
