@@ -94,6 +94,9 @@ const style = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: colors.transparent,
+    paddingHorizontal: 15,
+  },
+  overlay: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -173,12 +176,13 @@ const Button = ({
     <TouchableOpacity
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
-      style={[style.container, style[size], withShadow && style.shadow]}
+      style={[style.container, withShadow && style.shadow]}
       {...props}
     >
       <Animated.View
         style={[
           style.content,
+          style[size],
           style[preset],
           {
             opacity: opacity.interpolate({
@@ -198,6 +202,7 @@ const Button = ({
       <Animated.View
         style={[
           style.content,
+          style.overlay,
           style[`${preset}Disabled`],
           {
             opacity: opacity.interpolate({
