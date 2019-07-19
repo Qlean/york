@@ -1,7 +1,8 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { Text } from '@qlean/york-web'
+import { Text } from '@qlean/york-react-native'
+import { View } from '@qlean/york-web'
 
 const StyledSeparator = styled(Separator)`
   width: 100% !important;

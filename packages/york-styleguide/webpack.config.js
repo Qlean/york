@@ -5,6 +5,7 @@ module.exports = {
     alias: {
       'react-native': 'react-native-web',
       'york-web': path.resolve(__dirname, '../york-web/src'),
+      'york-react-native': path.resolve(__dirname, '../york-react-native/src'),
     },
   },
   module: {
