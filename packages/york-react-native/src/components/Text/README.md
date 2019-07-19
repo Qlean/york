@@ -3,7 +3,7 @@ import { Example } from '@qlean/york-web'
 
 const presets = [
   {
-    caption: 'Заголовок экрана, саксесс скрины, онбординг',
+    caption: 'Заголовок экрана, саксесс скрины',
     preset: 'header1',
   },
   {

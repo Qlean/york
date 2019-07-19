@@ -10,12 +10,10 @@ const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 /**
  * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать только значения указанные в core/sizes.
  */
-const Separator = ({ width, height }) => (
+const Separator = ({ width, height, ...rest }) => (
   <View
-    style={[
-      width && { width: sizes[width] },
-      height && { height: sizes[height] },
-    ]}
+    {...rest}
+    style={[{ width: sizes[width] }, { height: sizes[height] }]}
   />
 )
 
