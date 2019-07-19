@@ -176,7 +176,7 @@ const getCss = props => {
     outline: none;
     user-select: none;
     box-sizing: border-box;
-    padding: 0 ${sizes[2]}px;
+    padding: 0 ${sizes[3]}px;
     transition: ${transitions.short};
     height: ${getHeight(size)};
     width: 100%;
