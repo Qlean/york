@@ -136,8 +136,10 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
                     name={link.name}
                     onClick={link.onClick}
                     isAuthButton={link.isAuthButton}
-                    color={presets[preset].link}
-                    hoverColor={presets[preset].linkHover}
+                    // color={presets[preset].link}
+                    // hoverColor={presets[preset].linkHover}
+                    color={presets[preset].menuItem}
+                    hoverColor={presets[preset].menuItemHover}
                     toggleMenu={toggleMenu}
                   >
                     {link.title}
@@ -154,8 +156,10 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
                 onClick={link.onClick}
                 isAuthButton={link.isAuthButton}
                 LinkComponent={link.LinkComponent}
-                color={presets[preset].link}
-                hoverColor={presets[preset].linkHover}
+                // color={presets[preset].link}
+                // hoverColor={presets[preset].linkHover}
+                color={presets[preset].menuItem}
+                hoverColor={presets[preset].menuItemHover}
                 toggleMenu={toggleMenu}
               >
                 {link.title}

@@ -5,11 +5,15 @@ export const presets = {
     toggler: 'black',
     link: 'coal',
     linkHover: 'ash',
+    menuItem: 'coal',
+    menuItemHover: 'ash',
   },
   darkBackground: {
     logo: 'white',
     toggler: 'white',
     link: 'white',
     linkHover: 'silver',
+    menuItem: 'coal',
+    menuItemHover: 'ash',
   },
 }
