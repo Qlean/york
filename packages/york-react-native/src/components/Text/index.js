@@ -4,13 +4,12 @@ import { Text as NativeText, StyleSheet, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import { fontFamily, fontFamilyBold } from 'york-react-native/utils/styles'
-import { fontFamily as fontFamilyWeb } from 'york-web/utils'
 
 const getFontFamily = isBold =>
   Platform.select({
     ios: { fontFamily: isBold ? fontFamilyBold : fontFamily },
     android: { fontFamily: isBold ? fontFamilyBold : fontFamily },
-    web: { fontFamily: fontFamilyWeb, fontWeight: isBold ? '700' : '500' },
+    web: { fontFamily: 'Museo Sans', fontWeight: isBold ? '700' : '500' },
   })
 
 const presets = {
