@@ -136,12 +136,39 @@ ShowcaseItem.defaultProps = {
   caption: '',
 }
 
+const text = {
+  short: 'Аляскинский маламут',
+  medium:
+    'Аляскинский маламут — достаточно крупная собака аборигенного типа, предназначенная для работы в упряжке, одна из древнейших пород собак.',
+}
+
+const options = [
+  {
+    label: 'Йоркширский терьер',
+    value: 'york',
+  },
+  {
+    label: 'Вельш-корги',
+    value: 'corgi',
+  },
+  {
+    label: 'Сибирский хаски',
+    value: 'husky',
+  },
+  {
+    label: 'Немецкая овчарка',
+    value: 'shepherd',
+  },
+]
+
 const Example = {
   Box,
   Checkbox,
   InputGroup: StyledInputGroup,
   Showcase,
   ShowcaseItem,
+  text,
+  options,
 }
 
 export default Example

@@ -43,10 +43,7 @@ const presets = [
 ;<Example.Showcase overflow="hidden">
   {presets.map(({ preset, caption }) => (
     <Example.ShowcaseItem key={preset} title={preset} caption={caption}>
-      <Text preset={preset}>
-        Шнауцеры — крепкие, довольно коренастые собаки квадратного формата с
-        чуть наклонной спиной
-      </Text>
+      <Text preset={preset}>{Example.text.medium}</Text>
     </Example.ShowcaseItem>
   ))}
 </Example.Showcase>

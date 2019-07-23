@@ -64,7 +64,7 @@ const Text = ({ preset, color, style: extraStyle, ...props }) => {
 Text.defaultProps = {
   color: 'coal',
   preset: 'text',
-  style: {},
+  style: null,
 }
 
 Text.propTypes = {
@@ -72,7 +72,7 @@ Text.propTypes = {
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Цвет текста */
   color: PropTypes.oneOf(Object.keys(colors)),
-  /** Дополнительный стиль, который накатывается поверх предопределенных. Например, используется для opacity в кнопке */
+  /** Дополнительные стили */
   style: NativeText.propTypes.style,
 }
 

@@ -31,10 +31,7 @@ const presets = [
 ;<Example.Showcase overflow="hidden">
   {presets.map(({ preset, caption }) => (
     <Example.ShowcaseItem key={preset} title={preset} caption={caption}>
-      <Text preset={preset}>
-        Аляскинский маламут — достаточно крупная собака аборигенного типа,
-        предназначенная для работы в упряжке, одна из древнейших пород собак.
-      </Text>
+      <Text preset={preset}>{Example.text.medium}</Text>
     </Example.ShowcaseItem>
   ))}
 </Example.Showcase>

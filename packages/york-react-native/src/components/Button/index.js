@@ -161,7 +161,7 @@ const Button = ({
   const opacity = useAnimation({
     initialValue: isDisabled || isSubmitting ? 1 : 0,
     toValue: isDisabled || isSubmitting ? 1 : 0,
-    useNativeDriver: true,
+    useNativeDriver: Platform.OS !== 'web',
     duration: 100,
   })
   const preset = `${backdropColor}${rank}`
