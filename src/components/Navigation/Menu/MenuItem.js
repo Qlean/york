@@ -83,6 +83,7 @@ const MenuItem = ({
         onClick={onClick}
         isAuthButton={isAuthButton}
         name={name}
+        isDisabled={false}
         {...rest}
       >
         {children}
