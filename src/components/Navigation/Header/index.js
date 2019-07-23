@@ -50,9 +50,8 @@ const Header = ({
       withBorder={withBorder || isMenuOpened}
     >
       <HeaderLogo
-        // color={isMenuOpened ? 'black' : presets[preset].logo}
-        colorMobile={isMenuOpened ? 'black' : presets[presetMobile].logo}
         color={presets[preset].logo}
+        colorMobile={isMenuOpened ? 'black' : presets[presetMobile].logo}
       />
       <StyledToggler
         color={isMenuOpened ? 'black' : presets[presetMobile].toggler}
