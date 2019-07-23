@@ -156,10 +156,10 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
                 onClick={link.onClick}
                 isAuthButton={link.isAuthButton}
                 LinkComponent={link.LinkComponent}
-                // color={presets[preset].link}
-                // hoverColor={presets[preset].linkHover}
-                color={presets[preset].menuItem}
-                hoverColor={presets[preset].menuItemHover}
+                color={presets[preset].link}
+                hoverColor={presets[preset].linkHover}
+                // color={presets[preset].menuItem}
+                // hoverColor={presets[preset].menuItemHover}
                 toggleMenu={toggleMenu}
               >
                 {link.title}
