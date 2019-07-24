@@ -43,6 +43,7 @@ const getCss = ({ color, hoverColor, isAuthButton }) => `
 const StyledText = styled(Text)`
   ${getCss}
 `
+
 const StyledButton = styled(InlineButton)`
   ${getCss}
 `
@@ -83,6 +84,7 @@ const MenuItem = ({
         onClick={onClick}
         isAuthButton={isAuthButton}
         name={name}
+        isDisabled={false}
         {...rest}
       >
         {children}
