@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { createGlobalStyle } from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -113,7 +113,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
       flexDirectionMobile="column"
     >
       {menuItems.map(category => (
-        <Fragment key={category.title}>
+        <FlexBase key={category.title} flexDirectionMobile="column">
           {category.isMobileTitleHidden || (
             <StyledCategoryTitle preset="h5" color="grey">
               {category.title}
@@ -136,8 +136,8 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
                     name={link.name}
                     onClick={link.onClick}
                     isAuthButton={link.isAuthButton}
-                    color={presets[preset].link}
-                    hoverColor={presets[preset].linkHover}
+                    color={presets[preset].floatingLink}
+                    hoverColor={presets[preset].floatingLinkHover}
                     toggleMenu={toggleMenu}
                   >
                     {link.title}
@@ -163,7 +163,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
             ))
           )}
           <Separator width={1} />
-        </Fragment>
+        </FlexBase>
       ))}
     </StyledMenu>
     <GlobalStyle isMenuOpened={isMenuOpened} />
