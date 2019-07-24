@@ -1,6 +1,6 @@
 `import { fontFamily, fontFamilyBold } from '@qlean/york-react-native'`
 
-Константа со значением `font-family`, которое используется в проекте.
+Константа со значением `fontFamily`, которое используется в проекте.
 
 ```js
 import { Text, Separator, fontFamily, fontFamilyBold } from '@qlean/york-react-native'
