@@ -45,18 +45,19 @@ const presets = {
   },
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   ...presets,
 })
 
 /**
- * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
+ * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить
+ * в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
  */
 const Text = ({ preset, color, style: extraStyle, ...props }) => {
   return (
     <NativeText
       {...props}
-      style={[style[preset], { color: colors[color] }, extraStyle]}
+      style={[styles[preset], { color: colors[color] }, extraStyle]}
     />
   )
 }

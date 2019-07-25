@@ -1,18 +1,73 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View, Switch, StyleSheet, SafeAreaView } from 'react-native'
+import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { colors } from '@qlean/york-core'
-import { Button } from '@qlean/york-react-native'
+import { Picker, Separator, Text } from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    backgroundColor: colors.blue,
+  },
+  screen: {
+    padding: 20,
+  },
+  labeledSwitch: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 })
+
+const options = [
+  {
+    label: 'Йоркширский терьер',
+    value: 'york',
+  },
+  {
+    label: 'Вельш-корги',
+    value: 'corgi',
+  },
+  {
+    label: 'Сибирский хаски',
+    value: 'husky',
+  },
+  {
+    label: 'Немецкая овчарка',
+    value: 'shepherd',
+  },
+  {
+    label: 'Австралийская короткохвостая пастушья собака',
+    value: 'heeler',
+  },
+  {
+    label: 'Аляскинский маламут',
+    value: 'malamute',
+  },
+  {
+    label: 'Самоедская собака',
+    value: 'samoyed',
+  },
+  {
+    label: 'Восточносибирская лайка',
+    value: 'laika',
+  },
+  {
+    label: 'Русская псовая борзая',
+    value: 'borzoi',
+  },
+]
+
+const LabeledSwitch = ({ label, ...rest }) => (
+  <View style={styles.labeledSwitch}>
+    <Switch {...rest} />
+    <Separator width={2} />
+    <Text>{label}</Text>
+  </View>
+)
+
+LabeledSwitch.propTypes = {
+  label: PropTypes.string.isRequired,
+}
 
 export default function App() {
   const [isFontsLoaded, setIsFontsLoaded] = useState(false)
@@ -26,11 +81,40 @@ export default function App() {
   useEffect(() => {
     loadFonts()
   }, [])
+
+  const [pickerValue, setPickerValue] = useState('')
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [withError, setWithError] = useState(false)
+
   return (
     isFontsLoaded && (
-      <View style={styles.container}>
-        <Button isDisabled={false}>Кнопка!</Button>
-      </View>
+      <SafeAreaView style={styles.root}>
+        <View style={styles.screen}>
+          <LabeledSwitch
+            label="isDisabled!"
+            value={isDisabled}
+            onValueChange={setIsDisabled}
+          />
+          <Separator height={2} />
+          <LabeledSwitch
+            label="error"
+            value={withError}
+            onValueChange={setWithError}
+          />
+          <Separator height={4} />
+          <Picker
+            title="Собака"
+            caption="Разные клевые собаки"
+            placeholder="Выберите собаку..."
+            error={withError ? 'Что-то пошло не так' : ''}
+            name="doggo"
+            value={pickerValue}
+            options={options}
+            isDisabled={isDisabled}
+            onChange={v => setPickerValue(v)}
+          />
+        </View>
+      </SafeAreaView>
     )
   )
 }

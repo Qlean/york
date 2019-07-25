@@ -3,9 +3,9 @@ import { Picker } from '@qlean/york-react-native'
 import { Example } from '@qlean/york-web'
 
 const ExampleComponent = () => {
-  const [isDisabled, setIsDisabled] = React.useState(false)
+  const [withValue, setWithValue] = React.useState(true)
   const [withExtraProps, setWithExtraProps] = React.useState(false)
-  const [value, setValue] = React.useState(Example.options[0].value)
+  const [isDisabled, setIsDisabled] = React.useState(false)
 
   const extraProps = withExtraProps
     ? {
@@ -15,15 +15,16 @@ const ExampleComponent = () => {
         placeholder: 'Placeholder',
       }
     : {}
-  const inputProps = {
-    name: 'input',
-    isDisabled: false,
-    ...extraProps,
-  }
 
   return (
     <>
       <Example.InputGroup>
+        <Example.Checkbox
+          value={withValue}
+          onChange={() => setWithValue(!withValue)}
+        >
+          value
+        </Example.Checkbox>
         <Example.Checkbox
           value={withExtraProps}
           onChange={() => setWithExtraProps(!withExtraProps)}
@@ -38,11 +39,12 @@ const ExampleComponent = () => {
         </Example.Checkbox>
       </Example.InputGroup>
       <Picker
-        name="dog"
+        {...extraProps}
+        name="example"
         options={Example.options}
-        value={value}
+        value={withValue ? Example.options[0].value : ''}
         isDisabled={isDisabled}
-        onChange={value => setValue(value)}
+        onChange={() => {}}
       />
     </>
   )

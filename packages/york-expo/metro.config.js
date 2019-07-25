@@ -38,6 +38,7 @@ const getExternalDependencies = R.pipe(
 )
 
 module.exports = {
+  projectRoot: __dirname,
   resolver: {
     extraNodeModules: {
       '@qlean/york-core': yorkCoreSrc,

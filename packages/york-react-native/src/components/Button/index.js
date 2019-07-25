@@ -79,7 +79,7 @@ const sizes = {
   m: { height: 50 },
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
   },
@@ -170,14 +170,14 @@ const Button = ({
     <TouchableOpacity
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
-      style={[style.container, withShadow && style.shadow]}
+      style={[styles.container, withShadow && styles.shadow]}
       {...props}
     >
       <Animated.View
         style={[
-          style.content,
-          style[size],
-          style[preset],
+          styles.content,
+          styles[size],
+          styles[preset],
           {
             opacity: opacity.interpolate({
               inputRange: [0, 1],
@@ -188,16 +188,16 @@ const Button = ({
       >
         {Icon
           ? React.cloneElement(Icon, {
-              style: [Icon.props.style, style.icon],
+              style: [Icon.props.style, styles.icon],
             })
           : null}
         <Text {...presets[preset].textProps}>{buttonText}</Text>
       </Animated.View>
       <Animated.View
         style={[
-          style.content,
-          style.overlay,
-          style[`${preset}Disabled`],
+          styles.content,
+          styles.overlay,
+          styles[`${preset}Disabled`],
           {
             opacity: opacity.interpolate({
               inputRange: [0, 1],
@@ -208,12 +208,12 @@ const Button = ({
       >
         {Icon
           ? React.cloneElement(Icon, {
-              style: [Icon.props.style, style.icon, style.disabledIcon],
+              style: [Icon.props.style, styles.icon, styles.disabledIcon],
             })
           : null}
         <Text
           {...presets[preset].disabledProps.textProps}
-          style={style.disabledText}
+          style={styles.disabledText}
         >
           {buttonText}
         </Text>
