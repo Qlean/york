@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
+  TouchableWithoutFeedback,
   Modal,
   View,
   ScrollView,
@@ -103,6 +104,10 @@ const styles = StyleSheet.create({
  * Пикер, используется для выбора одной опции из нескольких. Поддерживает пустую строку в качестве
  * неопределенного значения. Если в `options` есть соответствующий пункт, то будет отображать его,
  * если нет, то `placeholder`.
+ *
+ * Компонент `Modal` пока не поддерживается в `react-native-web`. Открытое окно выглядит так:
+ *
+ * <скриншотики>
  */
 export default function Picker({
   name,
@@ -116,8 +121,6 @@ export default function Picker({
   onChange,
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
-
-  console.log(value)
 
   const pickerHeight = Math.min(
     options.length * pickerItemHeight + 2 * pickerContentPaddingVertical,
@@ -194,12 +197,9 @@ export default function Picker({
           onRequestClose={hideModal}
         >
           <View style={styles.modalBackground} />
-          {/* TouchableWithoutFeedback требует передачи children */}
-          <TouchableOpacity
-            style={styles.modal}
-            activeOpacity={1}
-            onPress={hideModal}
-          />
+          <TouchableWithoutFeedback onPress={hideModal}>
+            <View style={styles.modal} />
+          </TouchableWithoutFeedback>
           <View style={styles.pickerWrapper} pointerEvents="box-none">
             <View style={[styles.picker, { height: pickerHeight }]}>
               <ScrollView>

@@ -22,7 +22,9 @@
     "build:all": "npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
     "bootstrap": "lerna bootstrap",
     "checkup": "npm run build && lerna run test && npm run lint",
-    "release": "npm run checkup && lerna publish",
+    "release": "npm run release:npm && npm run release:expo",
+    "release:npm": "npm run checkup && lerna publish",
+    "release:expo": "lerna exec --scope @qlean/york-expo -- npm run release",
     "lint": "eslint . --ext .js",
     "format": "prettier --write '**/*.*'"
   },

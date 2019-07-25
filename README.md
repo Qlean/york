@@ -8,11 +8,13 @@
 - `york-web` — UI-компоненты для React
 - `york-react-native` — UI-компоненты для React Native
 - `york-styleguide` — Стайлгайд с компонентами
+- `york-expo` — Expo-приложение для тестирования компонентов `york-react-native`
 
 ## Установка
 
 ```sh
 $ npm i
+$ npm i -g expo-cli  # Только для работы с york-expo
 $ npm run bootstrap
 ```
 
@@ -52,7 +54,9 @@ $ wml start
 Собрать, прогнать линтер и тесты, поднять версию, расставить теги, опубликовать в npm
 
 ```sh
-$ npm run release
+$ npm run release:npm   # Опубликовать пакеты в npm
+$ npm run release:expo  # Опубликовать york-expo
+$ npm run release       # Опубликовать все
 ```
 
 Если что-то пошло не так (не залилось в npm, не проставились теги), то можно попробовать
