@@ -109,11 +109,28 @@ module.exports = {
       name: 'york-react-native',
       description: `Версия ${yorkReactNativePackage.version}`,
       content: '../york-react-native/README.md',
-      components: '../york-react-native/src/components/**/*.js',
       sections: [
         {
-          name: 'hooks',
-          content: '../york-react-native/docs/hooks.md',
+          name: 'components',
+          components: '../york-react-native/src/components/**/*.js',
+        },
+        {
+          name: 'utils',
+          description: 'Утилиты и константы',
+          sections: [
+            {
+              name: 'fontFamily',
+              content: '../york-react-native/docs/fontFamily.md',
+            },
+            {
+              name: 'hooks',
+              content: '../york-react-native/docs/hooks.md',
+            },
+            {
+              name: 'sizes',
+              content: '../york-react-native/docs/sizes.md',
+            },
+          ],
         },
       ],
     },

@@ -18,7 +18,8 @@ const ExampleComponent = () => {
   const buttonProps = {
     isDisabled,
     isSubmitting,
-    onClick: () => {},
+    name: 'example',
+    onPress: () => {},
   }
 
   return (
@@ -40,9 +41,7 @@ const ExampleComponent = () => {
       <Example.Showcase withVerticalPadding>
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
-            <Button rank={rank} {...buttonProps}>
-              White Backdrop
-            </Button>
+            <Button title="White Backdrop" rank={rank} {...buttonProps}/>
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
@@ -53,18 +52,14 @@ const ExampleComponent = () => {
             title={`Rank ${rank}`}
             titleProps={{ color: 'white' }}
           >
-            <Button rank={rank} backdropColor="dark" {...buttonProps}>
-              Dark Backdrop
-            </Button>
+            <Button title="Dark Backdrop" rank={rank} backdropColor="dark" {...buttonProps}/>
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
       <Example.Showcase backgroundColor="yellow" withVerticalPadding>
         {lightBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
-            <Button rank={rank} backdropColor="light" {...buttonProps}>
-              Light Backdrop
-            </Button>
+            <Button title="Light Backdrop" rank={rank} backdropColor="light" {...buttonProps}/>
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>

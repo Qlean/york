@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
  * Первый отражает важность кнопки на экране, а второй отвечает за цвет подложки.
  */
 const Button = ({
-  children,
+  title,
   isDisabled,
   isSubmitting,
   size,
@@ -146,6 +146,8 @@ const Button = ({
   backdropColor,
   withShadow,
   Icon,
+  name,
+  onPress,
   ...props
 }) => {
   if (
@@ -165,12 +167,14 @@ const Button = ({
     duration: 100,
   })
   const preset = `${backdropColor}${rank}`
-  const buttonText = isSubmitting ? 'Подождите...' : children
+  const buttonText = isSubmitting ? 'Подождите...' : title
   return (
     <TouchableOpacity
+      onPress={onPress}
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
       style={[styles.container, withShadow && styles.shadow]}
+      testID={name}
       {...props}
     >
       <Animated.View
@@ -232,6 +236,8 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
+  /** Текст на кнопке. */
+  title: PropTypes.string.isRequired,
   /** Делает кнопку недоступной для нажатия. */
   isDisabled: PropTypes.bool.isRequired,
   /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
@@ -246,8 +252,10 @@ Button.propTypes = {
   withShadow: PropTypes.bool,
   /** Иконка слева от текста. */
   Icon: PropTypes.element,
-  /** Текст на кнопке. */
-  children: PropTypes.string.isRequired,
+  /** Имя кнопки, используется в автотестах в качестве testID */
+  name: PropTypes.string.isRequired,
+  /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
+  onPress: PropTypes.func.isRequired,
 }
 
 export default Button
