@@ -99,17 +99,25 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Пикер, используется для выбора одной опции из нескольких. Поддерживает пустую строку в качестве
+ * неопределенного значения. Если в `options` есть соответствующий пункт, то будет отображать его,
+ * если нет, то `placeholder`.
+ */
 export default function Picker({
+  name,
   options,
+  value,
   title,
   caption,
   placeholder,
   error,
-  value,
   isDisabled,
   onChange,
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
+
+  console.log(value)
 
   const pickerHeight = Math.min(
     options.length * pickerItemHeight + 2 * pickerContentPaddingVertical,
@@ -156,6 +164,7 @@ export default function Picker({
         ]}
       >
         <TouchableOpacity
+          testID={name}
           style={styles.inputContent}
           disabled={isDisabled}
           onPress={showModal}
@@ -224,6 +233,9 @@ export default function Picker({
 }
 
 Picker.propTypes = {
+  /** Имя для автотестов, прокидывается как testID */
+  name: PropTypes.string.isRequired,
+  /** Список опций */
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([
@@ -233,15 +245,22 @@ Picker.propTypes = {
       label: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  title: PropTypes.string,
-  caption: PropTypes.string,
-  placeholder: PropTypes.string,
-  error: PropTypes.string,
-  isDisabled: PropTypes.bool.isRequired,
+  /** Значение пикера */
   value: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,
-  ]),
+  ]).isRequired,
+  /** Заголовок */
+  title: PropTypes.string,
+  /** Описание */
+  caption: PropTypes.string,
+  /** Заглушка, используется при пустом значении */
+  placeholder: PropTypes.string,
+  /** Текст ошибки */
+  error: PropTypes.string,
+  /** Активен ли пикер */
+  isDisabled: PropTypes.bool.isRequired,
+  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
   onChange: PropTypes.func.isRequired,
 }
 
@@ -250,5 +269,4 @@ Picker.defaultProps = {
   caption: '',
   placeholder: '',
   error: '',
-  value: '',
 }

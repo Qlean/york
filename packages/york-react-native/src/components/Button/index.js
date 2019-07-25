@@ -252,7 +252,7 @@ Button.propTypes = {
   withShadow: PropTypes.bool,
   /** Иконка слева от текста. */
   Icon: PropTypes.element,
-  /** Имя кнопки, используется в автотестах в качестве testID */
+  /** Имя для автотестов, прокидывается как testID */
   name: PropTypes.string.isRequired,
   /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
   onPress: PropTypes.func.isRequired,
