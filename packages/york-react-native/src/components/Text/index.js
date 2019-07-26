@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
  * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить
  * в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
  */
-const Text = ({ preset, color, style: extraStyle, ...props }) => {
+const Text = ({ preset, color, style: extraStyle, ...rest }) => {
   return (
     <NativeText
-      {...props}
       style={[styles[preset], { color: colors[color] }, extraStyle]}
+      {...rest}
     />
   )
 }
