@@ -1,6 +1,7 @@
 ```js
 import { colors } from '@qlean/york-core'
-import { Example, View, Text, Tooltip, Separator } from '@qlean/york-web'
+import { View, Text, Tooltip, Separator } from '@qlean/york-web'
+
 ;<>
   <Tooltip tooltip={Example.text.short}>
     <Text>Короткий тултип</Text>

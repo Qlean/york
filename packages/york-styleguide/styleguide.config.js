@@ -23,6 +23,9 @@ module.exports = {
   skipComponentsWithoutExample: true,
   pagePerSection: true,
   getComponentPathLine,
+  context: {
+    Example: path.resolve(__dirname, '../york-web/lib/components/Example'),
+  },
   sections: [
     {
       name: 'york',

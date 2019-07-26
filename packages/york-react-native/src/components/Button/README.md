@@ -1,6 +1,6 @@
 ```js
 import styled from 'styled-components'
-import { Separator, View, Example, media } from '@qlean/york-web'
+import { Separator, View, media } from '@qlean/york-web'
 import { Button } from '@qlean/york-react-native'
 
 const StyledShowcaseItem = styled(Example.ShowcaseItem)`
@@ -41,7 +41,7 @@ const ExampleComponent = () => {
       <Example.Showcase withVerticalPadding>
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
-            <Button title="White Backdrop" rank={rank} {...buttonProps}/>
+            <Button title="White Backdrop" rank={rank} {...buttonProps} />
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
@@ -52,14 +52,24 @@ const ExampleComponent = () => {
             title={`Rank ${rank}`}
             titleProps={{ color: 'white' }}
           >
-            <Button title="Dark Backdrop" rank={rank} backdropColor="dark" {...buttonProps}/>
+            <Button
+              title="Dark Backdrop"
+              rank={rank}
+              backdropColor="dark"
+              {...buttonProps}
+            />
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
       <Example.Showcase backgroundColor="yellow" withVerticalPadding>
         {lightBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
-            <Button title="Light Backdrop" rank={rank} backdropColor="light" {...buttonProps}/>
+            <Button
+              title="Light Backdrop"
+              rank={rank}
+              backdropColor="light"
+              {...buttonProps}
+            />
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>

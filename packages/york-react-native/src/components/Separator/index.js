@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { View, ViewPropTypes } from 'react-native'
 import * as R from 'ramda'
 
 import { sizes } from 'york-react-native/utils/styles'
@@ -29,7 +29,7 @@ Separator.propTypes = {
   /** Ширина разделителя в `uiPoint` */
   height: sizesPropTypes,
   /** Дополнительные стили */
-  ///// style: View.propTypes.style,
+  style: ViewPropTypes.style,
 }
 
 export default Separator

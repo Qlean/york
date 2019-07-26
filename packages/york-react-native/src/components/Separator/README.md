@@ -3,11 +3,6 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { Text } from '@qlean/york-react-native'
 
-// const StyledSeparator = styled(Separator)`
-//   width: 100% !important;
-//   background-color: ${colors.blue};
-// `
-
 const style = {
   width: 'auto',
   backgroundColor: colors.blue,

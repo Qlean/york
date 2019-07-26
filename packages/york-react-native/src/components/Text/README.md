@@ -1,6 +1,4 @@
 ```js
-import { Example } from '@qlean/york-web'
-
 const presets = [
   {
     caption: 'Заголовок экрана, саксесс скрины',

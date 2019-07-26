@@ -3,7 +3,7 @@
 Константы для скругленных углов.
 
 ```js
-import { Example, borderRadiuses } from '@qlean/york-web'
+import { borderRadiuses } from '@qlean/york-web'
 ;<Example.Showcase>
   {Object.entries(borderRadiuses).map(([key, value]) => (
     <Example.ShowcaseItem key={key} title={key}>

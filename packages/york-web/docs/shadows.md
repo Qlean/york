@@ -3,7 +3,7 @@
 Константы для теней.
 
 ```js
-import { Example, shadows } from '@qlean/york-web'
+import { shadows } from '@qlean/york-web'
 ;<Example.Showcase>
   {Object.entries(shadows).map(([key, value]) => (
     <Example.ShowcaseItem key={key} title={key}>

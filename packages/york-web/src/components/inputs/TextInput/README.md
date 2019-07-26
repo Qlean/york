@@ -1,5 +1,5 @@
 ```js
-import { Example, TextInput } from '@qlean/york-web'
+import { TextInput } from '@qlean/york-web'
 
 const ExampleComponent = () => {
   const [isDisabled, setIsDisabled] = React.useState(false)

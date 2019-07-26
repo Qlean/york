@@ -38,17 +38,16 @@ const getExternalDependencies = R.pipe(
 )
 
 module.exports = {
-  projectRoot: __dirname,
   resolver: {
     extraNodeModules: {
       '@qlean/york-core': yorkCoreSrc,
       '@qlean/york-react-native': yorkReactNativeSrc,
       'york-react-native': yorkReactNativeSrc,
 
-      // Зависимости york-core и york-react-native которые следует брать из корневой директории
+      // Зависимости york-core и york-react-native которые следует брать из директории york-expo
       ...getLocalDependencies(['react', 'react-native', '@babel/runtime']),
 
-      // Зависимости york-core и york-react-native которые следует брать из этой директории
+      // Зависимости york-core и york-react-native которые следует брать из корневой директории
       ...getExternalDependencies(['ramda', 'prop-types']),
     },
   },

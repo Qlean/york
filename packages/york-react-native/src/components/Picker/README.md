@@ -1,6 +1,5 @@
 ```js
 import { Picker } from '@qlean/york-react-native'
-import { Example } from '@qlean/york-web'
 
 const ExampleComponent = () => {
   const [withValue, setWithValue] = React.useState(true)
