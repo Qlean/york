@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import { colors } from '@qlean/york-core'
 
-import { sizes, media } from 'york-web/utils'
-import { Text, View, Separator } from 'york-web/components/primitive'
+import { colors } from '@qlean/york-core'
+import { Text, View, Separator, sizes, media } from '@qlean/york-web'
 
 const StyledBox = styled.div`
   display: flex;
