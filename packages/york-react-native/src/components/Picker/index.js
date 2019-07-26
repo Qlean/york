@@ -123,7 +123,7 @@ export default function Picker({
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const pickerHeight = Math.min(
-    options.length * pickerItemHeight + 2 * pickerContentPaddingVertical,
+    options.length * pickerItemHeight + pickerContentPaddingVertical * 2,
     maxPickerHeight,
   )
   const valueLabel = (options.find(item => item.value === value) || {}).label
