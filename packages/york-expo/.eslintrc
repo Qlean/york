@@ -1,0 +1,6 @@
+{
+  "extends": "@qlean/eslint-config-react-native",
+  "rules": {
+    "import/no-extraneous-dependencies": 0
+  }
+}

@@ -16,18 +16,23 @@
   },
   "scripts": {
     "start": "npm run build && lerna run --parallel start",
-    "build": "lerna exec --ignore @qlean/york-styleguide -- npm run build",
+    "start:web": "npm run build && lerna run --parallel --ignore @qlean/york-expo start",
+    "start:expo": "lerna exec --scope @qlean/york-expo -- npm start",
+    "build": "lerna exec --ignore @qlean/york-styleguide --ignore @qlean/york-expo -- npm run build",
     "build:all": "npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
     "bootstrap": "lerna bootstrap",
     "checkup": "npm run build && lerna run test && npm run lint",
-    "release": "npm run checkup && lerna publish",
+    "release": "npm run release:npm && npm run release:expo",
+    "release:npm": "npm run checkup && lerna publish",
+    "release:expo": "lerna exec --scope @qlean/york-expo -- npm run release",
     "lint": "eslint . --ext .js",
     "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web"
+    "@qlean/york-web": "file:packages/york-web",
+    "url-loader": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

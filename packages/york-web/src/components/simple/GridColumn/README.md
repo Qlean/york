@@ -1,7 +1,7 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { GridContainer, GridColumn, Example, media } from '@qlean/york-web'
+import { GridContainer, GridColumn, media } from '@qlean/york-web'
 
 const StyledBoxDesktop = styled(Example.Box)`
   width: auto;

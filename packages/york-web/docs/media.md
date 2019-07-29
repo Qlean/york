@@ -25,7 +25,7 @@ media.mobile(`${color ? `color: ${color};` : ''}`)
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { Example, media, sizes } from '@qlean/york-web'
+import { media, sizes } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
   ${media.wide(`

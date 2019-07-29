@@ -5,7 +5,7 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { Example, Text, Separator, transitions } from '@qlean/york-web'
+import { Text, Separator, transitions } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
   ${({ transition }) => `transition: ${transition};`}

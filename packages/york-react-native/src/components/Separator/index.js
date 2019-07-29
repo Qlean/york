@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { View, ViewPropTypes } from 'react-native'
 import * as R from 'ramda'
 
 import { sizes } from 'york-react-native/utils/styles'
@@ -10,16 +10,17 @@ const sizesPropTypes = PropTypes.oneOf(R.map(Number, R.keys(sizes)))
 /**
  * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать только значения указанные в core/sizes.
  */
-const Separator = ({ width, height, ...rest }) => (
+const Separator = ({ width, height, style, ...rest }) => (
   <View
+    style={[{ width: sizes[width] }, { height: sizes[height] }, style]}
     {...rest}
-    style={[{ width: sizes[width] }, { height: sizes[height] }]}
   />
 )
 
 Separator.defaultProps = {
   width: 0,
   height: 0,
+  style: null,
 }
 
 Separator.propTypes = {
@@ -27,6 +28,8 @@ Separator.propTypes = {
   width: sizesPropTypes,
   /** Ширина разделителя в `uiPoint` */
   height: sizesPropTypes,
+  /** Дополнительные стили */
+  style: ViewPropTypes.style,
 }
 
 export default Separator

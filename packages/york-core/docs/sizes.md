@@ -4,7 +4,7 @@
 
 ```js
 import { sizes } from '@qlean/york-core'
-import { Example, uiPoint } from '@qlean/york-web'
+import { uiPoint } from '@qlean/york-web'
 ;<Example.Showcase flexDirection="column">
   {Object.values(sizes)
     .filter(a => a)

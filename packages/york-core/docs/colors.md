@@ -12,7 +12,7 @@
 import styled from 'styled-components'
 
 import { colors } from '@qlean/york-core'
-import { Example, uiPoint, sizes, borderRadiuses } from '@qlean/york-web'
+import { uiPoint, sizes, borderRadiuses } from '@qlean/york-web'
 
 const StyledColor = styled.div`
   height: ${sizes[12]}px;

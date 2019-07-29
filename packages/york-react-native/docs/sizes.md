@@ -8,7 +8,6 @@
 
 ```js
 import styled from 'styled-components'
-import { Example } from '@qlean/york-web'
 import { sizes } from '@qlean/york-react-native'
 
 const StyledBox = styled(Example.Box)`

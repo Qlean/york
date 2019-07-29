@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import { colors } from '@qlean/york-core'
 
-import { sizes, media } from 'york-web/utils'
-import { Text, View, Separator } from 'york-web/components/primitive'
+import { colors } from '@qlean/york-core'
+import { Text, View, Separator, sizes, media } from '@qlean/york-web'
 
 const StyledBox = styled.div`
   display: flex;
@@ -136,12 +135,92 @@ ShowcaseItem.defaultProps = {
   caption: '',
 }
 
+const StyledImage = styled.img`
+  ${({ width }) => `
+    width: ${width}px;
+  `}
+  display: block;
+  max-width: 100%;
+`
+
+const Image = ({ title, ...rest }) => (
+  <div>
+    {title && (
+      <>
+        <Text>{title}</Text>
+        <Separator height={1} />
+      </>
+    )}
+    <StyledImage {...rest} />
+  </div>
+)
+
+Image.defaultProps = {
+  title: '',
+}
+
+Image.propTypes = {
+  title: PropTypes.string,
+  width: PropTypes.number.isRequired,
+  src: PropTypes.string.isRequired,
+}
+
+const text = {
+  short: 'Аляскинский маламут',
+  medium:
+    'Аляскинский маламут — достаточно крупная собака аборигенного типа, предназначенная для работы в упряжке, одна из древнейших пород собак.',
+  long:
+    'Своим названием Аляскинский Маламут обязан племени Малемиутов (Малемуты, Малемьюты). Малемиуты — когда-то многочисленное эскимосское племя группы Инупиатов, жившее на различных прибрежных территориях Аляски. В исторических хрониках арктических путешественников это племя чаще всего встречается в районе Залива Коцебу и в районе Залива Нортон. Исследователи Севера Америки и Канады XIX века часто сообщали о замечательных качествах рабочих собак, приобретенных у этого племени, их исключительном здоровье, физической выносливости, устойчивости к самым экстремальным погодным условиям.',
+}
+
+const options = [
+  {
+    label: 'Йоркширский терьер',
+    value: 'york',
+  },
+  {
+    label: 'Вельш-корги',
+    value: 'corgi',
+  },
+  {
+    label: 'Сибирский хаски',
+    value: 'husky',
+  },
+  {
+    label: 'Немецкая овчарка',
+    value: 'shepherd',
+  },
+  {
+    label: 'Австралийская короткохвостая пастушья собака',
+    value: 'heeler',
+  },
+  {
+    label: 'Аляскинский маламут',
+    value: 'malamute',
+  },
+  {
+    label: 'Самоедская собака',
+    value: 'samoyed',
+  },
+  {
+    label: 'Восточносибирская лайка',
+    value: 'laika',
+  },
+  {
+    label: 'Русская псовая борзая',
+    value: 'borzoi',
+  },
+]
+
 const Example = {
   Box,
   Checkbox,
   InputGroup: StyledInputGroup,
   Showcase,
   ShowcaseItem,
+  Image,
+  text,
+  options,
 }
 
 export default Example

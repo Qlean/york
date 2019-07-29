@@ -8,18 +8,22 @@
 - `york-web` — UI-компоненты для React
 - `york-react-native` — UI-компоненты для React Native
 - `york-styleguide` — Стайлгайд с компонентами
+- `york-expo` — Expo-приложение для тестирования компонентов `york-react-native`
 
 ## Установка
 
-```
+```sh
 $ npm i
+$ npm i -g expo-cli  # Только для работы с york-expo
 $ npm run bootstrap
 ```
 
 ## Запуск
 
-```
-$ npm start
+```sh
+$ npm run start:web   # Запустить веб-версию
+$ npm run start:expo  # Запустить RN-версию
+$ npm start           # Запустить все
 ```
 
 ## Линковка
@@ -27,17 +31,20 @@ $ npm start
 Иногда требуется проверять новые версии пакета локально в реальных проектах до паблиша. В большинстве случаев хватает `npm link`, но есть особые случаи.
 
 ### york-react-native
+
 Стандартный `react-native` сборщик не дружит с `npm link`, поэтому для линковки используется [wml](https://github.com/wix/wml).
 
 Сначала создадим линк.
-```
-npm install -g wml
-wml add /path-to-york/packages/york-react-native/ /path-to-react-native-app/node_modules/@qlean/york-react-native
+
+```sh
+$ npm install -g wml
+$ wml add /path-to-york/packages/york-react-native/ /path-to-react-native-app/node_modules/@qlean/york-react-native
 ```
 
 Теперь, всякий раз при локальном использовании йорка достаточно использовать
-```
-wml start
+
+```sh
+$ wml start
 ```
 
 ## Публикация
@@ -46,13 +53,15 @@ wml start
 
 Собрать, прогнать линтер и тесты, поднять версию, расставить теги, опубликовать в npm
 
-```
-$ npm run release
+```sh
+$ npm run release:npm   # Опубликовать пакеты в npm
+$ npm run release:expo  # Опубликовать york-expo
+$ npm run release       # Опубликовать все
 ```
 
 Если что-то пошло не так (не залилось в npm, не проставились теги), то можно попробовать
 
-```
+```sh
 $ npm run release -- --force-publish=*
 ```
 

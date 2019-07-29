@@ -79,7 +79,7 @@ const sizes = {
   m: { height: 50 },
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
   },
@@ -163,7 +163,7 @@ const Button = ({
   const opacity = useAnimation({
     initialValue: isDisabled || isSubmitting ? 1 : 0,
     toValue: isDisabled || isSubmitting ? 1 : 0,
-    useNativeDriver: true,
+    useNativeDriver: Platform.OS !== 'web',
     duration: 100,
   })
   const preset = `${backdropColor}${rank}`
@@ -173,15 +173,15 @@ const Button = ({
       onPress={onPress}
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
-      style={[style.container, withShadow && style.shadow]}
+      style={[styles.container, withShadow && styles.shadow]}
       testID={name}
       {...props}
     >
       <Animated.View
         style={[
-          style.content,
-          style[size],
-          style[preset],
+          styles.content,
+          styles[size],
+          styles[preset],
           {
             opacity: opacity.interpolate({
               inputRange: [0, 1],
@@ -192,16 +192,16 @@ const Button = ({
       >
         {Icon
           ? React.cloneElement(Icon, {
-              style: [Icon.props.style, style.icon],
+              style: [Icon.props.style, styles.icon],
             })
           : null}
         <Text {...presets[preset].textProps}>{buttonText}</Text>
       </Animated.View>
       <Animated.View
         style={[
-          style.content,
-          style.overlay,
-          style[`${preset}Disabled`],
+          styles.content,
+          styles.overlay,
+          styles[`${preset}Disabled`],
           {
             opacity: opacity.interpolate({
               inputRange: [0, 1],
@@ -212,12 +212,12 @@ const Button = ({
       >
         {Icon
           ? React.cloneElement(Icon, {
-              style: [Icon.props.style, style.icon, style.disabledIcon],
+              style: [Icon.props.style, styles.icon, styles.disabledIcon],
             })
           : null}
         <Text
           {...presets[preset].disabledProps.textProps}
-          style={style.disabledText}
+          style={styles.disabledText}
         >
           {buttonText}
         </Text>
@@ -252,7 +252,7 @@ Button.propTypes = {
   withShadow: PropTypes.bool,
   /** Иконка слева от текста. */
   Icon: PropTypes.element,
-  /** Имя кнопки, используется в автотестах в качестве testID */
+  /** Имя для автотестов, прокидывается как testID */
   name: PropTypes.string.isRequired,
   /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
   onPress: PropTypes.func.isRequired,

@@ -1,10 +1,11 @@
 ```js
-import { TextInput } from '@qlean/york-web'
+import { Picker } from '@qlean/york-react-native'
+import { Separator } from '@qlean/york-web'
 
 const ExampleComponent = () => {
-  const [isDisabled, setIsDisabled] = React.useState(false)
+  const [withValue, setWithValue] = React.useState(true)
   const [withExtraProps, setWithExtraProps] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const [isDisabled, setIsDisabled] = React.useState(false)
 
   const extraProps = withExtraProps
     ? {
@@ -14,14 +15,16 @@ const ExampleComponent = () => {
         placeholder: 'Placeholder',
       }
     : {}
-  const inputProps = {
-    name: 'input',
-    isDisabled: false,
-    ...extraProps,
-  }
+
   return (
     <>
       <Example.InputGroup>
+        <Example.Checkbox
+          value={withValue}
+          onChange={() => setWithValue(!withValue)}
+        >
+          value
+        </Example.Checkbox>
         <Example.Checkbox
           value={withExtraProps}
           onChange={() => setWithExtraProps(!withExtraProps)}
@@ -35,11 +38,19 @@ const ExampleComponent = () => {
           isDisabled
         </Example.Checkbox>
       </Example.InputGroup>
-      <TextInput
-        {...inputProps}
-        value={value}
+      <Picker
+        {...extraProps}
+        name="example"
+        options={Example.options}
+        value={withValue ? Example.options[0].value : ''}
         isDisabled={isDisabled}
-        onChange={(e, value) => setValue(value)}
+        onChange={() => {}}
+      />
+      <Separator height={4} />
+      <Example.Image
+        title="Открытый пикер на телефоне"
+        width={320}
+        src={require('./assets/example.png')}
       />
     </>
   )

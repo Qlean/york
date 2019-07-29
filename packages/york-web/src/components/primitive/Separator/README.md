@@ -9,23 +9,10 @@ const StyledSeparator = styled(Separator)`
 `
 
 ;<div>
-  <Text preset="header2" htmlTag="h1">
-    Йоркширский терьер
-  </Text>
+  <Text preset="header2">{Example.text.short}</Text>
+  <StyledSeparator height={2} />
+  <Text>{Example.text.medium}</Text>
   <StyledSeparator height={1} />
-  <Text preset="caption" htmlTag="h2" color="grey">
-    Материал из Википедии — свободной энциклопедии
-  </Text>
-  <StyledSeparator height={2} />
-  <Text>
-    Йоркширский терьер, или йорк (англ. yorkshire terrier), — декоративная
-    порода собак, выведенная в Англии, графстве Йоркшир в конце XIX в, на основе
-    таких пород как манчестер-терьер, скайтерьер, мальтезе и др.
-  </Text>
-  <StyledSeparator height={2} />
-  <Text>
-    В настоящее время йоркширский терьер — одна из самых популярных
-    комнатно-декоративных пород собак.
-  </Text>
+  <Text>{Example.text.long}</Text>
 </div>
 ```

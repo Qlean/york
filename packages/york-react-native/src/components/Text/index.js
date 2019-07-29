@@ -45,18 +45,19 @@ const presets = {
   },
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   ...presets,
 })
 
 /**
- * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
+ * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить
+ * в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
  */
-const Text = ({ preset, color, style: extraStyle, ...props }) => {
+const Text = ({ preset, color, style, ...rest }) => {
   return (
     <NativeText
-      {...props}
-      style={[style[preset], { color: colors[color] }, extraStyle]}
+      style={[styles[preset], { color: colors[color] }, style]}
+      {...rest}
     />
   )
 }
@@ -64,7 +65,7 @@ const Text = ({ preset, color, style: extraStyle, ...props }) => {
 Text.defaultProps = {
   color: 'coal',
   preset: 'text',
-  style: {},
+  style: null,
 }
 
 Text.propTypes = {
@@ -72,7 +73,7 @@ Text.propTypes = {
   preset: PropTypes.oneOf(Object.keys(presets)),
   /** Цвет текста */
   color: PropTypes.oneOf(Object.keys(colors)),
-  /** Дополнительный стиль, который накатывается поверх предопределенных. Например, используется для opacity в кнопке */
+  /** Дополнительные стили */
   style: NativeText.propTypes.style,
 }
 

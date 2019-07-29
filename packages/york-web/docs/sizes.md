@@ -8,7 +8,7 @@
 
 ```js
 import styled from 'styled-components'
-import { Example, sizes } from '@qlean/york-web'
+import { sizes } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
   width: ${sizes[16]}px;
