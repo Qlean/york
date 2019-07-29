@@ -12,6 +12,7 @@ import {
   Platform,
   Dimensions,
   Keyboard,
+  StatusBar,
 } from 'react-native'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
@@ -31,10 +32,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 
 /**
  * Dimensions возвращает полную высоту экрана, поэтому на Андроиде нужно компенсировать высоту
- * статус бара. Она не всегда равна точно 25, но расхождение в пару пунктов крайне незначительно
- * влияет на общие пропорции модального окна.
+ * статус бара.
  * */
-const statusBarHeight = Platform.OS === 'android' ? 25 : 0
+const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
 
 const maxPickerHeight = screenHeight - pickerPaddingTop - pickerPaddingBottom
 const maxPickerWidth = screenWidth - pickerPaddignHorizontal * 2
