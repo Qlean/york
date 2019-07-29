@@ -191,7 +191,11 @@ export default function Picker({
           </Text>
           <Image
             style={styles.inputIcon}
-            source={require('./assets/chevron.png')}
+            source={
+              isDisabled
+                ? require('./assets/chevronDisabled.png')
+                : require('./assets/chevron.png')
+            }
           />
         </TouchableOpacity>
       </View>
