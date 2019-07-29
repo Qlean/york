@@ -229,6 +229,6 @@ std.flattenArrays([
       deploy_pipeline('production'),
       ['release'],
     )
-    , { branch: 'master', event: ['promote', 'tag'] },
+    , { event: ['promote', 'tag'] },
   )],
 ])
