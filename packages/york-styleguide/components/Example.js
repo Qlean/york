@@ -135,6 +135,36 @@ ShowcaseItem.defaultProps = {
   caption: '',
 }
 
+const StyledImage = styled.img`
+  ${({ width }) => `
+    width: ${width}px;
+  `}
+  display: block;
+  max-width: 100%;
+`
+
+const Image = ({ title, ...rest }) => (
+  <div>
+    {title && (
+      <>
+        <Text>{title}</Text>
+        <Separator height={1} />
+      </>
+    )}
+    <StyledImage {...rest} />
+  </div>
+)
+
+Image.defaultProps = {
+  title: '',
+}
+
+Image.propTypes = {
+  title: PropTypes.string,
+  width: PropTypes.number.isRequired,
+  src: PropTypes.string.isRequired,
+}
+
 const text = {
   short: 'Аляскинский маламут',
   medium:
@@ -188,6 +218,7 @@ const Example = {
   InputGroup: StyledInputGroup,
   Showcase,
   ShowcaseItem,
+  Image,
   text,
   options,
 }

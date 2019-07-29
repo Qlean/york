@@ -31,7 +31,8 @@
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web"
+    "@qlean/york-web": "file:packages/york-web",
+    "url-loader": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

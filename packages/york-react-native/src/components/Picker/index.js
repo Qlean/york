@@ -8,6 +8,7 @@ import {
   Modal,
   View,
   ScrollView,
+  Image,
   Platform,
   Dimensions,
   Keyboard,
@@ -23,7 +24,7 @@ import { uiPoint, sizes } from 'york-react-native/utils/styles'
 const pickerPaddingTop = sizes[12]
 const pickerPaddingBottom = sizes[16]
 const pickerPaddignHorizontal = sizes[6]
-const pickerItemHeight = sizes[12]
+const pickerItemHeight = uiPoint * 11
 const pickerContentPaddingVertical = sizes[2]
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -54,8 +55,18 @@ const styles = StyleSheet.create({
   },
   inputContent: {
     flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: sizes[3],
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: sizes[3],
+    paddingRight: sizes[2],
+  },
+  inputText: {
+    flex: 1,
+  },
+  inputIcon: {
+    width: sizes[6],
+    height: sizes[6],
   },
   modal: {
     flex: 1,
@@ -67,7 +78,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: colors.black,
-    opacity: 0.7,
+    opacity: 0.4,
   },
   pickerWrapper: {
     position: 'absolute',
@@ -77,13 +88,13 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: pickerPaddingBottom - pickerPaddingTop + statusBarHeight,
-    paddingHorizontal: sizes[5],
+    marginBottom: pickerPaddingBottom - pickerPaddingTop + statusBarHeight,
+    marginHorizontal: sizes[5],
   },
-  picker: {
-    backgroundColor: colors.white,
+  pickerScrollView: {
     maxWidth: maxPickerWidth,
-    elevation: 5, //////ios?
+    backgroundColor: colors.white,
+    borderRadius: 4,
   },
   pickerContent: {
     paddingVertical: pickerContentPaddingVertical,
@@ -96,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   pickerItemSelected: {
-    backgroundColor: colors.silver,
+    backgroundColor: colors.whisper,
   },
 })
 
@@ -105,9 +116,8 @@ const styles = StyleSheet.create({
  * неопределенного значения. Если в `options` есть соответствующий пункт, то будет отображать его,
  * если нет, то `placeholder`.
  *
- * Компонент `Modal` пока не поддерживается в `react-native-web`. Открытое окно выглядит так:
- *
- * <скриншотики>
+ * Компонент `Modal` пока не поддерживается в `react-native-web`, поэтому открытый пикер показан
+ * на скриншоте.
  */
 export default function Picker({
   name,
@@ -173,11 +183,16 @@ export default function Picker({
           onPress={showModal}
         >
           <Text
+            style={styles.inputText}
             color={withValue && !isDisabled ? 'coal' : 'grey'}
             numberOfLines={1}
           >
             {withValue ? valueLabel : placeholder}
           </Text>
+          <Image
+            style={styles.inputIcon}
+            source={require('./assets/chevron.png')}
+          />
         </TouchableOpacity>
       </View>
       {withError && (
@@ -201,13 +216,13 @@ export default function Picker({
             <View style={styles.modal} />
           </TouchableWithoutFeedback>
           <View style={styles.pickerWrapper} pointerEvents="box-none">
-            <View style={[styles.picker, { height: pickerHeight }]}>
-              <ScrollView>
+            <View style={{ height: pickerHeight }}>
+              <ScrollView style={styles.pickerScrollView}>
                 <View style={styles.pickerContent}>
                   {options.map((item, i) => (
                     <TouchableHighlight
                       key={item.value}
-                      underlayColor={colors.silver}
+                      underlayColor={colors.coal}
                       onPress={onItemPress(item.value, i)}
                     >
                       <View

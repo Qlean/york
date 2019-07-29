@@ -1,5 +1,6 @@
 ```js
 import { Picker } from '@qlean/york-react-native'
+import { Separator } from '@qlean/york-web'
 
 const ExampleComponent = () => {
   const [withValue, setWithValue] = React.useState(true)
@@ -44,6 +45,12 @@ const ExampleComponent = () => {
         value={withValue ? Example.options[0].value : ''}
         isDisabled={isDisabled}
         onChange={() => {}}
+      />
+      <Separator height={4} />
+      <Example.Image
+        title="Так открытый пикер выглядит на телефоне"
+        width={320}
+        src={require('./assets/example.png')}
       />
     </>
   )
