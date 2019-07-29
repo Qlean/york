@@ -48,7 +48,7 @@ const ExampleComponent = () => {
       />
       <Separator height={4} />
       <Example.Image
-        title="Так открытый пикер выглядит на телефоне"
+        title="Открытый пикер на телефоне"
         width={320}
         src={require('./assets/example.png')}
       />
