@@ -57,7 +57,7 @@ local default_services = [
   },
 ];
 
-local default_triggers = { event: ['push'] };
+local default_triggers = { event: ['push', 'tag'] };
 
 local build_and_push_pipeline(target='', tag='${DRONE_COMMIT}') = {
   name: if target != '' then 'build ' + target else 'build',
