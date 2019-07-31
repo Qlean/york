@@ -104,7 +104,13 @@ const MenuItem = ({
     </StyledText>
   ) : (
     <a href={href} name={name}>
-      <StyledText preset="link" color={color} hoverColor={hoverColor} {...rest}>
+      <StyledText
+        preset="link"
+        color={color}
+        hoverColor={hoverColor}
+        isAuthButton={isAuthButton}
+        {...rest}
+      >
         {children}
       </StyledText>
     </a>
