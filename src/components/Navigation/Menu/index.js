@@ -113,7 +113,12 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
       flexDirectionMobile="column"
     >
       {menuItems.map(category => (
-        <FlexBase key={category.title} flexDirectionMobile="column">
+        <div
+        // key={category.title}
+        // alignItems="center"
+        // alignItemsMobile="flex-start"
+        // flexDirectionMobile="column"
+        >
           {category.isMobileTitleHidden || (
             <StyledCategoryTitle preset="h5" color="grey">
               {category.title}
@@ -163,7 +168,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
             ))
           )}
           <Separator width={1} />
-        </FlexBase>
+        </div>
       ))}
     </StyledMenu>
     <GlobalStyle isMenuOpened={isMenuOpened} />
