@@ -45,6 +45,13 @@ const StyledMenu = styled(FlexBase)`
     text-decoration: none;
   }
 `
+const StyledMenyItem = styled.div`
+  display: flex;
+
+  ${media.mobile(`
+    display: block;
+  `)}
+`
 
 const StyledCategoryTitle = styled(Text)`
   display: none;
@@ -113,12 +120,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
       flexDirectionMobile="column"
     >
       {menuItems.map(category => (
-        <div
-        // key={category.title}
-        // alignItems="center"
-        // alignItemsMobile="flex-start"
-        // flexDirectionMobile="column"
-        >
+        <StyledMenyItem>
           {category.isMobileTitleHidden || (
             <StyledCategoryTitle preset="h5" color="grey">
               {category.title}
@@ -168,7 +170,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
             ))
           )}
           <Separator width={1} />
-        </div>
+        </StyledMenyItem>
       ))}
     </StyledMenu>
     <GlobalStyle isMenuOpened={isMenuOpened} />
