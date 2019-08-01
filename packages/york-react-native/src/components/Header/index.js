@@ -61,6 +61,12 @@ const CloseIcon = () => (
   <Image style={styles.icon} source={require('./assets/close.png')} />
 )
 
+/**
+ * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
+ * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS. В хедер уже встроены
+ * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно использовать для `leftView` или
+ * `rightView`.
+ */
 export default function Header({
   title,
   caption,
@@ -114,13 +120,21 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
+  /** Заголовок */
   title: PropTypes.string.isRequired,
+  /** Подзаголовок */
   caption: PropTypes.string.isRequired,
+  /** Дополнительные стили */
   style: ViewPropTypes.style,
+  /** Компонент для левой части хедера */
   leftView: PropTypes.node,
+  /** Компонент для правой части хедера */
   rightView: PropTypes.node,
+  /** Коллбэк для нажатия на левую часть хедера */
   onLeftViewPress: PropTypes.func,
+  /** Коллбэк для нажатия на правую часть хедера */
   onRightViewPress: PropTypes.func,
+  /** Убрать автоматический отступ до безопасной зоны сверху */
   withoutSafeAreaPadding: PropTypes.bool,
 }
 
