@@ -41,7 +41,7 @@ const presets = {
   captionSmall: {
     ...getFontFamily(false),
     fontSize: 12,
-    lineHeight: 20,
+    lineHeight: 15,
   },
 }
 

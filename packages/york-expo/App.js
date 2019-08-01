@@ -3,7 +3,7 @@ import { View, Switch, StyleSheet, SafeAreaView } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { Picker, Separator, Text } from '@qlean/york-react-native'
+import { Header, Picker, Separator, Text } from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
   root: {
@@ -85,6 +85,22 @@ export default function App() {
   const [pickerValue, setPickerValue] = useState('')
   const [isDisabled, setIsDisabled] = useState(false)
   const [withError, setWithError] = useState(false)
+
+  return (
+    isFontsLoaded && (
+      <Header
+        title="3290 рублей за уборку, 3290 рублей за уборку"
+        caption="ЧТ, 22 нояб. в 12:00, ~ 4 часа, ЧТ, 22 нояб. в 12:00, ~ 4 часа"
+        leftView={<Header.BackIcon />}
+        rightView={<Header.CloseIcon />}
+        onLeftViewPress={() => {}}
+        onRightViewPress={() => {}}
+        style={{
+          backgroundColor: 'tomato',
+        }}
+      />
+    )
+  )
 
   return (
     isFontsLoaded && (
