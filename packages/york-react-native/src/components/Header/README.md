@@ -5,6 +5,5 @@
   leftView={<Header.BackIcon />}
   rightView={<Header.CloseIcon />}
   onLeftViewPress={() => {}}
-  onRightViewPress={() => {}}
 />
 ```

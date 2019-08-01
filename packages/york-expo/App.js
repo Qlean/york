@@ -92,7 +92,6 @@ export default function App() {
           leftView={<Header.BackIcon />}
           rightView={<Header.CloseIcon />}
           onLeftViewPress={() => {}}
-          onRightViewPress={() => {}}
         />
         <View style={styles.screen}>
           <LabeledSwitch
