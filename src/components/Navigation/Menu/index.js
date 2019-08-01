@@ -120,7 +120,7 @@ const Menu = ({ toggleMenu, isMenuOpened, menuItems, preset }) => (
       flexDirectionMobile="column"
     >
       {menuItems.map(category => (
-        <StyledMenyItem>
+        <StyledMenyItem key={category.title}>
           {category.isMobileTitleHidden || (
             <StyledCategoryTitle preset="h5" color="grey">
               {category.title}
