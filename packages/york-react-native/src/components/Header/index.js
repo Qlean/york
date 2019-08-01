@@ -14,7 +14,7 @@ import Text from 'york-react-native/components/Text'
 import {
   uiPoint,
   sizes,
-  topSafeAreaPadding,
+  safeAreaPaddingTop,
 } from 'york-react-native/utils/styles'
 
 const headerHeight = uiPoint * 10
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   root: {
     borderBottomColor: colors.silver,
     borderBottomWidth: 0.5,
-    height: headerHeight + topSafeAreaPadding,
-    paddingTop: topSafeAreaPadding,
+    height: headerHeight + safeAreaPaddingTop,
+    paddingTop: safeAreaPaddingTop,
     flexDirection: 'row',
   },
   withoutSafeAreaPadding: {

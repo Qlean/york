@@ -21,11 +21,11 @@ const isIphoneX = () => {
   )
 }
 
-const getTopSafeAreaPadding = () => {
+const getSafeAreaPaddingTop = () => {
   if (Platform.OS !== 'ios') return 0
   if (isIphoneX()) return 44
   return 20
 }
 
-export const topSafeAreaPadding = getTopSafeAreaPadding()
-export const bottomSafeAreaPadding = isIphoneX() ? 34 : 0
+export const safeAreaPaddingTop = getSafeAreaPaddingTop()
+export const safeAreaPaddingBottom = isIphoneX() ? 34 : 0
