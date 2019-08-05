@@ -89,9 +89,15 @@ export default function App() {
         <Header
           title="Аляскинский маламут"
           caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
-          leftView={<Header.BackIcon />}
-          rightView={<Header.CloseIcon />}
-          onLeftViewPress={() => {}}
+          leftView={{
+            view: <Header.BackIcon />,
+            onPress: () => {},
+          }}
+          rightView={{
+            view: <Header.CloseIcon />,
+            onPress: () => {},
+            isDisabled: true,
+          }}
         />
         <View style={styles.screen}>
           <LabeledSwitch

@@ -2,8 +2,14 @@
 ;<Header
   title={Example.text.short}
   caption={Example.text.medium}
-  leftView={<Header.BackIcon />}
-  rightView={<Header.CloseIcon />}
-  onLeftViewPress={() => {}}
+  leftView={{
+    view: <Header.BackIcon />,
+    onPress: () => {},
+  }}
+  rightView={{
+    view: <Header.CloseIcon />,
+    onPress: () => {},
+    isDisabled: true,
+  }}
 />
 ```

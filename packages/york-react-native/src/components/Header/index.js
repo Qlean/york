@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
   },
+  title: {
+    lineHeight: sizes[4],
+  },
   sideView: {
     height: headerHeight,
     justifyContent: 'center',
@@ -61,11 +64,29 @@ const CloseIcon = () => (
   <Image style={styles.icon} source={require('./assets/close.png')} />
 )
 
+const SideView = ({ view, isDisabled, onPress }) => (
+  <TouchableOpacity onPress={onPress} disabled={isDisabled}>
+    <View style={styles.sideView}>{view}</View>
+  </TouchableOpacity>
+)
+
+SideView.defaultProps = {
+  view: null,
+  isDisabled: false,
+  onPress: null,
+}
+
+SideView.propTypes = {
+  view: PropTypes.node,
+  isDisabled: PropTypes.bool,
+  onPress: PropTypes.func,
+}
+
 /**
  * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
  * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS. В хедер уже встроены
- * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно использовать для `leftView` или
- * `rightView`.
+ * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно передавать как `view` для
+ * `leftView` или `rightView`.
  */
 export default function Header({
   title,
@@ -73,8 +94,6 @@ export default function Header({
   style,
   leftView,
   rightView,
-  onLeftViewPress,
-  onRightViewPress,
   withoutSafeAreaPadding,
 }) {
   return (
@@ -85,11 +104,9 @@ export default function Header({
         style,
       ]}
     >
-      <TouchableOpacity disabled={!onLeftViewPress} onPress={onLeftViewPress}>
-        <View style={styles.sideView}>{leftView}</View>
-      </TouchableOpacity>
+      <SideView {...leftView} />
       <View style={styles.centerView}>
-        <Text style={styles.text} numberOfLines={1}>
+        <Text style={[styles.text, styles.title]} numberOfLines={1}>
           {title}
         </Text>
         {caption && (
@@ -103,9 +120,7 @@ export default function Header({
           </Text>
         )}
       </View>
-      <TouchableOpacity disabled={!onRightViewPress} onPress={onRightViewPress}>
-        <View style={styles.sideView}>{rightView}</View>
-      </TouchableOpacity>
+      <SideView {...rightView} />
     </View>
   )
 }
@@ -114,8 +129,6 @@ Header.defaultProps = {
   style: null,
   leftView: null,
   rightView: null,
-  onLeftViewPress: null,
-  onRightViewPress: null,
   withoutSafeAreaPadding: false,
 }
 
@@ -127,13 +140,17 @@ Header.propTypes = {
   /** Дополнительные стили */
   style: ViewPropTypes.style,
   /** Компонент для левой части хедера */
-  leftView: PropTypes.node,
+  leftView: PropTypes.shape({
+    view: PropTypes.node.isRequired,
+    isDisabled: PropTypes.bool,
+    onPress: PropTypes.func.isRequired,
+  }),
   /** Компонент для правой части хедера */
-  rightView: PropTypes.node,
-  /** Коллбэк для нажатия на левую часть хедера */
-  onLeftViewPress: PropTypes.func,
-  /** Коллбэк для нажатия на правую часть хедера */
-  onRightViewPress: PropTypes.func,
+  rightView: PropTypes.shape({
+    view: PropTypes.node.isRequired,
+    isDisabled: PropTypes.bool,
+    onPress: PropTypes.func.isRequired,
+  }),
   /** Убрать автоматический отступ до безопасной зоны сверху */
   withoutSafeAreaPadding: PropTypes.bool,
 }
