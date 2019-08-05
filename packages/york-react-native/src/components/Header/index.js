@@ -22,6 +22,7 @@ const iconSize = 24
 
 const styles = StyleSheet.create({
   root: {
+    backgroundColor: colors.white,
     borderBottomColor: colors.silver,
     borderBottomWidth: 0.5,
     height: headerHeight + safeAreaPaddingTop,
@@ -64,8 +65,8 @@ const CloseIcon = () => (
   <Image style={styles.icon} source={require('./assets/close.png')} />
 )
 
-const SideView = ({ view, isDisabled, onPress }) => (
-  <TouchableOpacity onPress={onPress} disabled={isDisabled}>
+const SideView = ({ view, isDisabled, onPress, ...rest }) => (
+  <TouchableOpacity onPress={onPress} disabled={isDisabled} {...rest}>
     <View style={styles.sideView}>{view}</View>
   </TouchableOpacity>
 )
@@ -104,7 +105,7 @@ export default function Header({
         style,
       ]}
     >
-      <SideView {...leftView} />
+      <SideView {...leftView} testID="headerLeftView" />
       <View style={styles.centerView}>
         <Text style={[styles.text, styles.title]} numberOfLines={1}>
           {title}
@@ -120,7 +121,7 @@ export default function Header({
           </Text>
         )}
       </View>
-      <SideView {...rightView} />
+      <SideView {...rightView} testID="headerRightView" />
     </View>
   )
 }
