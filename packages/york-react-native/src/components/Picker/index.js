@@ -34,7 +34,8 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
  * */
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
 
-const maxPickerHeight = screenHeight - uiPoint * 28 - statusBarHeight
+const totalVerticalPadding = uiPoint * 28
+const maxPickerHeight = screenHeight - totalVerticalPadding - statusBarHeight
 const maxPickerWidth = screenWidth - pickerPaddignHorizontal * 2
 
 const styles = StyleSheet.create({
