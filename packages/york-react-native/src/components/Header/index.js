@@ -85,8 +85,8 @@ SideView.propTypes = {
 /**
  * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
  * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS. В хедер уже встроены
- * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно передавать как `view` для
- * `leftView` или `rightView`.
+ * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно передавать как `leftView.view`
+ * или `rightView.view`.
  */
 export default function Header({
   title,
