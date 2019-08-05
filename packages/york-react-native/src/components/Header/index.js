@@ -139,13 +139,13 @@ Header.propTypes = {
   caption: PropTypes.string.isRequired,
   /** Дополнительные стили */
   style: ViewPropTypes.style,
-  /** Компонент для левой части хедера */
+  /** Пропсы для левой части хедера */
   leftView: PropTypes.shape({
     view: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
-  /** Компонент для правой части хедера */
+  /** Пропсы для правой части хедера */
   rightView: PropTypes.shape({
     view: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
