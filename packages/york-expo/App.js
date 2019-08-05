@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Switch, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Switch, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { Picker, Separator, Text } from '@qlean/york-react-native'
+import { Header, Picker, Separator, Text } from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
   screen: {
     padding: 20,
   },
@@ -88,7 +85,20 @@ export default function App() {
 
   return (
     isFontsLoaded && (
-      <SafeAreaView style={styles.root}>
+      <View>
+        <Header
+          title="Аляскинский маламут"
+          caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
+          leftView={{
+            view: <Header.BackIcon />,
+            onPress: () => {},
+          }}
+          rightView={{
+            view: <Header.CloseIcon />,
+            onPress: () => {},
+            isDisabled: true,
+          }}
+        />
         <View style={styles.screen}>
           <LabeledSwitch
             label="isDisabled!"
@@ -114,7 +124,7 @@ export default function App() {
             onChange={v => setPickerValue(v)}
           />
         </View>
-      </SafeAreaView>
+      </View>
     )
   )
 }

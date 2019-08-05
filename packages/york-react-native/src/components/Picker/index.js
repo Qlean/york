@@ -22,8 +22,6 @@ import Separator from 'york-react-native/components/Separator'
 
 import { uiPoint, sizes } from 'york-react-native/utils/styles'
 
-const pickerPaddingTop = sizes[12]
-const pickerPaddingBottom = sizes[16]
 const pickerPaddignHorizontal = sizes[6]
 const pickerItemHeight = uiPoint * 11
 const pickerContentPaddingVertical = sizes[2]
@@ -36,7 +34,8 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
  * */
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
 
-const maxPickerHeight = screenHeight - pickerPaddingTop - pickerPaddingBottom
+const totalVerticalPadding = uiPoint * 28
+const maxPickerHeight = screenHeight - totalVerticalPadding - statusBarHeight
 const maxPickerWidth = screenWidth - pickerPaddignHorizontal * 2
 
 const styles = StyleSheet.create({
@@ -88,13 +87,18 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: pickerPaddingBottom - pickerPaddingTop + statusBarHeight,
-    marginHorizontal: sizes[5],
+    /**
+     * Сдвигаем окно пикера немного вверх, чтобы он выглядет симпатичнее и его было легче закрыть
+     */
+    marginBottom: sizes[6],
   },
   pickerScrollView: {
     maxWidth: maxPickerWidth,
     backgroundColor: colors.white,
-    borderRadius: 4,
+    /**
+     * На Андроиде скругление не работает как задумано и выглядит инородно из-за прямых скроллбаров
+     */
+    borderRadius: Platform.OS === 'ios' ? 4 : 0,
   },
   pickerContent: {
     paddingVertical: pickerContentPaddingVertical,

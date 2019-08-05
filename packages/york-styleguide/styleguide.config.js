@@ -130,6 +130,10 @@ module.exports = {
               content: '../york-react-native/docs/hooks.md',
             },
             {
+              name: 'safeArea',
+              content: '../york-react-native/docs/safeArea.md',
+            },
+            {
               name: 'sizes',
               content: '../york-react-native/docs/sizes.md',
             },

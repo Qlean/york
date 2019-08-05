@@ -1,7 +1,7 @@
 const reactDocgen = require('react-docgen')
 const R = require('ramda')
 
-const { default: colors } = require('@qlean/york-core/lib/styles/colors')
+const { colors } = require('@qlean/york-core/lib/styles/colors')
 const { borderRadiuses, shadows } = require('@qlean/york-web/lib/utils')
 
 /*
