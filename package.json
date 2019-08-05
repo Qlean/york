@@ -31,8 +31,7 @@
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web",
-    "url-loader": "^2.1.0"
+    "@qlean/york-web": "file:packages/york-web"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -69,6 +68,7 @@
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
+    "url-loader": "^2.1.0",
     "webpack": "^4.30.0"
   }
 }
