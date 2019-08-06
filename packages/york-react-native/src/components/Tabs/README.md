@@ -1,10 +1,9 @@
 ```js
 import styled from 'styled-components'
-import { Separator, View, media } from '@qlean/york-web'
 import { Tabs } from '@qlean/york-react-native'
 
 const ExampleComponent = () => {
-  const [selectedTab, selectTab] = React.useState('news')
+  const [selectedTab, selectTab] = React.useState('communications')
 
   const tabs = [
     {
@@ -19,15 +18,12 @@ const ExampleComponent = () => {
     },
   ]
 
-
   return (
-    <div>
     <Tabs
       onChange={value => selectTab(value)}
       value={selectedTab}
       options={tabs}
     />
-    </div>
   )
 }
 

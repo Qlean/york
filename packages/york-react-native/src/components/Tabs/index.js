@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
 import { colors } from '@qlean/york-core'
+
 import Text from 'york-react-native/components/Text'
 import { sizes } from 'york-react-native/utils/styles'
 
@@ -10,20 +11,20 @@ const borderWidth = 4
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    flexDirection: 'row',
     minHeight: sizes[12] + borderWidth,
     maxHeight: sizes[12] + borderWidth,
     borderBottomColor: colors.whisper,
     borderBottomWidth: 1,
-    flexDirection: 'row',
   },
   tab: {
-    minHeight: sizes[12] + borderWidth,
-    maxHeight: sizes[12] + borderWidth,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomColor: colors.white,
+    minHeight: sizes[12] + borderWidth,
+    maxHeight: sizes[12] + borderWidth,
+    borderBottomColor: colors.transparent,
     borderBottomWidth: borderWidth,
-    flex: 1,
   },
   tabSelected: {
     borderBottomColor: colors.green,
@@ -43,6 +44,12 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Табы, используются для навигации. Поддерживают стандартный список `options` с полями `value` и `label`,
+ * а так же специальным `bool` полем `withDot`,
+ * которое контроллирует отображение красного индикатора рядом с названием таба
+ *
+ */
 const Tabs = ({ value, onChange, options, style }) => (
   <View backgroundColor={colors.white} style={[styles.root, style]}>
     {options.map((option, index) => {
@@ -51,7 +58,7 @@ const Tabs = ({ value, onChange, options, style }) => (
       return (
         <TouchableOpacity
           onPress={() => onChange(option.value, index)}
-          key={String(index)}
+          key={option.value}
           activeOpacity={isSelected ? 1 : 0.2}
           style={[styles.tab, isSelected && styles.tabSelected]}
         >
