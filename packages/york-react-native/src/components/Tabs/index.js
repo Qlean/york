@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ViewPropTypes,
-} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
 import { colors } from '@qlean/york-core'
 import Text from 'york-react-native/components/Text'
 import { sizes } from 'york-react-native/utils/styles'
@@ -17,9 +12,9 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: sizes[12] + borderWidth,
     maxHeight: sizes[12] + borderWidth,
-    flexDirection: 'row',
     borderBottomColor: colors.whisper,
     borderBottomWidth: 1,
+    flexDirection: 'row',
   },
   tab: {
     minHeight: sizes[12] + borderWidth,
@@ -49,40 +44,29 @@ const styles = StyleSheet.create({
 })
 
 const Tabs = ({ value, onChange, options, style }) => (
-  <View
-    flexDirection="row"
-    backgroundColor={colors.white}
-    style={[styles.root, style]}
-  >
+  <View backgroundColor={colors.white} style={[styles.root, style]}>
     {options.map((option, index) => {
       const isSelected = option.value === value
 
       return (
-        <TouchableWithoutFeedback
+        <TouchableOpacity
           onPress={() => onChange(option.value, index)}
           key={String(index)}
+          activeOpacity={isSelected ? 1 : 0.2}
+          style={[styles.tab, isSelected && styles.tabSelected]}
         >
-          <View
-            flexDirection="row"
-            style={[styles.tab, isSelected && styles.tabSelected]}
-          >
-            <View style={[styles.title]}>
-              <Text preset="caption" color={isSelected ? 'green' : 'grey'}>
-                {option.label}
-              </Text>
+          <View style={[styles.title]}>
+            <Text preset="caption" color={isSelected ? 'green' : 'grey'}>
+              {option.label}
+            </Text>
 
-              {option.withDot && <View style={styles.dot} />}
-            </View>
+            {option.withDot && <View style={styles.dot} />}
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       )
     })}
   </View>
 )
-
-Tabs.defaultProps = {
-  style: null,
-}
 
 Tabs.propTypes = {
   /** Список табов */
@@ -105,6 +89,10 @@ Tabs.propTypes = {
   ]).isRequired,
   /** Дополнительные стили */
   style: ViewPropTypes.style,
+}
+
+Tabs.defaultProps = {
+  style: null,
 }
 
 export default Tabs
