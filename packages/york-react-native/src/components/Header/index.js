@@ -110,7 +110,7 @@ export default function Header({
         <Text style={[styles.text, styles.title]} numberOfLines={1}>
           {title}
         </Text>
-        {caption && (
+        {Boolean(caption) && (
           <Text
             style={styles.text}
             preset="captionSmall"
