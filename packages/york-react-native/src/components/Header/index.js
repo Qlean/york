@@ -127,6 +127,7 @@ export default function Header({
 }
 
 Header.defaultProps = {
+  caption: '',
   style: null,
   leftView: null,
   rightView: null,
@@ -137,7 +138,7 @@ Header.propTypes = {
   /** Заголовок */
   title: PropTypes.string.isRequired,
   /** Подзаголовок */
-  caption: PropTypes.string.isRequired,
+  caption: PropTypes.string,
   /** Дополнительные стили */
   style: ViewPropTypes.style,
   /** Пропсы для левой части хедера */
