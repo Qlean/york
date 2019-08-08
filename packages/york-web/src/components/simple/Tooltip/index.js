@@ -36,7 +36,7 @@ const StyledTooltipContent = styled.div`
   border-radius: ${borderRadiuses.medium};
 `
 
-const StyledTooltipPointer = styled.div`
+const StyledTooltipPointer = styled.span`
   position: absolute;
   transform: translateX(-50%) rotate(45deg);
   width: ${pointerSize}px;
