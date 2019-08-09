@@ -18,7 +18,7 @@ const screenMargin = sizes[4]
 const contentMargin = sizes[3]
 const pointerOffset = pointerSize / 2
 
-const StyledTooltipContainer = styled.div`
+const StyledTooltipContainer = styled.span`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -30,7 +30,7 @@ const StyledTooltipContainer = styled.div`
   z-index: ${zIndexes.dropdown};
 `
 
-const StyledTooltipContent = styled.div`
+const StyledTooltipContent = styled.span`
   padding: ${sizes[4]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
