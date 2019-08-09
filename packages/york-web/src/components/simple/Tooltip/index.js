@@ -31,6 +31,7 @@ const StyledTooltipContainer = styled.span`
 `
 
 const StyledTooltipContent = styled.span`
+  display: flex;
   padding: ${sizes[4]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
