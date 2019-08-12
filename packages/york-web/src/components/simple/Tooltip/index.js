@@ -30,10 +30,16 @@ const StyledTooltipContainer = styled.span`
   z-index: ${zIndexes.dropdown};
 `
 
+/**
+ * `line-height: 0;` используется для сброса наследование, без него, блок начинает занимать
+ * значительно больше места. Более подробное описание этого эффекта, можно прочитать тут:
+ * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
+ */
 const StyledTooltipContent = styled.span`
   padding: ${sizes[4]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
+  line-height: 0;
 `
 
 const StyledTooltipPointer = styled.span`
