@@ -145,7 +145,7 @@ const Button = ({
   rank,
   backdropColor,
   withShadow,
-  Icon,
+  icon,
   name,
   onPress,
   ...props
@@ -190,9 +190,9 @@ const Button = ({
           },
         ]}
       >
-        {Icon
-          ? React.cloneElement(Icon, {
-              style: [Icon.props.style, styles.icon],
+        {icon
+          ? React.cloneElement(icon, {
+              style: [icon.props.style, styles.icon],
             })
           : null}
         <Text {...presets[preset].textProps}>{buttonText}</Text>
@@ -210,9 +210,9 @@ const Button = ({
           },
         ]}
       >
-        {Icon
-          ? React.cloneElement(Icon, {
-              style: [Icon.props.style, styles.icon, styles.disabledIcon],
+        {icon
+          ? React.cloneElement(icon, {
+              style: [icon.props.style, styles.icon, styles.disabledIcon],
             })
           : null}
         <Text
@@ -232,7 +232,7 @@ Button.defaultProps = {
   size: 'm',
   withShadow: false,
   isSubmitting: false,
-  Icon: null,
+  icon: null,
 }
 
 Button.propTypes = {
@@ -251,7 +251,7 @@ Button.propTypes = {
   /** Тень кнопки. Используется только с белым backdropColor. */
   withShadow: PropTypes.bool,
   /** Иконка слева от текста. */
-  Icon: PropTypes.element,
+  icon: PropTypes.element,
   /** Имя для автотестов, прокидывается как testID */
   name: PropTypes.string.isRequired,
   /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
