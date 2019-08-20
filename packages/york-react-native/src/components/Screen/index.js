@@ -1,30 +1,69 @@
 import React, { useState } from 'react'
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native'
+import {
+  View,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  KeyboardAvoidingView,
+} from 'react-native'
+import { colors } from '@qlean/york-core'
 
-const { height } = Dimensions.get('window')
+const { height: screenHeight } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    bottom: 10,
+    left: 10,
+    right: 10,
   },
 })
 
-const Screen = ({ children, footer, ...rest }) => {
+const Screen = ({ children, header, footer, ...rest }) => {
   const [contentHeight, setContentHeight] = useState(0)
-  const scrollEnabled = contentHeight > height // - headerHeight ??
+  const [footerHeight, setFooterHeight] = useState(0)
+  const scrollEnabled = contentHeight > screenHeight // - headerHeight ??
   return (
-    <View flex={1} {...rest}>
-      <ScrollView
-        onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
-        scrollEnabled={scrollEnabled}
-      >
-        {children}
-      </ScrollView>
-      <View style={styles.footer}>{footer || null}</View>
-    </View>
+    <>
+      <StatusBar
+        barStyle="dark-content" // ["dark-content", "light-content", "default"]
+        backgroundColor={colors.green} // android
+        translucent={false} // android
+      />
+      <SafeAreaView flex={1} {...rest}>
+        {header || null}
+        <KeyboardAvoidingView
+          style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
+          behavior="height" // enum('height', 'position', 'padding')
+          enabled
+          keyboardVerticalOffset={20} // don't know why but it works with sticky footer
+        >
+          <ScrollView
+            onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
+            scrollEnabled={scrollEnabled}
+          >
+            {children}
+            <View
+              style={{
+                height: footerHeight,
+              }}
+            />
+          </ScrollView>
+          <View
+            style={styles.footer}
+            onLayout={({
+              nativeEvent: {
+                layout: { height },
+              },
+            }) => setFooterHeight(height)}
+          >
+            {footer || null}
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </>
   )
 }
 

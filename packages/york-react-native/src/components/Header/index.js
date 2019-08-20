@@ -25,8 +25,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomColor: colors.silver,
     borderBottomWidth: 0.5,
-    height: headerHeight + safeAreaPaddingTop,
-    paddingTop: safeAreaPaddingTop,
+    // height: headerHeight + safeAreaPaddingTop,
+    // paddingTop: safeAreaPaddingTop,
+    height: headerHeight,
     flexDirection: 'row',
   },
   withoutSafeAreaPadding: {

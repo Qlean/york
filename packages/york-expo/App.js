@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Switch, StyleSheet } from 'react-native'
+import { View, Switch, StyleSheet, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
@@ -94,37 +94,47 @@ export default function App() {
     isFontsLoaded && (
       <Screen
         footer={
-          <View
-            style={{
-              padding: 10,
-              paddingTop: 0,
-              backgroundColor: 'transparent',
+          // <View
+          //   style={{
+          //     // padding: 10,
+          //     paddingTop: 0,
+          //     backgroundColor: 'transparent',
+          //   }}
+          // >
+          <Button
+            isDisabled={false}
+            onPress={() => {}}
+            name="footer"
+            withShadow
+            title="Footer"
+          ></Button>
+          // </View>
+        }
+        header={
+          <Header
+            title="Аляскинский маламут"
+            caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
+            leftView={{
+              view: <Header.BackIcon />,
+              onPress: () => {},
             }}
-          >
-            <Button
-              isDisabled={false}
-              onPress={() => {}}
-              name="footer"
-              withShadow
-              title="Footer"
-            ></Button>
-          </View>
+            rightView={{
+              view: <Header.CloseIcon />,
+              onPress: () => {},
+              isDisabled: true,
+            }}
+          />
         }
       >
-        <Header
-          title="Аляскинский маламут"
-          caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
-          leftView={{
-            view: <Header.BackIcon />,
-            onPress: () => {},
-          }}
-          rightView={{
-            view: <Header.CloseIcon />,
-            onPress: () => {},
-            isDisabled: true,
-          }}
-        />
         <View style={styles.screen}>
+          <TextInput
+            style={{
+              borderColor: 'green',
+              borderWidth: 1,
+              padding: 10,
+              marginBottom: 10,
+            }}
+          />
           <LabeledSwitch
             label="isDisabled!"
             value={isDisabled}
