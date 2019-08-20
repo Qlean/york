@@ -3,7 +3,14 @@ import { View, Switch, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { Header, Picker, Separator, Text } from '@qlean/york-react-native'
+import {
+  Header,
+  Picker,
+  Separator,
+  Text,
+  Screen,
+  Button,
+} from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
   screen: {
@@ -85,7 +92,25 @@ export default function App() {
 
   return (
     isFontsLoaded && (
-      <View>
+      <Screen
+        footer={
+          <View
+            style={{
+              padding: 10,
+              paddingTop: 0,
+              backgroundColor: 'transparent',
+            }}
+          >
+            <Button
+              isDisabled={false}
+              onPress={() => {}}
+              name="footer"
+              withShadow
+              title="Footer"
+            ></Button>
+          </View>
+        }
+      >
         <Header
           title="Аляскинский маламут"
           caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
@@ -123,8 +148,79 @@ export default function App() {
             isDisabled={isDisabled}
             onChange={v => setPickerValue(v)}
           />
+          {/* drop it */}
+          <LabeledSwitch
+            label="isDisabled!"
+            value={isDisabled}
+            onValueChange={setIsDisabled}
+          />
+          <Separator height={2} />
+          <LabeledSwitch
+            label="error"
+            value={withError}
+            onValueChange={setWithError}
+          />
+          <Separator height={4} />
+          <Picker
+            title="Собака"
+            caption="Разные клевые собаки"
+            placeholder="Выберите собаку..."
+            error={withError ? 'Что-то пошло не так' : ''}
+            name="doggo"
+            value={pickerValue}
+            options={options}
+            isDisabled={isDisabled}
+            onChange={v => setPickerValue(v)}
+          />
+          <LabeledSwitch
+            label="isDisabled!"
+            value={isDisabled}
+            onValueChange={setIsDisabled}
+          />
+          <Separator height={2} />
+          <LabeledSwitch
+            label="error"
+            value={withError}
+            onValueChange={setWithError}
+          />
+          <Separator height={4} />
+          <Picker
+            title="Собака"
+            caption="Разные клевые собаки"
+            placeholder="Выберите собаку..."
+            error={withError ? 'Что-то пошло не так' : ''}
+            name="doggo"
+            value={pickerValue}
+            options={options}
+            isDisabled={isDisabled}
+            onChange={v => setPickerValue(v)}
+          />
+          <LabeledSwitch
+            label="isDisabled!"
+            value={isDisabled}
+            onValueChange={setIsDisabled}
+          />
+          <Separator height={2} />
+          <LabeledSwitch
+            label="error"
+            value={withError}
+            onValueChange={setWithError}
+          />
+          <Separator height={4} />
+          <Picker
+            title="Собака"
+            caption="Разные клевые собаки"
+            placeholder="Выберите собаку..."
+            error={withError ? 'Что-то пошло не так' : ''}
+            name="doggo"
+            value={pickerValue}
+            options={options}
+            isDisabled={isDisabled}
+            onChange={v => setPickerValue(v)}
+          />
+          {/* drop it */}
         </View>
-      </View>
+      </Screen>
     )
   )
 }
