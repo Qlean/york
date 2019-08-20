@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
+import { safeAreaPaddingTop } from 'york-react-native/utils/styles'
+
 const { height: screenHeight } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
@@ -35,14 +37,14 @@ const Screen = ({ children, header, footer, ...rest }) => {
       <SafeAreaView flex={1} {...rest}>
         {header || null}
         <KeyboardAvoidingView
-          style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
+          style={{ flex: 1 }}
           behavior="height" // enum('height', 'position', 'padding')
           enabled
-          keyboardVerticalOffset={20} // don't know why but it works with sticky footer
+          keyboardVerticalOffset={StatusBar.currentHeight || safeAreaPaddingTop} // don't know why but it works with sticky footer
         >
           <ScrollView
             onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
-            scrollEnabled={scrollEnabled}
+            scrollEnabled={scrollEnabled} // works bad with KeyboardAvoidingView
           >
             {children}
             <View
