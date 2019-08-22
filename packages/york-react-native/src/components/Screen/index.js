@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  StatusBar,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   sideView: {
-    width: sideViewSize,
+    width: sideViewSize, // TODO: use padding: 4
     height: sideViewSize,
     borderRadius: sideViewSize / 2,
     backgroundColor: colors.white,
@@ -123,7 +122,6 @@ const Screen = ({
   footer,
   leftView,
   rightView,
-  statusBarProps,
   withoutSafeAreaPaddingTop,
   withoutSafeAreaPaddingBottom,
   ...rest
@@ -138,35 +136,32 @@ const Screen = ({
     setContentHeight(height)
 
   return (
-    <>
-      <StatusBar {...statusBarProps} />
-      <KeyboardAvoidingView
-        /**
-         * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-         * Android and iOS both interact with this prop differently. Android may behave better
-         * when given no behavior prop at all, whereas iOS is the opposite.
-         */
-        {...Platform.select({ ios: { behavior: 'padding' } })}
-        style={[
-          styles.root,
-          withoutSafeAreaPaddingTop && styles.withoutSafeAreaPaddingTop,
-          withoutSafeAreaPaddingBottom && styles.withoutSafeAreaPaddingBottom,
-        ]}
+    <KeyboardAvoidingView
+      /**
+       * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+       * Android and iOS both interact with this prop differently. Android may behave better
+       * when given no behavior prop at all, whereas iOS is the opposite.
+       */
+      {...(Platform.OS === 'ios' && { behavior: 'padding' })}
+      style={[
+        styles.root,
+        withoutSafeAreaPaddingTop && styles.withoutSafeAreaPaddingTop,
+        withoutSafeAreaPaddingBottom && styles.withoutSafeAreaPaddingBottom,
+      ]}
+    >
+      {leftView ? <SideView {...leftView} side="left" /> : null}
+      {rightView ? <SideView {...rightView} side="right" /> : null}
+      <ScrollView
+        {...rest}
+        scrollEnabled={isScrollEnabled}
+        onLayout={onScrollViewLayout}
+        onContentSizeChange={onScrollViewContentSizeChange}
       >
-        {leftView ? <SideView {...leftView} side="left" /> : null}
-        {rightView ? <SideView {...rightView} side="right" /> : null}
-        <ScrollView
-          {...rest}
-          scrollEnabled={isScrollEnabled}
-          onLayout={onScrollViewLayout}
-          onContentSizeChange={onScrollViewContentSizeChange}
-        >
-          {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-          {children}
-        </ScrollView>
-        {footer}
-      </KeyboardAvoidingView>
-    </>
+        {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+        {children}
+      </ScrollView>
+      {footer}
+    </KeyboardAvoidingView>
   )
 }
 
@@ -174,21 +169,11 @@ Screen.defaultProps = {
   leftView: null,
   rightView: null,
   footer: null,
-  statusBarProps: {
-    barStyle: 'dark-content',
-    backgroundColor: colors.white,
-  },
   withoutSafeAreaPaddingTop: true,
   withoutSafeAreaPaddingBottom: false,
 }
 
 Screen.propTypes = {
-  /** Пропы для статус бара. https://facebook.github.io/react-native/docs/statusbar#props */
-  statusBarProps: PropTypes.shape({
-    barStyle: PropTypes.oneOf(['dark-content', 'light-content', 'default']),
-    backgroundColor: PropTypes.string,
-    translucent: PropTypes.bool,
-  }),
   /** Пропсы для левой части экрана */
   leftView: PropTypes.shape({
     node: PropTypes.node.isRequired,
