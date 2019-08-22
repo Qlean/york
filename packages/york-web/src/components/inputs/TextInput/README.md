@@ -12,7 +12,7 @@ const ExampleComponent = () => {
         caption: 'Caption',
         error: 'Error',
         placeholder: 'Placeholder',
-        rightView: <img width={20} height={20} src={require('./assets/close.png')} />
+        rightNode: <img width={20} height={20} src={require('./assets/close.png')} />
       }
     : {}
   const inputProps = {
@@ -27,7 +27,7 @@ const ExampleComponent = () => {
           value={withExtraProps}
           onChange={() => setWithExtraProps(!withExtraProps)}
         >
-          title, caption, error, placeholder, rightView
+          title, caption, error, placeholder, rightNode
         </Example.Checkbox>
         <Example.Checkbox
           value={isDisabled}
