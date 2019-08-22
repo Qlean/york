@@ -23,6 +23,16 @@ const sideViewPadding = sizes[2]
 const sideViewContainerSize = 2 * sideViewPadding + sideViewSize
 
 const styles = StyleSheet.create({
+  root: {
+    marginBottom: safeAreaPaddingBottom,
+    marginTop: safeAreaPaddingTop,
+  },
+  withoutSafeAreaPaddingTop: {
+    paddingTop: 0,
+  },
+  withoutSafeAreaPaddingBottom: {
+    paddingBottom: 0,
+  },
   sideViewContainer: {
     top: 0,
     position: 'absolute',
@@ -57,6 +67,10 @@ const styles = StyleSheet.create({
   },
   leftViewContainer: { left: 0 },
   rightViewContainer: { right: 0 },
+  footer: {
+    padding: sizes[2],
+    paddingTop: 0,
+  },
 })
 
 const SideView = ({ view, isDisabled, onPress, side, ...rest }) => (
@@ -83,47 +97,68 @@ SideView.propTypes = {
   side: PropTypes.oneOf(['left', 'right']).isRequired,
 }
 
+const Footer = ({ style, ...rest }) => (
+  <View {...rest} style={[styles.footer, style]} />
+)
+
+Footer.defaultProps = {
+  style: null,
+}
+
+Footer.propTypes = {
+  style: ViewPropTypes.style,
+}
+
+/**
+ * Экран. Принимает все пропы для `ScrollView`, умеет отображать фиксированный футер, левую
+ * и правую верхние иконки для действий, автоматически делает отступ снизу, чтобы хорошо выглядеть
+ * на iOS, автоматически включает скролл, если контент не помещается, хорошо выглядит с открытой
+ * клавиатурой. В компонент встроен футер с отступами — Screen.Footer.
+ */
 const Screen = ({
   children,
   footer,
-  footerContainerStyle,
   leftView,
   rightView,
   statusBarProps,
+  withoutSafeAreaPaddingTop,
+  withoutSafeAreaPaddingBottom,
   ...rest
 }) => {
   const [scrollViewHeight, setScrollViewHeight] = useState(0)
   const [contentHeight, setContentHeight] = useState(0)
-  const scrollEnabled = contentHeight > scrollViewHeight
+  const isScrollEnabled = contentHeight > scrollViewHeight
+
+  const onScrollViewLayout = ({ nativeEvent }) =>
+    setScrollViewHeight(nativeEvent.layout.height)
+  const onScrollViewContentSizeChange = (width, height) =>
+    setContentHeight(height)
+
   return (
     <>
       <StatusBar {...statusBarProps} />
       <KeyboardAvoidingView
-        flex={1}
         enabled
         behavior="padding"
-        style={{
-          marginBottom: safeAreaPaddingBottom,
-          marginTop: safeAreaPaddingTop,
-        }}
+        flex={1}
+        style={[
+          styles.root,
+          withoutSafeAreaPaddingTop && styles.withoutSafeAreaPaddingTop,
+          withoutSafeAreaPaddingBottom && styles.withoutSafeAreaPaddingBottom,
+        ]}
       >
         {leftView ? <SideView {...leftView} side="left" /> : null}
         {rightView ? <SideView {...rightView} side="right" /> : null}
         <ScrollView
-          flex={1}
-          onLayout={({
-            nativeEvent: {
-              layout: { height },
-            },
-          }) => setScrollViewHeight(height)}
           {...rest}
-          onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
-          scrollEnabled={scrollEnabled} // works bad with KeyboardAvoidingView
+          scrollEnabled={isScrollEnabled}
+          onLayout={onScrollViewLayout}
+          onContentSizeChange={onScrollViewContentSizeChange}
         >
           {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
           {children}
         </ScrollView>
-        <View style={footerContainerStyle}>{footer}</View>
+        {footer}
       </KeyboardAvoidingView>
     </>
   )
@@ -133,12 +168,13 @@ Screen.defaultProps = {
   leftView: null,
   rightView: null,
   footer: null,
-  footerContainerStyle: null,
   statusBarProps: {
     barStyle: 'dark-content',
     backgroundColor: colors.white,
     translucent: false,
   },
+  withoutSafeAreaPaddingTop: true,
+  withoutSafeAreaPaddingBottom: false,
 }
 
 Screen.propTypes = {
@@ -161,9 +197,15 @@ Screen.propTypes = {
     onPress: PropTypes.func.isRequired,
   }),
   /** Футер экрана. Прибивается к низу. */
-  footer: PropTypes.node,
-  footerContainerStyle: ViewPropTypes.style,
+  footer: PropTypes.element,
+  /** Детки */
   children: PropTypes.node.isRequired,
+  /** Убрать автоматический отступ до безопасной зоны сверху */
+  withoutSafeAreaPaddingTop: PropTypes.bool,
+  /** Убрать автоматический отступ до безопасной зоны снизу */
+  withoutSafeAreaPaddingBottom: PropTypes.bool,
 }
+
+Screen.Footer = Footer
 
 export default Screen
