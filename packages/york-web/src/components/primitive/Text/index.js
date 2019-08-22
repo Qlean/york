@@ -13,8 +13,6 @@ import {
   getResponsivePropTypes,
 } from 'york-web/utils'
 
-const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p']
-
 const presets = {
   header1: {
     fontSize: 50,
@@ -121,17 +119,13 @@ const StyledText = styled.span`
   ${getCss}
 `
 
-const components = R.pipe(
-  R.map(tag => [tag, StyledText.withComponent(tag)]),
-  R.fromPairs,
-)(htmlTags)
-
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
+ * Для указания html-тэга можно использовать проп `as`
+ * https://www.styled-components.com/docs/api#as-polymorphic-prop
  */
-export default function Text({ htmlTag, ...rest }) {
-  const StyledTextComponent = components[htmlTag]
-  return <StyledTextComponent {...rest} />
+export default function Text(props) {
+  return <StyledText {...props} />
 }
 
 const propTypes = {
@@ -142,13 +136,8 @@ const propTypes = {
 }
 
 Text.propTypes = {
-  /** HTML-тег, который будет использован как обёртка для текста */
-  htmlTag: PropTypes.oneOf(htmlTags),
   ...propTypes,
   ...getResponsivePropTypes(propTypes),
 }
 
-Text.defaultProps = {
-  htmlTag: 'span',
-  ...defaultProps,
-}
+Text.defaultProps = defaultProps
