@@ -78,21 +78,13 @@ const getBaseCss = ({
   fontWeight,
   fontSize,
   lineHeight,
-  textAlign,
-  fontStyle,
   letterSpacing,
-  textTransform,
-  textDecoration,
 }) => `
+  font-size: ${fontSize}px;
   color: ${color === 'inherit' ? 'inherit' : colors[color]};
   font-weight: ${fontWeight};
-  font-size: ${fontSize}px;
   line-height: ${lineHeight}px;
-  ${textAlign ? `text-align: ${textAlign}` : ''};
-  ${fontStyle ? `font-style: ${fontStyle}` : ''};
   ${letterSpacing ? `letter-spacing: ${letterSpacing}px` : ''};
-  ${textTransform ? `text-transform: ${textTransform}` : ''};
-  ${textDecoration ? `text-decoration: ${textDecoration}` : ''};
 `
 
 const defaultProps = {
