@@ -1,5 +1,5 @@
 ```js
-import { Stepper, Text, Separator } from '@qlean/york-react-native'
+import { Picker, Text, Separator } from '@qlean/york-react-native'
 
 ;
 <>
@@ -18,7 +18,15 @@ import { Stepper, Text, Separator } from '@qlean/york-react-native'
   />
   <Separator height={4} />
   <Header
-    centerNode={<Stepper maxSteps={7} step={2} />}
+    centerNode={
+      <Picker
+        name="example"
+        options={Example.options}
+        value={Example.options[0].value}
+        isDisabled={false}
+        onChange={() => {}}
+      />
+    }
     leftView={{
       node: <Header.BackIcon />,
       onPress: () => {},

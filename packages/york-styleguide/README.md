@@ -29,5 +29,5 @@ $ npm i @qlean/york-core @qlean/york-web
 Например:
 
 ```js static
-  <Header centerNode={<View>Заголовок</View>} />
+  <Header centerNode={<Button title="Кнопка в заголовке"/>} />
 ```
