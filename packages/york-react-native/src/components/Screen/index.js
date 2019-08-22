@@ -18,8 +18,8 @@ import {
 } from 'york-react-native/utils/styles'
 
 const sideViewSize = 32
-const sideViewPadding = sizes[2]
-const sideViewContainerSize = 2 * sideViewPadding + sideViewSize
+const sideViewContainerPadding = sizes[2]
+const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 
 const styles = StyleSheet.create({
   root: {
@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
   sideViewContainer: {
     position: 'absolute',
     top: 0,
-    padding: sideViewPadding,
+    padding: sideViewContainerPadding,
     zIndex: 1,
   },
-  sideView: {
-    width: sideViewSize, // TODO: use padding: 4
+  sideViewContent: {
+    padding: 4,
     height: sideViewSize,
     borderRadius: sideViewSize / 2,
     backgroundColor: colors.white,
@@ -82,7 +82,7 @@ const SideView = ({ node, isDisabled, onPress, side, ...rest }) => (
     disabled={isDisabled}
     style={[styles.sideViewContainer, styles[`${side}ViewContainer`]]}
   >
-    <View style={styles.sideView}>{node}</View>
+    <View style={styles.sideViewContent}>{node}</View>
   </TouchableOpacity>
 )
 
@@ -174,13 +174,13 @@ Screen.defaultProps = {
 }
 
 Screen.propTypes = {
-  /** Пропсы для левой части экрана */
+  /** Пропсы для левой верхней кнопки экрана */
   leftView: PropTypes.shape({
     node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
-  /** Пропсы для правой части экрана */
+  /** Пропсы для правой верхней кнопки экрана */
   rightView: PropTypes.shape({
     node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
@@ -188,12 +188,11 @@ Screen.propTypes = {
   }),
   /** Футер экрана. Прибивается к низу. */
   footer: PropTypes.element,
-  /** Детки */
-  children: PropTypes.node.isRequired,
   /** Убрать автоматический отступ до безопасной зоны сверху */
   withoutSafeAreaPaddingTop: PropTypes.bool,
   /** Убрать автоматический отступ до безопасной зоны снизу */
   withoutSafeAreaPaddingBottom: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 }
 
 Screen.Footer = Footer
