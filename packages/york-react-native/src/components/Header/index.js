@@ -1,12 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  ViewPropTypes,
-} from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ViewPropTypes } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
@@ -51,19 +45,7 @@ const styles = StyleSheet.create({
     minWidth: iconSize,
     marginHorizontal: sizes[3],
   },
-  icon: {
-    width: iconSize,
-    height: iconSize,
-  },
 })
-
-const BackIcon = () => (
-  <Image style={styles.icon} source={require('./assets/back.png')} />
-)
-
-const CloseIcon = () => (
-  <Image style={styles.icon} source={require('./assets/close.png')} />
-)
 
 const SideView = ({ view, isDisabled, onPress, ...rest }) => (
   <TouchableOpacity onPress={onPress} disabled={isDisabled} {...rest}>
@@ -85,9 +67,7 @@ SideView.propTypes = {
 
 /**
  * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
- * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS. В хедер уже встроены
- * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно передавать как `leftView.view`
- * или `rightView.view`.
+ * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS.
  */
 export default function Header({
   title,
@@ -156,6 +136,3 @@ Header.propTypes = {
   /** Убрать автоматический отступ до безопасной зоны сверху */
   withoutSafeAreaPadding: PropTypes.bool,
 }
-
-Header.BackIcon = BackIcon
-Header.CloseIcon = CloseIcon

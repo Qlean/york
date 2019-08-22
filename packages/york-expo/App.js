@@ -5,12 +5,12 @@ import * as Font from 'expo-font'
 
 import { colors } from '@qlean/york-core'
 import {
-  Header,
   Picker,
   Separator,
   Text,
   Screen,
   Button,
+  Icon,
   uiPoint,
   sizes,
 } from '@qlean/york-react-native'
@@ -105,11 +105,11 @@ export default function App() {
     isFontsLoaded && (
       <Screen
         leftView={{
-          node: <Header.BackIcon />,
+          node: <Icon name="back" />,
           onPress: () => {},
         }}
         rightView={{
-          node: <Header.CloseIcon />,
+          node: <Icon name="close" />,
           onPress: () => {},
           isDisabled: true,
         }}

@@ -1,12 +1,12 @@
 ```js
-import { Text, Header, Button } from '@qlean/york-react-native'
+import { Text, Header, Button, Icon } from '@qlean/york-react-native'
 ;<Screen
   leftView={{
-    node: <Header.BackIcon />,
+    node: <Icon name="back" />,
     onPress: () => {},
   }}
   rightView={{
-    node: <Header.CloseIcon />,
+    node: <Icon name="close" />,
     onPress: () => {},
     isDisabled: true,
   }}
