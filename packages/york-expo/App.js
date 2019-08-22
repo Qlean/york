@@ -93,10 +93,19 @@ export default function App() {
   return (
     isFontsLoaded && (
       <Screen
+        leftView={{
+          view: <Header.BackIcon />,
+          onPress: () => {},
+        }}
+        rightView={{
+          view: <Header.CloseIcon />,
+          onPress: () => {},
+          isDisabled: true,
+        }}
         footer={
           // <View
           //   style={{
-          //     // padding: 10,
+          //     padding: 10,
           //     paddingTop: 0,
           //     backgroundColor: 'transparent',
           //   }}
@@ -125,111 +134,113 @@ export default function App() {
             }}
           />
         }
+        contentContainerStyle={{ padding: 20 }}
+        footerContainerStyle={{ padding: 10 }}
       >
-        <View style={styles.screen}>
-          <TextInput
-            style={{
-              borderColor: 'green',
-              borderWidth: 1,
-              padding: 10,
-              marginBottom: 10,
-            }}
-          />
-          <LabeledSwitch
-            label="isDisabled!"
-            value={isDisabled}
-            onValueChange={setIsDisabled}
-          />
-          <Separator height={2} />
-          <LabeledSwitch
-            label="error"
-            value={withError}
-            onValueChange={setWithError}
-          />
-          <Separator height={4} />
-          <Picker
-            title="Собака"
-            caption="Разные клевые собаки"
-            placeholder="Выберите собаку..."
-            error={withError ? 'Что-то пошло не так' : ''}
-            name="doggo"
-            value={pickerValue}
-            options={options}
-            isDisabled={isDisabled}
-            onChange={v => setPickerValue(v)}
-          />
-          {/* drop it */}
-          <LabeledSwitch
-            label="isDisabled!"
-            value={isDisabled}
-            onValueChange={setIsDisabled}
-          />
-          <Separator height={2} />
-          <LabeledSwitch
-            label="error"
-            value={withError}
-            onValueChange={setWithError}
-          />
-          <Separator height={4} />
-          <Picker
-            title="Собака"
-            caption="Разные клевые собаки"
-            placeholder="Выберите собаку..."
-            error={withError ? 'Что-то пошло не так' : ''}
-            name="doggo"
-            value={pickerValue}
-            options={options}
-            isDisabled={isDisabled}
-            onChange={v => setPickerValue(v)}
-          />
-          <LabeledSwitch
-            label="isDisabled!"
-            value={isDisabled}
-            onValueChange={setIsDisabled}
-          />
-          <Separator height={2} />
-          <LabeledSwitch
-            label="error"
-            value={withError}
-            onValueChange={setWithError}
-          />
-          <Separator height={4} />
-          <Picker
-            title="Собака"
-            caption="Разные клевые собаки"
-            placeholder="Выберите собаку..."
-            error={withError ? 'Что-то пошло не так' : ''}
-            name="doggo"
-            value={pickerValue}
-            options={options}
-            isDisabled={isDisabled}
-            onChange={v => setPickerValue(v)}
-          />
-          <LabeledSwitch
-            label="isDisabled!"
-            value={isDisabled}
-            onValueChange={setIsDisabled}
-          />
-          <Separator height={2} />
-          <LabeledSwitch
-            label="error"
-            value={withError}
-            onValueChange={setWithError}
-          />
-          <Separator height={4} />
-          <Picker
-            title="Собака"
-            caption="Разные клевые собаки"
-            placeholder="Выберите собаку..."
-            error={withError ? 'Что-то пошло не так' : ''}
-            name="doggo"
-            value={pickerValue}
-            options={options}
-            isDisabled={isDisabled}
-            onChange={v => setPickerValue(v)}
-          />
-          {/* drop it */}
-        </View>
+        {/* <View style={styles.screen}> */}
+        <TextInput
+          style={{
+            borderColor: 'green',
+            borderWidth: 1,
+            padding: 10,
+            marginBottom: 10,
+          }}
+        />
+        <LabeledSwitch
+          label="isDisabled!"
+          value={isDisabled}
+          onValueChange={setIsDisabled}
+        />
+        <Separator height={2} />
+        <LabeledSwitch
+          label="error"
+          value={withError}
+          onValueChange={setWithError}
+        />
+        <Separator height={4} />
+        <Picker
+          title="Собака"
+          caption="Разные клевые собаки"
+          placeholder="Выберите собаку..."
+          error={withError ? 'Что-то пошло не так' : ''}
+          name="doggo"
+          value={pickerValue}
+          options={options}
+          isDisabled={isDisabled}
+          onChange={v => setPickerValue(v)}
+        />
+        {/* drop it */}
+        <LabeledSwitch
+          label="isDisabled!"
+          value={isDisabled}
+          onValueChange={setIsDisabled}
+        />
+        <Separator height={2} />
+        <LabeledSwitch
+          label="error"
+          value={withError}
+          onValueChange={setWithError}
+        />
+        <Separator height={4} />
+        <Picker
+          title="Собака"
+          caption="Разные клевые собаки"
+          placeholder="Выберите собаку..."
+          error={withError ? 'Что-то пошло не так' : ''}
+          name="doggo"
+          value={pickerValue}
+          options={options}
+          isDisabled={isDisabled}
+          onChange={v => setPickerValue(v)}
+        />
+        <LabeledSwitch
+          label="isDisabled!"
+          value={isDisabled}
+          onValueChange={setIsDisabled}
+        />
+        <Separator height={2} />
+        <LabeledSwitch
+          label="error"
+          value={withError}
+          onValueChange={setWithError}
+        />
+        <Separator height={4} />
+        <Picker
+          title="Собака"
+          caption="Разные клевые собаки"
+          placeholder="Выберите собаку..."
+          error={withError ? 'Что-то пошло не так' : ''}
+          name="doggo"
+          value={pickerValue}
+          options={options}
+          isDisabled={isDisabled}
+          onChange={v => setPickerValue(v)}
+        />
+        <LabeledSwitch
+          label="isDisabled!"
+          value={isDisabled}
+          onValueChange={setIsDisabled}
+        />
+        <Separator height={2} />
+        <LabeledSwitch
+          label="error"
+          value={withError}
+          onValueChange={setWithError}
+        />
+        <Separator height={4} />
+        <Picker
+          title="Собака"
+          caption="Разные клевые собаки"
+          placeholder="Выберите собаку..."
+          error={withError ? 'Что-то пошло не так' : ''}
+          name="doggo"
+          value={pickerValue}
+          options={options}
+          isDisabled={isDisabled}
+          onChange={v => setPickerValue(v)}
+        />
+        {/* drop it */}
+        {/* </View> */}
       </Screen>
     )
   )
