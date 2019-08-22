@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Dimensions,
   StatusBar,
   KeyboardAvoidingView,
   Platform,
@@ -14,20 +12,17 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import { safeAreaPaddingTop, sizes } from 'york-react-native/utils/styles'
+import {
+  safeAreaPaddingTop,
+  safeAreaPaddingBottom,
+  sizes,
+} from 'york-react-native/utils/styles'
 
-const { height: screenHeight } = Dimensions.get('window')
 const sideViewSize = 32
 const sideViewPadding = sizes[2]
 const sideViewContainerSize = 2 * sideViewPadding + sideViewSize
 
 const styles = StyleSheet.create({
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
   sideViewContainer: {
     top: 0,
     position: 'absolute',
@@ -57,7 +52,9 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  sideViewSpacer: { height: sideViewContainerSize },
+  sideViewSpacer: {
+    height: sideViewContainerSize,
+  },
   leftViewContainer: { left: 0 },
   rightViewContainer: { right: 0 },
 })
@@ -88,57 +85,46 @@ SideView.propTypes = {
 
 const Screen = ({
   children,
-  header,
   footer,
   footerContainerStyle,
   leftView,
   rightView,
+  statusBarProps,
   ...rest
 }) => {
+  const [scrollViewHeight, setScrollViewHeight] = useState(0)
   const [contentHeight, setContentHeight] = useState(0)
-  const [footerHeight, setFooterHeight] = useState(0)
-  const scrollEnabled = contentHeight > screenHeight // - headerHeight ??
+  const scrollEnabled = contentHeight > scrollViewHeight
   return (
     <>
-      <StatusBar
-        barStyle="dark-content" // ["dark-content", "light-content", "default"]
-        backgroundColor={colors.green} // android
-        translucent={false} // android
-      />
-      <SafeAreaView flex={1}>
-        {header || null}
-        <KeyboardAvoidingView
-          enabled
-          behavior="height" // enum('height', 'position', 'padding')
-          keyboardVerticalOffset={StatusBar.currentHeight || safeAreaPaddingTop} // don't know why but it works with sticky footer
+      <StatusBar {...statusBarProps} />
+      <KeyboardAvoidingView
+        flex={1}
+        enabled
+        behavior="padding"
+        style={{
+          marginBottom: safeAreaPaddingBottom,
+          marginTop: safeAreaPaddingTop,
+        }}
+      >
+        {leftView ? <SideView {...leftView} side="left" /> : null}
+        {rightView ? <SideView {...rightView} side="right" /> : null}
+        <ScrollView
+          flex={1}
+          onLayout={({
+            nativeEvent: {
+              layout: { height },
+            },
+          }) => setScrollViewHeight(height)}
+          {...rest}
+          onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
+          scrollEnabled={scrollEnabled} // works bad with KeyboardAvoidingView
         >
-          {leftView ? <SideView {...leftView} side="left" /> : null}
-          {rightView ? <SideView {...rightView} side="right" /> : null}
-          <ScrollView
-            {...rest}
-            onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
-            scrollEnabled={scrollEnabled} // works bad with KeyboardAvoidingView
-          >
-            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-            {children}
-            <View
-              style={{
-                height: footerHeight,
-              }}
-            />
-          </ScrollView>
-          <View
-            style={[styles.footer, footerContainerStyle]}
-            onLayout={({
-              nativeEvent: {
-                layout: { height },
-              },
-            }) => setFooterHeight(height)}
-          >
-            {footer || null}
-          </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+          {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+          {children}
+        </ScrollView>
+        <View style={footerContainerStyle}>{footer}</View>
+      </KeyboardAvoidingView>
     </>
   )
 }
@@ -147,13 +133,21 @@ Screen.defaultProps = {
   leftView: null,
   rightView: null,
   footer: null,
-  header: null,
   footerContainerStyle: null,
+  statusBarProps: {
+    barStyle: 'dark-content',
+    backgroundColor: colors.white,
+    translucent: false,
+  },
 }
 
 Screen.propTypes = {
   /** Пропы для статус бара. https://facebook.github.io/react-native/docs/statusbar#props */
-  statusBarProps: PropTypes.shape({}),
+  statusBarProps: PropTypes.shape({
+    barStyle: PropTypes.oneOf(['dark-content', 'light-content', 'default']),
+    backgroundColor: PropTypes.string,
+    translucent: PropTypes.bool,
+  }),
   /** Пропсы для левой части экрана */
   leftView: PropTypes.shape({
     view: PropTypes.node.isRequired,
@@ -169,8 +163,6 @@ Screen.propTypes = {
   /** Футер экрана. Прибивается к низу. */
   footer: PropTypes.node,
   footerContainerStyle: ViewPropTypes.style,
-  /** Хэдер экрана. Лучше избегать и использовать статические методы вроде `navigationOptions` из `react-navigation` */
-  header: PropTypes.node,
   children: PropTypes.node.isRequired,
 }
 

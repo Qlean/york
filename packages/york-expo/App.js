@@ -127,7 +127,7 @@ export default function App() {
         //   />
         // }
         contentContainerStyle={{ padding: 20 }}
-        footerContainerStyle={{ padding: 10 }}
+        footerContainerStyle={{ padding: 10, paddingTop: 0 }}
       >
         {/* <View style={styles.screen}> */}
         <TextInput
@@ -162,7 +162,7 @@ export default function App() {
           onChange={v => setPickerValue(v)}
         />
         {/* drop it */}
-        <LabeledSwitch
+        {/* <LabeledSwitch
           label="isDisabled!"
           value={isDisabled}
           onValueChange={setIsDisabled}
@@ -230,7 +230,7 @@ export default function App() {
           options={options}
           isDisabled={isDisabled}
           onChange={v => setPickerValue(v)}
-        />
+        /> */}
         {/* drop it */}
         {/* </View> */}
       </Screen>
