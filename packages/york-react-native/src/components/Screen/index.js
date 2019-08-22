@@ -24,20 +24,21 @@ const sideViewContainerSize = 2 * sideViewPadding + sideViewSize
 
 const styles = StyleSheet.create({
   root: {
-    marginBottom: safeAreaPaddingBottom,
+    flex: 1,
     marginTop: safeAreaPaddingTop,
+    marginBottom: safeAreaPaddingBottom,
   },
   withoutSafeAreaPaddingTop: {
-    paddingTop: 0,
+    marginTop: 0,
   },
   withoutSafeAreaPaddingBottom: {
-    paddingBottom: 0,
+    marginBottom: 0,
   },
   sideViewContainer: {
-    top: 0,
     position: 'absolute',
+    top: 0,
     padding: sideViewPadding,
-    zIndex: 999, // TODO: fix it
+    zIndex: 1,
   },
   sideView: {
     width: sideViewSize,
@@ -65,8 +66,10 @@ const styles = StyleSheet.create({
   sideViewSpacer: {
     height: sideViewContainerSize,
   },
+  /* eslint-disable react-native/no-unused-styles */
   leftViewContainer: { left: 0 },
   rightViewContainer: { right: 0 },
+  /* eslint-enable react-native/no-unused-styles */
   footer: {
     padding: sizes[2],
     paddingTop: 0,
@@ -138,9 +141,12 @@ const Screen = ({
     <>
       <StatusBar {...statusBarProps} />
       <KeyboardAvoidingView
-        enabled
-        behavior="padding"
-        flex={1}
+        /**
+         * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+         * Android and iOS both interact with this prop differently. Android may behave better
+         * when given no behavior prop at all, whereas iOS is the opposite.
+         */
+        {...Platform.select({ ios: { behavior: 'padding' } })}
         style={[
           styles.root,
           withoutSafeAreaPaddingTop && styles.withoutSafeAreaPaddingTop,
@@ -171,7 +177,6 @@ Screen.defaultProps = {
   statusBarProps: {
     barStyle: 'dark-content',
     backgroundColor: colors.white,
-    translucent: false,
   },
   withoutSafeAreaPaddingTop: true,
   withoutSafeAreaPaddingBottom: false,
