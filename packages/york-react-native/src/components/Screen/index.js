@@ -73,25 +73,25 @@ const styles = StyleSheet.create({
   },
 })
 
-const SideView = ({ view, isDisabled, onPress, side, ...rest }) => (
+const SideView = ({ node, isDisabled, onPress, side, ...rest }) => (
   <TouchableOpacity
     {...rest}
     onPress={onPress}
     disabled={isDisabled}
     style={[styles.sideViewContainer, styles[`${side}ViewContainer`]]}
   >
-    <View style={styles.sideView}>{view}</View>
+    <View style={styles.sideView}>{node}</View>
   </TouchableOpacity>
 )
 
 SideView.defaultProps = {
-  view: null,
+  node: null,
   isDisabled: false,
   onPress: null,
 }
 
 SideView.propTypes = {
-  view: PropTypes.node,
+  node: PropTypes.node,
   isDisabled: PropTypes.bool,
   onPress: PropTypes.func,
   side: PropTypes.oneOf(['left', 'right']).isRequired,
@@ -186,13 +186,13 @@ Screen.propTypes = {
   }),
   /** Пропсы для левой части экрана */
   leftView: PropTypes.shape({
-    view: PropTypes.node.isRequired,
+    node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
   /** Пропсы для правой части экрана */
   rightView: PropTypes.shape({
-    view: PropTypes.node.isRequired,
+    node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),

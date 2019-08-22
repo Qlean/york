@@ -105,11 +105,11 @@ export default function App() {
     isFontsLoaded && (
       <Screen
         leftView={{
-          view: <Header.BackIcon />,
+          node: <Header.BackIcon />,
           onPress: () => {},
         }}
         rightView={{
-          view: <Header.CloseIcon />,
+          node: <Header.CloseIcon />,
           onPress: () => {},
           isDisabled: true,
         }}
