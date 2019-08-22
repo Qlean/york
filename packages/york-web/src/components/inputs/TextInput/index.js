@@ -43,7 +43,7 @@ TextInput.propTypes = {
   ...inputPropTypes,
   /** Значение поля */
   value: PropTypes.string.isRequired,
-  /** Иконка справа */
+  /** Блок справа */
   rightNode: PropTypes.node,
 }
 

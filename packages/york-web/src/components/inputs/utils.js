@@ -17,7 +17,13 @@ const inputSizes = {
   m: uiPoint * 10,
 }
 
-export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
+export const getInputCss = ({
+  size,
+  error,
+  isFocused,
+  isDisabled,
+  rightNode,
+}) => `
   opacity: 1;
   appearance: none;
   width: 100%;
@@ -27,6 +33,7 @@ export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
   background-color: ${colors.white};
   height: ${inputSizes[size]}px;
   padding: 0 ${sizes[3]}px;
+  padding-right: ${rightNode ? `${sizes[8]}px` : `${sizes[3]}px`};
   font-family: ${fontFamily};
   font-size: 16px;
   font-weight: 500;
