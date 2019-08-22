@@ -5,42 +5,50 @@ import styled from 'styled-components'
 
 const presets = [
   {
-    preset: 'green',
+    rank: 1,
+    backdropColor: 'white',
     href: 'https://qlean.ru/',
-    title: 'green link',
+    title: 'Green link',
   },
   {
-    preset: 'black',
+    rank: 2,
+    backdropColor: 'white',
     href: 'https://qlean.ru/',
-    title: 'black link',
+    title: 'Black link',
   },
   {
-    preset: 'grey',
+    rank: 1,
+    backdropColor: 'dark',
     href: 'https://qlean.ru/',
-    title: 'grey link',
+    title: 'White link',
   },
   {
-    preset: 'white',
+    rank: 2,
+    backdropColor: 'dark',
     href: 'https://qlean.ru/',
-    title: 'white link',
+    title: 'Grey link',
+  },
+  {
+    href: 'https://qlean.ru/',
+    title: 'Default link',
   },
 ]
 
 const StyledView = styled(View)`
   padding: 10px 0;
-  ${({ preset }) => `
-    background: ${preset === 'white' ? colors.blue : colors.white};
+  ${({ rank, backdropColor }) => `
+    background: ${rank === 1 && backdropColor === 'dark' ? colors.blue : colors.white};
   `}
 `
 
 ;<>
   <View flexDirection="column">
-    {presets.map(({ preset, href, title }) => (
-      <StyledView key={preset} preset={preset}>
+    {presets.map(({ rank, backdropColor, href, title }) => (
+      <StyledView key={title} rank={rank} backdropColor={backdropColor}>
         <Link
-          preset={preset}
+          rank={rank}
+          backdropColor={backdropColor}
           href={href}
-          target="_blank"
         >
           {title}
         </Link>
