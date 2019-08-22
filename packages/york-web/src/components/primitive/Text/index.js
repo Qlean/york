@@ -1,7 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import {
@@ -107,18 +105,13 @@ const getCss = initialProps => {
   `
 }
 
-const StyledText = styled.span`
-  ${getCss}
-`
-
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
- * Для указания html-тэга можно использовать проп `as`
- * https://www.styled-components.com/docs/api#as-polymorphic-prop
  */
-export default function Text(props) {
-  return <StyledText {...props} />
-}
+
+const Text = styled.span`
+  ${getCss}
+`
 
 const propTypes = {
   /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
@@ -133,3 +126,6 @@ Text.propTypes = {
 }
 
 Text.defaultProps = defaultProps
+
+/** @component */
+export default Text
