@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors, rgbaColors } from '@qlean/york-core'
 import * as R from 'ramda'
 
-import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
+import {
+  media,
+  transitions,
+  normalizeResponsivePreset,
+  normalizeColor,
+} from 'york-web/utils'
 
 import { Text } from 'york-web/components/primitive'
 
@@ -47,14 +51,6 @@ const presets = {
   },
 }
 
-const normalizeColor = (color, opacity) => {
-  const rgbaColor = rgbaColors[color]
-  if (!rgbaColor || !rgbaColor.a) return colors.transparent
-  if (R.isNil(opacity)) return colors[color]
-  const { r, g, b } = rgbaColor
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
-
 const presetsByBackdropColorAndRank = {
   white0: presets.blank,
   white1: presets.whiteBackdropRank1,
@@ -93,6 +89,7 @@ const getCss = props => {
     text-decoration: none;
     cursor: pointer;
     padding: 0;
+    white-space: nowrap;
     transition: ${transitions.short};
     ${media.mobile(getMediaCss(mobileProps))}
     ${media.base(getMediaCss(baseProps))}
@@ -146,7 +143,7 @@ Link.propTypes = {
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
-  /** Содержимое ссылки. Если это строка, она будет обернута в `<Text>`. */
+  /** Содержимое ссылки. */
   children: PropTypes.node.isRequired,
 }
 

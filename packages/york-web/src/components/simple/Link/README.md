@@ -7,29 +7,28 @@ const presets = [
   {
     rank: 1,
     backdropColor: 'white',
-    href: 'https://qlean.ru/',
     title: 'Green link',
   },
   {
     rank: 2,
     backdropColor: 'white',
-    href: 'https://qlean.ru/',
     title: 'Black link',
   },
   {
     rank: 1,
     backdropColor: 'dark',
-    href: 'https://qlean.ru/',
     title: 'White link',
   },
   {
     rank: 2,
     backdropColor: 'dark',
-    href: 'https://qlean.ru/',
     title: 'Grey link',
   },
   {
-    href: 'https://qlean.ru/',
+    rank: 0,
+    title: 'Link with rank=0',
+  },
+  {
     title: 'Default link',
   },
 ]
@@ -41,14 +40,13 @@ const StyledView = styled(View)`
   `}
 `
 
-;<>
-  <View flexDirection="column">
-    {presets.map(({ rank, backdropColor, href, title }) => (
+;<View flexDirection="column">
+    {presets.map(({ rank, backdropColor, title }) => (
       <StyledView key={title} rank={rank} backdropColor={backdropColor}>
         <Link
           rank={rank}
           backdropColor={backdropColor}
-          href={href}
+          href='#'
         >
           {title}
         </Link>
@@ -56,5 +54,4 @@ const StyledView = styled(View)`
       </StyledView>
     ))}
   </View>
-</>
 ```
