@@ -26,17 +26,17 @@ const StyledIconContainer = styled(View)`
  * Базовое однострочное поле для ввода текста, аналог `input` без `type`.
  */
 function TextInput(props) {
-  const { isDisabled, rightIcon } = props
+  const { isDisabled, rightView } = props
   return (
     <StyledInputContainer>
       <StyledTextInput {...props} disabled={isDisabled} />
-      <StyledIconContainer>{rightIcon}</StyledIconContainer>
+      <StyledIconContainer>{rightView}</StyledIconContainer>
     </StyledInputContainer>
   )
 }
 
 TextInput.defaultProps = {
-  rightIcon: null,
+  rightView: null,
 }
 
 TextInput.propTypes = {
@@ -44,7 +44,7 @@ TextInput.propTypes = {
   /** Значение поля */
   value: PropTypes.string.isRequired,
   /** Иконка справа */
-  rightIcon: PropTypes.node,
+  rightView: PropTypes.node,
 }
 
 export default asInput(TextInput)
