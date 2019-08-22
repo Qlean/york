@@ -14,12 +14,12 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import { safeAreaPaddingTop } from 'york-react-native/utils/styles'
+import { safeAreaPaddingTop, sizes } from 'york-react-native/utils/styles'
 
 const { height: screenHeight } = Dimensions.get('window')
-
 const sideViewSize = 32
-const shadowColor = 'rgb(0, 0, 0)'
+const sideViewPadding = sizes[2]
+const sideViewContainerSize = 2 * sideViewPadding + sideViewSize
 
 const styles = StyleSheet.create({
   footer: {
@@ -28,35 +28,63 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  sideView: {
+  sideViewContainer: {
+    top: 0,
     position: 'absolute',
-    top: 10,
+    padding: sideViewPadding,
+    zIndex: 999, // TODO: fix it
+  },
+  sideView: {
     width: sideViewSize,
     height: sideViewSize,
     borderRadius: sideViewSize / 2,
     backgroundColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 999,
     ...Platform.select({
       ios: {
-        shadowColor,
+        shadowColor: colors.black,
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 6 },
         shadowRadius: 6,
       },
       android: { elevation: 7 },
       web: {
-        shadowColor,
+        shadowColor: colors.black,
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 6 },
         shadowRadius: 6,
       },
     }),
   },
-  leftView: { left: 10 },
-  rightView: { right: 10 },
+  sideViewSpacer: { height: sideViewContainerSize },
+  leftViewContainer: { left: 0 },
+  rightViewContainer: { right: 0 },
 })
+
+const SideView = ({ view, isDisabled, onPress, side, ...rest }) => (
+  <TouchableOpacity
+    {...rest}
+    onPress={onPress}
+    disabled={isDisabled}
+    style={[styles.sideViewContainer, styles[`${side}ViewContainer`]]}
+  >
+    <View style={styles.sideView}>{view}</View>
+  </TouchableOpacity>
+)
+
+SideView.defaultProps = {
+  view: null,
+  isDisabled: false,
+  onPress: null,
+}
+
+SideView.propTypes = {
+  view: PropTypes.node,
+  isDisabled: PropTypes.bool,
+  onPress: PropTypes.func,
+  side: PropTypes.oneOf(['left', 'right']).isRequired,
+}
 
 const Screen = ({
   children,
@@ -78,31 +106,20 @@ const Screen = ({
         translucent={false} // android
       />
       <SafeAreaView flex={1}>
-        {/* {header || null} */}
+        {header || null}
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior="height" // enum('height', 'position', 'padding')
           enabled
+          behavior="height" // enum('height', 'position', 'padding')
           keyboardVerticalOffset={StatusBar.currentHeight || safeAreaPaddingTop} // don't know why but it works with sticky footer
         >
-          {leftView ? (
-            <TouchableOpacity style={[styles.sideView, styles.leftView]}>
-              {leftView.view}
-            </TouchableOpacity>
-          ) : null}
-          {rightView ? (
-            <TouchableOpacity style={[styles.sideView, styles.rightView]}>
-              {rightView.view}
-            </TouchableOpacity>
-          ) : null}
+          {leftView ? <SideView {...leftView} side="left" /> : null}
+          {rightView ? <SideView {...rightView} side="right" /> : null}
           <ScrollView
             {...rest}
             onContentSizeChange={(w, h) => setContentHeight(h)} // https://medium.com/@spencer_carli/enable-scroll-in-a-react-native-scrollview-based-on-the-content-size-87430ccf319b
             scrollEnabled={scrollEnabled} // works bad with KeyboardAvoidingView
           >
-            {(rightView || leftView) && (
-              <View style={{ height: sideViewSize + 2 * 10 }} />
-            )}
+            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
             {children}
             <View
               style={{

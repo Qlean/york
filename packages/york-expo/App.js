@@ -95,7 +95,7 @@ export default function App() {
       <Screen
         leftView={{
           view: <Header.BackIcon />,
-          onPress: () => {},
+          onPress: () => console.log('aaa'),
         }}
         rightView={{
           view: <Header.CloseIcon />,
@@ -103,37 +103,29 @@ export default function App() {
           isDisabled: true,
         }}
         footer={
-          // <View
-          //   style={{
-          //     padding: 10,
-          //     paddingTop: 0,
-          //     backgroundColor: 'transparent',
-          //   }}
-          // >
           <Button
             isDisabled={false}
             onPress={() => {}}
             name="footer"
             withShadow
             title="Footer"
-          ></Button>
-          // </View>
-        }
-        header={
-          <Header
-            title="Аляскинский маламут"
-            caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
-            leftView={{
-              view: <Header.BackIcon />,
-              onPress: () => {},
-            }}
-            rightView={{
-              view: <Header.CloseIcon />,
-              onPress: () => {},
-              isDisabled: true,
-            }}
           />
         }
+        // header={
+        //   <Header
+        //     title="Аляскинский маламут"
+        //     caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
+        //     leftView={{
+        //       view: <Header.BackIcon />,
+        //       onPress: () => {},
+        //     }}
+        //     rightView={{
+        //       view: <Header.CloseIcon />,
+        //       onPress: () => {},
+        //       isDisabled: true,
+        //     }}
+        //   />
+        // }
         contentContainerStyle={{ padding: 20 }}
         footerContainerStyle={{ padding: 10 }}
       >
