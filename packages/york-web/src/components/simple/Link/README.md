@@ -1,57 +1,47 @@
 ```js
-import { colors } from '@qlean/york-core'
-import { View, Separator, Link } from '@qlean/york-web'
 import styled from 'styled-components'
+import { Link, media } from '@qlean/york-web'
 
-const presets = [
-  {
-    rank: 1,
-    backdropColor: 'white',
-    title: 'Green link',
-  },
-  {
-    rank: 2,
-    backdropColor: 'white',
-    title: 'Black link',
-  },
-  {
-    rank: 1,
-    backdropColor: 'dark',
-    title: 'White link',
-  },
-  {
-    rank: 2,
-    backdropColor: 'dark',
-    title: 'Grey link',
-  },
-  {
-    rank: 0,
-    title: 'Link with rank=0',
-  },
-  {
-    title: 'Default link',
-  },
-]
-
-const StyledView = styled(View)`
-  padding: 10px 0;
-  ${({ rank, backdropColor }) => `
-    background: ${rank === 1 && backdropColor === 'dark' ? colors.blue : colors.white};
-  `}
+const StyledShowcaseItem = styled(Example.ShowcaseItem)`
+  width: 25%;
+  ${media.mobile(`width: 100%;`)}
 `
 
-;<View flexDirection="column">
-    {presets.map(({ rank, backdropColor, title }) => (
-      <StyledView key={title} rank={rank} backdropColor={backdropColor}>
-        <Link
-          rank={rank}
-          backdropColor={backdropColor}
-          href='#'
-        >
-          {title}
-        </Link>
-        <Separator height={2} />
-      </StyledView>
-    ))}
-  </View>
+const whiteBackdropRanks = [1, 2, 0]
+const darkBackdropRanks = [1, 2]
+
+const ExampleComponent = () => {
+  const buttonProps = {
+    href:'#'
+  }
+
+  return (
+    <>
+      <Example.Showcase withVerticalPadding>
+        {whiteBackdropRanks.map(rank => (
+          <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
+            <Link rank={rank} {...buttonProps}>
+              White Backdrop
+            </Link>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+      <Example.Showcase backgroundColor="black" withVerticalPadding>
+        {darkBackdropRanks.map(rank => (
+          <StyledShowcaseItem
+            key={rank}
+            title={`Rank ${rank}`}
+            titleProps={{ color: 'white' }}
+          >
+            <Link rank={rank} backdropColor="dark" {...buttonProps}>
+              Dark Backdrop
+            </Link>
+          </StyledShowcaseItem>
+        ))}
+      </Example.Showcase>
+    </>
+  )
+}
+
+;<ExampleComponent />
 ```
