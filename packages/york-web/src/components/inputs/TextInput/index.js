@@ -11,11 +11,11 @@ const StyledTextInput = styled.input`
   ${getInputCss}
 `
 
-const StyledInputContainer = styled(View)`
+const StyledTextInputContainer = styled(View)`
   position: relative;
 `
 
-const StyledIconContainer = styled(View)`
+const StyledTextInputIconContainer = styled(View)`
   position: absolute;
   right: ${sizes[3]}px;
   height: 100%;
@@ -28,10 +28,10 @@ const StyledIconContainer = styled(View)`
 function TextInput(props) {
   const { isDisabled, rightNode } = props
   return (
-    <StyledInputContainer>
+    <StyledTextInputContainer>
       <StyledTextInput {...props} disabled={isDisabled} />
-      <StyledIconContainer>{rightNode}</StyledIconContainer>
-    </StyledInputContainer>
+      <StyledTextInputIconContainer>{rightNode}</StyledTextInputIconContainer>
+    </StyledTextInputContainer>
   )
 }
 
