@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Link as RouterLink } from 'react-router'
 import { colors } from '@qlean/york-core'
 
 import {
@@ -82,38 +81,18 @@ export const getCss = initialProps => {
       ${media.wide(getBaseCss(wideProps.hoverProps))}
     }
   `
-  /* eslint-enable indent */
 }
 
-const StyledNativeLink = styled.a`
+const StyledLink = styled.a`
   ${getCss}
 `
 
-const StyledReactRouterLink = styled(
-  ({
-    /*
-    RouterLink pass props to attributes, which triggers warnings
-    https://github.com/styled-components/styled-components/issues/135#issuecomment-256018643
-  */
-    mobileProps,
-    baseProps,
-    wideProps,
-    textProps,
-    ...rest
-  }) => <RouterLink {...rest} />,
-)`
-  ${getCss}
-`
 /**
  * Компонент для оформления ссылки.
  */
 export default function Link({ href, children, ...rest }) {
-  const isRouterLink = href[0] === '/'
-  const StyledLink = isRouterLink ? StyledReactRouterLink : StyledNativeLink
-  const props = { [isRouterLink ? 'to' : 'href']: href }
-
   return (
-    <StyledLink {...rest} {...props}>
+    <StyledLink href={href} {...rest}>
       <Text {...rest.textProps} color="inherit">
         {children}
       </Text>
