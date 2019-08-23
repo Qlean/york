@@ -125,7 +125,7 @@ export default function App() {
           </Screen.Footer>
         }
         contentContainerStyle={styles.screen}
-        withoutSafeAreaPaddingTop={false}
+        withSafeAreaPaddingTop={false}
       >
         <LabeledSwitch
           label="isDisabled!"

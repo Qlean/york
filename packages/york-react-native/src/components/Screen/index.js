@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     marginTop: safeAreaPaddingTop,
     marginBottom: safeAreaPaddingBottom,
   },
-  withoutSafeAreaPaddingTop: {
+  withSafeAreaPaddingTop: {
     marginTop: 0,
   },
-  withoutSafeAreaPaddingBottom: {
+  withSafeAreaPaddingBottom: {
     marginBottom: 0,
   },
   sideViewContainer: {
@@ -123,8 +123,8 @@ const Screen = ({
   footer,
   leftView,
   rightView,
-  withoutSafeAreaPaddingTop,
-  withoutSafeAreaPaddingBottom,
+  withSafeAreaPaddingTop,
+  withSafeAreaPaddingBottom,
   ...rest
 }) => {
   const [scrollViewHeight, setScrollViewHeight] = useState(0)
@@ -146,8 +146,8 @@ const Screen = ({
       {...(Platform.OS === 'ios' && { behavior: 'padding' })}
       style={[
         styles.root,
-        withoutSafeAreaPaddingTop && styles.withoutSafeAreaPaddingTop,
-        withoutSafeAreaPaddingBottom && styles.withoutSafeAreaPaddingBottom,
+        withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
+        withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
       ]}
     >
       {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
@@ -170,8 +170,8 @@ Screen.defaultProps = {
   leftView: null,
   rightView: null,
   footer: null,
-  withoutSafeAreaPaddingTop: true,
-  withoutSafeAreaPaddingBottom: false,
+  withSafeAreaPaddingTop: false,
+  withSafeAreaPaddingBottom: true,
 }
 
 Screen.propTypes = {
@@ -189,10 +189,10 @@ Screen.propTypes = {
   }),
   /** Футер экрана. Прибивается к низу. */
   footer: PropTypes.element,
-  /** Убрать автоматический отступ до безопасной зоны сверху */
-  withoutSafeAreaPaddingTop: PropTypes.bool,
-  /** Убрать автоматический отступ до безопасной зоны снизу */
-  withoutSafeAreaPaddingBottom: PropTypes.bool,
+  /** Автоматический отступ до безопасной зоны сверху */
+  withSafeAreaPaddingTop: PropTypes.bool,
+  /** Автоматический отступ до безопасной зоны снизу */
+  withSafeAreaPaddingBottom: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }
 

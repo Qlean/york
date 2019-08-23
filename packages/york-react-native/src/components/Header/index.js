@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     paddingTop: safeAreaPaddingTop,
     flexDirection: 'row',
   },
-  withoutSafeAreaPadding: {
+  withSafeAreaPadding: {
     height: headerHeight,
     paddingTop: 0,
   },
@@ -75,13 +75,13 @@ export default function Header({
   style,
   leftView,
   rightView,
-  withoutSafeAreaPadding,
+  withSafeAreaPadding,
 }) {
   return (
     <View
       style={[
         styles.root,
-        withoutSafeAreaPadding && styles.withoutSafeAreaPadding,
+        withSafeAreaPadding && styles.withSafeAreaPadding,
         style,
       ]}
     >
@@ -111,7 +111,7 @@ Header.defaultProps = {
   style: null,
   leftView: null,
   rightView: null,
-  withoutSafeAreaPadding: false,
+  withSafeAreaPadding: true,
 }
 
 Header.propTypes = {
@@ -133,6 +133,6 @@ Header.propTypes = {
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
-  /** Убрать автоматический отступ до безопасной зоны сверху */
-  withoutSafeAreaPadding: PropTypes.bool,
+  /** Автоматический отступ до безопасной зоны сверху */
+  withSafeAreaPadding: PropTypes.bool,
 }
