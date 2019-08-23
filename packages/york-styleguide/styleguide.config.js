@@ -122,6 +122,10 @@ module.exports = {
           description: 'Утилиты и константы',
           sections: [
             {
+              name: 'borderRadiuses',
+              content: '../york-react-native/docs/borderRadiuses.md',
+            },
+            {
               name: 'fontFamily',
               content: '../york-react-native/docs/fontFamily.md',
             },
