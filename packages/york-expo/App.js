@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { View, Switch, StyleSheet } from 'react-native'
+import { View, Switch, StyleSheet, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { Header, Picker, Separator, Text } from '@qlean/york-react-native'
+import { colors } from '@qlean/york-core'
+import {
+  Picker,
+  Separator,
+  Text,
+  Screen,
+  Button,
+  Icon,
+  uiPoint,
+  sizes,
+} from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
   screen: {
@@ -12,6 +22,14 @@ const styles = StyleSheet.create({
   labeledSwitch: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  textInput: {
+    height: uiPoint * 10,
+    backgroundColor: colors.white,
+    borderColor: colors.silver,
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingLeft: sizes[3],
   },
 })
 
@@ -85,46 +103,56 @@ export default function App() {
 
   return (
     isFontsLoaded && (
-      <View>
-        <Header
-          title="Аляскинский маламут"
-          caption="Аляскинский маламут — достаточно крупная собака аборигенного типа"
-          leftView={{
-            view: <Header.BackIcon />,
-            onPress: () => {},
-          }}
-          rightView={{
-            view: <Header.CloseIcon />,
-            onPress: () => {},
-            isDisabled: true,
-          }}
+      <Screen
+        leftView={{
+          node: <Icon name="back" />,
+          onPress: () => {},
+        }}
+        rightView={{
+          node: <Icon name="close" />,
+          onPress: () => {},
+          isDisabled: true,
+        }}
+        footer={
+          <Screen.Footer>
+            <Button
+              isDisabled={false}
+              onPress={() => {}}
+              name="footer"
+              withShadow
+              title="Footer"
+            />
+          </Screen.Footer>
+        }
+        contentContainerStyle={styles.screen}
+        withSafeAreaPaddingTop
+      >
+        <LabeledSwitch
+          label="isDisabled!"
+          value={isDisabled}
+          onValueChange={setIsDisabled}
         />
-        <View style={styles.screen}>
-          <LabeledSwitch
-            label="isDisabled!"
-            value={isDisabled}
-            onValueChange={setIsDisabled}
-          />
-          <Separator height={2} />
-          <LabeledSwitch
-            label="error"
-            value={withError}
-            onValueChange={setWithError}
-          />
-          <Separator height={4} />
-          <Picker
-            title="Собака"
-            caption="Разные клевые собаки"
-            placeholder="Выберите собаку..."
-            error={withError ? 'Что-то пошло не так' : ''}
-            name="doggo"
-            value={pickerValue}
-            options={options}
-            isDisabled={isDisabled}
-            onChange={v => setPickerValue(v)}
-          />
-        </View>
-      </View>
+        <Separator height={2} />
+        <LabeledSwitch
+          label="error"
+          value={withError}
+          onValueChange={setWithError}
+        />
+        <Separator height={4} />
+        <Picker
+          title="Собака"
+          caption="Разные клевые собаки"
+          placeholder="Выберите собаку..."
+          error={withError ? 'Что-то пошло не так' : ''}
+          name="doggo"
+          value={pickerValue}
+          options={options}
+          isDisabled={isDisabled}
+          onChange={v => setPickerValue(v)}
+        />
+        <Separator height={4} />
+        <TextInput style={styles.textInput} placeholder="Напиши что-нибудь" />
+      </Screen>
     )
   )
 }
