@@ -210,12 +210,11 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
     presetsByBackdropColorAndRank,
     rest,
   )
-  const content =
-    typeof children === 'string' ? (
-      <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
-    ) : (
-      children
-    )
+  const content = React.isValidElement(children) ? (
+    children
+  ) : (
+    <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
+  )
   return (
     <StyledButton
       {...rest}
@@ -260,7 +259,7 @@ Button.propTypes = {
   shadow: PropTypes.oneOf(Object.keys(shadows)),
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
-  /** Содержимое кнопки. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  /** Содержимое кнопки. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   children: PropTypes.node.isRequired,
   /** Активна ли кнопка */
   isDisabled: PropTypes.bool.isRequired,

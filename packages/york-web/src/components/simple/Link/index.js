@@ -2,13 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
+import { colors } from '@qlean/york-core'
 
-import {
-  media,
-  transitions,
-  normalizeResponsivePreset,
-  normalizeColor,
-} from 'york-web/utils'
+import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
 import { Text } from 'york-web/components/primitive'
 
@@ -59,18 +55,10 @@ const presetsByBackdropColorAndRank = {
   dark2: presets.darkBackdropRank2,
 }
 
-const getBaseCss = ({ color, borderBottomColor, opacity }) => {
-  const normalizedColor = normalizeColor(color, opacity)
-  const normalizedBorderBottomColor = normalizeColor(borderBottomColor, opacity)
-  return `
-    color: ${normalizedColor};
-    border-bottom: ${
-      normalizedBorderBottomColor
-        ? `1px solid ${normalizedBorderBottomColor}`
-        : 'none'
-    };
-  `
-}
+const getBaseCss = ({ color, borderBottomColor = 'transparent' }) => `
+  color: ${colors[color]};
+  border-bottom: 1px solid ${colors[borderBottomColor]};
+`
 
 const getMediaCss = ({ hoverProps, ...rest }) => `
 ${getBaseCss(rest)}
@@ -84,18 +72,14 @@ const getCss = props => {
     normalizedProps: { mobileProps, baseProps, wideProps },
   } = props
   return `
-    outline: none !important;
-    box-sizing: border-box;
+    outline: none;
     text-decoration: none;
-    cursor: pointer;
-    padding: 0;
     white-space: nowrap;
     transition: ${transitions.short};
     ${media.mobile(getMediaCss(mobileProps))}
     ${media.base(getMediaCss(baseProps))}
     ${media.wide(getMediaCss(wideProps))}
     &:hover, &:focus, &:active {
-      text-decoration: none;
       ${media.mobile(getMediaCss(mobileProps.hoverProps))}
       ${media.base(getMediaCss(baseProps.hoverProps))}
       ${media.wide(getMediaCss(wideProps.hoverProps))}
@@ -126,7 +110,11 @@ function Link({ href, children, ...rest }) {
   )
   return (
     <StyledLink href={href} normalizedProps={normalizedProps} {...rest}>
-      <Text color="inherit">{children}</Text>
+      {React.isValidElement(children) ? (
+        children
+      ) : (
+        <Text color="inherit">{children}</Text>
+      )}
     </StyledLink>
   )
 }
@@ -138,12 +126,12 @@ Link.defaultProps = {
 
 Link.propTypes = {
   /** Важность ссылки на странице. Нулевой ранг сбрасывает стили и используется для расширения ссылки */
-  rank: PropTypes.oneOf([0, 1, 2, 3]),
-  /** Цвет фона на котором будет располагаться ссылки */
+  rank: PropTypes.oneOf([0, 1, 2]),
+  /** Цвет фона на котором будeт располагаться ссылка */
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
-  /** Содержимое ссылки. */
+  /** Содержимое ссылки. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   children: PropTypes.node.isRequired,
 }
 
