@@ -165,7 +165,7 @@ const getMediaCss = ({ hoverProps, disabledProps, isDisabled, ...rest }) => `
 const getCss = props => {
   const {
     normalizedProps: { mobileProps, baseProps, wideProps },
-    shadow,
+    withShadow,
     size,
     isDisabled,
   } = props
@@ -180,7 +180,7 @@ const getCss = props => {
     width: 100%;
     cursor: ${isDisabled ? 'default' : 'pointer'};
     border-radius: ${borderRadiuses.medium};
-    box-shadow: ${shadows[shadow]};
+    box-shadow: ${withShadow ? shadows.strong : 'none'};
     ${media.mobile(`
       height: ${getHeight('m')};
       ${getMediaCss({ ...props, ...mobileProps })}
@@ -241,7 +241,7 @@ const defaultProps = {
   backdropColor: 'white',
   /* eslint-enable react/default-props-match-prop-types */
   size: 'm',
-  shadow: 'none',
+  withShadow: false,
   isSubmitting: false,
 }
 
@@ -260,7 +260,7 @@ Button.propTypes = {
   /** Размер кнопки, влияет только на высоту */
   size: PropTypes.oneOf(['s', 'm']),
   /** Тень */
-  shadow: PropTypes.oneOf(Object.keys(shadows)),
+  withShadow: PropTypes.bool,
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
   /** Содержимое кнопки. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
