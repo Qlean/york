@@ -2,49 +2,61 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { View } from 'york-web/components/primitive'
-import { sizes } from 'york-web/utils'
+import {
+  inputPropTypes,
+  inputPaddingHorizontal,
+  getInputCss,
+  asInput,
+} from '../utils'
 
-import { inputPropTypes, getInputCss, asInput } from '../utils'
-
-const StyledTextInput = styled.input`
+const StyledInput = styled.input`
   ${getInputCss}
 `
 
-const StyledTextInputContainer = styled(View)`
+const StyledTextInput = styled.div`
   position: relative;
 `
 
-const StyledTextInputIconContainer = styled(View)`
+const StyledRightView = styled.div`
   position: absolute;
-  right: ${sizes[3]}px;
-  height: 100%;
+  top: 0;
+  right: ${inputPaddingHorizontal}px;
+  display: flex;
   align-items: center;
+  height: 100%;
+  ${({ width }) => `width: ${width}px;`}
 `
 
 /**
  * Базовое однострочное поле для ввода текста, аналог `input` без `type`.
  */
 function TextInput(props) {
-  const { isDisabled, rightNode } = props
+  const { isDisabled, rightView } = props
   return (
-    <StyledTextInputContainer>
-      <StyledTextInput {...props} disabled={isDisabled} />
-      <StyledTextInputIconContainer>{rightNode}</StyledTextInputIconContainer>
-    </StyledTextInputContainer>
+    <StyledTextInput>
+      <StyledInput {...props} disabled={isDisabled} />
+      {rightView && (
+        <StyledRightView width={rightView.width}>
+          {rightView.node}
+        </StyledRightView>
+      )}
+    </StyledTextInput>
   )
 }
 
 TextInput.defaultProps = {
-  rightNode: null,
+  rightView: null,
 }
 
 TextInput.propTypes = {
   ...inputPropTypes,
   /** Значение поля */
   value: PropTypes.string.isRequired,
-  /** Блок справа */
-  rightNode: PropTypes.node,
+  /** Блок справа. Его ширина должна быть фиксированной, чтобы у инпута корректно работал `padding-right` */
+  rightView: PropTypes.shape({
+    node: PropTypes.node.isRequired,
+    width: PropTypes.number.isRequired,
+  }),
 }
 
 export default asInput(TextInput)
