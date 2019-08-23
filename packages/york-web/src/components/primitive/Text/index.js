@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -105,13 +106,16 @@ const getCss = initialProps => {
   `
 }
 
+const StyledText = styled.span`
+  ${getCss}
+`
+
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
  */
-
-const Text = styled.span`
-  ${getCss}
-`
+const Text = props => {
+  return <StyledText {...props} />
+}
 
 const propTypes = {
   /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
@@ -120,12 +124,11 @@ const propTypes = {
   color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
 }
 
+Text.defaultProps = defaultProps
+
 Text.propTypes = {
   ...propTypes,
   ...getResponsivePropTypes(propTypes),
 }
 
-Text.defaultProps = defaultProps
-
-/** @component */
 export default Text
