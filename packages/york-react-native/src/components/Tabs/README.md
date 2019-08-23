@@ -1,5 +1,4 @@
 ```js
-import styled from 'styled-components'
 import { Tabs } from '@qlean/york-react-native'
 
 const ExampleComponent = () => {

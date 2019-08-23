@@ -1,5 +1,5 @@
 ```js
-import { Picker, Text, Separator } from '@qlean/york-react-native'
+import { Picker, Text, Separator, Icon } from '@qlean/york-react-native'
 
 ;
 <>
@@ -7,11 +7,11 @@ import { Picker, Text, Separator } from '@qlean/york-react-native'
     title={Example.text.short}
     caption={Example.text.medium}
     leftView={{
-      node: <Header.BackIcon />,
+      node: <Icon name="back" />,
       onPress: () => {},
     }}
     rightView={{
-      node: <Header.CloseIcon />,
+      node: <Icon name="close" />,
       onPress: () => {},
       isDisabled: true,
     }}

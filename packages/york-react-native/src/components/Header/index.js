@@ -1,12 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  ViewPropTypes,
-} from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ViewPropTypes } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
@@ -25,13 +19,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomColor: colors.silver,
     borderBottomWidth: 0.5,
-    height: headerHeight + safeAreaPaddingTop,
-    paddingTop: safeAreaPaddingTop,
-    flexDirection: 'row',
-  },
-  withoutSafeAreaPadding: {
     height: headerHeight,
     paddingTop: 0,
+    flexDirection: 'row',
+  },
+  withSafeAreaPadding: {
+    height: headerHeight + safeAreaPaddingTop,
+    paddingTop: safeAreaPaddingTop,
   },
   centerView: {
     flex: 1,
@@ -51,19 +45,7 @@ const styles = StyleSheet.create({
     minWidth: iconSize,
     marginHorizontal: sizes[3],
   },
-  icon: {
-    width: iconSize,
-    height: iconSize,
-  },
 })
-
-const BackIcon = () => (
-  <Image style={styles.icon} source={require('./assets/back.png')} />
-)
-
-const CloseIcon = () => (
-  <Image style={styles.icon} source={require('./assets/close.png')} />
-)
 
 const SideView = ({ node, isDisabled, onPress, ...rest }) => (
   <TouchableOpacity onPress={onPress} disabled={isDisabled} {...rest}>
@@ -85,9 +67,7 @@ SideView.propTypes = {
 
 /**
  * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
- * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS. В хедер уже встроены
- * две иконки — `Header.BackIcon` и `Header.CloseIcon`, их удобно передавать как `leftView.view`
- * или `rightView.view`.
+ * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS.
  */
 export default function Header({
   title,
@@ -96,13 +76,13 @@ export default function Header({
   leftView,
   rightView,
   centerNode,
-  withoutSafeAreaPadding,
+  withSafeAreaPadding,
 }) {
   return (
     <View
       style={[
         styles.root,
-        withoutSafeAreaPadding && styles.withoutSafeAreaPadding,
+        withSafeAreaPadding && styles.withSafeAreaPadding,
         style,
       ]}
     >
@@ -138,7 +118,7 @@ Header.defaultProps = {
   centerNode: null,
   leftView: null,
   rightView: null,
-  withoutSafeAreaPadding: false,
+  withSafeAreaPadding: true,
 }
 
 Header.propTypes = {
@@ -163,9 +143,6 @@ Header.propTypes = {
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
-  /** Убрать автоматический отступ до безопасной зоны сверху */
-  withoutSafeAreaPadding: PropTypes.bool,
+  /** Автоматический отступ до безопасной зоны сверху */
+  withSafeAreaPadding: PropTypes.bool,
 }
-
-Header.BackIcon = BackIcon
-Header.CloseIcon = CloseIcon
