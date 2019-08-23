@@ -4,6 +4,7 @@ import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import { useAnimation } from 'york-react-native/utils/hooks'
+import { borderRadiuses } from 'york-react-native/utils/styles'
 
 import Text from 'york-react-native/components/Text'
 
@@ -81,13 +82,13 @@ const sizes = {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 4,
+    borderRadius: borderRadiuses.small,
   },
   content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 4,
+    borderRadius: borderRadiuses.small,
     borderWidth: 1,
     borderColor: colors.transparent,
     paddingHorizontal: 15,
