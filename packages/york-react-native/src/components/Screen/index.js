@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     height: sideViewSize,
     borderRadius: sideViewSize / 2,
     backgroundColor: colors.white,
+    flexDirection: 'row',
     alignItems: 'center',
     ...Platform.select({
       ios: {
