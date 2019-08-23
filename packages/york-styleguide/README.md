@@ -26,8 +26,31 @@ $ npm i @qlean/york-core @qlean/york-web
 ### Соглашения по именованию
 
 #### Пропы, которые принимают элементы или ноды React, должны содержать в названии `node`.
-Например:
+
+Пример компонента с пропом node:
 
 ```js static
   <Header centerNode={<Button title="Кнопка в заголовке"/>} />
+```
+
+Пример компонента с пропом element:
+
+```js static
+  <Button iconElement={<svg name="error"/>} title="Сообщить об ошибке" />
+```
+
+
+#### Пропы, предназначенные для формирования композитных частей компонента, должны содержать в названии `view`
+
+
+```js static
+  <Screen
+    leftView={{
+      node: <Icon name="back" />,
+      onPress: () => {},
+      isDisabled: false,
+    }}
+  > 
+    <Text>Текст внутри экрана</Text>
+  </Screen>
 ```
