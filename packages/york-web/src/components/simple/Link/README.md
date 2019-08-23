@@ -10,10 +10,11 @@ const StyledShowcaseItem = styled(Example.ShowcaseItem)`
 const whiteBackdropRanks = [1, 2, 0]
 const darkBackdropRanks = [1, 2]
 
+const linkProps = {
+  href: '#/york-web?id=link',
+}
+
 const ExampleComponent = () => {
-  const linkProps = {
-    href: '#/york-web?id=link',
-  }
   return (
     <>
       <Example.Showcase withVerticalPadding>
