@@ -167,7 +167,6 @@ const getCss = props => {
     normalizedProps: { mobileProps, baseProps, wideProps },
     shadow,
     size,
-    borderRadius,
     isDisabled,
   } = props
   return `
@@ -180,7 +179,7 @@ const getCss = props => {
     height: ${getHeight(size)};
     width: 100%;
     cursor: ${isDisabled ? 'default' : 'pointer'};
-    border-radius: ${borderRadiuses[borderRadius]};
+    border-radius: ${borderRadiuses.medium};
     box-shadow: ${shadows[shadow]};
     ${media.mobile(`
       height: ${getHeight('m')};
@@ -242,7 +241,6 @@ const defaultProps = {
   backdropColor: 'white',
   /* eslint-enable react/default-props-match-prop-types */
   size: 'm',
-  borderRadius: 'medium',
   shadow: 'none',
   isSubmitting: false,
 }
@@ -261,8 +259,6 @@ Button.propTypes = {
   ...getResponsivePropTypes(propTypes),
   /** Размер кнопки, влияет только на высоту */
   size: PropTypes.oneOf(['s', 'm']),
-  /** Радиус скругления */
-  borderRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
   /** Тень */
   shadow: PropTypes.oneOf(Object.keys(shadows)),
   /** Имя кнопки, используется в автотестах */
