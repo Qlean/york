@@ -71,7 +71,9 @@ const getCss = props => {
   const {
     normalizedProps: { mobileProps, baseProps, wideProps },
   } = props
+  // cursor: pointer сделан на случай использования в качестве ссылки чего-то кроме <a>
   return `
+    cursor: pointer;
     outline: none;
     text-decoration: none;
     white-space: nowrap;
