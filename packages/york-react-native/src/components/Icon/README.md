@@ -1,6 +1,11 @@
 ```js
 const icons = ['close', 'back']
 
-const Icons = () => <>{icons.map(icon => <Icon name={icon}/>)}</>
-;<Icons/>
+;<Example.Showcase>
+  {icons.map(icon => (
+    <Example.ShowcaseItem title={icon} key={icon}>
+      <Icon name={icon}/>
+    </Example.ShowcaseItem>
+  ))}
+</Example.Showcase>
 ```

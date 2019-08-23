@@ -40,11 +40,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   sideViewContent: {
-    padding: 4,
+    paddingHorizontal: 4,
     height: sideViewSize,
     borderRadius: sideViewSize / 2,
     backgroundColor: colors.white,
-    justifyContent: 'center',
     alignItems: 'center',
     ...Platform.select({
       ios: {
@@ -65,22 +64,20 @@ const styles = StyleSheet.create({
   sideViewSpacer: {
     height: sideViewContainerSize,
   },
-  /* eslint-disable react-native/no-unused-styles */
-  leftViewContainer: { left: 0 },
-  rightViewContainer: { right: 0 },
-  /* eslint-enable react-native/no-unused-styles */
+  leftView: { left: 0 },
+  rightView: { right: 0 },
   footer: {
     padding: sizes[2],
     paddingTop: 0,
   },
 })
 
-const SideView = ({ node, isDisabled, onPress, side, ...rest }) => (
+const SideView = ({ node, isDisabled, onPress, style, ...rest }) => (
   <TouchableOpacity
     {...rest}
     onPress={onPress}
     disabled={isDisabled}
-    style={[styles.sideViewContainer, styles[`${side}ViewContainer`]]}
+    style={[styles.sideViewContainer, style]}
   >
     <View style={styles.sideViewContent}>{node}</View>
   </TouchableOpacity>
@@ -97,6 +94,7 @@ SideView.propTypes = {
   isDisabled: PropTypes.bool,
   onPress: PropTypes.func,
   side: PropTypes.oneOf(['left', 'right']).isRequired,
+  style: ViewPropTypes.style.isRequired,
 }
 
 const Footer = ({ style, ...rest }) => (
@@ -116,6 +114,8 @@ Footer.propTypes = {
  * и правую верхние иконки для действий, автоматически делает отступ снизу, чтобы хорошо выглядеть
  * на iOS, автоматически включает скролл, если контент не помещается, хорошо выглядит с открытой
  * клавиатурой. В компонент встроен футер с отступами — Screen.Footer.
+ * По умолчанию сейф-зона снизу включена, а сверху — отключена. Предполагается, что чаще всего экран
+ * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
  */
 const Screen = ({
   children,
@@ -139,8 +139,8 @@ const Screen = ({
     <KeyboardAvoidingView
       /**
        * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-       * Android and iOS both interact with this prop differently. Android may behave better
-       * when given no behavior prop at all, whereas iOS is the opposite.
+       * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+       * если вообще не задавать проп, в то время как iOS - наоборот.
        */
       {...(Platform.OS === 'ios' && { behavior: 'padding' })}
       style={[
@@ -149,8 +149,8 @@ const Screen = ({
         withoutSafeAreaPaddingBottom && styles.withoutSafeAreaPaddingBottom,
       ]}
     >
-      {leftView ? <SideView {...leftView} side="left" /> : null}
-      {rightView ? <SideView {...rightView} side="right" /> : null}
+      {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
+      {rightView ? <SideView {...rightView} style={styles.rightView} /> : null}
       <ScrollView
         {...rest}
         scrollEnabled={isScrollEnabled}
