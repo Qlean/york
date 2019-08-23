@@ -28,7 +28,7 @@ import { Picker, Text, Separator, Icon } from '@qlean/york-react-native'
       />
     }
     leftView={{
-      node: <Header.BackIcon />,
+      node: <Icon name="back" />,
       onPress: () => {},
     }}
   />
