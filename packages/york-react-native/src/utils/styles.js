@@ -10,6 +10,13 @@ export const sizes = R.map(size => size * uiPoint, coreSizes)
 export const fontFamily = 'MuseoSansCyrl-500'
 export const fontFamilyBold = 'MuseoSansCyrl-700'
 
+export const borderRadiuses = {
+  none: 0,
+  small: 4,
+  medium: 6,
+  large: 10,
+}
+
 // Взято из https://github.com/ptelad/react-native-iphone-x-helper
 const isIphoneX = () => {
   const { width, height } = Dimensions.get('window')

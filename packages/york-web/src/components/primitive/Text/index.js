@@ -1,7 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
 
 import {
@@ -12,8 +10,6 @@ import {
   mergeStyleProps,
   getResponsivePropTypes,
 } from 'york-web/utils'
-
-const htmlTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p']
 
 const presets = {
   header1: {
@@ -80,21 +76,13 @@ const getBaseCss = ({
   fontWeight,
   fontSize,
   lineHeight,
-  textAlign,
-  fontStyle,
   letterSpacing,
-  textTransform,
-  textDecoration,
 }) => `
+  font-size: ${fontSize}px;
   color: ${color === 'inherit' ? 'inherit' : colors[color]};
   font-weight: ${fontWeight};
-  font-size: ${fontSize}px;
   line-height: ${lineHeight}px;
-  ${textAlign ? `text-align: ${textAlign}` : ''};
-  ${fontStyle ? `font-style: ${fontStyle}` : ''};
   ${letterSpacing ? `letter-spacing: ${letterSpacing}px` : ''};
-  ${textTransform ? `text-transform: ${textTransform}` : ''};
-  ${textDecoration ? `text-decoration: ${textDecoration}` : ''};
 `
 
 const defaultProps = {
@@ -117,22 +105,13 @@ const getCss = initialProps => {
   `
 }
 
-const StyledText = styled.span`
-  ${getCss}
-`
-
-const components = R.pipe(
-  R.map(tag => [tag, StyledText.withComponent(tag)]),
-  R.fromPairs,
-)(htmlTags)
-
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
  */
-export default function Text({ htmlTag, ...rest }) {
-  const StyledTextComponent = components[htmlTag]
-  return <StyledTextComponent {...rest} />
-}
+
+const Text = styled.span`
+  ${getCss}
+`
 
 const propTypes = {
   /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
@@ -142,13 +121,11 @@ const propTypes = {
 }
 
 Text.propTypes = {
-  /** HTML-тег, который будет использован как обёртка для текста */
-  htmlTag: PropTypes.oneOf(htmlTags),
   ...propTypes,
   ...getResponsivePropTypes(propTypes),
 }
 
-Text.defaultProps = {
-  htmlTag: 'span',
-  ...defaultProps,
-}
+Text.defaultProps = defaultProps
+
+/** @component */
+export default Text

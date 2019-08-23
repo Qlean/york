@@ -20,7 +20,7 @@ import { colors } from '@qlean/york-core'
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
 
-import { uiPoint, sizes } from 'york-react-native/utils/styles'
+import { uiPoint, sizes, borderRadiuses } from 'york-react-native/utils/styles'
 
 const pickerPaddignHorizontal = sizes[6]
 const pickerItemHeight = uiPoint * 11
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderColor: colors.silver,
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: borderRadiuses.small,
   },
   inputError: {
     borderColor: colors.red,
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     /**
      * На Андроиде скругление не работает как задумано и выглядит инородно из-за прямых скроллбаров
      */
-    borderRadius: Platform.OS === 'ios' ? 4 : 0,
+    borderRadius:
+      Platform.OS === 'ios' ? borderRadiuses.small : borderRadiuses.none,
   },
   pickerContent: {
     paddingVertical: pickerContentPaddingVertical,
