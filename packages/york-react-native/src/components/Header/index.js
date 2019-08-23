@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomColor: colors.silver,
     borderBottomWidth: 0.5,
-    height: headerHeight + safeAreaPaddingTop,
-    paddingTop: safeAreaPaddingTop,
+    height: headerHeight,
+    paddingTop: 0,
     flexDirection: 'row',
   },
   withSafeAreaPadding: {
-    height: headerHeight,
-    paddingTop: 0,
+    height: headerHeight + safeAreaPaddingTop,
+    paddingTop: safeAreaPaddingTop,
   },
   centerView: {
     flex: 1,

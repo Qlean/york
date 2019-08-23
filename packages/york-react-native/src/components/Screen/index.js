@@ -24,14 +24,14 @@ const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginTop: safeAreaPaddingTop,
-    marginBottom: safeAreaPaddingBottom,
+    marginTop: 0,
+    marginBottom: 0,
   },
   withSafeAreaPaddingTop: {
-    marginTop: 0,
+    marginTop: safeAreaPaddingTop,
   },
   withSafeAreaPaddingBottom: {
-    marginBottom: 0,
+    marginBottom: safeAreaPaddingBottom,
   },
   sideViewContainer: {
     position: 'absolute',
@@ -88,14 +88,14 @@ SideView.defaultProps = {
   node: null,
   isDisabled: false,
   onPress: null,
+  style: null,
 }
 
 SideView.propTypes = {
   node: PropTypes.node,
   isDisabled: PropTypes.bool,
   onPress: PropTypes.func,
-  side: PropTypes.oneOf(['left', 'right']).isRequired,
-  style: ViewPropTypes.style.isRequired,
+  style: ViewPropTypes.style,
 }
 
 const Footer = ({ style, ...rest }) => (
