@@ -158,9 +158,8 @@ const getMediaCss = ({ hoverProps, disabledProps, isDisabled, ...rest }) => `
 const getCss = props => {
   const {
     normalizedProps: { mobileProps, baseProps, wideProps },
-    shadow,
+    withShadow,
     size,
-    borderRadius,
     isDisabled,
   } = props
   return `
@@ -173,8 +172,8 @@ const getCss = props => {
     height: ${getHeight(size)};
     width: 100%;
     cursor: ${isDisabled ? 'default' : 'pointer'};
-    border-radius: ${borderRadiuses[borderRadius]};
-    box-shadow: ${shadows[shadow]};
+    border-radius: ${borderRadiuses.medium};
+    box-shadow: ${withShadow ? shadows.strong : 'none'};
     ${media.mobile(`
       height: ${getHeight('m')};
       ${getMediaCss({ ...props, ...mobileProps })}
@@ -234,8 +233,7 @@ const defaultProps = {
   backdropColor: 'white',
   /* eslint-enable react/default-props-match-prop-types */
   size: 'm',
-  borderRadius: 'medium',
-  shadow: 'none',
+  withShadow: false,
   isSubmitting: false,
 }
 
@@ -253,10 +251,8 @@ Button.propTypes = {
   ...getResponsivePropTypes(propTypes),
   /** Размер кнопки, влияет только на высоту */
   size: PropTypes.oneOf(['s', 'm']),
-  /** Радиус скругления */
-  borderRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
   /** Тень */
-  shadow: PropTypes.oneOf(Object.keys(shadows)),
+  withShadow: PropTypes.bool,
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
   /** Содержимое кнопки. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */

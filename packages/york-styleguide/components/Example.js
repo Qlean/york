@@ -112,10 +112,10 @@ const StyledShowcaseItem = styled.div`
 
 const ShowcaseItem = ({ title, titleProps, caption, children, ...rest }) => (
   <StyledShowcaseItem {...rest}>
-    <Text htmlTag="div" {...titleProps}>
+    <Text as="div" {...titleProps}>
       {title}
     </Text>
-    <Text htmlTag="div" color="grey" preset="caption">
+    <Text as="div" color="grey" preset="caption">
       {caption}
     </Text>
     <Separator height={1} />
