@@ -47,20 +47,20 @@ const styles = StyleSheet.create({
   },
 })
 
-const SideView = ({ view, isDisabled, onPress, ...rest }) => (
+const SideView = ({ node, isDisabled, onPress, ...rest }) => (
   <TouchableOpacity onPress={onPress} disabled={isDisabled} {...rest}>
-    <View style={styles.sideView}>{view}</View>
+    <View style={styles.sideView}>{node}</View>
   </TouchableOpacity>
 )
 
 SideView.defaultProps = {
-  view: null,
+  node: null,
   isDisabled: false,
   onPress: null,
 }
 
 SideView.propTypes = {
-  view: PropTypes.node,
+  node: PropTypes.node,
   isDisabled: PropTypes.bool,
   onPress: PropTypes.func,
 }
@@ -75,6 +75,7 @@ export default function Header({
   style,
   leftView,
   rightView,
+  centerNode,
   withSafeAreaPadding,
 }) {
   return (
@@ -87,18 +88,22 @@ export default function Header({
     >
       <SideView {...leftView} testID="headerLeftView" />
       <View style={styles.centerView}>
-        <Text style={[styles.text, styles.title]} numberOfLines={1}>
-          {title}
-        </Text>
-        {Boolean(caption) && (
-          <Text
-            style={styles.text}
-            preset="captionSmall"
-            color="grey"
-            numberOfLines={1}
-          >
-            {caption}
-          </Text>
+        {centerNode || (
+          <>
+            <Text style={[styles.text, styles.title]} numberOfLines={1}>
+              {title}
+            </Text>
+            {Boolean(caption) && (
+              <Text
+                style={styles.text}
+                preset="captionSmall"
+                color="grey"
+                numberOfLines={1}
+              >
+                {caption}
+              </Text>
+            )}
+          </>
         )}
       </View>
       <SideView {...rightView} testID="headerRightView" />
@@ -107,8 +112,10 @@ export default function Header({
 }
 
 Header.defaultProps = {
+  title: '',
   caption: '',
   style: null,
+  centerNode: null,
   leftView: null,
   rightView: null,
   withSafeAreaPadding: true,
@@ -116,20 +123,23 @@ Header.defaultProps = {
 
 Header.propTypes = {
   /** Заголовок */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   /** Подзаголовок */
   caption: PropTypes.string,
   /** Дополнительные стили */
   style: ViewPropTypes.style,
+  /** Кастомное содержимое центральной части хедера, если передано, 
+  то title и caption игнорируются  */
+  centerNode: PropTypes.node,
   /** Пропсы для левой части хедера */
   leftView: PropTypes.shape({
-    view: PropTypes.node.isRequired,
+    node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
   /** Пропсы для правой части хедера */
   rightView: PropTypes.shape({
-    view: PropTypes.node.isRequired,
+    node: PropTypes.node.isRequired,
     isDisabled: PropTypes.bool,
     onPress: PropTypes.func.isRequired,
   }),
