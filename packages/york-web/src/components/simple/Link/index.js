@@ -76,7 +76,6 @@ const getCss = props => {
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    white-space: nowrap;
     transition: ${transitions.short};
     ${media.mobile(getMediaCss(mobileProps))}
     ${media.base(getMediaCss(baseProps))}
@@ -102,7 +101,7 @@ const StyledLink = styled.a`
 `
 
 /**
- * Компонент для оформления ссылки.
+ * Компонент для оформления ссылок.
  */
 function Link({ href, children, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
