@@ -21,3 +21,34 @@ $ npm i @qlean/york-core @qlean/york-web
 ### Разработка
 
 Установка `york` для локального использования и разработки описана [в репозитории](https://github.com/Qlean/york).
+
+
+### Соглашения по именованию
+
+#### Проп, в котором ожидается инстанс компонента должен содержать в названии `Element`
+
+```js static
+  <Button iconElement={<svg name="error"/>} title="Сообщить об ошибке" />
+```
+
+#### Если поддерживается рендеринг любых нод, а не только элементов, то в названии должно быть `Node`
+
+```js static
+  <Header centerNode={<Pagination />} />
+  <Header centerNode="Текст" />
+  <Header centerNode={null} />
+```
+
+#### Если компонент принимает `Node` или `Element`, но для рендеринга требуются дополнительные данные, мы передаём всё одним объектом в проп `View`
+
+```js static
+  <Screen
+    leftView={{
+      node: <Icon name="back" />,
+      onPress: () => {},
+      isDisabled: false,
+    }}
+  > 
+    <Text>Текст внутри экрана</Text>
+  </Screen>
+```
