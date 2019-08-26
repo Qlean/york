@@ -2,7 +2,12 @@ const isInRange = (number, start, end) => {
   return number >= start && number <= end
 }
 
-export const validateLuhnAlgorythm = value => {
+/**
+ * Алгоритм Луна используется для валидации идентификационных номеров, в нашем случае номера карты.
+ * В первую очередь нужен для того чтобы защитить пользователя от ошибок при ручном вводе.
+ * https://en.wikipedia.org/wiki/Luhn_algorithm
+ */
+export const validateWithLuhnAlgorithm = value => {
   const sum = value
     .split('')
     .reverse()
@@ -27,11 +32,12 @@ export const validateCardNumber = (value, config = {}) => {
     !Number.isNaN(Number(cardNumber)) &&
     cardNumber.length >= minLength &&
     cardNumber.length <= maxLength &&
-    validateLuhnAlgorythm(cardNumber)
+    validateWithLuhnAlgorithm(cardNumber)
   )
 }
 
-export const validateCardExpirationDate = (monthString, yearString) => {
+export const validateCardExpirationDate = value => {
+  const [monthString, yearString] = value.split('/')
   if (
     !monthString ||
     !yearString ||
