@@ -6,6 +6,8 @@ const isInRange = (number, start, end) => {
  * Алгоритм Луна используется для валидации идентификационных номеров, в нашем случае номера карты.
  * В первую очередь нужен для того чтобы защитить пользователя от ошибок при ручном вводе.
  * https://en.wikipedia.org/wiki/Luhn_algorithm
+ * @param {string} value - номер карты
+ * @returns {boolean}
  */
 export const validateWithLuhnAlgorithm = value => {
   const sum = value
@@ -24,7 +26,17 @@ export const validateWithLuhnAlgorithm = value => {
   return sum % 10 === 0
 }
 
+/**
+ * @param {string} value - номер карты
+ * @param {object} config - параметры конфигурации
+ * @param {number} config.minLength - минимальная длина номера карты
+ * @param {number} config.maxLength - максимальная длина номера карты
+ * @return {boolean}
+ */
 export const validateCardNumber = (value, config = {}) => {
+  if (typeof value !== 'string') {
+    throw new Error('Card number must be provided as a string')
+  }
   const { minLength = 16, maxLength = 19 } = config
   const cardNumber = value.split(' ').join('')
   return (
@@ -36,7 +48,14 @@ export const validateCardNumber = (value, config = {}) => {
   )
 }
 
-export const validateCardExpirationDate = value => {
+/**
+ * @param {string} value - месяц и год в формате 'MM/YY'
+ * @return {boolean}
+ */
+export const validateCardExpiry = value => {
+  if (typeof value !== 'string') {
+    throw new Error('Card expiry must be provided as a string')
+  }
   const [monthString, yearString] = value.split('/')
   if (
     !monthString ||
@@ -64,7 +83,17 @@ export const validateCardExpirationDate = value => {
   return isMonthValid && isYearValid
 }
 
-export const validateCardCVC = (value, config = {}) => {
+/**
+ * @param {string} value - код CVC или другой
+ * @param {object} config - параметры конфигурации
+ * @param {number} config.minLength - минимальная длина номера карты
+ * @param {number} config.maxLength - максимальная длина номера карты
+ * @return {boolean}
+ */
+export const validateCardSecureCode = (value, config = {}) => {
+  if (typeof value !== 'string') {
+    throw new Error('Card secure code must be provided as a string')
+  }
   const { minLength = 3, maxLength = 4 } = config
 
   return (
