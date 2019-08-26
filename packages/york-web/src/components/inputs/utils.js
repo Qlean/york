@@ -17,7 +17,15 @@ const inputSizes = {
   m: uiPoint * 10,
 }
 
-export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
+export const inputPaddingHorizontal = sizes[3]
+
+export const getInputCss = ({
+  size,
+  error,
+  rightView,
+  isFocused,
+  isDisabled,
+}) => `
   opacity: 1;
   appearance: none;
   width: 100%;
@@ -26,7 +34,14 @@ export const getInputCss = ({ size, error, isFocused, isDisabled }) => `
   color: ${colors.coal};
   background-color: ${colors.white};
   height: ${inputSizes[size]}px;
-  padding: 0 ${sizes[3]}px;
+  padding: 0 ${inputPaddingHorizontal}px;
+  ${
+    rightView
+      ? `padding-right: ${sizes[2] +
+          rightView.width +
+          inputPaddingHorizontal}px;`
+      : ''
+  }
   font-family: ${fontFamily};
   font-size: 16px;
   font-weight: 500;
