@@ -36,7 +36,7 @@ const StyledTooltipContainer = styled.span`
  * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
  */
 const StyledTooltipContent = styled.span`
-  padding: ${sizes[4]}px;
+  padding: ${sizes[2]}px ${sizes[3]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
   line-height: 0;
