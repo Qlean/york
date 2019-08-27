@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -25,7 +25,7 @@ const StyledTooltipContainer = styled.span`
   width: ${minScreenWidth - screenMargin * 2}px;
   transition: opacity ${transitionTimings.short}s ease-in-out;
   transition-delay: 0.1s;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
   z-index: ${zIndexes.dropdown};
 `
@@ -107,10 +107,10 @@ export default function Tooltip({ tooltip, children }) {
     момент написания компонента не существует хорошего кросс-браузерного способа установить коллбэк
     на событие "все шрифты загружены". Кроме того, этот способ работает с SSR.
 
-    useLayoutEffect все еще нужен на случай изменения пропсов.
+    useEffect все еще нужен на случай изменения пропсов.
   */
 
-  useLayoutEffect(positionTooltip)
+  useEffect(positionTooltip)
 
   useEffect(() => {
     window.addEventListener('resize', positionTooltip)
