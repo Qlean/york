@@ -64,6 +64,11 @@ module.exports = {
           components: '../york-web/src/components/simple/**/*.js',
         },
         {
+          name: 'complex',
+          description: 'Сложные компоненты',
+          components: '../york-web/src/components/complex/**/*.js',
+        },
+        {
           name: 'inputs',
           content: '../york-web/docs/inputs.md',
           components: '../york-web/src/components/inputs/**/*.js',
