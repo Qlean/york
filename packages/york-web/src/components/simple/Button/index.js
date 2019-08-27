@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { colors, rgbaColors } from '@qlean/york-core'
+import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
 
@@ -13,6 +13,7 @@ import {
   transitions,
   normalizeResponsivePreset,
   getResponsivePropTypes,
+  normalizeColor,
 } from 'york-web/utils'
 
 import { Text } from 'york-web/components/primitive'
@@ -125,14 +126,6 @@ const StyledContent = styled.div`
   height: 100%;
 `
 
-const normalizeColor = (color, opacity) => {
-  const rgbaColor = rgbaColors[color]
-  if (!rgbaColor || !rgbaColor.a) return colors.transparent
-  if (R.isNil(opacity)) return colors[color]
-  const { r, g, b } = rgbaColor
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
-
 const getBaseCss = ({
   color,
   backgroundColor,
@@ -216,12 +209,11 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
     presetsByBackdropColorAndRank,
     rest,
   )
-  const content =
-    typeof children === 'string' ? (
-      <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
-    ) : (
-      children
-    )
+  const content = React.isValidElement(children) ? (
+    children
+  ) : (
+    <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
+  )
   return (
     <StyledButton
       {...rest}
@@ -263,7 +255,7 @@ Button.propTypes = {
   withShadow: PropTypes.bool,
   /** Имя кнопки, используется в автотестах */
   name: PropTypes.string.isRequired,
-  /** Содержимое кнопки. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  /** Содержимое кнопки. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   children: PropTypes.node.isRequired,
   /** Активна ли кнопка */
   isDisabled: PropTypes.bool.isRequired,

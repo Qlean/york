@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
-import { sizes as coreSizes } from '@qlean/york-core'
+import { sizes as coreSizes, colors, rgbaColors } from '@qlean/york-core'
 
 export const uiPoint = 5
 
@@ -134,3 +134,11 @@ export const getResponsivePropTypes = propTypes => ({
     R.fromPairs,
   )(mediaTypePropNames),
 })
+
+export const normalizeColor = (color, opacity) => {
+  const rgbaColor = rgbaColors[color]
+  if (!rgbaColor || !rgbaColor.a) return colors.transparent
+  if (R.isNil(opacity)) return colors[color]
+  const { r, g, b } = rgbaColor
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
