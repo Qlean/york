@@ -25,7 +25,6 @@ const StyledTooltipContainer = styled.span`
   width: ${minScreenWidth - screenMargin * 2}px;
   transition: opacity ${transitionTimings.short}s ease-in-out;
   transition-delay: 0.1s;
-  opacity: 1;
   pointer-events: none;
   z-index: ${zIndexes.dropdown};
 `
@@ -125,12 +124,12 @@ export default function Tooltip({ tooltip, children }) {
       <StyledTooltipContainer ref={tooltipContainerRef}>
         <StyledTooltipPointer ref={tooltipPointerRef} />
         <StyledTooltipContent ref={tooltipContentRef}>
-          {typeof tooltip === 'string' ? (
+          {React.isValidElement(tooltip) ? (
+            tooltip
+          ) : (
             <Text htmTag="div" color="white" preset="caption">
               {tooltip}
             </Text>
-          ) : (
-            tooltip
           )}
         </StyledTooltipContent>
       </StyledTooltipContainer>
@@ -139,7 +138,7 @@ export default function Tooltip({ tooltip, children }) {
 }
 
 Tooltip.propTypes = {
-  /** Содержимое тултипа. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  /** Содержимое тултипа. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   tooltip: PropTypes.node.isRequired,
   /** Элемент, относительно коротого позиционируется тултип. Может быть как строчным, так и блочным. */
   children: PropTypes.node.isRequired,
