@@ -7,8 +7,16 @@ import { transitions } from '@qlean/york-web'
 import IconGeo from './assets/IconGeo'
 import IconLogin from './assets/IconLogin'
 
+const Root = styled.header``
+
+const RootContentInner = styled.div`
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+`
+
 // не гайдовая тень, "Так надо" © Дизайнер
-const Root = styled.header`
+const MainContent = styled.div`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `
 
@@ -142,43 +150,48 @@ const Header = props => {
 
   return (
     <Root>
-      <LevelOne>
-        <LevelOneFirstSection>
-          <LogoWrap>
-            <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
-          </LogoWrap>
-          <LevelOneMenu>
-            {levelOneMenu.map((menuItem, idx) => (
-              <LevelOneMenuItem
+      <MainContent>
+        <RootContentInner>
+          <LevelOne>
+            <LevelOneFirstSection>
+              <LogoWrap>
+                <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
+              </LogoWrap>
+              <LevelOneMenu>
+                {levelOneMenu.map((menuItem, idx) => (
+                  <LevelOneMenuItem
+                    key={menuItem.title}
+                    isActive={idx === activeLevelOneMenu}
+                    onClick={() => setLevelOneMenu(idx)}
+                  >
+                    {menuItem.title}
+                  </LevelOneMenuItem>
+                ))}
+              </LevelOneMenu>
+            </LevelOneFirstSection>
+
+            <LevelOneSecondSection>
+              {TMP_TOM_RIGHT_MENU.map((item, idx) => (
+                <LevelOneSecondSectionSlot key={idx}>
+                  {item}
+                </LevelOneSecondSectionSlot>
+              ))}
+            </LevelOneSecondSection>
+          </LevelOne>
+          <LevelTwo>
+            {levelTwoMenu.map((menuItem, idx) => (
+              <TopMenuItem
                 key={menuItem.title}
-                isActive={idx === activeLevelOneMenu}
-                onClick={() => setLevelOneMenu(idx)}
+                isActive={idx === activeLevelTwoMenu}
+                onClick={() => setLevelTwoMenu(idx)}
               >
                 {menuItem.title}
-              </LevelOneMenuItem>
+              </TopMenuItem>
             ))}
-          </LevelOneMenu>
-        </LevelOneFirstSection>
-
-        <LevelOneSecondSection>
-          {TMP_TOM_RIGHT_MENU.map((item, idx) => (
-            <LevelOneSecondSectionSlot key={idx}>
-              {item}
-            </LevelOneSecondSectionSlot>
-          ))}
-        </LevelOneSecondSection>
-      </LevelOne>
-      <LevelTwo>
-        {levelTwoMenu.map((menuItem, idx) => (
-          <TopMenuItem
-            key={menuItem.title}
-            isActive={idx === activeLevelTwoMenu}
-            onClick={() => setLevelTwoMenu(idx)}
-          >
-            {menuItem.title}
-          </TopMenuItem>
-        ))}
-      </LevelTwo>
+          </LevelTwo>
+        </RootContentInner>
+      </MainContent>
+      <RootContentInner>трататат</RootContentInner>
     </Root>
   )
 }
