@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -25,7 +25,6 @@ const StyledTooltipContainer = styled.span`
   width: ${minScreenWidth - screenMargin * 2}px;
   transition: opacity ${transitionTimings.short}s ease-in-out;
   transition-delay: 0.1s;
-  opacity: 0;
   pointer-events: none;
   z-index: ${zIndexes.dropdown};
 `
@@ -36,7 +35,7 @@ const StyledTooltipContainer = styled.span`
  * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
  */
 const StyledTooltipContent = styled.span`
-  padding: ${sizes[4]}px;
+  padding: ${sizes[2]}px ${sizes[3]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
   line-height: 0;
@@ -107,10 +106,10 @@ export default function Tooltip({ tooltip, children }) {
     момент написания компонента не существует хорошего кросс-браузерного способа установить коллбэк
     на событие "все шрифты загружены". Кроме того, этот способ работает с SSR.
 
-    useLayoutEffect все еще нужен на случай изменения пропсов.
+    useEffect все еще нужен на случай изменения пропсов.
   */
 
-  useLayoutEffect(positionTooltip)
+  useEffect(positionTooltip)
 
   useEffect(() => {
     window.addEventListener('resize', positionTooltip)
@@ -125,12 +124,12 @@ export default function Tooltip({ tooltip, children }) {
       <StyledTooltipContainer ref={tooltipContainerRef}>
         <StyledTooltipPointer ref={tooltipPointerRef} />
         <StyledTooltipContent ref={tooltipContentRef}>
-          {typeof tooltip === 'string' ? (
+          {React.isValidElement(tooltip) ? (
+            tooltip
+          ) : (
             <Text htmTag="div" color="white" preset="caption">
               {tooltip}
             </Text>
-          ) : (
-            tooltip
           )}
         </StyledTooltipContent>
       </StyledTooltipContainer>
@@ -139,7 +138,7 @@ export default function Tooltip({ tooltip, children }) {
 }
 
 Tooltip.propTypes = {
-  /** Содержимое тултипа. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  /** Содержимое тултипа. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   tooltip: PropTypes.node.isRequired,
   /** Элемент, относительно коротого позиционируется тултип. Может быть как строчным, так и блочным. */
   children: PropTypes.node.isRequired,
