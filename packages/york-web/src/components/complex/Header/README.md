@@ -4,19 +4,21 @@ const LOGO = {
   alt: 'Логотип Qlean',
 }
 
-const LEVEL_ONE_MENU = [{ title: 'Для дома' }, { title: 'для офиса' }]
+const LEVEL_ONE_MENU = [{ title: 'Для дома' }, { title: 'Для офиса' }]
 
 const LEVEL_TWO_MENU = [
-  { title: 'уборка' },
-  { title: 'стирка и химчистка' },
-  { title: 'переезды' },
-  { title: 'ХРАНЕНИЕ' },
-  { title: 'qlean' },
+  { title: 'Уборка' },
+  { title: 'Стирка и химчистка' },
+  { title: 'Переезды' },
+  { title: 'Хранение' },
+  { title: 'Qlean' },
 ]
 
-;<Header
-  levelOneMenu={LEVEL_ONE_MENU}
-  levelTwoMenu={LEVEL_TWO_MENU}
-  logo={LOGO}
-/>
+;<div style={{ fontFamily: '"Museo Sans", sans-serif' }}>
+  <Header
+    levelOneMenu={LEVEL_ONE_MENU}
+    levelTwoMenu={LEVEL_TWO_MENU}
+    logo={LOGO}
+  />
+</div>
 ```

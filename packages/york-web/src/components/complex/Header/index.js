@@ -15,7 +15,7 @@ const LevelOne = styled.div`
 `
 
 const LogoWrap = styled.div`
-  margin-right: 10px;
+  margin-right: 15px;
 `
 
 const Logo = styled.img`
@@ -29,12 +29,14 @@ const LevelOneMenu = styled.div`
 const LevelOneMenuItem = styled.div`
   padding: 2px 8px;
   border-radius: 8px;
+  margin-right: 4px;
   color: ${colors.ash};
   font-size: 11px;
   line-height: 20px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   transition: ${transitions.medium};
+  cursor: pointer;
 
   ${({ isActive }) =>
     isActive &&
@@ -59,7 +61,7 @@ const TopMenuItem = styled.div`
   cursor: pointer;
 
   :hover {
-    color: ${colors.ash};
+    ${({ isActive }) => !isActive && `color: ${colors.ash};`}
   }
 `
 
