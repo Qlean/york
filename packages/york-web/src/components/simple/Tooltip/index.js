@@ -30,16 +30,10 @@ const StyledTooltipContainer = styled.span`
   z-index: ${zIndexes.dropdown};
 `
 
-/**
- * `line-height: 0;` используется для сброса наследование, без него, блок начинает занимать
- * значительно больше места. Более подробное описание этого эффекта, можно прочитать тут:
- * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
- */
 const StyledTooltipContent = styled.span`
   padding: ${sizes[2]}px ${sizes[3]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
-  line-height: 0;
 `
 
 const StyledTooltipPointer = styled.span`
@@ -50,7 +44,13 @@ const StyledTooltipPointer = styled.span`
   background-color: ${colors.black};
 `
 
+/**
+ * `line-height: 0;` используется для сброса наследование, без него, блок начинает занимать
+ * значительно больше места. Более подробное описание этого эффекта, можно прочитать тут:
+ * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
+ */
 const StyledTooltip = styled.span`
+  line-height: 0;
   position: relative;
   cursor: help;
   &:hover > ${StyledTooltipContainer} {
@@ -59,7 +59,9 @@ const StyledTooltip = styled.span`
 `
 
 /**
- * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края экрана.
+ * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края
+ * экрана. Работает и со строчными элементами, но из-за особенностей реализации, сбрасывает
+ * `line-height` обернутого элемента в 0.
  */
 export default function Tooltip({ tooltip, children }) {
   const tooltipContainerRef = useRef(null)
