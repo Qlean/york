@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { transitions } from '@qlean/york-web'
 
+// TODO: возможно, стоит это сделать через ".svg", но не разобрался как их импортировать
+import IconGeo from './assets/IconGeo'
+import IconLogin from './assets/IconLogin'
+
 // не гайдовая тень, "Так надо" © Дизайнер
 const Root = styled.header`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -12,6 +16,22 @@ const LevelOne = styled.div`
   display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
+`
+
+const LevelOneFirstSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+`
+
+const LevelOneSecondSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: -15px;
+`
+
+const LevelOneSecondSectionSlot = styled.div`
+  margin-right: 15px;
 `
 
 const LogoWrap = styled.div`
@@ -65,6 +85,55 @@ const TopMenuItem = styled.div`
   }
 `
 
+const TopMenuGeolocation = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const TopMenuGeolocationIcon = styled(IconGeo)`
+  margin-right: 5px;
+`
+
+const TopMenuGeolocationText = styled.div`
+  font-size: 14px;
+  line-height: 20px;
+  color: ${colors.grey};
+`
+
+const TopMenuTelephone = styled.div`
+  color: ${colors.coal};
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+`
+
+const TopMenuLogin = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const TopMenuLoginIcon = styled(IconLogin)`
+  margin-right: 5px;
+`
+
+const TopMenuLoginText = styled.div`
+  color: ${colors.coal};
+  font-size: 14px;
+  line-height: 20px;
+`
+
+const TMP_TOM_RIGHT_MENU = [
+  <TopMenuGeolocation>
+    <TopMenuGeolocationIcon />
+    <TopMenuGeolocationText>Санкт-Петербург</TopMenuGeolocationText>
+  </TopMenuGeolocation>,
+  <TopMenuTelephone>+7 495 646-82-59</TopMenuTelephone>,
+  <TopMenuLogin>
+    <TopMenuLoginIcon />
+    <TopMenuLoginText>Войти</TopMenuLoginText>
+  </TopMenuLogin>,
+]
+
 const Header = props => {
   const { levelOneMenu, levelTwoMenu, logo } = props
 
@@ -74,20 +143,30 @@ const Header = props => {
   return (
     <Root>
       <LevelOne>
-        <LogoWrap>
-          <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
-        </LogoWrap>
-        <LevelOneMenu>
-          {levelOneMenu.map((menuItem, idx) => (
-            <LevelOneMenuItem
-              key={menuItem.title}
-              isActive={idx === activeLevelOneMenu}
-              onClick={() => setLevelOneMenu(idx)}
-            >
-              {menuItem.title}
-            </LevelOneMenuItem>
+        <LevelOneFirstSection>
+          <LogoWrap>
+            <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
+          </LogoWrap>
+          <LevelOneMenu>
+            {levelOneMenu.map((menuItem, idx) => (
+              <LevelOneMenuItem
+                key={menuItem.title}
+                isActive={idx === activeLevelOneMenu}
+                onClick={() => setLevelOneMenu(idx)}
+              >
+                {menuItem.title}
+              </LevelOneMenuItem>
+            ))}
+          </LevelOneMenu>
+        </LevelOneFirstSection>
+
+        <LevelOneSecondSection>
+          {TMP_TOM_RIGHT_MENU.map((item, idx) => (
+            <LevelOneSecondSectionSlot key={idx}>
+              {item}
+            </LevelOneSecondSectionSlot>
           ))}
-        </LevelOneMenu>
+        </LevelOneSecondSection>
       </LevelOne>
       <LevelTwo>
         {levelTwoMenu.map((menuItem, idx) => (
