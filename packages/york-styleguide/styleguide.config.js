@@ -45,6 +45,29 @@ module.exports = {
           name: 'sizes',
           content: '../york-core/docs/sizes.md',
         },
+        {
+          name: 'utils',
+          sections: [
+            {
+              name: 'validation',
+              description: 'Функции валидации',
+              sections: [
+                {
+                  name: 'validateCardNumber',
+                  content: '../york-core/docs/validateCardNumber.md',
+                },
+                {
+                  name: 'validateCardExpiry',
+                  content: '../york-core/docs/validateCardExpiry.md',
+                },
+                {
+                  name: 'validateCardSecureCode',
+                  content: '../york-core/docs/validateCardSecureCode.md',
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
