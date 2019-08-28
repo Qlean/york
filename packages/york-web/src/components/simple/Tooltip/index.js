@@ -25,6 +25,7 @@ const StyledTooltipContainer = styled.span`
   width: ${minScreenWidth - screenMargin * 2}px;
   transition: opacity ${transitionTimings.short}s ease-in-out;
   transition-delay: 0.1s;
+  opacity: 0;
   pointer-events: none;
   z-index: ${zIndexes.dropdown};
 `
