@@ -9,7 +9,7 @@ const isInRange = (number, start, end) => {
  * @param {string} value - номер карты
  * @returns {boolean}
  */
-export const validateWithLuhnAlgorithm = value => {
+const validateWithLuhnAlgorithm = value => {
   const sum = value
     .split('')
     .reverse()
