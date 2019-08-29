@@ -24,14 +24,14 @@ const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginTop: 0,
-    marginBottom: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   withSafeAreaPaddingTop: {
-    marginTop: safeAreaPaddingTop,
+    paddingTop: safeAreaPaddingTop,
   },
   withSafeAreaPaddingBottom: {
-    marginBottom: safeAreaPaddingBottom,
+    paddingBottom: safeAreaPaddingBottom,
   },
   sideViewContainer: {
     position: 'absolute',
@@ -125,6 +125,7 @@ const Screen = ({
   rightView,
   withSafeAreaPaddingTop,
   withSafeAreaPaddingBottom,
+  style,
   ...rest
 }) => {
   const [scrollViewHeight, setScrollViewHeight] = useState(0)
@@ -137,32 +138,39 @@ const Screen = ({
     setContentHeight(height)
 
   return (
-    <KeyboardAvoidingView
-      /**
-       * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-       * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
-       * если вообще не задавать проп, в то время как iOS - наоборот.
-       */
-      {...(Platform.OS === 'ios' && { behavior: 'padding' })}
+    <View
       style={[
+        style,
         styles.root,
         withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
         withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
       ]}
     >
-      {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
-      {rightView ? <SideView {...rightView} style={styles.rightView} /> : null}
-      <ScrollView
-        {...rest}
-        scrollEnabled={isScrollEnabled}
-        onLayout={onScrollViewLayout}
-        onContentSizeChange={onScrollViewContentSizeChange}
+      <KeyboardAvoidingView
+        /**
+         * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+         * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+         * если вообще не задавать проп, в то время как iOS - наоборот.
+         */
+        {...(Platform.OS === 'ios' && { behavior: 'padding' })}
+        style={styles.root}
       >
-        {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-        {children}
-      </ScrollView>
-      {footer}
-    </KeyboardAvoidingView>
+        {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
+        {rightView ? (
+          <SideView {...rightView} style={styles.rightView} />
+        ) : null}
+        <ScrollView
+          {...rest}
+          scrollEnabled={isScrollEnabled}
+          onLayout={onScrollViewLayout}
+          onContentSizeChange={onScrollViewContentSizeChange}
+        >
+          {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+          {children}
+        </ScrollView>
+        {footer}
+      </KeyboardAvoidingView>
+    </View>
   )
 }
 
@@ -172,6 +180,7 @@ Screen.defaultProps = {
   footer: null,
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
+  style: null,
 }
 
 Screen.propTypes = {
@@ -194,6 +203,7 @@ Screen.propTypes = {
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  style: ViewPropTypes.style,
 }
 
 Screen.Footer = Footer
