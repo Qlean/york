@@ -61,7 +61,7 @@ const LevelOneMenuItem = styled.div`
   color: ${colors.ash};
   font-size: 11px;
   line-height: 20px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   transition: ${transitions.medium};
   cursor: pointer;
@@ -75,22 +75,32 @@ const LevelOneMenuItem = styled.div`
   `}
 `
 
-const LevelTwo = styled.div`
+const MenuItemContainer = styled.div`
   display: flex;
   margin-left: -10px;
 `
 
-const TopMenuItem = styled.div`
+const MenuItem = styled.div`
   padding: 10px;
   margin-right: 15px;
   color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
-  text-transform: uppercase;
   transition: ${transitions.medium};
   cursor: pointer;
 
   :hover {
     ${({ isActive }) => !isActive && `color: ${colors.ash};`}
   }
+`
+
+const LevelTwoMenuItem = styled(MenuItem)`
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 20px;
+`
+
+const LevelThreeMenuItem = styled(MenuItem)`
+  font-size: 14px;
+  line-height: 20px;
 `
 
 const TopMenuGeolocation = styled.div`
@@ -103,9 +113,9 @@ const TopMenuGeolocationIcon = styled(IconGeo)`
 `
 
 const TopMenuGeolocationText = styled.div`
+  color: ${colors.grey};
   font-size: 14px;
   line-height: 20px;
-  color: ${colors.grey};
 `
 
 const TopMenuTelephone = styled.div`
@@ -143,10 +153,11 @@ const TMP_TOM_RIGHT_MENU = [
 ]
 
 const Header = props => {
-  const { levelOneMenu, levelTwoMenu, logo } = props
+  const { levelOneMenu, levelTwoMenu, levelThreeMenu, logo } = props
 
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
+  const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
 
   return (
     <Root>
@@ -178,20 +189,32 @@ const Header = props => {
               ))}
             </LevelOneSecondSection>
           </LevelOne>
-          <LevelTwo>
+          <MenuItemContainer>
             {levelTwoMenu.map((menuItem, idx) => (
-              <TopMenuItem
+              <LevelTwoMenuItem
                 key={menuItem.title}
                 isActive={idx === activeLevelTwoMenu}
                 onClick={() => setLevelTwoMenu(idx)}
               >
                 {menuItem.title}
-              </TopMenuItem>
+              </LevelTwoMenuItem>
             ))}
-          </LevelTwo>
+          </MenuItemContainer>
         </RootContentInner>
       </MainContent>
-      <RootContentInner>трататат</RootContentInner>
+      <RootContentInner>
+        <MenuItemContainer>
+          {levelThreeMenu.map((menuItem, idx) => (
+            <LevelThreeMenuItem
+              key={menuItem.title}
+              isActive={idx === activeLevelThreeMenu}
+              onClick={() => setLevelThreeMenu(idx)}
+            >
+              {menuItem.title}
+            </LevelThreeMenuItem>
+          ))}
+        </MenuItemContainer>
+      </RootContentInner>
     </Root>
   )
 }
