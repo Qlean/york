@@ -9,7 +9,7 @@ const isInRange = (number, start, end) => {
  * @param {string} value - номер карты
  * @returns {boolean}
  */
-export const validateWithLuhnAlgorithm = value => {
+const validateWithLuhnAlgorithm = value => {
   const sum = value
     .split('')
     .reverse()
@@ -86,8 +86,8 @@ export const validateCardExpiry = value => {
 /**
  * @param {string} value - код CVC или другой
  * @param {object} config - параметры конфигурации
- * @param {number} config.minLength - минимальная длина номера карты
- * @param {number} config.maxLength - максимальная длина номера карты
+ * @param {number} config.minLength - минимальная длина кода
+ * @param {number} config.maxLength - максимальная длина кода
  * @return {boolean}
  */
 export const validateCardSecureCode = (value, config = {}) => {

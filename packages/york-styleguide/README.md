@@ -22,33 +22,32 @@ $ npm i @qlean/york-core @qlean/york-web
 
 Установка `york` для локального использования и разработки описана [в репозитории](https://github.com/Qlean/york).
 
-
 ### Соглашения по именованию
 
-#### Проп, в котором ожидается инстанс компонента должен содержать в названии `Element`
+Проп, в котором ожидается элемент должен содержать в названии `Element`
 
 ```js static
-  <Button iconElement={<svg name="error"/>} title="Сообщить об ошибке" />
+<Button iconElement={<svg name="error" />} title="Сообщить об ошибке" />
 ```
 
-#### Если поддерживается рендеринг любых нод, а не только элементов, то в названии должно быть `Node`
+Проп, который поддерживает рендеринг любых нод, а не только элементов, должен содержать в названии `Node`
 
 ```js static
-  <Header centerNode={<Pagination />} />
-  <Header centerNode="Текст" />
-  <Header centerNode={null} />
+<Header centerNode={<Pagination />} />
+<Header centerNode="Текст" />
+<Header centerNode={null} />
 ```
 
-#### Если компонент принимает `Node` или `Element`, но для рендеринга требуются дополнительные данные, мы передаём всё одним объектом в проп `View`
+Проп, который принимает ноду или элемент, но требует для рендеринга дополнительные данные, передается как объект с `View` в названии и ключом `node` или `element`.
 
 ```js static
-  <Screen
-    leftView={{
-      node: <Icon name="back" />,
-      onPress: () => {},
-      isDisabled: false,
-    }}
-  > 
-    <Text>Текст внутри экрана</Text>
-  </Screen>
+<Screen
+  leftView={{
+    node: <Icon name="back" />,
+    onPress: () => {},
+    isDisabled: false,
+  }}
+>
+  <Text>Текст внутри экрана</Text>
+</Screen>
 ```
