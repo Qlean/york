@@ -1,9 +1,39 @@
 ```js
-import { Loader, Text } from '@qlean/york-web'
+import { Loader, Text, View, sizes } from '@qlean/york-web'
+import styled from 'styled-components'
 
-;<div>
-  <Loader isLoading>
-    <Text>Some text</Text>
-  </Loader>
-</div>
+const StyledContainer = styled.div`
+  height: ${sizes[24]}px;
+`
+
+const StyledContent = styled(View)`
+  height: 100%;
+  width: 100%;
+`
+
+const ExampleComponent = () => {
+  const [isLoading, setIsLoading] = React.useState(true)
+
+  return (
+    <>
+      <Example.InputGroup>
+        <Example.Checkbox
+          value={isLoading}
+          onChange={() => setIsLoading(!isLoading)}
+        >
+          isLoading
+        </Example.Checkbox>
+      </Example.InputGroup>
+      <StyledContainer>
+        <Loader isLoading={isLoading}>
+          <StyledContent justifyContent="center" alignItems="center">
+            <Text>Some content</Text>
+          </StyledContent>
+        </Loader>
+      </StyledContainer>
+    </>
+  )
+}
+
+;<ExampleComponent />
 ```

@@ -1,35 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { keyframes } from 'styled-components'
-import { sizes } from '@qlean/york-web'
-import { View } from 'york-web/components/primitive'
+import styled from 'styled-components'
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
+import { sizes } from '@qlean/york-web'
+import { colors } from '@qlean/york-core'
+
+import { View, Spinner } from 'york-web/components/primitive'
+
+const spinnerSizes = {
+  s: sizes[4],
+  m: sizes[8],
+  l: sizes[12],
+}
 
 const StyledContainer = styled(View)`
   height: 100%;
   width: 100%;
 `
 
-const StyledSpinner = styled.div`
-  width: ${sizes[12]}px;
-  height: ${sizes[12]}px;
-  background: url(${require('./assets/loader_green.svg')}) center no-repeat;
-  animation: ${rotate} 0.6s infinite linear;
-`
-/** Компонент отображения статуса загрузки. */
-const Loader = ({ isLoading, children }) => {
+/** Компонент отображения статуса загрузки. Занимает высоту родителя. */
+const Loader = ({ isLoading, children, size, color }) => {
   if (isLoading) {
     return (
       <StyledContainer justifyContent="center" alignItems="center">
-        <StyledSpinner src={require('./assets/loader_green.svg')} alt="" />
+        <Spinner color={color} size={size} />
       </StyledContainer>
     )
   }
@@ -41,6 +35,15 @@ Loader.propTypes = {
   children: PropTypes.node.isRequired,
   /** Статус загрузки */
   isLoading: PropTypes.bool.isRequired,
+  /** Цвет спиннера */
+  color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
+  /** Размер спиннера */
+  size: PropTypes.oneOf(Object.keys(spinnerSizes)),
+}
+
+Loader.defaultProps = {
+  color: 'green',
+  size: 'l',
 }
 
 export default Loader
