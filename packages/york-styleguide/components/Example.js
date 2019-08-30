@@ -51,6 +51,32 @@ Checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
+const Select = ({ title, value, options, onChange }) => (
+  <View>
+    <StyledLabel>
+      <Text>{title}</Text>
+    </StyledLabel>
+    <Separator width={1} />
+    <select value={value} onChange={onChange}>
+      {options.map(({ label, value: optionValue }) => (
+        <option value={optionValue}>{label}</option>
+      ))}
+    </select>
+  </View>
+)
+
+Select.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    }),
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
 const StyledInputGroup = styled.div`
   display: flex;
   margin-bottom: ${sizes[2]}px;
@@ -235,6 +261,7 @@ const Example = {
   text,
   options,
   tabs,
+  Select,
 }
 
 export default Example
