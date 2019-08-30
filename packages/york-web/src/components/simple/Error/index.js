@@ -1,7 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Button } from 'york-web/components/simple'
 import { View, Text, Separator } from 'york-web/components/primitive'
+
+const StyledImage = styled.img`
+  max-width: 100%;
+`
 
 const ReloadButton = () => (
   <Button
@@ -15,12 +20,12 @@ const ReloadButton = () => (
   </Button>
 )
 
-const getErrorLayout = code => {
-  switch (code) {
+const getErrorLayout = statusCode => {
+  switch (statusCode) {
     case 404:
       return (
         <>
-          <img src={require('./assets/404.svg')} />
+          <StyledImage src={require('./assets/404.svg')} />
           <Separator height={8} />
           <Text preset="header4">Увы, такой страницы нет</Text>
           <Separator height={2} />
@@ -30,7 +35,7 @@ const getErrorLayout = code => {
     case 500:
       return (
         <>
-          <img src={require('./assets/500.svg')} />
+          <StyledImage src={require('./assets/500.svg')} />
           <Separator height={8} />
           <Text preset="header4">Извините, сервер недоступен</Text>
           <Separator height={2} />
@@ -53,18 +58,16 @@ const getErrorLayout = code => {
 }
 
 /** Страница ошибок */
-const Error = ({ error }) => {
-  const { code } = error
-
+const Error = ({ statusCode }) => {
   return (
     <View flexDirection="column" justifyContent="center" alignItems="center">
-      {getErrorLayout(code)}
+      {getErrorLayout(statusCode)}
     </View>
   )
 }
 
 Error.propTypes = {
-  error: PropTypes.object,
+  statusCode: PropTypes.number.isRequired,
 }
 
 export default Error
