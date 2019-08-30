@@ -6,8 +6,6 @@ const isInRange = (number, start, end) => {
  * Алгоритм Луна используется для валидации идентификационных номеров, в нашем случае номера карты.
  * В первую очередь нужен для того чтобы защитить пользователя от ошибок при ручном вводе.
  * https://en.wikipedia.org/wiki/Luhn_algorithm
- * @param {string} value - номер карты
- * @returns {boolean}
  */
 const validateWithLuhnAlgorithm = value => {
   const sum = value
