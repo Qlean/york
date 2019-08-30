@@ -96,7 +96,7 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   color: 'green',
-  size: 'l',
+  size: 'm',
 }
 
 export default Spinner

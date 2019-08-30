@@ -25,9 +25,9 @@ const ExampleComponent = () => {
         </Example.Checkbox>
       </Example.InputGroup>
       <StyledContainer>
-        <Loader isLoading={isLoading}>
+        <Loader isLoading={isLoading} spinnerProps={{ color: 'red', size: 'l' }}>
           <StyledContent justifyContent="center" alignItems="center">
-            <Text>Some content</Text>
+            <Text>{Example.text.short}</Text>
           </StyledContent>
         </Loader>
       </StyledContainer>

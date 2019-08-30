@@ -7,13 +7,13 @@ const StyledItem = styled(Example.ShowcaseItem)`
 `
 
 ;<Example.Showcase>
-  <StyledItem title="l" caption="весь экран">
-    <Spinner />
+  <StyledItem title="l" caption="Fullscreen">
+    <Spinner size="l" />
   </StyledItem>
-  <StyledItem title="m" caption='внутри блока'>
-    <Spinner color="blue" size="m" />
+  <StyledItem title="m" caption='Block'>
+    <Spinner color="blue" />
   </StyledItem>
-  <StyledItem title="s" caption='внутри кнопки'>
+  <StyledItem title="s" caption='Button'>
     <Spinner color="grey" size="s" />
   </StyledItem>
 </Example.Showcase>

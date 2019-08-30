@@ -3,27 +3,20 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { sizes } from '@qlean/york-web'
-import { colors } from '@qlean/york-core'
 
 import { View, Spinner } from 'york-web/components/primitive'
 
-const spinnerSizes = {
-  s: sizes[4],
-  m: sizes[6],
-  l: sizes[12],
-}
-
 const StyledContainer = styled(View)`
-  height: 100%;
+  height: ${({ size }) => (size === 'l' ? '100%' : `${sizes[24]}px`)};
   width: 100%;
 `
 
 /** Компонент отображения статуса загрузки. Занимает высоту родителя. */
-const Loader = ({ isLoading, children, size, color }) => {
+const Loader = ({ isLoading, children, size, spinnerProps }) => {
   if (isLoading) {
     return (
-      <StyledContainer justifyContent="center" alignItems="center">
-        <Spinner color={color} size={size} />
+      <StyledContainer justifyContent="center" alignItems="center" size={size}>
+        <Spinner {...spinnerProps} />
       </StyledContainer>
     )
   }
@@ -35,15 +28,18 @@ Loader.propTypes = {
   children: PropTypes.node.isRequired,
   /** Статус загрузки */
   isLoading: PropTypes.bool.isRequired,
-  /** Цвет спиннера */
-  color: PropTypes.oneOf([...Object.keys(colors), 'inherit']),
-  /** Размер спиннера */
-  size: PropTypes.oneOf(Object.keys(spinnerSizes)),
+  /** Размер лоадера */
+  size: PropTypes.oneOf(['l', 'm']),
+  /** Свойства спиннера */
+  spinnerProps: PropTypes.shape(Spinner.propTypes),
 }
 
 Loader.defaultProps = {
-  color: 'green',
   size: 'l',
+  spinnerProps: {
+    color: 'green',
+    size: 'l',
+  },
 }
 
 export default Loader
