@@ -1,4 +1,5 @@
 export * from './styles/colors'
+export * from './utils/validate'
 export { default as sizes } from './styles/sizes'
 
 export { default as capitalize } from './utils/capitalize'
