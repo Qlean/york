@@ -7,7 +7,7 @@ import { colors } from '@qlean/york-core'
 
 const spinnerSizes = {
   s: sizes[4],
-  m: sizes[8],
+  m: sizes[6],
   l: sizes[12],
 }
 
