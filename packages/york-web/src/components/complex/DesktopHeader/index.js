@@ -7,19 +7,34 @@ import { transitions } from '@qlean/york-web'
 import IconGeo from './assets/IconGeo'
 import IconLogin from './assets/IconLogin'
 
-const Root = styled.header`
+const ContainerBase = styled.div`
   background-color: ${colors.white};
 `
 
-const RootContentInner = styled.div`
+const ContainerInner = styled.div`
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
 `
 
+const ContainerLevelOne = styled(ContainerBase)`
+  position: relative;
+  z-index: 1;
+`
+
+const StickyStage = styled(ContainerBase)`
+  position: sticky;
+  top: 0;
+`
+
 // не гайдовая тень, "Так надо" © Дизайнер
-const MainContent = styled.div`
+const ContainerLevelTwo = styled(ContainerBase)`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+`
+
+const ContainerLevelThree = styled(ContainerBase)`
+  position: relative;
+  z-index: -1;
 `
 
 const LevelOne = styled.div`
@@ -166,9 +181,9 @@ export default function DesktopHeader(props) {
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
   return (
-    <Root>
-      <MainContent>
-        <RootContentInner>
+    <>
+      <ContainerLevelOne>
+        <ContainerInner>
           <LevelOne>
             <LevelOneFirstSection>
               <LogoWrap>
@@ -195,37 +210,47 @@ export default function DesktopHeader(props) {
               ))}
             </LevelOneSecondSection>
           </LevelOne>
-          <MenuItemContainer>
-            {levelTwoMenu.map((menuItem, idx) => (
-              <LevelTwoMenuItem
-                key={menuItem.title}
-                isActive={idx === activeLevelTwoMenu}
-                onClick={() => {
-                  setLevelTwoMenu(idx)
-                  resetLevelThreeMenu()
-                }}
-              >
-                {menuItem.title}
-              </LevelTwoMenuItem>
-            ))}
-          </MenuItemContainer>
-        </RootContentInner>
-      </MainContent>
-      {levelThreeMenu && levelThreeMenu.length > 0 && (
-        <RootContentInner>
-          <MenuItemContainer>
-            {levelThreeMenu.map((menuItem, idx) => (
-              <LevelThreeMenuItem
-                key={menuItem.title}
-                isActive={idx === activeLevelThreeMenu}
-                onClick={() => setLevelThreeMenu(idx)}
-              >
-                {menuItem.title}
-              </LevelThreeMenuItem>
-            ))}
-          </MenuItemContainer>
-        </RootContentInner>
-      )}
-    </Root>
+        </ContainerInner>
+      </ContainerLevelOne>
+
+      <StickyStage>
+        <ContainerLevelTwo>
+          <ContainerInner>
+            <MenuItemContainer>
+              {levelTwoMenu.map((menuItem, idx) => (
+                <LevelTwoMenuItem
+                  key={menuItem.title}
+                  isActive={idx === activeLevelTwoMenu}
+                  onClick={() => {
+                    setLevelTwoMenu(idx)
+                    resetLevelThreeMenu()
+                  }}
+                >
+                  {menuItem.title}
+                </LevelTwoMenuItem>
+              ))}
+            </MenuItemContainer>
+          </ContainerInner>
+        </ContainerLevelTwo>
+
+        {levelThreeMenu && levelThreeMenu.length > 0 && (
+          <ContainerLevelThree>
+            <ContainerInner>
+              <MenuItemContainer>
+                {levelThreeMenu.map((menuItem, idx) => (
+                  <LevelThreeMenuItem
+                    key={menuItem.title}
+                    isActive={idx === activeLevelThreeMenu}
+                    onClick={() => setLevelThreeMenu(idx)}
+                  >
+                    {menuItem.title}
+                  </LevelThreeMenuItem>
+                ))}
+              </MenuItemContainer>
+            </ContainerInner>
+          </ContainerLevelThree>
+        )}
+      </StickyStage>
+    </>
   )
 }
