@@ -5,7 +5,6 @@
 ```js static
 import { validateCardNumber } from '@qlean/york-core'
 
-const number = '4111111111100031'
 validateCardNumber('4111111111100031') // true
 validateCardNumber('411111111110003102342', { minLength: 16, maxLength: 18 }) // false
 ```
@@ -16,7 +15,6 @@ validateCardNumber('411111111110003102342', { minLength: 16, maxLength: 18 }) //
 ```js static
 import { validateCardExpiry } from '@qlean/york-core'
 
-const expiry = '12/23'
 validateCardExpiry('12/23') // true
 validateCardExpiry('13/23') // false
 validateCardExpiry('08/11') // false
@@ -27,7 +25,6 @@ validateCardExpiry('08/11') // false
 ```js static
 import { validateCardSecureCode } from '@qlean/york-core'
 
-const secureCode = '123'
 validateCardSecureCode('123') // true
 validateCardSecureCode('12') // false
 validateCardSecureCode('123', { minLength: 4 }) // false
