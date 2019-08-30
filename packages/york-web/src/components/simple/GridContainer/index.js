@@ -15,7 +15,10 @@ const maxWidths = {
 
 const StyledGridContainer = styled.div`
   margin: 0 auto;
-  ${media.mobile(`max-width: ${maxWidths.mobile}px;`)}
+  ${media.mobile(`
+    width: 100%;
+    max-width: ${maxWidths.mobile}px;
+  `)}
   ${media.base(`max-width: ${maxWidths.base}px;`)}
   ${media.wide(`max-width: ${maxWidths.wide}px;`)}
 `
