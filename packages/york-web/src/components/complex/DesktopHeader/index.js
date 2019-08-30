@@ -7,7 +7,9 @@ import { transitions } from '@qlean/york-web'
 import IconGeo from './assets/IconGeo'
 import IconLogin from './assets/IconLogin'
 
-const Root = styled.header``
+const Root = styled.header`
+  background-color: ${colors.white};
+`
 
 const RootContentInner = styled.div`
   max-width: 1200px;
@@ -152,7 +154,7 @@ const TMP_TOM_RIGHT_MENU = [
   </TopMenuLogin>,
 ]
 
-const Header = props => {
+export default function DesktopHeader(props) {
   const { levelOneMenu, levelTwoMenu, logo } = props
 
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
@@ -227,5 +229,3 @@ const Header = props => {
     </Root>
   )
 }
-
-export default Header
