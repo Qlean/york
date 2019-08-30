@@ -26,13 +26,6 @@ const validateWithLuhnAlgorithm = value => {
   return sum % 10 === 0
 }
 
-/**
- * @param {string} value - номер карты
- * @param {object} config - параметры конфигурации
- * @param {number} config.minLength - минимальная длина номера карты
- * @param {number} config.maxLength - максимальная длина номера карты
- * @return {boolean}
- */
 export const validateCardNumber = (value, config = {}) => {
   if (typeof value !== 'string') {
     throw new Error('Card number must be provided as a string')
@@ -48,10 +41,6 @@ export const validateCardNumber = (value, config = {}) => {
   )
 }
 
-/**
- * @param {string} value - месяц и год в формате 'MM/YY'
- * @return {boolean}
- */
 export const validateCardExpiry = value => {
   if (typeof value !== 'string') {
     throw new Error('Card expiry must be provided as a string')
@@ -83,13 +72,6 @@ export const validateCardExpiry = value => {
   return isMonthValid && isYearValid
 }
 
-/**
- * @param {string} value - код CVC или другой
- * @param {object} config - параметры конфигурации
- * @param {number} config.minLength - минимальная длина кода
- * @param {number} config.maxLength - максимальная длина кода
- * @return {boolean}
- */
 export const validateCardSecureCode = (value, config = {}) => {
   if (typeof value !== 'string') {
     throw new Error('Card secure code must be provided as a string')
