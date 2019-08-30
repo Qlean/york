@@ -153,11 +153,15 @@ const TMP_TOM_RIGHT_MENU = [
 ]
 
 const Header = props => {
-  const { levelOneMenu, levelTwoMenu, levelThreeMenu, logo } = props
+  const { levelOneMenu, levelTwoMenu, logo } = props
 
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
+
+  const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
+
+  const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
   return (
     <Root>
@@ -194,7 +198,10 @@ const Header = props => {
               <LevelTwoMenuItem
                 key={menuItem.title}
                 isActive={idx === activeLevelTwoMenu}
-                onClick={() => setLevelTwoMenu(idx)}
+                onClick={() => {
+                  setLevelTwoMenu(idx)
+                  resetLevelThreeMenu()
+                }}
               >
                 {menuItem.title}
               </LevelTwoMenuItem>
@@ -202,19 +209,21 @@ const Header = props => {
           </MenuItemContainer>
         </RootContentInner>
       </MainContent>
-      <RootContentInner>
-        <MenuItemContainer>
-          {levelThreeMenu.map((menuItem, idx) => (
-            <LevelThreeMenuItem
-              key={menuItem.title}
-              isActive={idx === activeLevelThreeMenu}
-              onClick={() => setLevelThreeMenu(idx)}
-            >
-              {menuItem.title}
-            </LevelThreeMenuItem>
-          ))}
-        </MenuItemContainer>
-      </RootContentInner>
+      {levelThreeMenu && levelThreeMenu.length > 0 && (
+        <RootContentInner>
+          <MenuItemContainer>
+            {levelThreeMenu.map((menuItem, idx) => (
+              <LevelThreeMenuItem
+                key={menuItem.title}
+                isActive={idx === activeLevelThreeMenu}
+                onClick={() => setLevelThreeMenu(idx)}
+              >
+                {menuItem.title}
+              </LevelThreeMenuItem>
+            ))}
+          </MenuItemContainer>
+        </RootContentInner>
+      )}
     </Root>
   )
 }
