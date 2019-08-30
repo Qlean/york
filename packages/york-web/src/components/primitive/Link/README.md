@@ -1,6 +1,6 @@
 ```js
 import styled from 'styled-components'
-import { Link, media } from '@qlean/york-web'
+import { Link, Text, media } from '@qlean/york-web'
 
 const StyledShowcaseItem = styled(Example.ShowcaseItem)`
   width: 33%;
@@ -20,9 +20,11 @@ const ExampleComponent = () => {
       <Example.Showcase withVerticalPadding>
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
-            <Link rank={rank} {...linkProps}>
-              White Backdrop
-            </Link>
+            <Text>
+              <Link rank={rank} {...linkProps}>
+                White Backdrop
+              </Link>
+            </Text>
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
@@ -33,9 +35,11 @@ const ExampleComponent = () => {
             title={`Rank ${rank}`}
             titleProps={{ color: 'white' }}
           >
-            <Link rank={rank} backdropColor="dark" {...linkProps}>
-              Dark Backdrop
-            </Link>
+            <Text>
+              <Link rank={rank} backdropColor="dark" {...linkProps}>
+                Dark Backdrop
+              </Link>
+            </Text>
           </StyledShowcaseItem>
         ))}
       </Example.Showcase>
