@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 
 import { Button } from 'york-web/components/simple'
 import { View, Text, Separator } from 'york-web/components/primitive'
-import { media } from 'york-web/utils'
+import { media, sizes } from 'york-web/utils'
 
 const StyledContainer = styled(View)`
   height: 100%;
+  padding: 0 ${sizes[4]}px;
 `
 
 const StyledImage = styled.img`
@@ -99,14 +100,14 @@ const Error = ({ statusCode, header, footer }) => {
       justifyContent="center"
       alignItems="center"
     >
-      <StyledHeader>
+      <StyledHeader flexDirection="column">
         <Separator height={6} />
         {header && header}
       </StyledHeader>
       <Separator height={8} />
       {getErrorLayout(statusCode)}
       <Separator height={8} />
-      <StyledFooter>
+      <StyledFooter flexDirection="column">
         {footer && footer}
         <Separator height={6} />
       </StyledFooter>
