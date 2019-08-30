@@ -7,7 +7,7 @@ import { View, Text, Separator } from 'york-web/components/primitive'
 import { media } from 'york-web/utils'
 
 const StyledContainer = styled(View)`
-  height: 100vh;
+  height: 100%;
 `
 
 const StyledImage = styled.img`
