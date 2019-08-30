@@ -6,8 +6,6 @@ import { colors } from '@qlean/york-core'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
-import { Text } from 'york-web/components/primitive'
-
 const presets = {
   whiteBackdropRank1: {
     color: 'green',
@@ -111,11 +109,7 @@ function Link({ href, children, ...rest }) {
   )
   return (
     <StyledLink href={href} normalizedProps={normalizedProps} {...rest}>
-      {React.isValidElement(children) ? (
-        children
-      ) : (
-        <Text color="inherit">{children}</Text>
-      )}
+      {children}
     </StyledLink>
   )
 }
@@ -132,7 +126,7 @@ Link.propTypes = {
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
-  /** Содержимое ссылки. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
+  /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }
 
