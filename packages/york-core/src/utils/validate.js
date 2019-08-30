@@ -30,19 +30,19 @@ export const validateCardNumber = (value, config = {}) => {
       'Error in validateCardNumber. Card number must be provided as a string',
     )
   }
+
   const { minLength = 16, maxLength = 19 } = config
   if (minLength > maxLength) {
     throw new Error(
       `Error in validateCardNumber. 'minLength' cannot be greater then 'maxLength'. Got minLength: ${minLength} and maxLength: ${maxLength}.`,
     )
   }
-  const cardNumber = value.split(' ').join('')
   return (
-    cardNumber &&
-    !Number.isNaN(Number(cardNumber)) &&
-    cardNumber.length >= minLength &&
-    cardNumber.length <= maxLength &&
-    validateWithLuhnAlgorithm(cardNumber)
+    value &&
+    !Number.isNaN(Number(value)) &&
+    value.length >= minLength &&
+    value.length <= maxLength &&
+    validateWithLuhnAlgorithm(value)
   )
 }
 

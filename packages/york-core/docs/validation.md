@@ -1,13 +1,13 @@
 `import { validateCardNumber, validateCardExpiry, validateCardSecureCode } from '@qlean/york-core'`
 
-`validateCardNumber(value: String, config: { minLength: Number, maxLength: Number }) => Boolean` - валидирует номер карты. В конфиг можно опционально передать параметры `minLength` и `maxLength`, которые отвечают за минимальную и максимальную длину номера карты. Учитывается длина без пробелов. По умолчанию `minLength = 16`, `maxLength = 19`.
+`validateCardNumber(value: String, config: { minLength: Number, maxLength: Number }) => Boolean` - валидирует номер карты. В конфиг можно опционально передать параметры `minLength` и `maxLength`, которые отвечают за минимальную и максимальную длину номера карты. По умолчанию `minLength = 16`, `maxLength = 19`.
 
 ```js static
 import { validateCardNumber } from '@qlean/york-core'
 
-const number = '4111 1111 1110 0031'
-validateCardNumber('4111 1111 1110 0031') // true
-validateCardNumber('4111 1111 1110 0031 02342', { minLength: 16, maxLength: 18 }) // false
+const number = '4111111111100031'
+validateCardNumber('4111111111100031') // true
+validateCardNumber('411111111110003102342', { minLength: 16, maxLength: 18 }) // false
 ```
 
 
