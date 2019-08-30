@@ -91,7 +91,7 @@ const getErrorLayout = statusCode => {
   }
 }
 
-/** Страница ошибок */
+/** Страница ошибок. Занимает высоту родителя. */
 const Error = ({ statusCode, header, footer }) => {
   return (
     <StyledContainer
