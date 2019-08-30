@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
   },
 })
 
-const RadioItem = ({ label, caption, name, isChecked, onPress }) => (
+const RadioItem = ({ title, caption, name, isSelected, onPress }) => (
   <TouchableOpacity style={styles.option} onPress={onPress} testID={name}>
-    <View style={[styles.bullet, isChecked && styles.bulletSelected]} />
+    <View style={[styles.bullet, isSelected && styles.bulletSelected]} />
     <Separator width={2} />
     <View style={styles.textContainer}>
-      <Text>{label}</Text>
+      <Text>{title}</Text>
       {caption ? <Text color="grey">{caption}</Text> : null}
     </View>
   </TouchableOpacity>
@@ -46,10 +46,10 @@ RadioItem.defaultProps = {
 }
 
 RadioItem.propTypes = {
-  label: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   caption: PropTypes.string,
   name: PropTypes.string.isRequired,
-  isChecked: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool.isRequired,
   onPress: PropTypes.func.isRequired,
 }
 
@@ -63,15 +63,15 @@ const RadioGroup = ({ options, value, name, onChange }) => {
   const onItemPress = (...args) => () => onChange(...args)
   const renderItem = args => {
     const {
-      item: { label, value: itemValue, caption },
+      item: { title, value: itemValue, caption },
       index,
     } = args
     return (
       <RadioItem
-        label={label}
+        title={title}
         caption={caption}
         name={`${name}/${itemValue}`}
-        isChecked={itemValue === value}
+        isSelected={itemValue === value}
         onPress={onItemPress(itemValue, index)}
       />
     )
@@ -104,7 +104,7 @@ RadioGroup.propTypes = {
         PropTypes.number.isRequired,
       ]).isRequired,
       /** Лейбл опции */
-      label: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
       /** Подзаголовок опции */
       caption: PropTypes.string,
     }).isRequired,

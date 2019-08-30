@@ -5,8 +5,8 @@ const ExampleComponent = () => {
   const [isChecked, setIsChecked] = React.useState(false)
 
   const extraProps = {
-    caption: withCaption ? 'И отдаю почку' : null,
-    error: withError ? 'Это обязательное поле' : null,
+    caption: withCaption ? 'Caption' : null,
+    error: withError ? 'Error' : null,
   }
 
   return (
@@ -27,9 +27,9 @@ const ExampleComponent = () => {
       </Example.InputGroup>
       <Checkbox
         name="expamleCheckbox"
-        label="Согласен с условиями обработки персональных данных"
-        isChecked={isChecked}
-        onChange={value => setIsChecked(!value)}
+        title="Title"
+        value={isChecked}
+        onChange={value => setIsChecked(value)}
         {...extraProps}
       />
     </>

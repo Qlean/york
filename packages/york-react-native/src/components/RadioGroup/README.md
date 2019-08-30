@@ -2,12 +2,12 @@
 const options = [
   {
     value: 1,
-    label: 'Вариант без подзаголовка',
+    title: 'Title',
   },
   {
     value: 2,
-    label: 'Вариант с подзаголовком',
-    caption: 'Подзаголовок',
+    title: 'Title',
+    caption: 'Caption',
   },
 ]
 

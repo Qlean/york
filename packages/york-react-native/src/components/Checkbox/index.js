@@ -42,22 +42,22 @@ const styles = StyleSheet.create({
 /**
  * Чекбокс. Используется для выбора булевых значений.
  */
-const Checkbox = ({ label, caption, error, name, isChecked, onChange }) => {
-  const onPress = () => onChange(isChecked)
+const Checkbox = ({ title, caption, error, name, value, onChange }) => {
+  const onPress = () => onChange(!value)
   return (
     <TouchableOpacity style={styles.root} onPress={onPress} testID={name}>
       <View
         style={[
           styles.checkbox,
-          isChecked && styles.checkboxChecked,
           error && styles.checkboxWithError,
+          value && styles.checkboxChecked,
         ]}
       >
         <Image source={require('./assets/check.png')} />
       </View>
       <Separator width={2} />
       <View style={styles.textContainer}>
-        <Text>{label}</Text>
+        <Text>{title}</Text>
         {caption ? <Text color="grey">{caption}</Text> : null}
         {error ? <Text color="red">{error}</Text> : null}
       </View>
@@ -72,7 +72,7 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   /** Лэйбл чекбокса */
-  label: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   /** Подзаголовок чекбокса */
   caption: PropTypes.string,
   /** Текст ошибки */
@@ -80,7 +80,7 @@ Checkbox.propTypes = {
   /** Имя для автотестов, прокидывается как testID */
   name: PropTypes.string.isRequired,
   /** Выбран ли чекбокс */
-  isChecked: PropTypes.bool.isRequired,
+  value: PropTypes.bool.isRequired,
   /** Коллбек, вызываемый при изменении значения с аргументом `value` */
   onChange: PropTypes.func.isRequired,
 }
