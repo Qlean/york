@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -30,16 +30,10 @@ const StyledTooltipContainer = styled.span`
   z-index: ${zIndexes.dropdown};
 `
 
-/**
- * `line-height: 0;` используется для сброса наследование, без него, блок начинает занимать
- * значительно больше места. Более подробное описание этого эффекта, можно прочитать тут:
- * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
- */
 const StyledTooltipContent = styled.span`
-  padding: ${sizes[4]}px;
+  padding: ${sizes[2]}px ${sizes[3]}px;
   background-color: ${colors.black};
   border-radius: ${borderRadiuses.medium};
-  line-height: 0;
 `
 
 const StyledTooltipPointer = styled.span`
@@ -50,7 +44,13 @@ const StyledTooltipPointer = styled.span`
   background-color: ${colors.black};
 `
 
+/**
+ * `line-height: 0;` используется для сброса наследование, без него, блок начинает занимать
+ * значительно больше места. Более подробное описание этого эффекта, можно прочитать тут:
+ * https://stackoverflow.com/questions/11829393/why-is-the-spans-line-height-is-useless
+ */
 const StyledTooltip = styled.span`
+  line-height: 0;
   position: relative;
   cursor: help;
   &:hover > ${StyledTooltipContainer} {
@@ -59,7 +59,9 @@ const StyledTooltip = styled.span`
 `
 
 /**
- * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края экрана.
+ * Используется для создания подсказок. Умеет менять свое положение так, чтобы не вылезать за края
+ * экрана. Работает и со строчными элементами, но из-за особенностей реализации, сбрасывает
+ * `line-height` обернутого элемента в 0.
  */
 export default function Tooltip({ tooltip, children }) {
   const tooltipContainerRef = useRef(null)
@@ -107,10 +109,10 @@ export default function Tooltip({ tooltip, children }) {
     момент написания компонента не существует хорошего кросс-браузерного способа установить коллбэк
     на событие "все шрифты загружены". Кроме того, этот способ работает с SSR.
 
-    useLayoutEffect все еще нужен на случай изменения пропсов.
+    useEffect все еще нужен на случай изменения пропсов.
   */
 
-  useLayoutEffect(positionTooltip)
+  useEffect(positionTooltip)
 
   useEffect(() => {
     window.addEventListener('resize', positionTooltip)
@@ -125,12 +127,12 @@ export default function Tooltip({ tooltip, children }) {
       <StyledTooltipContainer ref={tooltipContainerRef}>
         <StyledTooltipPointer ref={tooltipPointerRef} />
         <StyledTooltipContent ref={tooltipContentRef}>
-          {typeof tooltip === 'string' ? (
+          {React.isValidElement(tooltip) ? (
+            tooltip
+          ) : (
             <Text htmTag="div" color="white" preset="caption">
               {tooltip}
             </Text>
-          ) : (
-            tooltip
           )}
         </StyledTooltipContent>
       </StyledTooltipContainer>
@@ -139,7 +141,7 @@ export default function Tooltip({ tooltip, children }) {
 }
 
 Tooltip.propTypes = {
-  /** Содержимое тултипа. Если это строка, она будет обернута в `<Text>` с параметрами по умолчанию. */
+  /** Содержимое тултипа. Если это элемент, то оно будет отображено как есть, иначе — обернуто в `<Text>` */
   tooltip: PropTypes.node.isRequired,
   /** Элемент, относительно коротого позиционируется тултип. Может быть как строчным, так и блочным. */
   children: PropTypes.node.isRequired,
