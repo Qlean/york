@@ -6,6 +6,8 @@ import { Button } from 'york-web/components/simple'
 import { View, Text, Separator } from 'york-web/components/primitive'
 import { media, sizes } from 'york-web/utils'
 
+import locales from './locales'
+
 const StyledContainer = styled(View)`
   height: 100%;
   padding: 0 ${sizes[4]}px;
@@ -44,7 +46,7 @@ const ReloadButton = () => (
       }}
       isDisabled={false}
     >
-      Обновить страницу
+      {locales.refreshButton}
     </Button>
   </StyledButtonContainer>
 )
@@ -56,11 +58,9 @@ const getErrorLayout = statusCode => {
         <>
           <StyledImage src={require('./assets/404.svg')} />
           <Separator height={8} />
-          <StyledText preset="header4">Увы, такой страницы нет</StyledText>
+          <StyledText preset="header4">{locales.errors[404].title}</StyledText>
           <Separator height={2} />
-          <StyledText>
-            {'Но\u00a0есть много других, не\u00a0менее интересных'}
-          </StyledText>
+          <StyledText>{locales.errors[404].text}</StyledText>
         </>
       )
     case '500':
@@ -68,11 +68,9 @@ const getErrorLayout = statusCode => {
         <>
           <StyledImage src={require('./assets/500.svg')} />
           <Separator height={8} />
-          <StyledText preset="header4">Извините, сервер недоступен</StyledText>
+          <StyledText preset="header4">{locales.errors[500].title}</StyledText>
           <Separator height={2} />
-          <StyledText>
-            {'Но\u00a0не\u00a0переживайте, мы уже\u00a0это чиним'}
-          </StyledText>
+          <StyledText>{locales.errors[500].text}</StyledText>
           <Separator height={6} />
           <ReloadButton />
         </>
@@ -80,11 +78,11 @@ const getErrorLayout = statusCode => {
     default:
       return (
         <>
-          <StyledText preset="header4">У нас что-то сломалось</StyledText>
-          <Separator height={2} />
-          <StyledText>
-            Попробуйте перезагрузить страницу — это должно помочь
+          <StyledText preset="header4">
+            {locales.errors.default.title}
           </StyledText>
+          <Separator height={2} />
+          <StyledText>{locales.errors.default.text}</StyledText>
           <Separator height={6} />
           <ReloadButton />
         </>
