@@ -28,9 +28,16 @@ const validateWithLuhnAlgorithm = value => {
 
 export const validateCardNumber = (value, config = {}) => {
   if (typeof value !== 'string') {
-    throw new Error('Card number must be provided as a string')
+    throw new Error(
+      'Error in validateCardNumber. Card number must be provided as a string',
+    )
   }
   const { minLength = 16, maxLength = 19 } = config
+  if (minLength > maxLength) {
+    throw new Error(
+      `Error in validateCardNumber. 'minLength' cannot be greater then 'maxLength'. Got minLength: ${minLength} and maxLength: ${maxLength}.`,
+    )
+  }
   const cardNumber = value.split(' ').join('')
   return (
     cardNumber &&
@@ -43,7 +50,9 @@ export const validateCardNumber = (value, config = {}) => {
 
 export const validateCardExpiry = value => {
   if (typeof value !== 'string') {
-    throw new Error('Card expiry must be provided as a string')
+    throw new Error(
+      'Error in validateCardExpiry. Card expiry must be provided as a string',
+    )
   }
   const [monthString, yearString] = value.split('/')
   if (
@@ -77,7 +86,11 @@ export const validateCardSecureCode = (value, config = {}) => {
     throw new Error('Card secure code must be provided as a string')
   }
   const { minLength = 3, maxLength = 4 } = config
-
+  if (minLength > maxLength) {
+    throw new Error(
+      `Error in validateCardSecureCode. 'minLength' cannot be greater then 'maxLength'. Got minLength: ${minLength} and maxLength: ${maxLength}.`,
+    )
+  }
   return (
     value &&
     !Number.isNaN(Number(value)) &&
