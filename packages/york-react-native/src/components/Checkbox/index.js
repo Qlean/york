@@ -58,8 +58,8 @@ const Checkbox = ({ title, caption, error, name, value, onChange }) => {
       <Separator width={2} />
       <View style={styles.textContainer}>
         <Text>{title}</Text>
-        {caption ? <Text color="grey">{caption}</Text> : null}
-        {error ? <Text color="red">{error}</Text> : null}
+        {caption && <Text color="grey">{caption}</Text>}
+        {error && <Text color="red">{error}</Text>}
       </View>
     </TouchableOpacity>
   )

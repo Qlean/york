@@ -2,7 +2,7 @@
 const ExampleComponent = () => {
   const [withCaption, setWithCaption] = React.useState(false)
   const [withError, setWithError] = React.useState(false)
-  const [isChecked, setIsChecked] = React.useState(false)
+  const [value, setValue] = React.useState(false)
 
   const extraProps = {
     caption: withCaption ? 'Caption' : null,
@@ -28,8 +28,8 @@ const ExampleComponent = () => {
       <Checkbox
         name="expamleCheckbox"
         title="Title"
-        value={isChecked}
-        onChange={value => setIsChecked(value)}
+        value={value}
+        onChange={value => setValue(value)}
         {...extraProps}
       />
     </>
