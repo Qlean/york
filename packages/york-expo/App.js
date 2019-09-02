@@ -16,7 +16,7 @@ import {
 } from '@qlean/york-react-native'
 
 const styles = StyleSheet.create({
-  screen: {
+  content: {
     padding: 20,
   },
   labeledSwitch: {
@@ -124,7 +124,7 @@ export default function App() {
             />
           </Screen.Footer>
         }
-        contentContainerStyle={styles.screen}
+        contentContainerStyle={styles.content}
         withSafeAreaPaddingTop
       >
         <LabeledSwitch

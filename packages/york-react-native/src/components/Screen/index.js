@@ -22,6 +22,9 @@ const sideViewContainerPadding = sizes[2]
 const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 
 const styles = StyleSheet.create({
+  defaultScreenStyle: {
+    backgroundColor: colors.white,
+  },
   root: {
     flex: 1,
     paddingTop: 0,
@@ -64,6 +67,12 @@ const styles = StyleSheet.create({
   },
   sideViewSpacer: {
     height: sideViewContainerSize,
+  },
+  footerContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   leftView: { left: 0 },
   rightView: { right: 0 },
@@ -128,10 +137,13 @@ const Screen = ({
   style,
   ...rest
 }) => {
+  const [footerHeight, setFooterHeight] = useState(0)
   const [scrollViewHeight, setScrollViewHeight] = useState(0)
   const [contentHeight, setContentHeight] = useState(0)
   const isScrollEnabled = contentHeight > scrollViewHeight
 
+  const onFooterLayout = ({ nativeEvent }) =>
+    setFooterHeight(nativeEvent.layout.height)
   const onScrollViewLayout = ({ nativeEvent }) =>
     setScrollViewHeight(nativeEvent.layout.height)
   const onScrollViewContentSizeChange = (width, height) =>
@@ -152,13 +164,11 @@ const Screen = ({
          * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
          * если вообще не задавать проп, в то время как iOS - наоборот.
          */
-        {...(Platform.OS === 'ios' && { behavior: 'padding' })}
+        {...(Platform.OS === 'ios' && { behavior: 'height' })}
         style={styles.root}
       >
-        {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
-        {rightView ? (
-          <SideView {...rightView} style={styles.rightView} />
-        ) : null}
+        {leftView && <SideView {...leftView} style={styles.leftView} />}
+        {rightView && <SideView {...rightView} style={styles.rightView} />}
         <ScrollView
           {...rest}
           scrollEnabled={isScrollEnabled}
@@ -167,8 +177,13 @@ const Screen = ({
         >
           {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
           {children}
+          {footer && <View style={{ height: footerHeight }} />}
         </ScrollView>
-        {footer}
+        {footer && (
+          <View style={styles.footerContainer} onLayout={onFooterLayout}>
+            {footer}
+          </View>
+        )}
       </KeyboardAvoidingView>
     </View>
   )
@@ -180,7 +195,7 @@ Screen.defaultProps = {
   footer: null,
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
-  style: null,
+  style: styles.defaultScreenStyle,
 }
 
 Screen.propTypes = {
