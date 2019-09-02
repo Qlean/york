@@ -8,6 +8,9 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import ClearedButton from './ClearedButton'
 import IconBurger from '../assets/IconBurger'
 
+// FIXME: иконка с белым фоном, переделать с прозрачным
+import IconArrow from '../assets/arrow.svg'
+
 const Root = styled.div`
   position: fixed;
   top: 0;
@@ -53,6 +56,10 @@ const MenuItem = styled(Text)`
   text-transform: uppercase;
 `
 
+const MenuItemIconWrap = styled(View)`
+  margin-left: auto;
+`
+
 const Footer = styled.div`
   border-top: 1px solid ${colors.silver};
   margin-top: auto;
@@ -85,16 +92,34 @@ const Modal = ({
           ))}
         </TabsContainer>
         <View flexDirection="column">
-          {levelTwoMenu.map((menuItem, idx) => (
-            <View flexDirection="column" key={menuItem.title}>
-              <Separator height={2} />
-              <View>
-                <Separator width={4} />
-                <MenuItem>{menuItem.title}</MenuItem>
+          {levelTwoMenu.map((menuItem, idx) => {
+            const { subMenu } = menuItem
+            const isSubMenuExist = subMenu && !!subMenu.length
+            return (
+              <View flexDirection="column" key={menuItem.title}>
+                <View alignItems="center">
+                  <View flexDirection="column">
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <MenuItem>{menuItem.title}</MenuItem>
+                    </View>
+                    <Separator height={2} />
+                  </View>
+                  {isSubMenuExist && (
+                    <MenuItemIconWrap>
+                      <Separator width={2} />
+                      <IconArrow />
+                      <Separator width={4} />
+                    </MenuItemIconWrap>
+                  )}
+                </View>
+
+                {isSubMenuExist &&
+                  subMenu.map(subMenuItem => <View>{subMenuItem.title}</View>)}
               </View>
-              <Separator height={2} />
-            </View>
-          ))}
+            )
+          })}
         </View>
         <Footer>
           <View flexDirection="column">
