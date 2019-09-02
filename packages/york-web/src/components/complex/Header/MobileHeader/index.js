@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { transitions } from '@qlean/york-web'
+
+import { View, Separator } from 'york-web/components/primitive'
 
 import Geolocation from '../components/Geolocation'
 import ClearedButton from '../components/ClearedButton'
@@ -12,36 +13,13 @@ const Root = styled.header`
   background-color: ${colors.white};
 `
 
-const LevelOneContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-`
-
-const LeftSlot = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-`
-
-const RightSlot = styled.div`
-  display: flex;
-  align-items: center;
-`
-
 const Logo = styled.img`
   display: block;
-`
-
-const GeolocationWrap = styled.div`
-  margin-left: 10px;
 `
 
 const ProfileIcon = styled(IconProfile)`
   display: block;
 `
-
-const ProfileButton = styled(ClearedButton)``
 
 const BurgerButton = styled(ClearedButton)`
   padding: 8px 20px 7px 10px;
@@ -115,28 +93,28 @@ export default function MobileHeader(props) {
 
   return (
     <Root>
-      <LevelOneContainer>
-        <LeftSlot>
+      <View alignItems="center" justifyContent="space-between">
+        <View alignItems="center">
+          <Separator width={4} />
           <Logo src={logo.url} alt={logo.alt} />
-          <GeolocationWrap>
-            <Geolocation
-              isMobileVersion
-              selectedValue={levelOneMenu.geo.selectedValue}
-            />
-          </GeolocationWrap>
-        </LeftSlot>
-        <RightSlot>
-          <ProfileButton type="button" onClick={() => console.log('btn')}>
+          <Separator width={2} />
+          <Geolocation
+            isMobileVersion
+            selectedValue={levelOneMenu.geo.selectedValue}
+          />
+        </View>
+        <View alignItems="center">
+          <ClearedButton type="button" onClick={() => console.log('btn')}>
             <ProfileIcon />
-          </ProfileButton>
+          </ClearedButton>
           <BurgerButton
             type="button"
             onClick={() => toggleBurger(!burgerActive)}
           >
             <Burger isOpen={burgerActive} />
           </BurgerButton>
-        </RightSlot>
-      </LevelOneContainer>
+        </View>
+      </View>
       <ScrollerContainer>
         <Scroller>
           {levelTwoMenu.map((menuItem, idx) => (
