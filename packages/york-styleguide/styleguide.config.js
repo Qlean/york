@@ -45,6 +45,16 @@ module.exports = {
           name: 'sizes',
           content: '../york-core/docs/sizes.md',
         },
+        {
+          name: 'utils',
+          sections: [
+            {
+              name: 'validation',
+              description: 'Функции валидации',
+              content: '../york-core/docs/validation.md',
+            },
+          ],
+        },
       ],
     },
     {
