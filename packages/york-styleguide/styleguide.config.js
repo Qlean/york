@@ -65,7 +65,6 @@ module.exports = {
         },
         {
           name: 'complex',
-          description: 'Сложные компоненты',
           components: '../york-web/src/components/complex/**/*.js',
         },
         {

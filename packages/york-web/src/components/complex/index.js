@@ -1,3 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
-export { default as DesktopHeader } from './DesktopHeader'
-export { default as MobileHeader } from './MobileHeader'
+export { default as DesktopHeader } from './Header/DesktopHeader'
+export { default as MobileHeader } from './Header/MobileHeader'

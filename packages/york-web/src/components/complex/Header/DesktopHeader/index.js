@@ -4,8 +4,8 @@ import { colors } from '@qlean/york-core'
 import { transitions } from '@qlean/york-web'
 
 // TODO: возможно, стоит это сделать через ".svg", но не разобрался как их импортировать
-import IconGeo from './assets/IconGeo'
-import IconLogin from './assets/IconLogin'
+import IconGeo from '../assets/IconGeo'
+import IconLogin from '../assets/IconLogin'
 
 const ContainerBase = styled.div`
   background-color: ${colors.white};

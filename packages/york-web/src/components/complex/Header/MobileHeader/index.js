@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { transitions } from '@qlean/york-web'
 
-import IconProfile from './assets/IconProfile'
+import IconProfile from '../assets/IconProfile'
 
 const Root = styled.header`
   background-color: ${colors.white};
