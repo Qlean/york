@@ -5,8 +5,9 @@ import { colors } from '@qlean/york-core'
 import { transitions } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
 
-import IconLogin from '../assets/IconLogin'
 import Geolocation from '../components/Geolocation'
+
+import LoginIcon from '../assets/login.svg'
 
 const ContainerBase = styled.div`
   background-color: ${colors.white};
@@ -126,9 +127,7 @@ const StyledTopMenuPhone = styled(Text)`
   letter-spacing: 0.5px;
 `
 
-export default function DesktopHeader(props) {
-  const { levelOneMenu, levelTwoMenu, logo } = props
-
+export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
@@ -141,7 +140,7 @@ export default function DesktopHeader(props) {
     <Geolocation selectedValue={levelOneMenu.geo.selectedValue} />,
     <StyledTopMenuPhone preset="caption">+7 495 646-82-59</StyledTopMenuPhone>,
     <View alignItems="center">
-      <IconLogin />
+      <LoginIcon />
       <Separator width={1} />
       <Text preset="caption">Войти</Text>
     </View>,
