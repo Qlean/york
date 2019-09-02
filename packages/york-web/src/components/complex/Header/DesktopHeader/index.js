@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { transitions } from '@qlean/york-web'
 
-// TODO: возможно, стоит это сделать через ".svg", но не разобрался как их импортировать
-import IconGeo from '../assets/IconGeo'
 import IconLogin from '../assets/IconLogin'
+import Geolocation from '../components/Geolocation'
 
 const ContainerBase = styled.div`
   background-color: ${colors.white};
@@ -120,21 +119,6 @@ const LevelThreeMenuItem = styled(MenuItem)`
   line-height: 20px;
 `
 
-const TopMenuGeolocation = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const TopMenuGeolocationIcon = styled(IconGeo)`
-  margin-right: 5px;
-`
-
-const TopMenuGeolocationText = styled.div`
-  color: ${colors.grey};
-  font-size: 14px;
-  line-height: 20px;
-`
-
 const TopMenuTelephone = styled.div`
   color: ${colors.coal};
   font-size: 13px;
@@ -157,18 +141,6 @@ const TopMenuLoginText = styled.div`
   line-height: 20px;
 `
 
-const TMP_TOM_RIGHT_MENU = [
-  <TopMenuGeolocation>
-    <TopMenuGeolocationIcon />
-    <TopMenuGeolocationText>Санкт-Петербург</TopMenuGeolocationText>
-  </TopMenuGeolocation>,
-  <TopMenuTelephone>+7 495 646-82-59</TopMenuTelephone>,
-  <TopMenuLogin>
-    <TopMenuLoginIcon />
-    <TopMenuLoginText>Войти</TopMenuLoginText>
-  </TopMenuLogin>,
-]
-
 export default function DesktopHeader(props) {
   const { levelOneMenu, levelTwoMenu, logo } = props
 
@@ -180,6 +152,15 @@ export default function DesktopHeader(props) {
 
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
+  const TMP_TOM_RIGHT_MENU = [
+    <Geolocation selectedValue={levelOneMenu.geo.selectedValue} />,
+    <TopMenuTelephone>+7 495 646-82-59</TopMenuTelephone>,
+    <TopMenuLogin>
+      <TopMenuLoginIcon />
+      <TopMenuLoginText>Войти</TopMenuLoginText>
+    </TopMenuLogin>,
+  ]
+
   return (
     <>
       <ContainerLevelOne>
@@ -190,7 +171,7 @@ export default function DesktopHeader(props) {
                 <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
               </LogoWrap>
               <LevelOneMenu>
-                {levelOneMenu.map((menuItem, idx) => (
+                {levelOneMenu.tabs.map((menuItem, idx) => (
                   <LevelOneMenuItem
                     key={menuItem.title}
                     isActive={idx === activeLevelOneMenu}

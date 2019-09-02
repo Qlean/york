@@ -3,7 +3,10 @@ export const LOGO = {
   alt: 'Логотип Qlean',
 }
 
-export const LEVEL_ONE_MENU = [{ title: 'Для дома' }, { title: 'Для офиса' }]
+export const LEVEL_ONE_MENU = {
+  tabs: [{ title: 'Для дома' }, { title: 'Для офиса' }],
+  geo: { selectedValue: 'Санкт-Петербург' },
+}
 
 export const LEVEL_TWO_MENU = [
   {
