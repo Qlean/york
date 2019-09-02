@@ -6,8 +6,9 @@ import { transitions } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
 
 import Geolocation from '../components/Geolocation'
-
 import LoginIcon from '../assets/login.svg'
+
+import Dropdown from './Dropdown'
 
 const ContainerBase = styled.div`
   background-color: ${colors.white};
@@ -132,6 +133,9 @@ export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
 
+  const isLoggedIn = false
+  const isPlusSubscriber = false
+
   const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
 
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
@@ -143,6 +147,13 @@ export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
       <LoginIcon />
       <Separator width={1} />
       <Text preset="caption">Войти</Text>
+    </View>,
+    <View alignItems="center">
+      <LoginIcon />
+      <Separator width={1} />
+      <Dropdown items={levelOneMenu.profile}>
+        <Text preset="caption">Профиль</Text>
+      </Dropdown>
     </View>,
   ]
 

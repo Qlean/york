@@ -6,6 +6,14 @@ export const LOGO = {
 export const LEVEL_ONE_MENU = {
   tabs: [{ title: 'Для дома' }, { title: 'Для офиса' }],
   geo: { selectedValue: 'Санкт-Петербург' },
+  profile: [
+    { title: 'Бонусы', isSelected: true },
+    { title: 'Мои уборки' },
+    { title: 'Оплата' },
+    { title: 'Настройки профиля' },
+    { title: 'Мой Qlean Плюс' },
+    { title: 'Выйти' },
+  ],
 }
 
 export const LEVEL_TWO_MENU = [
