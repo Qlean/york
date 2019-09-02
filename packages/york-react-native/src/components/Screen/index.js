@@ -22,7 +22,7 @@ const sideViewContainerPadding = sizes[2]
 const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 
 const styles = StyleSheet.create({
-  defaultScreenStyle: {
+  screenBackground: {
     backgroundColor: colors.white,
   },
   root: {
@@ -152,6 +152,7 @@ const Screen = ({
   return (
     <View
       style={[
+        styles.screenBackground,
         style,
         styles.root,
         withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
@@ -195,7 +196,7 @@ Screen.defaultProps = {
   footer: null,
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
-  style: styles.defaultScreenStyle,
+  style: null,
 }
 
 Screen.propTypes = {
