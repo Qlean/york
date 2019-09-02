@@ -14,7 +14,13 @@ const Root = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
   background-color: ${colors.white};
+`
+
+const Inner = styled(View)`
+  flex-grow: 1;
 `
 
 const Logo = styled.img`
@@ -43,25 +49,73 @@ const TabMenuItem = styled(Text)`
   text-transform: uppercase;
 `
 
-const Modal = ({ onCloseHandler, logo, isOpened, levelOneMenu }) =>
+const MenuItem = styled(Text)`
+  text-transform: uppercase;
+`
+
+const Footer = styled.div`
+  border-top: 1px solid ${colors.silver};
+  margin-top: auto;
+`
+
+const Modal = ({
+  onCloseHandler,
+  logo,
+  isOpened,
+  levelOneMenu,
+  levelTwoMenu,
+}) =>
   ReactDOM.createPortal(
     <Root aria-modal aria-hidden tabIndex={-1} role="dialog">
-      <View alignItems="center" justifyContent="space-between">
-        <View alignItems="center">
-          <Separator width={4} />
-          <Logo src={logo.url} alt={logo.alt} />
+      <Inner flexDirection="column">
+        <View alignItems="center" justifyContent="space-between">
+          <View alignItems="center">
+            <Separator width={4} />
+            <Logo src={logo.url} alt={logo.alt} />
+          </View>
+          <View alignItems="center">
+            <BurgerButton type="button" onClick={onCloseHandler}>
+              <Burger isOpen={isOpened} />
+            </BurgerButton>
+          </View>
         </View>
-        <View alignItems="center">
-          <BurgerButton type="button" onClick={onCloseHandler}>
-            <Burger isOpen={isOpened} />
-          </BurgerButton>
+        <TabsContainer justifyContent="space-around">
+          {levelOneMenu.tabs.map((menuItem, idx) => (
+            <TabMenuItem isActive={idx === 0}>{menuItem.title}</TabMenuItem>
+          ))}
+        </TabsContainer>
+        <View flexDirection="column">
+          {levelTwoMenu.map((menuItem, idx) => (
+            <View flexDirection="column" key={menuItem.title}>
+              <Separator height={2} />
+              <View>
+                <Separator width={4} />
+                <MenuItem>{menuItem.title}</MenuItem>
+              </View>
+              <Separator height={2} />
+            </View>
+          ))}
         </View>
-      </View>
-      <TabsContainer justifyContent="space-around">
-        {levelOneMenu.tabs.map((menuItem, idx) => (
-          <TabMenuItem isActive={idx === 0}>{menuItem.title}</TabMenuItem>
-        ))}
-      </TabsContainer>
+        <Footer>
+          <View flexDirection="column">
+            <Separator height={2} />
+            <View>
+              <Separator width={4} />
+              <MenuItem>ВОЙТИ</MenuItem>
+            </View>
+            <Separator height={2} />
+          </View>
+
+          <View flexDirection="column">
+            <Separator height={2} />
+            <View>
+              <Separator width={4} />
+              <MenuItem>Санкт-петербург</MenuItem>
+            </View>
+            <Separator height={2} />
+          </View>
+        </Footer>
+      </Inner>
     </Root>,
     document.body,
   )
