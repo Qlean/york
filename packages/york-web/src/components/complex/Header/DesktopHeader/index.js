@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { transitions } from '@qlean/york-web'
+
+import { transitions } from 'york-web/utils'
+import { Text, View, Separator } from 'york-web/components/primitive'
 
 import IconLogin from '../assets/IconLogin'
 import Geolocation from '../components/Geolocation'
@@ -119,26 +121,9 @@ const LevelThreeMenuItem = styled(MenuItem)`
   line-height: 20px;
 `
 
-const TopMenuTelephone = styled.div`
-  color: ${colors.coal};
-  font-size: 13px;
-  line-height: 20px;
+const StyledTopMenuPhone = styled(Text)`
+  display: block;
   letter-spacing: 0.5px;
-`
-
-const TopMenuLogin = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const TopMenuLoginIcon = styled(IconLogin)`
-  margin-right: 5px;
-`
-
-const TopMenuLoginText = styled.div`
-  color: ${colors.coal};
-  font-size: 14px;
-  line-height: 20px;
 `
 
 export default function DesktopHeader(props) {
@@ -154,11 +139,12 @@ export default function DesktopHeader(props) {
 
   const TMP_TOM_RIGHT_MENU = [
     <Geolocation selectedValue={levelOneMenu.geo.selectedValue} />,
-    <TopMenuTelephone>+7 495 646-82-59</TopMenuTelephone>,
-    <TopMenuLogin>
-      <TopMenuLoginIcon />
-      <TopMenuLoginText>Войти</TopMenuLoginText>
-    </TopMenuLogin>,
+    <StyledTopMenuPhone preset="caption">+7 495 646-82-59</StyledTopMenuPhone>,
+    <View alignItems="center">
+      <IconLogin />
+      <Separator width={1} />
+      <Text preset="caption">Войти</Text>
+    </View>,
   ]
 
   return (
@@ -193,7 +179,6 @@ export default function DesktopHeader(props) {
           </LevelOne>
         </ContainerInner>
       </ContainerLevelOne>
-
       <StickyStage>
         <ContainerLevelTwo>
           <ContainerInner>
@@ -213,7 +198,6 @@ export default function DesktopHeader(props) {
             </MenuItemContainer>
           </ContainerInner>
         </ContainerLevelTwo>
-
         {levelThreeMenu && levelThreeMenu.length > 0 && (
           <ContainerLevelThree>
             <ContainerInner>

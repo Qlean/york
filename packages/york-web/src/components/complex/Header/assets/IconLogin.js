@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function IconLogin({ className }) {
+export default function IconLogin() {
   return (
     <svg
       width="24"
@@ -8,7 +8,6 @@ export default function IconLogin({ className }) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...{ className }}
     >
       <path
         d="M7.75 5H18.25V19H7.75"

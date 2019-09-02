@@ -6,7 +6,6 @@ import { LEVEL_ONE_MENU, LEVEL_TWO_MENU, LOGO } from '../assets/data'
     levelTwoMenu={LEVEL_TWO_MENU}
     logo={LOGO}
   />
-
   <div style={{ marginTop: 50, marginLeft: 50, width: 320 }}>
     <MobileHeader
       levelOneMenu={LEVEL_ONE_MENU}
