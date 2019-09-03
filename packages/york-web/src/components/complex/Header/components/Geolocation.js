@@ -20,6 +20,7 @@ const TopMenuGeolocationText = styled.div`
   line-height: ${({ isMobileVersion }) => (isMobileVersion ? 15 : 20)}px;
 `
 
+// FIXME: isMobileVersion - переделать с булеана на хеш
 export default function Geolocation(props) {
   const { selectedValue, isMobileVersion } = props
 

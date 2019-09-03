@@ -6,6 +6,7 @@ import { View, Separator } from 'york-web/components/primitive'
 
 import Geolocation from '../components/Geolocation'
 import ClearedButton from '../components/ClearedButton'
+import Modal from '../components/Modal'
 import IconProfile from '../assets/IconProfile'
 import IconBurger from '../assets/IconBurger'
 
@@ -70,7 +71,6 @@ const LevelTwoMenuItem = styled.div`
   font-size: 13px;
   line-height: 20px;
   text-transform: uppercase;
-  cursor: pointer;
 
   &:first-child {
     padding-left: 20px;
@@ -83,69 +83,87 @@ const LevelThreeMenuItem = styled(LevelTwoMenuItem)`
   letter-spacing: 0.4px;
 `
 
-export default function MobileHeader(props) {
-  const { logo, levelOneMenu, levelTwoMenu } = props
+export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const [burgerActive, toggleBurger] = React.useState(false)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
+  const [isModalShow, setModalShow] = React.useState(false)
   const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
   return (
-    <Root>
-      <View alignItems="center" justifyContent="space-between">
-        <View alignItems="center">
-          <Separator width={4} />
-          <Logo src={logo.url} alt={logo.alt} />
-          <Separator width={2} />
-          <Geolocation
-            isMobileVersion
-            selectedValue={levelOneMenu.geo.selectedValue}
-          />
-        </View>
-        <View alignItems="center">
-          <ClearedButton type="button" onClick={() => console.log('btn')}>
-            <ProfileIcon />
-          </ClearedButton>
-          <BurgerButton
-            type="button"
-            onClick={() => toggleBurger(!burgerActive)}
-          >
-            <Burger isOpen={burgerActive} />
-          </BurgerButton>
-        </View>
-      </View>
-      <ScrollerContainer>
-        <Scroller>
-          {levelTwoMenu.map((menuItem, idx) => (
-            <LevelTwoMenuItem
-              key={menuItem.title}
-              isActive={idx === activeLevelTwoMenu}
+    <>
+      {isModalShow && (
+        <Modal
+          levelOneMenu={levelOneMenu}
+          levelTwoMenu={levelTwoMenu}
+          logo={logo}
+          isOpened={isModalShow}
+          onCloseHandler={() => {
+            setModalShow(false)
+            toggleBurger(false)
+          }}
+        />
+      )}
+
+      <Root>
+        <View alignItems="center" justifyContent="space-between">
+          <View alignItems="center">
+            <Separator width={4} />
+            <Logo src={logo.url} alt={logo.alt} />
+            <Separator width={2} />
+            <Geolocation
+              isMobileVersion
+              selectedValue={levelOneMenu.geo.selectedValue}
+            />
+          </View>
+          <View alignItems="center">
+            <ClearedButton type="button" onClick={() => console.log('btn')}>
+              <ProfileIcon />
+            </ClearedButton>
+            <BurgerButton
+              type="button"
               onClick={() => {
-                setLevelTwoMenu(idx)
-                resetLevelThreeMenu()
+                toggleBurger(!burgerActive)
+                setModalShow(!isModalShow)
               }}
             >
-              {menuItem.title}
-            </LevelTwoMenuItem>
-          ))}
-        </Scroller>
-      </ScrollerContainer>
-      {levelThreeMenu && levelThreeMenu.length > 0 && (
+              <Burger isOpen={burgerActive} />
+            </BurgerButton>
+          </View>
+        </View>
         <ScrollerContainer>
           <Scroller>
-            {levelThreeMenu.map((menuItem, idx) => (
-              <LevelThreeMenuItem
+            {levelTwoMenu.map((menuItem, idx) => (
+              <LevelTwoMenuItem
                 key={menuItem.title}
-                isActive={idx === activeLevelThreeMenu}
-                onClick={() => setLevelThreeMenu(idx)}
+                isActive={idx === activeLevelTwoMenu}
+                onClick={() => {
+                  setLevelTwoMenu(idx)
+                  resetLevelThreeMenu()
+                }}
               >
                 {menuItem.title}
-              </LevelThreeMenuItem>
+              </LevelTwoMenuItem>
             ))}
           </Scroller>
         </ScrollerContainer>
-      )}
-    </Root>
+        {levelThreeMenu && levelThreeMenu.length > 0 && (
+          <ScrollerContainer>
+            <Scroller>
+              {levelThreeMenu.map((menuItem, idx) => (
+                <LevelThreeMenuItem
+                  key={menuItem.title}
+                  isActive={idx === activeLevelThreeMenu}
+                  onClick={() => setLevelThreeMenu(idx)}
+                >
+                  {menuItem.title}
+                </LevelThreeMenuItem>
+              ))}
+            </Scroller>
+          </ScrollerContainer>
+        )}
+      </Root>
+    </>
   )
 }
