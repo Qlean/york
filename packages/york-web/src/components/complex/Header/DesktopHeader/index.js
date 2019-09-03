@@ -128,6 +128,10 @@ const StyledTopMenuPhone = styled(Text)`
   letter-spacing: 0.5px;
 `
 
+const StyledProfileText = styled(Text)`
+  user-select: none;
+`
+
 export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
@@ -146,15 +150,15 @@ export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
     <View alignItems="center">
       <LoginIcon />
       <Separator width={1} />
-      <Text preset="caption">Войти</Text>
+      <StyledProfileText preset="caption">Войти</StyledProfileText>
     </View>,
-    <View alignItems="center">
-      <LoginIcon />
-      <Separator width={1} />
-      <Dropdown items={levelOneMenu.profile}>
-        <Text preset="caption">Профиль</Text>
-      </Dropdown>
-    </View>,
+    <Dropdown items={levelOneMenu.profile}>
+      <View alignItems="center">
+        <LoginIcon />
+        <Separator width={1} />
+        <StyledProfileText preset="caption">Профиль</StyledProfileText>
+      </View>
+    </Dropdown>,
   ]
 
   return (
