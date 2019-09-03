@@ -2,7 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { Text, Separator, sizes } from '@qlean/york-react-native'
+
+import { sizes } from 'york-react-native/utils/styles'
+
+import Text from 'york-react-native/components/Text'
+import Separator from 'york-react-native/components/Separator'
 
 const bulletSize = sizes[4]
 
