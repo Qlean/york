@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import {
-  Text,
-  Separator,
-  sizes,
-  borderRadiuses,
-} from '@qlean/york-react-native'
+import { sizes, borderRadiuses } from 'york-react-native/utils/styles'
+
+import Text from 'york-react-native/components/Text'
+import Separator from 'york-react-native/components/Separator'
 
 const checkboxSize = sizes[4]
 const styles = StyleSheet.create({
