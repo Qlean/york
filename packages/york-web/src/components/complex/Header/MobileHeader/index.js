@@ -10,6 +10,8 @@ import Modal from '../components/Modal'
 import IconProfile from '../assets/IconProfile'
 import IconBurger from '../assets/IconBurger'
 
+import MobileBurgerHeader from '../MobileBurgerHeader'
+
 const Root = styled.header`
   background-color: ${colors.white};
 `
@@ -94,16 +96,18 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   return (
     <>
       {isModalShow && (
-        <Modal
-          levelOneMenu={levelOneMenu}
-          levelTwoMenu={levelTwoMenu}
-          logo={logo}
-          isOpened={isModalShow}
-          onCloseHandler={() => {
-            setModalShow(false)
-            toggleBurger(false)
-          }}
-        />
+        <Modal>
+          <MobileBurgerHeader
+            levelOneMenu={levelOneMenu}
+            levelTwoMenu={levelTwoMenu}
+            logo={logo}
+            isOpened={isModalShow}
+            onCloseHandler={() => {
+              setModalShow(false)
+              toggleBurger(false)
+            }}
+          />
+        </Modal>
       )}
 
       <Root>
