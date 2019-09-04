@@ -1,14 +1,12 @@
-const getFormattedMoney = number => {
-  const formattedNumber = new Intl.NumberFormat('ru-RU').format(number / 100)
-  const suffix = 'р.'
+export const capitalize = str =>
+  `${(str[0] || '').toUpperCase()}${str.slice(1)}`
 
-  return `${formattedNumber}\u00a0${suffix}`
-}
+export const formatPhone = phone =>
+  phone
+    .replace(/\D/g, '')
+    .replace(
+      /(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/,
+      '+$1\u00a0($2)\u00a0$3-$4-$5',
+    )
 
-const formattersMap = {
-  money: getFormattedMoney,
-}
-
-export default function format(formatter, value) {
-  return formattersMap[formatter](value)
-}
+export const formatPhoneHref = phone => `tel:+${phone.replace(/\D/g, '')}`

@@ -2,97 +2,47 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { transitions } from 'york-web/utils'
-import { Text, View, Separator } from 'york-web/components/primitive'
+import { uiPoint, sizes, transitions } from 'york-web/utils'
+import { View, Separator } from 'york-web/components/primitive'
+import { GridContainer, GridColumn } from 'york-web/components/simple'
 
 import Geolocation from '../components/Geolocation'
-import LoginIcon from '../assets/login.svg'
+import { props } from '../assets/data'
 
-import Dropdown from './Dropdown'
+import Tabs from './Tabs'
+import Phone from './Phone'
+import Profile from './Profile'
 
-const ContainerBase = styled.div`
-  background-color: ${colors.white};
-`
-
-const ContainerInner = styled.div`
-  max-width: 1200px;
+const StyledGridContainer = styled(GridContainer)`
   margin-right: auto;
   margin-left: auto;
 `
 
-const ContainerLevelOne = styled(ContainerBase)`
+const StyledMenu = styled.div`
   position: relative;
   z-index: 1;
+  background-color: ${colors.white};
 `
 
-const StickyStage = styled(ContainerBase)`
+const StyledStickyMenu = styled.div`
   position: sticky;
   top: 0;
+  background-color: ${colors.white};
 `
 
-// не гайдовая тень, "Так надо" © Дизайнер
-const ContainerLevelTwo = styled(ContainerBase)`
+const StyledLevelOne = styled(View)`
+  height: ${uiPoint * 9}px;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const StyledLevelTwo = styled.div`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `
 
-const ContainerLevelThree = styled(ContainerBase)`
+const StyledLevelThree = styled.div`
   position: relative;
   z-index: -1;
-`
-
-const LevelOne = styled.div`
-  display: flex;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`
-
-const LevelOneFirstSection = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-`
-
-const LevelOneSecondSection = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: -15px;
-`
-
-const LevelOneSecondSectionSlot = styled.div`
-  margin-right: 15px;
-`
-
-const LogoWrap = styled.div`
-  margin-right: 15px;
-`
-
-const Logo = styled.img`
-  display: block;
-`
-
-const LevelOneMenu = styled.div`
-  display: flex;
-`
-
-const LevelOneMenuItem = styled.div`
-  padding: 2px 8px;
-  border-radius: 8px;
-  margin-right: 4px;
-  color: ${colors.ash};
-  font-size: 11px;
-  line-height: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: ${transitions.medium};
-  cursor: pointer;
-
-  ${({ isActive }) =>
-    isActive &&
-    `
-    background-color: ${colors.green};
-    color: ${colors.white};
-    letter-spacing: 1px;
-  `}
 `
 
 const MenuItemContainer = styled.div`
@@ -106,7 +56,6 @@ const MenuItem = styled.div`
   color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
   transition: ${transitions.medium};
   cursor: pointer;
-
   :hover {
     ${({ isActive }) => !isActive && `color: ${colors.ash};`}
   }
@@ -123,113 +72,107 @@ const LevelThreeMenuItem = styled(MenuItem)`
   line-height: 20px;
 `
 
-const StyledTopMenuPhone = styled(Text)`
-  display: block;
-  letter-spacing: 0.5px;
-`
-
-const StyledProfileText = styled(Text)`
-  user-select: none;
+const StyledMiscMenuItem = styled.div`
+  margin-left: ${sizes[3]}px;
 `
 
 export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
-  const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
-
-  const isLoggedIn = false
-  const isPlusSubscriber = false
 
   const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
 
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
-  const TMP_TOM_RIGHT_MENU = [
-    <Geolocation selectedValue={levelOneMenu.geo.selectedValue} />,
-    <StyledTopMenuPhone preset="caption">+7 495 646-82-59</StyledTopMenuPhone>,
-    <View alignItems="center">
-      <LoginIcon />
-      <Separator width={1} />
-      <StyledProfileText preset="caption">Войти</StyledProfileText>
-    </View>,
-    <Dropdown items={levelOneMenu.profile}>
-      <View alignItems="center">
-        <LoginIcon />
-        <Separator width={1} />
-        <StyledProfileText preset="caption">Профиль</StyledProfileText>
-      </View>
-    </Dropdown>,
-  ]
+  const {
+    isProfileAvailable,
+    isLoggedIn,
+    isPlusSubscriber,
+    defaultTab,
+    selectedRegion,
+    components: { Logo },
+    content: { phone, tabs },
+  } = props
 
   return (
     <>
-      <ContainerLevelOne>
-        <ContainerInner>
-          <LevelOne>
-            <LevelOneFirstSection>
-              <LogoWrap>
-                <Logo src={logo.url} width="62" height="22" alt={logo.alt} />
-              </LogoWrap>
-              <LevelOneMenu>
-                {levelOneMenu.tabs.map((menuItem, idx) => (
-                  <LevelOneMenuItem
-                    key={menuItem.title}
-                    isActive={idx === activeLevelOneMenu}
-                    onClick={() => setLevelOneMenu(idx)}
-                  >
-                    {menuItem.title}
-                  </LevelOneMenuItem>
-                ))}
-              </LevelOneMenu>
-            </LevelOneFirstSection>
-
-            <LevelOneSecondSection>
-              {TMP_TOM_RIGHT_MENU.map((item, idx) => (
-                <LevelOneSecondSectionSlot key={idx}>
-                  {item}
-                </LevelOneSecondSectionSlot>
-              ))}
-            </LevelOneSecondSection>
-          </LevelOne>
-        </ContainerInner>
-      </ContainerLevelOne>
-      <StickyStage>
-        <ContainerLevelTwo>
-          <ContainerInner>
-            <MenuItemContainer>
-              {levelTwoMenu.map((menuItem, idx) => (
-                <LevelTwoMenuItem
-                  key={menuItem.title}
-                  isActive={idx === activeLevelTwoMenu}
-                  onClick={() => {
-                    setLevelTwoMenu(idx)
-                    resetLevelThreeMenu()
-                  }}
-                >
-                  {menuItem.title}
-                </LevelTwoMenuItem>
-              ))}
-            </MenuItemContainer>
-          </ContainerInner>
-        </ContainerLevelTwo>
-        {levelThreeMenu && levelThreeMenu.length > 0 && (
-          <ContainerLevelThree>
-            <ContainerInner>
+      <StyledMenu>
+        <StyledGridContainer>
+          <GridColumn columns={12}>
+            <StyledLevelOne>
+              <View alignItems="center">
+                {Logo && (
+                  <>
+                    <Logo />
+                    <Separator width={3} />
+                  </>
+                )}
+                <Tabs {...props} />
+              </View>
+              <View alignItems="center">
+                {selectedRegion && (
+                  <StyledMiscMenuItem>
+                    <Geolocation
+                      selectedValue={levelOneMenu.geo.selectedValue}
+                    />
+                  </StyledMiscMenuItem>
+                )}
+                {phone && (
+                  <StyledMiscMenuItem>
+                    <Phone phone={phone} />
+                  </StyledMiscMenuItem>
+                )}
+                {isProfileAvailable && (
+                  <StyledMiscMenuItem>
+                    <Profile {...props} />
+                  </StyledMiscMenuItem>
+                )}
+              </View>
+            </StyledLevelOne>
+          </GridColumn>
+        </StyledGridContainer>
+      </StyledMenu>
+      <StyledStickyMenu>
+        <StyledLevelTwo>
+          <StyledGridContainer>
+            <GridColumn columns={12}>
               <MenuItemContainer>
-                {levelThreeMenu.map((menuItem, idx) => (
-                  <LevelThreeMenuItem
+                {levelTwoMenu.map((menuItem, idx) => (
+                  <LevelTwoMenuItem
                     key={menuItem.title}
-                    isActive={idx === activeLevelThreeMenu}
-                    onClick={() => setLevelThreeMenu(idx)}
+                    isActive={idx === activeLevelTwoMenu}
+                    onClick={() => {
+                      setLevelTwoMenu(idx)
+                      resetLevelThreeMenu()
+                    }}
                   >
                     {menuItem.title}
-                  </LevelThreeMenuItem>
+                  </LevelTwoMenuItem>
                 ))}
               </MenuItemContainer>
-            </ContainerInner>
-          </ContainerLevelThree>
+            </GridColumn>
+          </StyledGridContainer>
+        </StyledLevelTwo>
+        {levelThreeMenu && levelThreeMenu.length > 0 && (
+          <StyledLevelThree>
+            <StyledGridContainer>
+              <GridColumn columns={12}>
+                <MenuItemContainer>
+                  {levelThreeMenu.map((menuItem, idx) => (
+                    <LevelThreeMenuItem
+                      key={menuItem.title}
+                      isActive={idx === activeLevelThreeMenu}
+                      onClick={() => setLevelThreeMenu(idx)}
+                    >
+                      {menuItem.title}
+                    </LevelThreeMenuItem>
+                  ))}
+                </MenuItemContainer>
+              </GridColumn>
+            </StyledGridContainer>
+          </StyledLevelThree>
         )}
-      </StickyStage>
+      </StyledStickyMenu>
     </>
   )
 }

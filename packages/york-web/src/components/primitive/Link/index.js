@@ -37,10 +37,11 @@ const presets = {
     },
   },
   blank: {
-    color: 'coal',
+    borderBottomColor: 'none',
+    color: 'none',
     hoverProps: {
-      borderBottomColor: 'coal',
-      color: 'coal',
+      borderBottomColor: 'none',
+      color: 'none',
     },
   },
 }
@@ -54,8 +55,12 @@ const presetsByBackdropColorAndRank = {
 }
 
 const getBaseCss = ({ color, borderBottomColor = 'transparent' }) => `
-  color: ${colors[color]};
-  border-bottom: 1px solid ${colors[borderBottomColor]};
+  ${color === 'none' ? '' : `color: ${colors[color]};`}
+  ${
+    borderBottomColor === 'none'
+      ? ''
+      : `border-bottom: 1px solid ${colors[borderBottomColor]};`
+  }
 `
 
 const getMediaCss = ({ hoverProps, ...rest }) => `
