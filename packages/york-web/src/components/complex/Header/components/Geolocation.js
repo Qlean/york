@@ -14,22 +14,42 @@ const TopMenuGeolocationIcon = styled(IconGeo)`
   margin-right: 5px;
 `
 
-const TopMenuGeolocationText = styled.div`
+// FIXME: не хавает текст
+const Select = styled.select`
+  position: relative;
+  top: 1px;
+  border: 0;
+
+  background-color: transparent;
   color: ${colors.grey};
+  font-family: 'Museo Sans';
   font-size: ${({ isMobileVersion }) => (isMobileVersion ? 12 : 14)}px;
   line-height: ${({ isMobileVersion }) => (isMobileVersion ? 15 : 20)}px;
+
+  -webkit-appearance: none;
 `
 
 // FIXME: isMobileVersion - переделать с булеана на хеш
-export default function Geolocation(props) {
-  const { selectedValue, isMobileVersion } = props
-
+export default function Geolocation({
+  selectedValue,
+  isMobileVersion,
+  cities,
+  onChangeHandler,
+}) {
   return (
     <TopMenuGeolocation>
       <TopMenuGeolocationIcon />
-      <TopMenuGeolocationText isMobileVersion={isMobileVersion}>
-        {selectedValue}
-      </TopMenuGeolocationText>
+      <Select onChange={onChangeHandler} isMobileVersion={isMobileVersion}>
+        {cities.map(item => (
+          <option
+            key={item.value}
+            value={item.value}
+            selected={selectedValue === item.name}
+          >
+            {item.name}
+          </option>
+        ))}
+      </Select>
     </TopMenuGeolocation>
   )
 }
