@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
+import { transitions } from 'york-web/utils'
 
 import ClearedButton from '../components/ClearedButton'
 import IconBurger from '../assets/IconBurger'
@@ -16,6 +17,11 @@ const Root = styled(View)`
   background-color: ${colors.white};
 `
 
+const IconArrowWrap = styled(IconArrow)`
+  transition: ${transitions.medium};
+  ${({ isActive }) => (isActive ? 'transform: rotate(-180deg);' : '')}
+`
+
 const Logo = styled.img`
   display: block;
 `
@@ -26,7 +32,7 @@ const BurgerButton = styled(ClearedButton)`
 
 const Burger = styled(IconBurger)`
   display: block;
-  transition: transform 0.3s;
+  transition: ${transitions.medium};
   ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
@@ -41,9 +47,11 @@ const TabMenuItem = styled(Text)`
   color: ${({ isActive }) => (isActive ? colors.coal : colors.grey)};
   font-weight: 500;
   text-transform: uppercase;
+  transition: ${transitions.medium};
 `
 
 const MenuItem = styled(Text)`
+  color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
   text-transform: uppercase;
 `
 
@@ -63,6 +71,7 @@ export default function MobileBurgerHeader({
   levelOneMenu,
   levelTwoMenu,
 }) {
+  const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
 
   return (
@@ -80,36 +89,61 @@ export default function MobileBurgerHeader({
       </View>
       <TabsContainer>
         {levelOneMenu.tabs.map((menuItem, idx) => (
-          <TabMenuItem isActive={idx === 0}>{menuItem.title}</TabMenuItem>
+          <TabMenuItem
+            key={menuItem.title}
+            isActive={activeLevelOneMenu === idx}
+            onClick={() => setLevelOneMenu(idx)}
+          >
+            {menuItem.title}
+          </TabMenuItem>
         ))}
       </TabsContainer>
       <View flexDirection="column">
         {levelTwoMenu.map((menuItem, idx) => {
           const { subMenu } = menuItem
           const isSubMenuExist = subMenu && !!subMenu.length
+          const isCurrentActive = activeLevelTwoMenu === idx
           return (
-            <View flexDirection="column" key={menuItem.title}>
+            <View
+              key={menuItem.title}
+              flexDirection="column"
+              onClick={() => setLevelTwoMenu(isCurrentActive ? -1 : idx)}
+            >
               <View alignItems="center">
                 <View flexDirection="column">
                   <Separator height={2} />
                   <View>
                     <Separator width={4} />
-                    <MenuItem>{menuItem.title}</MenuItem>
+                    <MenuItem isActive={isCurrentActive}>
+                      {menuItem.title}
+                    </MenuItem>
                   </View>
                   <Separator height={2} />
                 </View>
                 {isSubMenuExist && (
                   <MenuItemIconWrap>
                     <Separator width={2} />
-                    <IconArrow />
+                    <IconArrowWrap isActive={isCurrentActive} />
                     <Separator width={4} />
                   </MenuItemIconWrap>
                 )}
               </View>
 
               {isSubMenuExist &&
-                activeLevelTwoMenu === idx &&
-                subMenu.map(subMenuItem => <View>{subMenuItem.title}</View>)}
+                isCurrentActive &&
+                subMenu.map(subMenuItem => (
+                  <View
+                    key={subMenuItem.title}
+                    onClick={() => console.log('submenu', subMenuItem.title)}
+                  >
+                    <Separator width={8} />
+                    <View flexDirection="column">
+                      <Separator height={1} />
+                      <Text>{subMenuItem.title}</Text>
+                      <Separator height={1} />
+                    </View>
+                  </View>
+                ))}
             </View>
           )
         })}
