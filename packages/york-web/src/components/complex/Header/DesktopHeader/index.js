@@ -114,6 +114,7 @@ export default function DesktopHeader({ levelOneMenu, levelTwoMenu, logo }) {
                   <StyledMiscMenuItem>
                     <Geolocation
                       selectedValue={levelOneMenu.geo.selectedValue}
+                      cities={levelOneMenu.geo.cities}
                     />
                   </StyledMiscMenuItem>
                 )}
