@@ -120,7 +120,7 @@ function Link({ href, children, ...rest }) {
 }
 
 Link.defaultProps = {
-  rank: 1,
+  rank: 0,
   backdropColor: 'white',
 }
 

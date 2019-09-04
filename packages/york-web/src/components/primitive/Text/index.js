@@ -78,12 +78,14 @@ const getBaseCss = ({
   fontSize,
   lineHeight,
   letterSpacing,
+  textTransform,
 }) => `
   font-size: ${fontSize}px;
   color: ${color === 'inherit' ? 'inherit' : colors[color]};
   font-weight: ${fontWeight};
   line-height: ${lineHeight}px;
   ${letterSpacing ? `letter-spacing: ${letterSpacing}px` : ''};
+  ${textTransform ? `text-transform: ${textTransform}` : ''};
 `
 
 const defaultProps = {

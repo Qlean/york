@@ -6,6 +6,7 @@ import { sizes, borderRadiuses } from 'york-web/utils'
 import { Text, View, Link } from 'york-web/components/primitive'
 
 const StyledTab = styled(View)`
+  align-items: center;
   height: 24px;
   padding: 0 8px;
   border-radius: ${borderRadiuses.medium};
@@ -21,14 +22,14 @@ const StyledTabText = styled(Text)`
   letter-spacing: 1px;
 `
 
-export default function DesktopHeader({ defaultTab, content: { tabs } }) {
+export default function Tabs({ defaultTab, content: { tabs } }) {
   return (
     <View>
       {tabs.map(({ name, title, href }) => {
         const isSelected = defaultTab === name
         return (
-          <Link rank={0} href={href} key={name}>
-            <StyledTab key={name} isSelected={isSelected} alignItems="center">
+          <Link href={href} key={name}>
+            <StyledTab key={name} isSelected={isSelected}>
               <StyledTabText color={isSelected ? 'white' : 'grey'}>
                 {title}
               </StyledTabText>
