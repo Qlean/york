@@ -9,7 +9,7 @@ import { media, sizes, uiPoint } from 'york-web/utils'
 import locales from './locales'
 
 const StyledContainer = styled(View)`
-  height: 80vh;
+  height: 100%;
   padding: 0 ${sizes[4]}px;
 `
 
