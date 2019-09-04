@@ -59,7 +59,9 @@ const Select = ({ title, value, options, onChange }) => (
     <Separator width={1} />
     <select value={value} onChange={onChange}>
       {options.map(({ label, value: optionValue }) => (
-        <option value={optionValue}>{label}</option>
+        <option key={optionValue} value={optionValue}>
+          {label}
+        </option>
       ))}
     </select>
   </View>
@@ -71,7 +73,7 @@ Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      value: PropTypes.string.isRequired,
     }),
   ).isRequired,
   onChange: PropTypes.func.isRequired,

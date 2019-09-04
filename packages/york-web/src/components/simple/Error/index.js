@@ -4,13 +4,17 @@ import PropTypes from 'prop-types'
 
 import { Button } from 'york-web/components/simple'
 import { View, Text, Separator } from 'york-web/components/primitive'
-import { media, sizes } from 'york-web/utils'
+import { media, sizes, uiPoint } from 'york-web/utils'
 
 import locales from './locales'
 
 const StyledContainer = styled(View)`
-  height: 100%;
+  height: 80vh;
   padding: 0 ${sizes[4]}px;
+`
+
+const StyledLayoutContainer = styled(View)`
+  text-align: center;
 `
 
 const StyledImage = styled.img`
@@ -18,15 +22,10 @@ const StyledImage = styled.img`
 `
 
 const StyledButtonContainer = styled.div`
-  width: auto;
-
+  width: ${44 * uiPoint}px;
   ${media.mobile(`
     width: 100%;
   `)}
-`
-
-const StyledText = styled(Text)`
-  text-align: center;
 `
 
 const StyledHeader = styled(View)`
@@ -39,13 +38,7 @@ const StyledFooter = styled(View)`
 
 const ReloadButton = () => (
   <StyledButtonContainer>
-    <Button
-      name="Error.reloadButton"
-      onClick={() => {
-        window.location.reload()
-      }}
-      isDisabled={false}
-    >
+    <Button name="reload" onClick={window.location.reload} isDisabled={false}>
       {locales.reloadButton}
     </Button>
   </StyledButtonContainer>
@@ -53,24 +46,24 @@ const ReloadButton = () => (
 
 const getErrorLayout = statusCode => {
   switch (statusCode) {
-    case '404':
+    case 404:
       return (
         <>
           <StyledImage src={require('./assets/404.svg')} />
           <Separator height={8} />
-          <StyledText preset="header4">{locales.errors[404].title}</StyledText>
+          <Text preset="header4">{locales.errors[404].title}</Text>
           <Separator height={2} />
-          <StyledText>{locales.errors[404].text}</StyledText>
+          <Text>{locales.errors[404].text}</Text>
         </>
       )
-    case '500':
+    case 500:
       return (
         <>
           <StyledImage src={require('./assets/500.svg')} />
           <Separator height={8} />
-          <StyledText preset="header4">{locales.errors[500].title}</StyledText>
+          <Text preset="header4">{locales.errors[500].title}</Text>
           <Separator height={2} />
-          <StyledText>{locales.errors[500].text}</StyledText>
+          <Text>{locales.errors[500].text}</Text>
           <Separator height={6} />
           <ReloadButton />
         </>
@@ -78,11 +71,9 @@ const getErrorLayout = statusCode => {
     default:
       return (
         <>
-          <StyledText preset="header4">
-            {locales.errors.default.title}
-          </StyledText>
+          <Text preset="header4">{locales.errors.default.title}</Text>
           <Separator height={2} />
-          <StyledText>{locales.errors.default.text}</StyledText>
+          <Text>{locales.errors.default.text}</Text>
           <Separator height={6} />
           <ReloadButton />
         </>
@@ -103,7 +94,9 @@ const Error = ({ statusCode, header, footer }) => {
         {header && header}
       </StyledHeader>
       <Separator height={8} />
-      {getErrorLayout(statusCode)}
+      <StyledLayoutContainer flexDirection="column" alignItems="center">
+        {getErrorLayout(statusCode)}
+      </StyledLayoutContainer>
       <Separator height={8} />
       <StyledFooter flexDirection="column">
         {footer && footer}
@@ -115,7 +108,7 @@ const Error = ({ statusCode, header, footer }) => {
 
 Error.propTypes = {
   /** Код ошибки */
-  statusCode: PropTypes.string,
+  statusCode: PropTypes.number,
   /** Элемент заголовка */
   header: PropTypes.element,
   /** Элемент подвала */

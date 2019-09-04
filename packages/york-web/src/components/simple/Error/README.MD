@@ -6,21 +6,23 @@ const Header = () => (
   <img src={require('./assets/logo.svg')} alt="Логотип Qlean"/>
 )
 
-const StyledText = styled(Text)`
+const StyledContainer = styled(View)`
   text-align: center;
 `
 
 const Footer = () => (
-  <View flexDirection="column" alignItems="center">
-    <StyledText>Если после перезагрузки вы видите тот же экран, то позвоните нам</StyledText>
-    <Link href="tel:+74956468259">+7 495 646-82-59</Link>
-  </View>
+  <StyledContainer flexDirection="column" alignItems="center">
+    <Text>Если после перезагрузки вы видите тот же экран, то позвоните нам</Text>
+    <Text>
+      <Link href="tel:+74956468259">+7 495 646-82-59</Link>
+    </Text>
+  </StyledContainer>
 )
 
 const statusCodes = [
   {
-    value: null,
-    label: 'Не указан'
+    value: '',
+    label: 'empty'
   },
   {
     value: '404',
@@ -35,8 +37,7 @@ const statusCodes = [
 const ExampleComponent = () => {
   const [ withHeader, setWithHeader ] = React.useState(true)
   const [ withFooter, setWithFooter ] = React.useState(true)
-  const [ statusCode, setStatusCode ] = React.useState(null)
-
+  const [ statusCode, setStatusCode ] = React.useState('')
 
   return (
     <>
@@ -45,25 +46,25 @@ const ExampleComponent = () => {
           value={withHeader}
           onChange={() => setWithHeader(!withHeader)}
         >
-          Показывать header
+          header
         </Example.Checkbox>
         <Example.Checkbox
           value={withFooter}
           onChange={() => setWithFooter(!withFooter)}
         >
-          Показывать footer
+          footer
         </Example.Checkbox>
       </Example.InputGroup>
       <Example.Select
-        title='Код ошибки'
+        title='statusCode'
         value={statusCode}
         options={statusCodes}
         onChange={(e) => setStatusCode(e.target.value)}
       />
       <Error
-        statusCode={statusCode}
-        header={withHeader && <Header />}
-        footer={withFooter && <Footer />}
+        statusCode={Number(statusCode)}
+        header={withHeader ? <Header /> : null}
+        footer={withFooter ? <Footer /> : null}
       />
     </>
   )
