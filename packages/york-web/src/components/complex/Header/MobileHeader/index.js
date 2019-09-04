@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-
 import { View, Separator } from 'york-web/components/primitive'
 
-import Geolocation from '../components/Geolocation'
 import ClearedButton from '../components/ClearedButton'
-import Modal from '../components/Modal'
+import MobileBurgerHeader from '../MobileBurgerHeader'
+import Geolocation from '../components/Geolocation'
 import IconProfile from '../assets/IconProfile'
 import IconBurger from '../assets/IconBurger'
+import Modal from '../components/Modal'
 
 const Root = styled.header`
   background-color: ${colors.white};
@@ -94,16 +94,18 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   return (
     <>
       {isModalShow && (
-        <Modal
-          levelOneMenu={levelOneMenu}
-          levelTwoMenu={levelTwoMenu}
-          logo={logo}
-          isOpened={isModalShow}
-          onCloseHandler={() => {
-            setModalShow(false)
-            toggleBurger(false)
-          }}
-        />
+        <Modal>
+          <MobileBurgerHeader
+            levelOneMenu={levelOneMenu}
+            levelTwoMenu={levelTwoMenu}
+            logo={logo}
+            isOpened={isModalShow}
+            onCloseHandler={() => {
+              setModalShow(false)
+              toggleBurger(false)
+            }}
+          />
+        </Modal>
       )}
 
       <Root>
@@ -115,6 +117,8 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
             <Geolocation
               isMobileVersion
               selectedValue={levelOneMenu.geo.selectedValue}
+              cities={levelOneMenu.geo.cities}
+              onChangeHandler={() => console.log('btn')}
             />
           </View>
           <View alignItems="center">
