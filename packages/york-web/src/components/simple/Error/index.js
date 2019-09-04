@@ -37,10 +37,10 @@ const StyledFooter = styled(View)`
   margin-top: auto;
 `
 
-const ReloadButton = () => (
+const RefreshButton = () => (
   <StyledButtonContainer>
     <Button
-      name="Error.reloadButton"
+      name="Error.refreshButton"
       onClick={() => {
         window.location.reload()
       }}
@@ -72,7 +72,7 @@ const getErrorLayout = statusCode => {
           <Separator height={2} />
           <StyledText>{locales.errors[500].text}</StyledText>
           <Separator height={6} />
-          <ReloadButton />
+          <RefreshButton />
         </>
       )
     default:
@@ -84,7 +84,7 @@ const getErrorLayout = statusCode => {
           <Separator height={2} />
           <StyledText>{locales.errors.default.text}</StyledText>
           <Separator height={6} />
-          <ReloadButton />
+          <RefreshButton />
         </>
       )
   }
