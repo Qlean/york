@@ -10,8 +10,8 @@ import { menuItemShape } from './utils'
 import DesktopHeader from './DesktopHeader'
 import MobileHeader from './MobileHeader'
 
-//////
-import { LEVEL_ONE_MENU, LEVEL_TWO_MENU, LOGO } from './assets/data'
+// ////
+import { LEVEL_ONE_MENU, LEVEL_TWO_MENU } from './assets/data'
 
 const StyledMobileHeader = styled.div`
   ${media.desktop('display:none;')}
@@ -33,7 +33,6 @@ export default function Header({ components, ...rest }) {
           {...props}
           levelOneMenu={LEVEL_ONE_MENU}
           levelTwoMenu={LEVEL_TWO_MENU}
-          logo={LOGO}
         />
       </StyledMobileHeader>
     </>
@@ -62,7 +61,7 @@ Header.propTypes = {
   components: PropTypes.objectOf(PropTypes.elementType.isRequired),
   content: PropTypes.shape({
     phone: PropTypes.string,
-    ///// proper shape
+    // /// proper shape
     regions: PropTypes.array.isRequired,
     tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,

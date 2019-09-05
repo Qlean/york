@@ -66,10 +66,10 @@ const Footer = styled.div`
 
 export default function MobileBurgerHeader({
   onCloseHandler,
-  logo,
   isOpened,
   levelOneMenu,
   levelTwoMenu,
+  components: { Logo },
 }) {
   const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
@@ -79,7 +79,7 @@ export default function MobileBurgerHeader({
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          <Logo src={logo.url} alt={logo.alt} />
+          {Logo && <Logo />}
         </View>
         <View alignItems="center">
           <BurgerButton type="button" onClick={onCloseHandler}>

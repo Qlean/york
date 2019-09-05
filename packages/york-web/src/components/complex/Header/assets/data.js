@@ -1,11 +1,6 @@
 import React from 'react'
 import { Text, Link } from 'york-web/components/primitive'
 
-export const LOGO = {
-  url: '',
-  alt: 'Логотип Qlean',
-}
-
 export const LEVEL_ONE_MENU = {
   tabs: [{ title: 'Для дома' }, { title: 'Для офиса' }],
   geo: {

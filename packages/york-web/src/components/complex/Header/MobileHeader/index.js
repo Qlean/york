@@ -106,7 +106,12 @@ const ScrollerItemPlaceholder = styled.div`
   width: 33vw;
 `
 
-export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
+export default function MobileHeader(props) {
+  const {
+    levelOneMenu,
+    levelTwoMenu,
+    components: { Logo },
+  } = props
   const [burgerActive, toggleBurger] = React.useState(false)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
   const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
@@ -122,9 +127,9 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
       {isModalShow && (
         <Modal>
           <MobileBurgerHeader
+            {...props}
             levelOneMenu={levelOneMenu}
             levelTwoMenu={levelTwoMenu}
-            logo={logo}
             isOpened={isModalShow}
             onCloseHandler={() => {
               setModalShow(false)
@@ -137,7 +142,7 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
-            <Logo src={logo.url} alt={logo.alt} />
+            {Logo && <Logo />}
             <Separator width={2} />
             <Geolocation
               isMobileVersion
