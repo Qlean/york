@@ -15,7 +15,9 @@ const Root = styled(View)`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 1px;
   background-color: ${colors.white};
+  overflow-y: auto;
 `
 
 const IconArrowWrap = styled(View)`
