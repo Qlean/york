@@ -11,6 +11,8 @@ import IconProfile from '../assets/IconProfile'
 import IconBurger from '../assets/IconBurger'
 import Modal from '../components/Modal'
 
+import scrollHelper from './scrollHelper'
+
 const Root = styled.header`
   background-color: ${colors.white};
 `
@@ -113,6 +115,7 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
   const levelTwoContainerRef = React.useRef()
+  const levelThreeContainerRef = React.useRef()
 
   return (
     <>
@@ -130,7 +133,6 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
           />
         </Modal>
       )}
-
       <Root>
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
@@ -168,48 +170,31 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
                 onClick={evt => {
                   setLevelTwoMenu(idx)
                   resetLevelThreeMenu()
-                  const menuItemNode = evt.target
-                  const containerNode = levelTwoContainerRef.current
-
-                  const containerLeftPoint = containerNode.scrollLeft
-                  const containerRightPoint =
-                    containerLeftPoint + containerNode.clientWidth
-
-                  const itemLeftPoint = menuItemNode.offsetLeft
-                  const itemRightPoint =
-                    itemLeftPoint + menuItemNode.clientWidth
-
-                  const isLeftItemOverflow = containerLeftPoint > itemLeftPoint
-                  const isRightItemOverflow =
-                    containerRightPoint < itemRightPoint
-
-                  if (isLeftItemOverflow || isRightItemOverflow) {
-                    containerNode.scrollTo({
-                      left: itemLeftPoint - 30,
-                      behavior: 'smooth',
-                    })
-                  }
+                  scrollHelper(levelTwoContainerRef.current, evt.target)
                 }}
               >
                 {menuItem.title}
               </LevelTwoMenuItem>
             ))}
-
             <ScrollerItemPlaceholder />
           </Scroller>
         </ScrollerContainer>
         {levelThreeMenu && levelThreeMenu.length > 0 && (
           <ScrollerContainer>
-            <Scroller>
+            <Scroller ref={levelThreeContainerRef}>
               {levelThreeMenu.map((menuItem, idx) => (
                 <LevelThreeMenuItem
                   key={menuItem.title}
                   isActive={idx === activeLevelThreeMenu}
-                  onClick={() => setLevelThreeMenu(idx)}
+                  onClick={evt => {
+                    setLevelThreeMenu(idx)
+                    scrollHelper(levelThreeContainerRef.current, evt.target)
+                  }}
                 >
                   {menuItem.title}
                 </LevelThreeMenuItem>
               ))}
+              <ScrollerItemPlaceholder />
             </Scroller>
           </ScrollerContainer>
         )}
