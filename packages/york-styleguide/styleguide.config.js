@@ -3,6 +3,7 @@ const path = require('path')
 const propsParser = require('./propsParser')
 
 const lernaConfig = require('../../lerna.json')
+const yorkAnalyticsPackage = require('../york-analytics/package.json')
 const yorkCorePackage = require('../york-core/package.json')
 const yorkWebPackage = require('../york-web/package.json')
 const yorkReactNativePackage = require('../york-react-native/package.json')
@@ -31,6 +32,29 @@ module.exports = {
       name: 'york',
       description: `Версия ${lernaConfig.version}`,
       content: './README.md',
+    },
+    {
+      name: 'york-analytics',
+      description: `Версия ${yorkAnalyticsPackage.version}`,
+      content: '../york-analytics/README.MD',
+      sections: [
+        {
+          name: 'components',
+          description:
+            'Примитивные компоненты, самые базовые строительные блоки интерфейса',
+          components: '../york-analytics/src/components/**/*.js',
+        },
+        {
+          name: 'hooks',
+          description: 'Хуки',
+          sections: [
+            {
+              name: 'useAnalytics',
+              content: '../york-analytics/docs/useAnalytics.md',
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'york-core',
