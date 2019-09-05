@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { Button } from '@qlean/york-web'
 import { View, Text, Separator } from 'york-web/components/primitive'
 import { media, sizes, uiPoint } from 'york-web/utils'
+
+import Button from '../Button'
 
 import locales from './locales'
 
