@@ -1,9 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
 import { sizes, borderRadiuses } from 'york-web/utils'
 import { Text, View, Link } from 'york-web/components/primitive'
+
+import { menuItemShape } from '../utils'
 
 const StyledTab = styled(View)`
   align-items: center;
@@ -39,4 +42,11 @@ export default function Tabs({ defaultTab, content: { tabs } }) {
       })}
     </View>
   )
+}
+
+Tabs.propTypes = {
+  defaultTab: PropTypes.string.isRequired,
+  content: PropTypes.shape({
+    tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  }).isRequired,
 }
