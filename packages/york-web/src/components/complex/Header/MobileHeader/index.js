@@ -36,19 +36,33 @@ const Burger = styled(IconBurger)`
 const ScrollerContainer = styled.div`
   position: relative;
 
+  &::before,
   &::after {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    width: 20px;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  &::after {
+    right: 0;
     width: 40px;
     background-image: linear-gradient(
       270deg,
       rgba(255, 255, 255, 0.85) 0%,
       rgba(255, 255, 255, 0) 100%
     );
-    pointer-events: none;
   }
 `
 
