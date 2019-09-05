@@ -15,7 +15,7 @@ import Phone from './Phone'
 import Profile from './Profile'
 import Menu from './Menu'
 
-const StyledGridContainer = styled(GridContainer)`
+const StyledMenuContainer = styled.div`
   margin: 0 auto;
 `
 
@@ -44,10 +44,12 @@ const StyledStickyMenu = styled.div`
 `
 
 const StyledLevelOneMenu = styled.div`
+  margin: 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `
 
 const StyledLevelTwoMenu = styled.div`
+  margin: 0 auto;
   position: relative;
   z-index: -1;
 `
@@ -68,49 +70,52 @@ export default function DesktopHeader({
   return (
     <>
       <StyledMenu>
-        <StyledGridContainer>
-          <GridColumn columns={12}>
-            <StyledTopMenu>
-              <View alignItems="center">
-                {Logo && (
-                  <>
-                    <Logo />
-                    <Separator width={3} />
-                  </>
-                )}
-                <Tabs {...props} />
-              </View>
-              <View alignItems="center">
-                {selectedRegion && (
-                  <StyledTopMenuItem>
-                    <Geolocation
-                      ////// rework
-                      selectedValue={selectedRegion}
-                      cities={[
-                        { name: 'Санкт-Петербург', value: 'spb' },
-                        { name: 'Москва', value: 'msk' },
-                      ]}
-                    />
-                  </StyledTopMenuItem>
-                )}
-                {phone && (
-                  <StyledTopMenuItem>
-                    <Phone phone={phone} />
-                  </StyledTopMenuItem>
-                )}
-                {isProfileAvailable && (
-                  <StyledTopMenuItem>
-                    <Profile {...props} />
-                  </StyledTopMenuItem>
-                )}
-              </View>
-            </StyledTopMenu>
-          </GridColumn>
-        </StyledGridContainer>
+        <StyledMenuContainer>
+          <GridContainer>
+            <GridColumn columns={12}>
+              <StyledTopMenu>
+                <View alignItems="center">
+                  {Logo && (
+                    <>
+                      <Logo />
+                      <Separator width={3} />
+                    </>
+                  )}
+                  <Tabs {...props} />
+                </View>
+                <View alignItems="center">
+                  {selectedRegion && (
+                    <StyledTopMenuItem>
+                      <Geolocation
+                        ////// rework
+                        /// weird cursor
+                        selectedValue={selectedRegion}
+                        cities={[
+                          { name: 'Санкт-Петербург', value: 'spb' },
+                          { name: 'Москва', value: 'msk' },
+                        ]}
+                      />
+                    </StyledTopMenuItem>
+                  )}
+                  {phone && (
+                    <StyledTopMenuItem>
+                      <Phone phone={phone} />
+                    </StyledTopMenuItem>
+                  )}
+                  {isProfileAvailable && (
+                    <StyledTopMenuItem>
+                      <Profile {...props} />
+                    </StyledTopMenuItem>
+                  )}
+                </View>
+              </StyledTopMenu>
+            </GridColumn>
+          </GridContainer>
+        </StyledMenuContainer>
       </StyledMenu>
       <StyledStickyMenu>
         <StyledLevelOneMenu>
-          <StyledGridContainer>
+          <GridContainer>
             <GridColumn columns={12}>
               <Menu
                 {...props}
@@ -119,11 +124,11 @@ export default function DesktopHeader({
                 textPreset="link"
               />
             </GridColumn>
-          </StyledGridContainer>
+          </GridContainer>
         </StyledLevelOneMenu>
         {Boolean(levelTwoMenuItems.length) && (
           <StyledLevelTwoMenu>
-            <StyledGridContainer>
+            <GridContainer>
               <GridColumn columns={12}>
                 <Menu
                   {...props}
@@ -132,7 +137,7 @@ export default function DesktopHeader({
                   textPreset="caption"
                 />
               </GridColumn>
-            </StyledGridContainer>
+            </GridContainer>
           </StyledLevelTwoMenu>
         )}
       </StyledStickyMenu>
