@@ -39,13 +39,13 @@ export default function Geolocation({
   return (
     <TopMenuGeolocation>
       <TopMenuGeolocationIcon />
-      <Select onChange={onChangeHandler} isMobileVersion={isMobileVersion}>
+      <Select
+        onChange={onChangeHandler}
+        isMobileVersion={isMobileVersion}
+        value={selectedValue}
+      >
         {cities.map(item => (
-          <option
-            key={item.value}
-            value={item.value}
-            selected={selectedValue === item.name}
-          >
+          <option key={item.value} value={item.value}>
             {item.name}
           </option>
         ))}

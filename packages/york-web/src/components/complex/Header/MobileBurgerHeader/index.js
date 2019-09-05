@@ -17,7 +17,7 @@ const Root = styled(View)`
   background-color: ${colors.white};
 `
 
-const IconArrowWrap = styled(IconArrow)`
+const IconArrowWrap = styled(View)`
   transition: ${transitions.medium};
   ${({ isActive }) => (isActive ? 'transform: rotate(-180deg);' : '')}
 `
@@ -123,7 +123,9 @@ export default function MobileBurgerHeader({
                 {isSubMenuExist && (
                   <MenuItemIconWrap>
                     <Separator width={2} />
-                    <IconArrowWrap isActive={isCurrentActive} />
+                    <IconArrowWrap isActive={isCurrentActive}>
+                      <IconArrow />
+                    </IconArrowWrap>
                     <Separator width={4} />
                   </MenuItemIconWrap>
                 )}
