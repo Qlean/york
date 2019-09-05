@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const LOGO = {
-  url: require('../assets/qlean-logo.svg'),
+  url: '',
   alt: 'Логотип Qlean',
 }
 
