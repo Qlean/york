@@ -86,7 +86,7 @@ export default function MobileBurgerHeader(props) {
           </BurgerButton>
         </View>
       </View>
-      <TabsContainer>
+      <TabsContainer justifyContent="center">
         {tabs.map(({ name, title, href }) => (
           <TabMenuItem key={name} href={href} isSelected={defaultTab === name}>
             {title}
@@ -136,7 +136,9 @@ export default function MobileBurgerHeader(props) {
                       <Separator height={1} />
                       <Text
                         color={
-                          subMenuItem.name === selectedLevelTwoItem && 'green'
+                          subMenuItem.name === selectedLevelTwoItem
+                            ? 'green'
+                            : undefined
                         }
                       >
                         {subMenuItem.title}
