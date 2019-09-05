@@ -11,6 +11,8 @@ import IconProfile from '../assets/IconProfile'
 import IconBurger from '../assets/IconBurger'
 import Modal from '../components/Modal'
 
+import scrollHelper from './scrollHelper'
+
 const Root = styled.header`
   background-color: ${colors.white};
 `
@@ -36,19 +38,33 @@ const Burger = styled(IconBurger)`
 const ScrollerContainer = styled.div`
   position: relative;
 
+  &::before,
   &::after {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    width: 20px;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  &::after {
+    right: 0;
     width: 40px;
     background-image: linear-gradient(
       270deg,
       rgba(255, 255, 255, 0.85) 0%,
       rgba(255, 255, 255, 0) 100%
     );
-    pointer-events: none;
   }
 `
 
@@ -85,6 +101,11 @@ const LevelThreeMenuItem = styled(LevelTwoMenuItem)`
   letter-spacing: 0.4px;
 `
 
+const ScrollerItemPlaceholder = styled.div`
+  flex-shrink: 0;
+  width: 33vw;
+`
+
 export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const [burgerActive, toggleBurger] = React.useState(false)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
@@ -92,6 +113,9 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const [isModalShow, setModalShow] = React.useState(false)
   const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
+
+  const levelTwoContainerRef = React.useRef()
+  const levelThreeContainerRef = React.useRef()
 
   return (
     <>
@@ -109,7 +133,6 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
           />
         </Modal>
       )}
-
       <Root>
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
@@ -139,33 +162,39 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
           </View>
         </View>
         <ScrollerContainer>
-          <Scroller>
+          <Scroller ref={levelTwoContainerRef}>
             {levelTwoMenu.map((menuItem, idx) => (
               <LevelTwoMenuItem
                 key={menuItem.title}
                 isActive={idx === activeLevelTwoMenu}
-                onClick={() => {
+                onClick={evt => {
                   setLevelTwoMenu(idx)
                   resetLevelThreeMenu()
+                  scrollHelper(levelTwoContainerRef.current, evt.target)
                 }}
               >
                 {menuItem.title}
               </LevelTwoMenuItem>
             ))}
+            <ScrollerItemPlaceholder />
           </Scroller>
         </ScrollerContainer>
         {levelThreeMenu && levelThreeMenu.length > 0 && (
           <ScrollerContainer>
-            <Scroller>
+            <Scroller ref={levelThreeContainerRef}>
               {levelThreeMenu.map((menuItem, idx) => (
                 <LevelThreeMenuItem
                   key={menuItem.title}
                   isActive={idx === activeLevelThreeMenu}
-                  onClick={() => setLevelThreeMenu(idx)}
+                  onClick={evt => {
+                    setLevelThreeMenu(idx)
+                    scrollHelper(levelThreeContainerRef.current, evt.target)
+                  }}
                 >
                   {menuItem.title}
                 </LevelThreeMenuItem>
               ))}
+              <ScrollerItemPlaceholder />
             </Scroller>
           </ScrollerContainer>
         )}
