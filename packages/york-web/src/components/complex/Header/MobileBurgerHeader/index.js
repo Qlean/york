@@ -14,16 +14,13 @@ import IconArrow from '../assets/arrow.svg'
 const Root = styled(View)`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   background-color: ${colors.white};
 `
 
 const IconArrowWrap = styled(View)`
   transition: ${transitions.medium};
   ${({ isActive }) => (isActive ? 'transform: rotate(-180deg);' : '')}
-`
-
-const Logo = styled.img`
-  display: block;
 `
 
 const BurgerButton = styled(ClearedButton)`
@@ -43,8 +40,8 @@ const TabsContainer = styled(View)`
 const TabMenuItem = styled(Text)`
   flex-flow: 1;
   padding: 10px;
-  ${({ isActive }) => isActive && `box-shadow: 0 1px 0 ${colors.black}`};
-  color: ${({ isActive }) => (isActive ? colors.coal : colors.grey)};
+  ${({ isSelected }) => isSelected && `box-shadow: 0 1px 0 ${colors.black}`};
+  color: ${({ isSelected }) => (isSelected ? colors.coal : colors.grey)};
   font-weight: 500;
   text-transform: uppercase;
   transition: ${transitions.medium};
@@ -64,16 +61,16 @@ const Footer = styled.div`
   margin-top: auto;
 `
 
-export default function MobileBurgerHeader({
-  onCloseHandler,
-  isOpened,
-  levelOneMenu,
-  levelTwoMenu,
-  components: { Logo },
-}) {
-  const [activeLevelOneMenu, setLevelOneMenu] = React.useState(0)
-  const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
-
+export default function MobileBurgerHeader(props) {
+  const {
+    onCloseHandler,
+    isOpened,
+    selectedLevelOneItem,
+    selectedLevelTwoItem,
+    components: { Logo },
+    defaultTab,
+    content: { tabs, menu },
+  } = props
   return (
     <Root flexDirection="column">
       <View alignItems="center" justifyContent="space-between">
@@ -88,35 +85,29 @@ export default function MobileBurgerHeader({
         </View>
       </View>
       <TabsContainer>
-        {levelOneMenu.tabs.map((menuItem, idx) => (
-          <TabMenuItem
-            key={menuItem.title}
-            isActive={activeLevelOneMenu === idx}
-            onClick={() => setLevelOneMenu(idx)}
-          >
-            {menuItem.title}
+        {tabs.map(({ name, title, href }) => (
+          <TabMenuItem key={name} href={href} isSelected={defaultTab === name}>
+            {title}
           </TabMenuItem>
         ))}
       </TabsContainer>
       <View flexDirection="column">
-        {levelTwoMenu.map((menuItem, idx) => {
-          const { subMenu } = menuItem
-          const isSubMenuExist = subMenu && !!subMenu.length
-          const isCurrentActive = activeLevelTwoMenu === idx
+        {menu.map(item => {
+          const isSubMenuExist = item.items && !!item.items.length
+          const isCurrentActive = item.name === selectedLevelOneItem
+
           return (
             <View
-              key={menuItem.title}
+              key={item.name}
               flexDirection="column"
-              onClick={() => setLevelTwoMenu(isCurrentActive ? -1 : idx)}
+              // onClick={() => setLevelTwoMenu(isCurrentActive ? -1 : idx)}
             >
               <View alignItems="center">
                 <View flexDirection="column">
                   <Separator height={2} />
                   <View>
                     <Separator width={4} />
-                    <MenuItem isActive={isCurrentActive}>
-                      {menuItem.title}
-                    </MenuItem>
+                    <MenuItem isActive={isCurrentActive}>{item.title}</MenuItem>
                   </View>
                   <Separator height={2} />
                 </View>
@@ -133,15 +124,21 @@ export default function MobileBurgerHeader({
 
               {isSubMenuExist &&
                 isCurrentActive &&
-                subMenu.map(subMenuItem => (
+                item.items.map(subMenuItem => (
                   <View
-                    key={subMenuItem.title}
-                    onClick={() => console.log('submenu', subMenuItem.title)}
+                    key={subMenuItem.name}
+                    // onClick={() => console.log('submenu', subMenuItem.title)}
                   >
                     <Separator width={8} />
                     <View flexDirection="column">
                       <Separator height={1} />
-                      <Text>{subMenuItem.title}</Text>
+                      <Text
+                        color={
+                          subMenuItem.name === selectedLevelTwoItem && 'green'
+                        }
+                      >
+                        {subMenuItem.title}
+                      </Text>
                       <Separator height={1} />
                     </View>
                   </View>

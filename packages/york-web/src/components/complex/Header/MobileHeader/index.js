@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { View, Separator } from 'york-web/components/primitive'
+import { View, Separator, Text } from 'york-web/components/primitive'
 import { transitions } from 'york-web/utils'
 
 import ClearedButton from '../components/ClearedButton'
@@ -76,13 +76,12 @@ const Scroller = styled.div`
   }
 `
 
-const LevelTwoMenuItem = styled.div`
+const LevelTwoMenuItem = styled(Text)`
   flex-shrink: 0;
   padding: 12px 10px 13px;
   color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
   font-weight: 500;
   font-size: 13px;
-  line-height: 20px;
   text-transform: uppercase;
   transition: ${transitions.medium};
 
@@ -125,7 +124,7 @@ export default function MobileHeader(props) {
 
   return (
     <>
-      {/* {isModalShow && (
+      {isModalShow && (
         <Modal>
           <MobileBurgerHeader
             {...props}
@@ -136,7 +135,7 @@ export default function MobileHeader(props) {
             }}
           />
         </Modal>
-      )} */}
+      )}
       <Root>
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
@@ -178,6 +177,7 @@ export default function MobileHeader(props) {
             {menu.map(menuItem => (
               <LevelTwoMenuItem
                 key={menuItem.name}
+                preset="caption"
                 isActive={menuItem.name === selectedLevelOneItem}
                 onClick={evt => {
                   scrollHelper(levelTwoContainerRef.current, evt.target)
