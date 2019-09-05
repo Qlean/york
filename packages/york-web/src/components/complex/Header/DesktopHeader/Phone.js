@@ -10,7 +10,6 @@ const StyledPhoneText = styled(Text)`
 `
 
 export default function Phone({ phone }) {
-  //// whrong line-height
   return (
     <Link href={formatPhoneHref(phone)}>
       <StyledPhoneText preset="caption">{formatPhone(phone)}</StyledPhoneText>

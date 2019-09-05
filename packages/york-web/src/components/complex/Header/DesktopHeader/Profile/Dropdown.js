@@ -1,9 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
 import { sizes, borderRadiuses, shadows, transitions } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
+
+import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
+import MenuItem from '../../components/MenuItem'
 
 const StyledContentWrapper = styled.div`
   pointer-events: none;
@@ -31,7 +35,9 @@ const StyledContent = styled.div`
   background-color: ${colors.white};
 `
 
-const StyledItem = styled(View)`
+const StyledMenuItem = styled(MenuItem)`
+  display: flex;
+  align-items: center;
   height: ${sizes[8]}px;
   padding: 0 ${sizes[2]}px;
   border-radius: ${borderRadiuses.medium};
@@ -45,7 +51,7 @@ const StyledItem = styled(View)`
   }
 `
 
-export default function Dropdown({ items, children }) {
+export default function Dropdown({ components, callbacks, items, children }) {
   return (
     <StyledDropdown>
       {children}
@@ -53,14 +59,26 @@ export default function Dropdown({ items, children }) {
         <Separator height={3} />
         <StyledContent>
           {items.map(item => (
-            <StyledItem key={item.title} alignItems="center">
+            <StyledMenuItem
+              key={item.title}
+              item={item}
+              components={components}
+              callbacks={callbacks}
+            >
               <Text color={item.isSelected ? 'green' : 'coal'} preset="link">
                 {item.title}
               </Text>
-            </StyledItem>
+            </StyledMenuItem>
           ))}
         </StyledContent>
       </StyledContentWrapper>
     </StyledDropdown>
   )
+}
+
+Dropdown.propTypes = {
+  components: componentsShape.isRequired,
+  callbacks: callbacksShape.isRequired,
+  items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  children: PropTypes.node.isRequired,
 }

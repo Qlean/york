@@ -1,4 +1,5 @@
 import React from 'react'
+import { Text, Link } from 'york-web/components/primitive'
 
 export const LOGO = {
   url: '',
@@ -60,30 +61,31 @@ export const LEVEL_TWO_MENU = [
 //   </a>
 // )
 
-// const QleanPlusItem = ({ children }) => (
-//   <>
-//     {children}
-//     <Separator width={1} />
-//     <QleanPlusIcon />
-//   </>
-// )
-
 export const props = {
   isProfileAvailable: true,
-  isLoggedIn: false,
+  isLoggedIn: true,
   isPlusSubscriber: false,
   defaultTab: 'home',
   selectedLevelOneItem: 'cleaning',
   selectedLevelTwoItem: 'general',
-  selectedProfileItem: null,
+  selectedProfileItem: 'profile',
   selectedRegion: 'msk',
   callbacks: {
-    onLogout: () => {},
+    onLogout: () => console.log('logout!'),
+    onCherdak: () => console.log('cherdak!'),
     onRegionChange: () => {},
   },
   components: {
-    Logo: () => <div>L O G O</div>,
-    // LinkComponent: Link,
+    Logo: () => <Text preset="textLarge">Q L E A N</Text>,
+    Link,
+    QleanPlusItem: ({ children }) => (
+      <>
+        {children}
+        <Text preset="link" color="blue">
+          &nbsp;ПЛЮС
+        </Text>
+      </>
+    ),
   },
   // Static JSON from Contentful
   content: {
@@ -109,13 +111,14 @@ export const props = {
       },
       {
         name: 'logout',
-        title: 'Для офиса',
+        title: 'Выйти',
         callback: 'onLogout',
       },
     ],
     menu: [
       {
         name: 'cleaning',
+        href: '/',
         title: 'Уборка',
         items: [
           { name: 'basic', title: 'Поддерживающая', href: '/basic' },
@@ -138,8 +141,17 @@ export const props = {
         ],
       },
       { name: 'moving', title: 'Переезды', href: '/moving' },
-      { name: 'cherdak', title: 'Хранение', href: '/cherdak' },
-      { name: 'plus', title: 'Qlean', href: '/plus' },
+      {
+        name: 'cherdak',
+        title: 'Хранение',
+        callback: 'onCherdak',
+      },
+      {
+        name: 'plus',
+        title: 'Qlean',
+        href: '/plus',
+        component: 'QleanPlusItem',
+      },
     ],
   },
 }

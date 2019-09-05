@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
@@ -8,6 +9,7 @@ import { GridContainer, GridColumn } from 'york-web/components/simple'
 
 import Geolocation from '../components/Geolocation'
 import { props } from '../assets/data'
+import { menuItemShape } from '../utils'
 
 import Tabs from './Tabs'
 import Phone from './Phone'
@@ -52,14 +54,11 @@ const StyledLevelTwoMenu = styled.div`
 export default function DesktopHeader() {
   const {
     isProfileAvailable,
-    isLoggedIn,
-    isPlusSubscriber,
-    defaultTab,
     selectedRegion,
     selectedLevelOneItem,
     selectedLevelTwoItem,
     components: { Logo },
-    content: { phone, tabs, menu },
+    content: { phone, menu },
   } = props
 
   const levelTwoMenu = selectedLevelOneItem
@@ -115,6 +114,7 @@ export default function DesktopHeader() {
           <StyledGridContainer>
             <GridColumn columns={12}>
               <Menu
+                {...props}
                 items={menu}
                 selectedItem={selectedLevelOneItem}
                 textPreset="link"
@@ -127,6 +127,7 @@ export default function DesktopHeader() {
             <StyledGridContainer>
               <GridColumn columns={12}>
                 <Menu
+                  {...props}
                   items={levelTwoMenuItems}
                   selectedItem={selectedLevelTwoItem}
                   textPreset="caption"
@@ -138,4 +139,34 @@ export default function DesktopHeader() {
       </StyledStickyMenu>
     </>
   )
+}
+
+DesktopHeader.defaultProps = {
+  selectedLevelOneItem: null,
+  selectedLevelTwoItem: null,
+  selectedProfileItem: null,
+  selectedRegion: null,
+  callbacks: {},
+  components: {},
+}
+
+DesktopHeader.propTypes = {
+  isProfileAvailable: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isPlusSubscriber: PropTypes.bool.isRequired,
+  defaultTab: PropTypes.string.isRequired,
+  selectedLevelOneItem: PropTypes.string,
+  selectedLevelTwoItem: PropTypes.string,
+  selectedProfileItem: PropTypes.string,
+  selectedRegion: PropTypes.string,
+  callbacks: PropTypes.objectOf(PropTypes.func.isRequired),
+  components: PropTypes.objectOf(PropTypes.elementType.isRequired),
+  content: PropTypes.shape({
+    phone: PropTypes.string,
+    ///// proper shape
+    regions: PropTypes.array.isRequired,
+    tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+    profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+    menu: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  }).isRequired,
 }
