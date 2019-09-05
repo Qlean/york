@@ -85,6 +85,11 @@ const LevelThreeMenuItem = styled(LevelTwoMenuItem)`
   letter-spacing: 0.4px;
 `
 
+const ScrollerItemPlaceholder = styled.div`
+  flex-shrink: 0;
+  width: 33vw;
+`
+
 export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const [burgerActive, toggleBurger] = React.useState(false)
   const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
@@ -92,6 +97,8 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
   const [isModalShow, setModalShow] = React.useState(false)
   const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
   const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
+
+  const levelTwoContainerRef = React.useRef()
 
   return (
     <>
@@ -139,19 +146,40 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
           </View>
         </View>
         <ScrollerContainer>
-          <Scroller>
+          <Scroller ref={levelTwoContainerRef}>
             {levelTwoMenu.map((menuItem, idx) => (
               <LevelTwoMenuItem
                 key={menuItem.title}
                 isActive={idx === activeLevelTwoMenu}
-                onClick={() => {
+                onClick={evt => {
                   setLevelTwoMenu(idx)
                   resetLevelThreeMenu()
+                  const menuItemNode = evt.target
+                  const menuItemParentNode = menuItemNode.parentNode
+
+                  const container =
+                    menuItemParentNode.scrollLeft +
+                    menuItemParentNode.clientWidth
+
+                  const itemNode =
+                    menuItemNode.offsetLeft + menuItemNode.clientWidth
+
+                  if (
+                    container < itemNode ||
+                    menuItemParentNode.scrollLeft > menuItemNode.offsetLeft
+                  ) {
+                    menuItemParentNode.scrollTo({
+                      left: menuItemNode.offsetLeft - 30,
+                      behavior: 'smooth',
+                    })
+                  }
                 }}
               >
                 {menuItem.title}
               </LevelTwoMenuItem>
             ))}
+
+            <ScrollerItemPlaceholder />
           </Scroller>
         </ScrollerContainer>
         {levelThreeMenu && levelThreeMenu.length > 0 && (
