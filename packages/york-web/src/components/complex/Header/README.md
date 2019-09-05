@@ -1,15 +1,30 @@
 ```js
-import { mediaBreakpoints } from '@qlean/york-web'
+import styled from 'styled-components'
+import { colors } from '@qlean/york-core'
+import { uiPoint, mediaBreakpoints } from '@qlean/york-web'
+
 import { props } from './assets/data'
-;<div style={{ overflow: 'auto', height: '60vh' }}>
-  <div style={{ width: mediaBreakpoints.base }}>
+
+const viewportHeight = uiPoint * 100
+
+const StyledViewport = styled.div`
+  overflow: auto;
+  height: ${viewportHeight}px;
+`
+
+const StyledPage = styled.div`
+  width: ${mediaBreakpoints.base}px;
+`
+
+const StyledPageContent = styled.div`
+  height: ${viewportHeight * 2}px;
+  background: linear-gradient(${colors.grey}, ${colors.coal});
+`
+
+;<StyledViewport>
+  <StyledPage>
     <Header {...props} />
-    <div
-      style={{
-        height: '200vh',
-        background: 'linear-gradient(to top, black, grey)',
-      }}
-    />
-  </div>
-</div>
+    <StyledPageContent />
+  </StyledPage>
+</StyledViewport>
 ```
