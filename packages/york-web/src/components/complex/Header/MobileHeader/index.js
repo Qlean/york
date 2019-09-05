@@ -169,21 +169,23 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
                   setLevelTwoMenu(idx)
                   resetLevelThreeMenu()
                   const menuItemNode = evt.target
-                  const menuItemParentNode = menuItemNode.parentNode
+                  const containerNode = levelTwoContainerRef.current
 
-                  const container =
-                    menuItemParentNode.scrollLeft +
-                    menuItemParentNode.clientWidth
+                  const containerLeftPoint = containerNode.scrollLeft
+                  const containerRightPoint =
+                    containerLeftPoint + containerNode.clientWidth
 
-                  const itemNode =
-                    menuItemNode.offsetLeft + menuItemNode.clientWidth
+                  const itemLeftPoint = menuItemNode.offsetLeft
+                  const itemRightPoint =
+                    itemLeftPoint + menuItemNode.clientWidth
 
-                  if (
-                    container < itemNode ||
-                    menuItemParentNode.scrollLeft > menuItemNode.offsetLeft
-                  ) {
-                    menuItemParentNode.scrollTo({
-                      left: menuItemNode.offsetLeft - 30,
+                  const isLeftItemOverflow = containerLeftPoint > itemLeftPoint
+                  const isRightItemOverflow =
+                    containerRightPoint < itemRightPoint
+
+                  if (isLeftItemOverflow || isRightItemOverflow) {
+                    containerNode.scrollTo({
+                      left: itemLeftPoint - 30,
                       behavior: 'smooth',
                     })
                   }
