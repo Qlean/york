@@ -29,6 +29,7 @@
     "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
+    "@qlean/york-analytics": "file:packages/york-analytics",
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
     "@qlean/york-web": "file:packages/york-web"
