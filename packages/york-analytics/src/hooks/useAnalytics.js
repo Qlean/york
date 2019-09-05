@@ -1,6 +1,6 @@
 import { useContext, useCallback } from 'react'
 
-import AnalyticsContext from '../components/AnalyticsContext'
+import AnalyticsContext from '../context'
 
 const useAnalytics = category => {
   const { trackEvent, analyticsRoute } = useContext(AnalyticsContext)

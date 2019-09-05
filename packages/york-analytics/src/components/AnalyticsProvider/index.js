@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import AnalyticsContext from '../AnalyticsContext'
+import AnalyticsContext from '../../context'
 
 const getAnalyticsRoute = (value, category) => {
   if (value) {
