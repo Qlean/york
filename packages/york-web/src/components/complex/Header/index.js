@@ -10,9 +10,6 @@ import { menuItemShape } from './utils'
 import DesktopHeader from './DesktopHeader'
 import MobileHeader from './MobileHeader'
 
-// ////
-import { LEVEL_ONE_MENU, LEVEL_TWO_MENU } from './assets/data'
-
 const StyledMobileHeader = styled.div`
   ${media.desktop('display:none;')}
 `
@@ -29,11 +26,7 @@ export default function Header({ components, ...rest }) {
     <>
       <DesktopHeader {...props} />
       <StyledMobileHeader>
-        <MobileHeader
-          {...props}
-          levelOneMenu={LEVEL_ONE_MENU}
-          levelTwoMenu={LEVEL_TWO_MENU}
-        />
+        <MobileHeader {...props} />
       </StyledMobileHeader>
     </>
   )

@@ -17,10 +17,6 @@ const Root = styled.header`
   background-color: ${colors.white};
 `
 
-const Logo = styled.img`
-  display: block;
-`
-
 const ProfileIcon = styled(IconProfile)`
   display: block;
 `
@@ -108,28 +104,31 @@ const ScrollerItemPlaceholder = styled.div`
 
 export default function MobileHeader(props) {
   const {
-    levelOneMenu,
-    levelTwoMenu,
+    isProfileAvailable,
+    selectedRegion,
+    selectedLevelOneItem,
+    selectedLevelTwoItem,
     components: { Logo },
+    content: { phone, menu },
   } = props
+
   const [burgerActive, toggleBurger] = React.useState(false)
-  const [activeLevelTwoMenu, setLevelTwoMenu] = React.useState(0)
-  const [activeLevelThreeMenu, setLevelThreeMenu] = React.useState(0)
   const [isModalShow, setModalShow] = React.useState(false)
-  const resetLevelThreeMenu = React.useCallback(() => setLevelThreeMenu(0))
-  const levelThreeMenu = levelTwoMenu[activeLevelTwoMenu].subMenu
 
   const levelTwoContainerRef = React.useRef()
   const levelThreeContainerRef = React.useRef()
 
+  const levelTwoMenu = selectedLevelOneItem
+    ? menu.find(({ name }) => name === selectedLevelOneItem)
+    : null
+  const levelTwoMenuItems = (levelTwoMenu && levelTwoMenu.items) || []
+
   return (
     <>
-      {isModalShow && (
+      {/* {isModalShow && (
         <Modal>
           <MobileBurgerHeader
             {...props}
-            levelOneMenu={levelOneMenu}
-            levelTwoMenu={levelTwoMenu}
             isOpened={isModalShow}
             onCloseHandler={() => {
               setModalShow(false)
@@ -137,19 +136,27 @@ export default function MobileHeader(props) {
             }}
           />
         </Modal>
-      )}
+      )} */}
       <Root>
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
             {Logo && <Logo />}
             <Separator width={2} />
-            <Geolocation
-              isMobileVersion
-              selectedValue={levelOneMenu.geo.selectedValue}
-              cities={levelOneMenu.geo.cities}
-              onChangeHandler={() => console.log('прокинь-ка хендлер, паренёк')}
-            />
+            {selectedRegion && (
+              <Geolocation
+                isMobileVersion
+                selectedValue={selectedRegion}
+                cities={[
+                  { name: 'Санкт-Петербург', value: 'spb' },
+                  { name: 'Москва', value: 'msk' },
+                ]}
+                onChangeHandler={() =>
+                  console.log('прокинь-ка хендлер, паренёк')
+                }
+              />
+            )}
+            {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
             <ClearedButton type="button" onClick={() => console.log('btn')}>
@@ -168,13 +175,11 @@ export default function MobileHeader(props) {
         </View>
         <ScrollerContainer>
           <Scroller ref={levelTwoContainerRef}>
-            {levelTwoMenu.map((menuItem, idx) => (
+            {menu.map(menuItem => (
               <LevelTwoMenuItem
-                key={menuItem.title}
-                isActive={idx === activeLevelTwoMenu}
+                key={menuItem.name}
+                isActive={menuItem.name === selectedLevelOneItem}
                 onClick={evt => {
-                  setLevelTwoMenu(idx)
-                  resetLevelThreeMenu()
                   scrollHelper(levelTwoContainerRef.current, evt.target)
                 }}
               >
@@ -184,15 +189,14 @@ export default function MobileHeader(props) {
             <ScrollerItemPlaceholder />
           </Scroller>
         </ScrollerContainer>
-        {levelThreeMenu && levelThreeMenu.length > 0 && (
+        {levelTwoMenuItems.length > 0 && (
           <ScrollerContainer>
             <Scroller ref={levelThreeContainerRef}>
-              {levelThreeMenu.map((menuItem, idx) => (
+              {levelTwoMenuItems.map(menuItem => (
                 <LevelThreeMenuItem
                   key={menuItem.title}
-                  isActive={idx === activeLevelThreeMenu}
+                  isActive={menuItem.title.name === selectedLevelTwoItem}
                   onClick={evt => {
-                    setLevelThreeMenu(idx)
                     scrollHelper(levelThreeContainerRef.current, evt.target)
                   }}
                 >
