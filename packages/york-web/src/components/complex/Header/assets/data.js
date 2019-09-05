@@ -8,7 +8,7 @@ export const LOGO = {
 export const LEVEL_ONE_MENU = {
   tabs: [{ title: 'Для дома' }, { title: 'Для офиса' }],
   geo: {
-    selectedValue: 'Санкт-Петербург',
+    selectedValue: 'spb',
     cities: [
       { name: 'Санкт-Петербург', value: 'spb' },
       { name: 'Москва', value: 'msk' },

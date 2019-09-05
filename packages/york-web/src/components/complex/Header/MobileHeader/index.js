@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { View, Separator } from 'york-web/components/primitive'
+import { transitions } from 'york-web/utils'
 
 import ClearedButton from '../components/ClearedButton'
 import MobileBurgerHeader from '../MobileBurgerHeader'
@@ -28,7 +29,7 @@ const BurgerButton = styled(ClearedButton)`
 
 const Burger = styled(IconBurger)`
   display: block;
-  transition: transform 0.3s;
+  transition: ${transitions.medium};
   ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
@@ -71,6 +72,7 @@ const LevelTwoMenuItem = styled.div`
   font-size: 13px;
   line-height: 20px;
   text-transform: uppercase;
+  transition: ${transitions.medium};
 
   &:first-child {
     padding-left: 20px;
@@ -118,7 +120,7 @@ export default function MobileHeader({ logo, levelOneMenu, levelTwoMenu }) {
               isMobileVersion
               selectedValue={levelOneMenu.geo.selectedValue}
               cities={levelOneMenu.geo.cities}
-              onChangeHandler={() => console.log('btn')}
+              onChangeHandler={() => console.log('прокинь-ка хендлер, паренёк')}
             />
           </View>
           <View alignItems="center">
