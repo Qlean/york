@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -97,6 +97,7 @@ export default function MobileBurgerHeader({
   defaultTab,
   selectedLevelOneItem,
   selectedLevelTwoItem,
+  selectedProfileItem,
   callbacks,
   callbacks: { onRegionChange },
   components,
@@ -104,6 +105,8 @@ export default function MobileBurgerHeader({
   content: { tabs, regions, profile },
 }) {
   const menu = tabs.find(({ name }) => name === defaultTab).items
+
+  const [isProfileActive, setProfileActive] = useState(false)
 
   return (
     <Root flexDirection="column">
@@ -189,7 +192,10 @@ export default function MobileBurgerHeader({
           <Separator height={2} />
           {isLoggedIn ? (
             <View flexDirection="column">
-              <View>
+              <View
+                onClick={() => setProfileActive(!isProfileActive)}
+                alignItems="center"
+              >
                 <View flexDirection="column">
                   <Separator height={2} />
                   <View>
@@ -200,24 +206,27 @@ export default function MobileBurgerHeader({
                   </View>
                   <Separator height={2} />
                 </View>
-
                 <MenuItemIconWrap>
                   <Separator width={2} />
-                  <IconArrowWrap>
+                  <IconArrowWrap isSelected={isProfileActive}>
                     <IconArrow />
                   </IconArrowWrap>
                   <Separator width={4} />
                 </MenuItemIconWrap>
               </View>
-              <View flexDirection="column">
-                <MenuRow
-                  components={components}
-                  callbacks={callbacks}
-                  items={profile}
-                  // FIXME: тут что-то другое должно быть
-                  selectedItem={selectedLevelTwoItem}
-                />
-              </View>
+              {isProfileActive && (
+                <View>
+                  <Separator width={3} />
+                  <View flexDirection="column">
+                    <MenuRow
+                      components={components}
+                      callbacks={callbacks}
+                      items={profile}
+                      selectedItem={selectedProfileItem}
+                    />
+                  </View>
+                </View>
+              )}
             </View>
           ) : (
             <View>
