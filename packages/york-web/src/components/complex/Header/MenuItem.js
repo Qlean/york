@@ -44,7 +44,7 @@ export default function MenuItem({
   }
 
   if (callback) {
-    if (callbacks[callback]) {
+    if (!callbacks[callback]) {
       if (process.env.NODE_ENV !== 'production') {
         // eslint-disable-next-line no-console
         console.warn(`Not found callback ${callback} for menu item "${name}"`)
@@ -73,10 +73,15 @@ export default function MenuItem({
   return null
 }
 
+MenuItem.defaultProps = {
+  onClick: null,
+}
+
 MenuItem.propTypes = {
   components: componentsShape.isRequired,
   callbacks: callbacksShape.isRequired,
   item: menuItemShape.isRequired,
   className: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
 }
