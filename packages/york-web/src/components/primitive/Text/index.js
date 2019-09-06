@@ -38,15 +38,15 @@ const presets = {
     lineHeight: 25,
     fontWeight: 700,
   },
-  textStrong: {
-    fontSize: 16,
-    lineHeight: 25,
-    fontWeight: 700,
-  },
   textLarge: {
     fontSize: 20,
     lineHeight: 30,
     fontWeight: 500,
+  },
+  textStrong: {
+    fontSize: 16,
+    lineHeight: 25,
+    fontWeight: 700,
   },
   text: {
     fontSize: 16,

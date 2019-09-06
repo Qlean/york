@@ -9,6 +9,7 @@ export default function MenuItem({
   item,
   className,
   children,
+  onClick,
 }) {
   const { name, href, callback, component } = item
 
@@ -31,16 +32,19 @@ export default function MenuItem({
     }
 
     return (
-      <components.Link name={name} href={href} className={className}>
+      <components.Link
+        name={name}
+        href={href}
+        className={className}
+        onClick={onClick}
+      >
         <Wrapper>{children}</Wrapper>
       </components.Link>
     )
   }
 
   if (callback) {
-    const onClick = callbacks[callback]
-
-    if (!onClick) {
+    if (callbacks[callback]) {
       if (process.env.NODE_ENV !== 'production') {
         // eslint-disable-next-line no-console
         console.warn(`Not found callback ${callback} for menu item "${name}"`)
@@ -49,7 +53,14 @@ export default function MenuItem({
     }
 
     return (
-      <div name={name} onClick={onClick} className={className}>
+      <div
+        name={name}
+        className={className}
+        onClick={() => {
+          if (onClick) onClick()
+          callbacks[callback]()
+        }}
+      >
         <Wrapper>{children}</Wrapper>
       </div>
     )

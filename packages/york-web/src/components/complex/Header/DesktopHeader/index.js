@@ -57,6 +57,7 @@ export default function DesktopHeader({
   isProfileAvailable,
   isLoggedIn,
   isPlusSubscriber,
+  selectedProfileItem,
   selectedRegion,
   selectedLevelOneItem,
   selectedLevelTwoItem,
@@ -113,7 +114,8 @@ export default function DesktopHeader({
                         callbacks={callbacks}
                         isLoggedIn={isLoggedIn}
                         isPlusSubscriber={isPlusSubscriber}
-                        profile={profile}
+                        items={profile}
+                        selectedItem={selectedProfileItem}
                       />
                     </StyledTopMenuItem>
                   )}

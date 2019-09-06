@@ -5,7 +5,6 @@ import {
   GridContainer,
   GridColumn,
   Text,
-  Link,
   uiPoint,
   media,
 } from '@qlean/york-web'
@@ -15,11 +14,9 @@ const data = {
   isLoggedIn: true,
   isPlusSubscriber: false,
   defaultTab: 'home',
-  selectedProfileItem: 'profile',
   selectedRegion: 'msk',
   components: {
     Logo: () => <Text preset="textLarge">Q L E A N</Text>,
-    Link,
     QleanPlusItem: ({ children }) => (
       <>
         {children}

@@ -43,42 +43,56 @@ const StyledMenuItem = styled(MenuItem)`
   border-radius: ${borderRadiuses.medium};
   text-transform: uppercase;
   white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
   transition: ${transitions.short};
+  user-select: none;
+  cursor: pointer;
   &:hover {
     background-color: ${colors.smoke};
   }
 `
 
-export default function Dropdown({ components, callbacks, items, children }) {
+export default function Dropdown({
+  components,
+  callbacks,
+  items,
+  selectedItem,
+  children,
+}) {
   return (
     <StyledDropdown>
       {children}
       <StyledContentWrapper>
         <Separator height={3} />
         <StyledContent>
-          {items.map(item => (
-            <StyledMenuItem
-              key={item.title}
-              item={item}
-              components={components}
-              callbacks={callbacks}
-            >
-              <Text color={item.isSelected ? 'green' : 'coal'} preset="link">
-                {item.title}
-              </Text>
-            </StyledMenuItem>
-          ))}
+          {items.map(item => {
+            const isSelected = item.name === selectedItem
+            return (
+              <StyledMenuItem
+                key={item.title}
+                item={item}
+                components={components}
+                callbacks={callbacks}
+              >
+                <Text color={isSelected ? 'green' : 'coal'} preset="link">
+                  {item.title}
+                </Text>
+              </StyledMenuItem>
+            )
+          })}
         </StyledContent>
       </StyledContentWrapper>
     </StyledDropdown>
   )
 }
 
+Dropdown.defaultProps = {
+  selectedItem: null,
+}
+
 Dropdown.propTypes = {
   components: componentsShape.isRequired,
   callbacks: callbacksShape.isRequired,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  selectedItem: PropTypes.string,
   children: PropTypes.node.isRequired,
 }

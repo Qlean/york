@@ -32,10 +32,16 @@ export default function Profile({
   callbacks,
   isLoggedIn,
   isPlusSubscriber,
-  profile,
+  items,
+  selectedItem,
 }) {
   return isLoggedIn ? (
-    <Dropdown items={profile} components={components} callbacks={callbacks}>
+    <Dropdown
+      components={components}
+      callbacks={callbacks}
+      items={items}
+      selectedItem={selectedItem}
+    >
       <View alignItems="center">
         <ProfileIcon />
         <StyledProfileText preset="caption">
@@ -53,10 +59,15 @@ export default function Profile({
   )
 }
 
+Profile.defaultProps = {
+  selectedItem: null,
+}
+
 Profile.propTypes = {
   components: componentsShape.isRequired,
   callbacks: callbacksShape.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,
-  profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  selectedItem: PropTypes.string,
 }

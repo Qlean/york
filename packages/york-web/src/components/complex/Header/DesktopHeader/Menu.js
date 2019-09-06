@@ -16,13 +16,9 @@ const StyledMenuItem = styled(MenuItem)`
   padding: 0 ${sizes[3]}px;
   transition: ${transitions.medium};
   user-select: none;
+  cursor: pointer;
   ${({ isSelected }) =>
-    isSelected
-      ? `color: ${colors.green};`
-      : `
-        color: ${colors.coal};
-        cursor: pointer;
-      `}
+    isSelected ? `color: ${colors.green};` : `color: ${colors.coal};`}
   :hover, :focus, :active {
     color: ${({ isSelected }) => (isSelected ? colors.green : colors.ash)};
   }
