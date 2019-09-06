@@ -7,17 +7,18 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
-import { headerPropTypes } from './utils'
+import { headerPropTypes } from '../utils'
+import MenuRow from './MenuRow'
 
-import LoginIcon from './assets/login.svg'
-import ProfileIcon from './assets/profile.svg'
-import MobileGeoIcon from './assets/mobileGeo.svg'
-import IconBurger from './assets/IconBurger'
+import LoginIcon from '../assets/login.svg'
+import ProfileIcon from '../assets/profile.svg'
+import MobileGeoIcon from '../assets/mobileGeo.svg'
+import IconBurger from '../assets/IconBurger'
 
-import MenuItem from './MenuItem'
+import MenuItem from '../MenuItem'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
-import IconArrow from './assets/arrow.svg'
+import IconArrow from '../assets/arrow.svg'
 
 const Root = styled(View)`
   display: flex;
@@ -76,11 +77,6 @@ const StyledMenuItem = styled(MenuItem)`
 
 const StyledInnerMenuItem = styled(MenuItem)`
   display: flex;
-`
-
-const StyledInnerMenuText = styled(Text)`
-  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
-  transition: ${transitions.medium};
 `
 
 // FIXME: убрать дублирование кода.
@@ -182,32 +178,14 @@ export default function MobileBurgerHeader({
                 </StyledMenuItem>
               </View>
               <View flexDirection="column">
-                {isSubMenuExist &&
-                  isCurrentActive &&
-                  item.items.map(subMenuItem => (
-                    <StyledInnerMenuItem
-                      key={subMenuItem.name}
-                      components={components}
-                      callbacks={callbacks}
-                      item={subMenuItem}
-                    >
-                      <Separator width={8} />
-                      <View flexDirection="column">
-                        <Separator height={1} />
-                        <StyledInnerMenuText
-                          isSelected={subMenuItem.name === selectedLevelTwoItem}
-                          color={
-                            subMenuItem.name === selectedLevelTwoItem
-                              ? 'green'
-                              : undefined
-                          }
-                        >
-                          {subMenuItem.title}
-                        </StyledInnerMenuText>
-                        <Separator height={1} />
-                      </View>
-                    </StyledInnerMenuItem>
-                  ))}
+                {isSubMenuExist && isCurrentActive && (
+                  <MenuRow
+                    components={components}
+                    callbacks={callbacks}
+                    items={item.items}
+                    selectedItem={selectedLevelTwoItem}
+                  />
+                )}
               </View>
             </View>
           )
