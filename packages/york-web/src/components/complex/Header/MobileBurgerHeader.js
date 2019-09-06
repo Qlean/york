@@ -103,7 +103,7 @@ export default function MobileBurgerHeader(props) {
           <BurgerButton
             rank={0}
             name="closeBurgerMenu"
-            isDisable
+            isDisabled={false}
             onClick={onCloseHandler}
           >
             <Burger isOpen={isOpened} />

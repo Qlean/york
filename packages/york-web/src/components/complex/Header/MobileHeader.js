@@ -186,7 +186,6 @@ export default function MobileHeader(props) {
                 <LoginIcon />
               </Button>
             )}
-
             <BurgerButton
               rank={0}
               name="openBurgerMenu"
