@@ -4,24 +4,20 @@ import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { transitions } from 'york-web/utils'
 
-import ClearedButton from './ClearedButton'
 import MobileBurgerHeader from './MobileBurgerHeader'
+import ClearedButton from './ClearedButton'
+import MenuItem from './MenuItem'
 import Region from './Region'
 import Modal from './Modal'
 
-import IconProfile from './assets/IconProfile'
+import LoginIcon from './assets/login.svg'
+import ProfileIcon from './assets/profile.svg'
+
 import IconBurger from './assets/IconBurger'
-
 import { scrollHelper } from './utils'
-
-import MenuItem from './MenuItem'
 
 const Root = styled.header`
   background-color: ${colors.white};
-`
-
-const ProfileIcon = styled(IconProfile)`
-  display: block;
 `
 
 const BurgerButton = styled(ClearedButton)`
@@ -113,6 +109,7 @@ const ScrollerItemPlaceholder = styled.div`
 
 export default function MobileHeader(props) {
   const {
+    isLoggedIn,
     isProfileAvailable,
     selectedRegion,
     selectedLevelOneItem,
@@ -166,9 +163,16 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            <ClearedButton type="button" onClick={() => console.log('btn')}>
-              <ProfileIcon />
-            </ClearedButton>
+            {!isLoggedIn ? (
+              <ClearedButton type="button" onClick={() => console.log('btn')}>
+                <ProfileIcon />
+              </ClearedButton>
+            ) : (
+              <ClearedButton type="button" onClick={() => console.log('btn')}>
+                <LoginIcon />
+              </ClearedButton>
+            )}
+
             <BurgerButton
               type="button"
               onClick={() => {
