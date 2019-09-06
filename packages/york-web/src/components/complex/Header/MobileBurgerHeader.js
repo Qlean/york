@@ -69,6 +69,7 @@ const Footer = styled.div`
 `
 
 const StyledMenuItem = styled(MenuItem)`
+  flex-grow: 1;
   display: flex;
   align-items: center;
 `
@@ -154,58 +155,61 @@ export default function MobileBurgerHeader({
 
           return (
             <View key={item.name} flexDirection="column">
-              <StyledMenuItem
-                components={components}
-                callbacks={callbacks}
-                item={item}
-              >
-                <View flexDirection="column">
-                  <Separator height={2} />
-                  <View>
-                    <Separator width={4} />
-                    <MenuItemText isSelected={isCurrentActive}>
-                      {item.title}
-                    </MenuItemText>
-                  </View>
-                  <Separator height={2} />
-                </View>
-                {isSubMenuExist && (
-                  <MenuItemIconWrap>
-                    <Separator width={2} />
-                    <IconArrowWrap isSelected={isCurrentActive}>
-                      <IconArrow />
-                    </IconArrowWrap>
-                    <Separator width={4} />
-                  </MenuItemIconWrap>
-                )}
-              </StyledMenuItem>
-
-              {isSubMenuExist &&
-                isCurrentActive &&
-                item.items.map(subMenuItem => (
-                  <StyledInnerMenuItem
-                    key={subMenuItem.name}
-                    components={components}
-                    callbacks={callbacks}
-                    item={subMenuItem}
-                  >
-                    <Separator width={8} />
-                    <View flexDirection="column">
-                      <Separator height={1} />
-                      <StyledInnerMenuText
-                        isSelected={subMenuItem.name === selectedLevelTwoItem}
-                        color={
-                          subMenuItem.name === selectedLevelTwoItem
-                            ? 'green'
-                            : undefined
-                        }
-                      >
-                        {subMenuItem.title}
-                      </StyledInnerMenuText>
-                      <Separator height={1} />
+              <View>
+                <StyledMenuItem
+                  components={components}
+                  callbacks={callbacks}
+                  item={item}
+                >
+                  <View flexDirection="column">
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <MenuItemText isSelected={isCurrentActive}>
+                        {item.title}
+                      </MenuItemText>
                     </View>
-                  </StyledInnerMenuItem>
-                ))}
+                    <Separator height={2} />
+                  </View>
+                  {isSubMenuExist && (
+                    <MenuItemIconWrap>
+                      <Separator width={2} />
+                      <IconArrowWrap isSelected={isCurrentActive}>
+                        <IconArrow />
+                      </IconArrowWrap>
+                      <Separator width={4} />
+                    </MenuItemIconWrap>
+                  )}
+                </StyledMenuItem>
+              </View>
+              <View flexDirection="column">
+                {isSubMenuExist &&
+                  isCurrentActive &&
+                  item.items.map(subMenuItem => (
+                    <StyledInnerMenuItem
+                      key={subMenuItem.name}
+                      components={components}
+                      callbacks={callbacks}
+                      item={subMenuItem}
+                    >
+                      <Separator width={8} />
+                      <View flexDirection="column">
+                        <Separator height={1} />
+                        <StyledInnerMenuText
+                          isSelected={subMenuItem.name === selectedLevelTwoItem}
+                          color={
+                            subMenuItem.name === selectedLevelTwoItem
+                              ? 'green'
+                              : undefined
+                          }
+                        >
+                          {subMenuItem.title}
+                        </StyledInnerMenuText>
+                        <Separator height={1} />
+                      </View>
+                    </StyledInnerMenuItem>
+                  ))}
+              </View>
             </View>
           )
         })}
