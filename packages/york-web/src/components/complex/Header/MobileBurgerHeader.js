@@ -103,7 +103,6 @@ const RegionSelect = styled.select`
 export default function MobileBurgerHeader({
   isOpened,
   onCloseHandler,
-
   isLoggedIn,
   isProfileAvailable,
   selectedRegion,
@@ -114,7 +113,7 @@ export default function MobileBurgerHeader({
   callbacks: { onRegionChange },
   components,
   components: { Logo },
-  content: { tabs, regions },
+  content: { tabs, regions, profile },
 }) {
   const menu = tabs.find(({ name }) => name === defaultTab).items
 
@@ -219,11 +218,37 @@ export default function MobileBurgerHeader({
         <View flexDirection="column">
           <Separator height={2} />
           {isLoggedIn ? (
-            <View>
-              <Separator width={4} />
-              <ProfileIcon />
-              <Separator width={2} />
-              <MenuItemText>Профиль</MenuItemText>
+            <View flexDirection="column">
+              <View>
+                <View flexDirection="column">
+                  <Separator height={2} />
+                  <View>
+                    <Separator width={4} />
+                    <MenuItemText>Профиль</MenuItemText>
+                  </View>
+                  <Separator height={2} />
+                </View>
+
+                <MenuItemIconWrap>
+                  <Separator width={2} />
+                  <IconArrowWrap>
+                    <IconArrow />
+                  </IconArrowWrap>
+                  <Separator width={4} />
+                </MenuItemIconWrap>
+              </View>
+              <View flexDirection="column">
+                {profile.map(item => (
+                  <StyledInnerMenuItem
+                    key={item.title}
+                    item={item}
+                    components={components}
+                    callbacks={callbacks}
+                  >
+                    <Text preset="link">{item.title}</Text>
+                  </StyledInnerMenuItem>
+                ))}
+              </View>
             </View>
           ) : (
             <View>

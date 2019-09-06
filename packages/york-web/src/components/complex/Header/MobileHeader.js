@@ -169,7 +169,7 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            {!isLoggedIn ? (
+            {isLoggedIn ? (
               <Button
                 rank={0}
                 name="openProfile"
