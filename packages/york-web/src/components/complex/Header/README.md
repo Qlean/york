@@ -10,9 +10,6 @@ import {
 } from '@qlean/york-web'
 
 const data = {
-  isProfileAvailable: true,
-  isLoggedIn: true,
-  isPlusSubscriber: false,
   defaultTab: 'home',
   components: {
     Logo: () => <Text preset="textLarge">Q L E A N</Text>,
@@ -143,52 +140,81 @@ const StyledBox = styled(Example.Box)`
 `
 
 const ExampleComponents = () => {
+  const [isProfileAvailable, setIsProfileAvailable] = React.useState(true)
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true)
+  const [isPlusSubscriber, setIsPlusSubscriber] = React.useState(true)
   const [items, setItems] = React.useState({})
   const [region, setRegion] = React.useState('msk')
 
   return (
-    <StyledViewport>
-      <StyledPage>
-        <Header
-          selectedRegion={region}
-          selectedProfileItem={items.profile}
-          selectedLevelOneItem={(items.menu || [])[0]}
-          selectedLevelTwoItem={(items.menu || [])[1]}
-          callbacks={{
-            onCleaning: () => setItems({ menu: ['cleaning'] }),
-            onBasic: () => setItems({ menu: ['cleaning', 'basic'] }),
-            onGeneral: () => setItems({ menu: ['cleaning', 'general'] }),
-            onRenovation: () => setItems({ menu: ['cleaning', 'renovation'] }),
-            onHouse: () => setItems({ menu: ['cleaning', 'house'] }),
-            onWindows: () => setItems({ menu: ['cleaning', 'windows'] }),
-            onFurniture: () => setItems({ menu: ['cleaning', 'furniture'] }),
+    <>
+      <Example.InputGroup>
+        <Example.Checkbox
+          value={isProfileAvailable}
+          onChange={() => setIsProfileAvailable(!isProfileAvailable)}
+        >
+          isProfileAvailable
+        </Example.Checkbox>
+        <Example.Checkbox
+          value={isLoggedIn}
+          onChange={() => setIsLoggedIn(!isLoggedIn)}
+        >
+          isLoggedIn
+        </Example.Checkbox>
+        <Example.Checkbox
+          value={isPlusSubscriber}
+          onChange={() => setIsPlusSubscriber(!isPlusSubscriber)}
+        >
+          isPlusSubscriber
+        </Example.Checkbox>
+      </Example.InputGroup>
+      <StyledViewport>
+        <StyledPage>
+          <Header
+            isProfileAvailable={isProfileAvailable}
+            isLoggedIn={isLoggedIn}
+            isPlusSubscriber={isPlusSubscriber}
+            selectedRegion={region}
+            selectedProfileItem={items.profile}
+            selectedLevelOneItem={(items.menu || [])[0]}
+            selectedLevelTwoItem={(items.menu || [])[1]}
+            callbacks={{
+              onCleaning: () => setItems({ menu: ['cleaning'] }),
+              onBasic: () => setItems({ menu: ['cleaning', 'basic'] }),
+              onGeneral: () => setItems({ menu: ['cleaning', 'general'] }),
+              onRenovation: () =>
+                setItems({ menu: ['cleaning', 'renovation'] }),
+              onHouse: () => setItems({ menu: ['cleaning', 'house'] }),
+              onWindows: () => setItems({ menu: ['cleaning', 'windows'] }),
+              onFurniture: () => setItems({ menu: ['cleaning', 'furniture'] }),
 
-            onLaundry: () => setItems({ menu: ['laundry'] }),
-            onShirts: () => setItems({ menu: ['laundry', 'shirts'] }),
-            onLinen: () => setItems({ menu: ['laundry', 'linen'] }),
-            onSneakers: () => setItems({ menu: ['laundry', 'sneakers'] }),
-            onSocks: () => setItems({ menu: ['laundry', 'socks'] }),
+              onLaundry: () => setItems({ menu: ['laundry'] }),
+              onShirts: () => setItems({ menu: ['laundry', 'shirts'] }),
+              onLinen: () => setItems({ menu: ['laundry', 'linen'] }),
+              onSneakers: () => setItems({ menu: ['laundry', 'sneakers'] }),
+              onSocks: () => setItems({ menu: ['laundry', 'socks'] }),
 
-            onProfile: () => setItems({ profile: 'profile' }),
-            onOrders: () => setItems({ profile: 'orders' }),
-            onBilling: () => setItems({ profile: 'billing' }),
-            onLogout: () => alert('Вышли!'),
+              onProfile: () => setItems({ profile: 'profile' }),
+              onOrders: () => setItems({ profile: 'orders' }),
+              onBilling: () => setItems({ profile: 'billing' }),
+              onLogout: () => alert('Вышли!'),
 
-            onRegionChange: setRegion,
-          }}
-          {...data}
-        />
-        <StyledPageBody>
-          <StyledPageContent>
-            <GridContainer>
-              <GridColumn columns={12}>
-                <StyledBox />
-              </GridColumn>
-            </GridContainer>
-          </StyledPageContent>
-        </StyledPageBody>
-      </StyledPage>
-    </StyledViewport>
+              onRegionChange: setRegion,
+            }}
+            {...data}
+          />
+          <StyledPageBody>
+            <StyledPageContent>
+              <GridContainer>
+                <GridColumn columns={12}>
+                  <StyledBox />
+                </GridColumn>
+              </GridContainer>
+            </StyledPageContent>
+          </StyledPageBody>
+        </StyledPage>
+      </StyledViewport>
+    </>
   )
 }
 
