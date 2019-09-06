@@ -6,15 +6,15 @@ import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
 import MobileBurgerHeader from './MobileBurgerHeader'
+import MenuItem from './MenuItem'
 import Region from './Region'
 import Modal from './Modal'
 
-import IconProfile from './assets/IconProfile'
+import LoginIcon from './assets/login.svg'
 import IconBurger from './assets/IconBurger'
+import IconProfile from './assets/IconProfile'
 
 import { scrollHelper } from './utils'
-
-import MenuItem from './MenuItem'
 
 const Root = styled.header`
   background-color: ${colors.white};
@@ -113,6 +113,7 @@ const ScrollerItemPlaceholder = styled.div`
 
 export default function MobileHeader(props) {
   const {
+    isLoggedIn,
     isProfileAvailable,
     selectedRegion,
     selectedLevelOneItem,
@@ -166,14 +167,26 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            <Button
-              rank={0}
-              name="openProfile"
-              isDisabled={false}
-              onClick={() => console.log('btn')}
-            >
-              <ProfileIcon />
-            </Button>
+            {!isLoggedIn ? (
+              <Button
+                rank={0}
+                name="openProfile"
+                isDisabled={false}
+                onClick={() => console.log('btn')}
+              >
+                <ProfileIcon />
+              </Button>
+            ) : (
+              <Button
+                rank={0}
+                name="login"
+                isDisabled={false}
+                onClick={() => console.log('btn')}
+              >
+                <LoginIcon />
+              </Button>
+            )}
+
             <BurgerButton
               rank={0}
               name="openBurgerMenu"

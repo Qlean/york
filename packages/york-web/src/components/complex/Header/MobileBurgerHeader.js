@@ -6,12 +6,14 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
+import LoginIcon from './assets/login.svg'
+import ProfileIcon from './assets/profile.svg'
+import MobileGeoIcon from './assets/mobileGeo.svg'
 import IconBurger from './assets/IconBurger'
+import MenuItem from './MenuItem'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
 import IconArrow from './assets/arrow.svg'
-
-import MenuItem from './MenuItem'
 
 const Root = styled(View)`
   display: flex;
@@ -30,7 +32,6 @@ const IconArrowWrap = styled(View)`
 const BurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
 `
-
 const Burger = styled(IconBurger)`
   display: block;
   transition: ${transitions.medium};
@@ -79,6 +80,7 @@ const StyledInnerMenuText = styled(Text)`
 
 export default function MobileBurgerHeader(props) {
   const {
+    isLoggedIn,
     onCloseHandler,
     isOpened,
     selectedLevelOneItem,
@@ -88,6 +90,7 @@ export default function MobileBurgerHeader(props) {
     components: { Logo },
     defaultTab,
     content: { tabs, menu },
+    selectedRegion,
   } = props
   return (
     <Root flexDirection="column">
@@ -186,21 +189,48 @@ export default function MobileBurgerHeader(props) {
       <Footer>
         <View flexDirection="column">
           <Separator height={2} />
-          <View>
-            <Separator width={4} />
-            <MenuItemText>ВОЙТИ</MenuItemText>
-          </View>
+          {isLoggedIn ? (
+            <View>
+              <Separator width={4} />
+              <ProfileIcon />
+              <Separator width={2} />
+              <MenuItemText>Профиль</MenuItemText>
+            </View>
+          ) : (
+            <View>
+              <Separator width={4} />
+              <LoginIcon />
+              <Separator width={2} />
+              <MenuItemText>Войти</MenuItemText>
+            </View>
+          )}
           <Separator height={2} />
         </View>
 
-        <View flexDirection="column">
-          <Separator height={2} />
-          <View>
-            <Separator width={4} />
-            <MenuItemText>Санкт-петербург</MenuItemText>
+        {selectedRegion && (
+          <View flexDirection="column">
+            <Separator height={2} />
+            <View>
+              <Separator width={4} />
+              <MobileGeoIcon />
+              <Separator width={2} />
+
+              <select onChange={() => {}} value={selectedRegion}>
+                {[
+                  { name: 'Санкт-Петербург', value: 'spb' },
+                  { name: 'Москва', value: 'msk' },
+                ].map(item => (
+                  <option key={item.value} value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+
+              <MenuItemText>Санкт-петербург</MenuItemText>
+            </View>
+            <Separator height={2} />
           </View>
-          <Separator height={2} />
-        </View>
+        )}
       </Footer>
     </Root>
   )
