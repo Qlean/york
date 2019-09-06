@@ -78,6 +78,23 @@ const StyledInnerMenuText = styled(Text)`
   transition: ${transitions.medium};
 `
 
+// FIXME: убрать дублирование кода.
+// Регион сильно схож с десктопным, нужно придумать общий компонент чтоле
+const RegionWrap = styled(View)`
+  position: relative;
+`
+
+const RegionSelect = styled.select`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  font-size: 14px;
+  cursor: pointer;
+`
+
 export default function MobileBurgerHeader(props) {
   const {
     isLoggedIn,
@@ -86,10 +103,11 @@ export default function MobileBurgerHeader(props) {
     selectedLevelOneItem,
     selectedLevelTwoItem,
     callbacks,
+    callbacks: { onRegionChange },
     components,
     components: { Logo },
     defaultTab,
-    content: { tabs, menu },
+    content: { tabs, menu, regions },
     selectedRegion,
   } = props
   return (
@@ -208,28 +226,28 @@ export default function MobileBurgerHeader(props) {
         </View>
 
         {selectedRegion && (
-          <View flexDirection="column">
+          <RegionWrap flexDirection="column">
             <Separator height={2} />
             <View>
               <Separator width={4} />
               <MobileGeoIcon />
               <Separator width={2} />
-
-              <select onChange={() => {}} value={selectedRegion}>
-                {[
-                  { name: 'Санкт-Петербург', value: 'spb' },
-                  { name: 'Москва', value: 'msk' },
-                ].map(item => (
-                  <option key={item.value} value={item.value}>
-                    {item.name}
+              <RegionSelect
+                onChange={evt => onRegionChange(evt.target.value)}
+                value={selectedRegion}
+              >
+                {regions.map(region => (
+                  <option key={region.name} value={region.name}>
+                    {region.title}
                   </option>
                 ))}
-              </select>
-
-              <MenuItemText>Санкт-петербург</MenuItemText>
+              </RegionSelect>
+              <MenuItemText>
+                {regions.find(region => region.name === selectedRegion).title}
+              </MenuItemText>
             </View>
             <Separator height={2} />
-          </View>
+          </RegionWrap>
         )}
       </Footer>
     </Root>
