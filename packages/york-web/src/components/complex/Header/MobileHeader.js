@@ -5,6 +5,8 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
+import { headerPropTypes, scrollHelper } from './utils'
+
 import MobileBurgerHeader from './MobileBurgerHeader'
 import MenuItem from './MenuItem'
 import Region from './Region'
@@ -13,8 +15,6 @@ import Modal from './Modal'
 import LoginIcon from './assets/login.svg'
 import IconBurger from './assets/IconBurger'
 import IconProfile from './assets/IconProfile'
-
-import { scrollHelper } from './utils'
 
 const Root = styled.header`
   background-color: ${colors.white};
@@ -116,13 +116,14 @@ export default function MobileHeader(props) {
     isLoggedIn,
     isProfileAvailable,
     selectedRegion,
+    defaultTab,
     selectedLevelOneItem,
     selectedLevelTwoItem,
     callbacks,
     callbacks: { onRegionChange },
     components,
     components: { Logo },
-    content: { regions, phone, menu },
+    content: { tabs, regions },
   } = props
 
   const [burgerActive, toggleBurger] = React.useState(false)
@@ -131,6 +132,7 @@ export default function MobileHeader(props) {
   const levelTwoContainerRef = React.useRef()
   const levelThreeContainerRef = React.useRef()
 
+  const menu = tabs.find(({ name }) => name === defaultTab).items
   const levelTwoMenu = selectedLevelOneItem
     ? menu.find(({ name }) => name === selectedLevelOneItem)
     : null
@@ -251,3 +253,5 @@ export default function MobileHeader(props) {
     </>
   )
 }
+
+MobileHeader.propTypes = headerPropTypes

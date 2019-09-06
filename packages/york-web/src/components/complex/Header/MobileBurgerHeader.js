@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
@@ -6,10 +7,13 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
+import { headerPropTypes } from './utils'
+
 import LoginIcon from './assets/login.svg'
 import ProfileIcon from './assets/profile.svg'
 import MobileGeoIcon from './assets/mobileGeo.svg'
 import IconBurger from './assets/IconBurger'
+
 import MenuItem from './MenuItem'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
@@ -78,20 +82,24 @@ const StyledInnerMenuText = styled(Text)`
   transition: ${transitions.medium};
 `
 
-export default function MobileBurgerHeader(props) {
-  const {
-    isLoggedIn,
-    onCloseHandler,
-    isOpened,
-    selectedLevelOneItem,
-    selectedLevelTwoItem,
-    callbacks,
-    components,
-    components: { Logo },
-    defaultTab,
-    content: { tabs, menu },
-    selectedRegion,
-  } = props
+export default function MobileBurgerHeader({
+  isOpened,
+  onCloseHandler,
+
+  isLoggedIn,
+  isProfileAvailable,
+  selectedRegion,
+  defaultTab,
+  selectedLevelOneItem,
+  selectedLevelTwoItem,
+  callbacks,
+  callbacks: { onRegionChange },
+  components,
+  components: { Logo },
+  content: { tabs },
+}) {
+  const menu = tabs.find(({ name }) => name === defaultTab).items
+
   return (
     <Root flexDirection="column">
       <View alignItems="center" justifyContent="space-between">
@@ -234,4 +242,10 @@ export default function MobileBurgerHeader(props) {
       </Footer>
     </Root>
   )
+}
+
+MobileBurgerHeader.propTypes = {
+  isOpened: PropTypes.bool.isRequired,
+  onCloseHandler: PropTypes.func.isRequired,
+  ...headerPropTypes,
 }

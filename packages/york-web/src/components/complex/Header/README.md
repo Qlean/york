@@ -39,11 +39,54 @@ const data = {
         name: 'home',
         title: 'Для дома',
         href: '/home',
+        items: [
+          {
+            name: 'cleaning',
+            title: 'Уборка',
+            callback: 'onCleaning',
+            items: [
+              { name: 'basic', title: 'Поддерживающая', callback: 'onBasic' },
+              { name: 'general', title: 'Генеральная', callback: 'onGeneral' },
+              {
+                name: 'renovation',
+                title: 'После ремонта',
+                callback: 'onRenovation',
+              },
+              { name: 'house', title: 'Загородные дома', callback: 'onHouse' },
+              { name: 'windows', title: 'Мытьё окон', callback: 'onWindows' },
+              {
+                name: 'furniture',
+                title: 'Химчистка мебели',
+                callback: 'onFurniture',
+              },
+            ],
+          },
+          {
+            name: 'laundry',
+            title: 'Стирка и химчистка',
+            callback: 'onLaundry',
+            items: [
+              { name: 'shirts', title: 'Рубашки', callback: 'onShirts' },
+              { name: 'linen', title: 'Постельное белье', callback: 'onLinen' },
+              { name: 'sneakers', title: 'Кроссовки', callback: 'onSneakers' },
+              { name: 'socks', title: 'Носки', callback: 'onSocks' },
+            ],
+          },
+          { name: 'moving', title: 'Переезды', href: '#!/Header' },
+          { name: 'cherdak', title: 'Хранение', href: '#!/Header' },
+          {
+            name: 'plus',
+            title: 'Qlean',
+            href: '#!/Header',
+            component: 'QleanPlusItem',
+          },
+        ],
       },
       {
         name: 'office',
         title: 'Для офиса',
         href: '/office',
+        items: [],
       },
     ],
     profile: [
@@ -66,48 +109,6 @@ const data = {
         name: 'logout',
         title: 'Выйти',
         callback: 'onLogout',
-      },
-    ],
-    menu: [
-      {
-        name: 'cleaning',
-        title: 'Уборка',
-        callback: 'onCleaning',
-        items: [
-          { name: 'basic', title: 'Поддерживающая', callback: 'onBasic' },
-          { name: 'general', title: 'Генеральная', callback: 'onGeneral' },
-          {
-            name: 'renovation',
-            title: 'После ремонта',
-            callback: 'onRenovation',
-          },
-          { name: 'house', title: 'Загородные дома', callback: 'onHouse' },
-          { name: 'windows', title: 'Мытьё окон', callback: 'onWindows' },
-          {
-            name: 'furniture',
-            title: 'Химчистка мебели',
-            callback: 'onFurniture',
-          },
-        ],
-      },
-      {
-        name: 'laundry',
-        title: 'Стирка и химчистка',
-        callback: 'onLaundry',
-        items: [
-          { name: 'shirts', title: 'Рубашки', callback: 'onShirts' },
-          { name: 'linen', title: 'Постельное белье', callback: 'onLinen' },
-          { name: 'sneakers', title: 'Кроссовки', callback: 'onSneakers' },
-          { name: 'socks', title: 'Носки', callback: 'onSocks' },
-        ],
-      },
-      { name: 'moving', title: 'Переезды', href: '#!/Header' },
-      { name: 'cherdak', title: 'Хранение', href: '#!/Header' },
-      {
-        name: 'plus',
-        title: 'Qlean',
-        href: '#!/Header',
-        component: 'QleanPlusItem',
       },
     ],
   },

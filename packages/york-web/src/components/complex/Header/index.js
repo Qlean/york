@@ -57,6 +57,5 @@ Header.propTypes = {
     regions: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
-    menu: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
   }).isRequired,
 }

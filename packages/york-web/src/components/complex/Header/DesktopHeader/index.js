@@ -59,15 +59,16 @@ export default function DesktopHeader({
   isPlusSubscriber,
   selectedProfileItem,
   selectedRegion,
+  defaultTab,
   selectedLevelOneItem,
   selectedLevelTwoItem,
-  defaultTab,
   components,
   components: { Logo },
   callbacks,
   callbacks: { onRegionChange },
-  content: { phone, tabs, regions, profile, menu },
+  content: { phone, tabs, regions, profile },
 }) {
+  const menu = tabs.find(({ name }) => name === defaultTab).items
   const levelTwoMenu = selectedLevelOneItem
     ? menu.find(({ name }) => name === selectedLevelOneItem)
     : null
