@@ -10,43 +10,43 @@ const networks = {
   facebook: {
     title: 'Facebook',
     icons: {
-      darkBackdrop: require('./assets/facebookSilver.svg'),
-      whiteBackdrop: require('./assets/facebookAsh.svg'),
+      // darkBackdrop: require('./assets/facebookSilver.svg'),
+      // whiteBackdrop: require('./assets/facebookAsh.svg'),
     },
   },
   messenger: {
     title: 'FB Messenger',
     icons: {
-      darkBackdrop: require('./assets/messengerSilver.svg'),
-      whiteBackdrop: require('./assets/messengerAsh.svg'),
+      // darkBackdrop: require('./assets/messengerSilver.svg'),
+      // whiteBackdrop: require('./assets/messengerAsh.svg'),
     },
   },
   telegram: {
     title: 'Telegram',
     icons: {
-      darkBackdrop: require('./assets/telegramSilver.svg'),
-      whiteBackdrop: require('./assets/telegramAsh.svg'),
+      // darkBackdrop: require('./assets/telegramSilver.svg'),
+      // whiteBackdrop: require('./assets/telegramAsh.svg'),
     },
   },
   viber: {
     title: 'Viber',
     icons: {
-      darkBackdrop: require('./assets/viberSilver.svg'),
-      whiteBackdrop: require('./assets/viberAsh.svg'),
+      // darkBackdrop: require('./assets/viberSilver.svg'),
+      // whiteBackdrop: require('./assets/viberAsh.svg'),
     },
   },
   vk: {
     title: 'Вконтакте',
     icons: {
-      darkBackdrop: require('./assets/vkSilver.svg'),
-      whiteBackdrop: require('./assets/vkAsh.svg'),
+      // darkBackdrop: require('./assets/vkSilver.svg'),
+      // whiteBackdrop: require('./assets/vkAsh.svg'),
     },
   },
   instagram: {
     title: 'Instagram',
     icons: {
-      darkBackdrop: require('./assets/instagramSilver.svg'),
-      whiteBackdrop: require('./assets/instagramAsh.svg'),
+      // darkBackdrop: require('./assets/instagramSilver.svg'),
+      // whiteBackdrop: require('./assets/instagramAsh.svg'),
     },
   },
 }

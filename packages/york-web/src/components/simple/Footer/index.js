@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { GridContainer, GridColumn } from 'york-web/components/simple'
 import { View, Separator, Text, Link } from 'york-web/components/primitive'
+
+import { GridContainer, GridColumn } from 'york-web/components'
 import SocialButton from '../SocialButton'
 
 const StyledFooterTop = styled.div``
@@ -66,6 +68,7 @@ const topLinks = [
     ],
   },
   {
+    itemsPreset: 'textStrong',
     items: [
       {
         title: 'Qlean Plus',
@@ -128,18 +131,25 @@ const Footer = ({
       <StyledFooterTop>
         <Separator height={12} />
         <GridContainer>
-          {topLinks.map(({ title, items }, i) => (
+          {topLinks.map(({ title, items, itemsPreset }, i) => (
             <GridColumn columns={3} key={title}>
-              <Text preset="textStrong">{title}</Text>
-              <Separator height={2} />
+              {title && (
+                <>
+                  <Text preset="textStrong">{title}</Text>
+                  <Separator height={2} />
+                </>
+              )}
               {items.map(item => (
                 <Fragment key={item.title}>
-                  <Text>
+                  <Text
+                    preset={itemsPreset || 'text'}
+                    color={itemsPreset ? 'black' : 'coal'}
+                  >
                     <Link rank={2} backdropColor="dark" href={item.href}>
                       {item.title}
                     </Link>
                   </Text>
-                  <Separator height={1} />
+                  <Separator height={itemsPreset ? 2 : 1} />
                 </Fragment>
               ))}
               {i === topLinks.length - 1 && (
@@ -161,7 +171,11 @@ const Footer = ({
               <div>
                 <Text color="grey">{legalInfo}</Text>
                 <Separator />
-                <Text color="grey">{email}</Text>
+                <Text>
+                  <Link rank={2} backdropColor="dark" href={`mailto:${email}`}>
+                    {email}
+                  </Link>
+                </Text>
               </div>
               <Separator width={8} />
               {phones.length > 0 && (
@@ -169,8 +183,15 @@ const Footer = ({
                   <div>
                     {phones.map(phone => (
                       <>
-                        <Text key={phone} color="grey">
-                          {phone}
+                        <Text>
+                          <Link
+                            key={phone}
+                            rank={2}
+                            backdropColor="dark"
+                            href={`tel:${phone}`}
+                          >
+                            {phone}
+                          </Link>
                         </Text>
                         <Separator />
                       </>
@@ -180,10 +201,33 @@ const Footer = ({
                 </>
               )}
               <div>
-                <Text color="grey">Карта сайта</Text>
+                <Text>
+                  <Link rank={2} backdropColor="dark" href="">
+                    Карта сайта
+                  </Link>
+                </Text>
                 <Separator />
-                <Text color="grey">Пользовательское соглашение</Text>
+                <Text>
+                  <Link rank={2} backdropColor="dark" href={userAgreementLink}>
+                    Пользовательское соглашение
+                  </Link>
+                </Text>
               </div>
+            </View>
+          </GridColumn>
+        </GridContainer>
+        <Separator height={8} />
+        <GridContainer>
+          <GridColumn columns={12}>
+            <View alignItems="center">
+              <Text color="grey">Напишите нам:</Text>
+              <Separator width={3} />
+              {Object.keys(socialNetworkLinks).map(slug => (
+                <>
+                  <SocialButton slug={slug} size="m" backdropColor="dark" />
+                  <Separator width={2} />
+                </>
+              ))}
             </View>
           </GridColumn>
         </GridContainer>
@@ -191,6 +235,21 @@ const Footer = ({
       </StyledFooterBottom>
     </>
   )
+}
+
+Footer.defaultProps = {
+  phones: [],
+  mobileStoreLinks: {},
+  socialNetworkLinks: {},
+}
+
+Footer.propTypes = {
+  legalInfo: PropTypes.string.isRequired,
+  phones: PropTypes.arrayOf(PropTypes.string.isRequired),
+  email: PropTypes.string.isRequired,
+  userAgreementLink: PropTypes.string.isRequired,
+  mobileStoreLinks: PropTypes.objectOf(PropTypes.string.isRequired),
+  socialNetworkLinks: PropTypes.objectOf(PropTypes.string.isRequired),
 }
 
 export default Footer
