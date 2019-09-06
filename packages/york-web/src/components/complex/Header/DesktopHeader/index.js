@@ -7,7 +7,7 @@ import { View, Separator } from 'york-web/components/primitive'
 import { GridContainer, GridColumn } from 'york-web/components/simple'
 
 import { headerPropTypes } from '../utils'
-import Geolocation from '../Geolocation'
+import Region from '../Region'
 
 import Tabs from './Tabs'
 import Phone from './Phone'
@@ -65,7 +65,8 @@ export default function DesktopHeader({
   components,
   components: { Logo },
   callbacks,
-  content: { phone, menu, tabs, profile },
+  callbacks: { onRegionChange },
+  content: { phone, tabs, regions, profile, menu },
 }) {
   const levelTwoMenu = selectedLevelOneItem
     ? menu.find(({ name }) => name === selectedLevelOneItem)
@@ -91,14 +92,10 @@ export default function DesktopHeader({
                 <View alignItems="center">
                   {selectedRegion && (
                     <StyledTopMenuItem>
-                      <Geolocation
-                        ////// rework
-                        /// weird cursor
-                        selectedValue={selectedRegion}
-                        cities={[
-                          { name: 'Санкт-Петербург', value: 'spb' },
-                          { name: 'Москва', value: 'msk' },
-                        ]}
+                      <Region
+                        items={regions}
+                        selectedItem={selectedRegion}
+                        onChange={onRegionChange}
                       />
                     </StyledTopMenuItem>
                   )}

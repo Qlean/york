@@ -14,7 +14,6 @@ const data = {
   isLoggedIn: true,
   isPlusSubscriber: false,
   defaultTab: 'home',
-  selectedRegion: 'msk',
   components: {
     Logo: () => <Text preset="textLarge">Q L E A N</Text>,
     QleanPlusItem: ({ children }) => (
@@ -28,7 +27,16 @@ const data = {
   },
   content: {
     phone: '74951234567',
-    regions: [],
+    regions: [
+      {
+        name: 'msk',
+        title: 'Москва',
+      },
+      {
+        name: 'spb',
+        title: 'Санкт-Петербург',
+      },
+    ],
     tabs: [
       {
         name: 'home',
@@ -136,11 +144,13 @@ const StyledBox = styled(Example.Box)`
 
 const ExampleComponents = () => {
   const [items, setItems] = React.useState({})
+  const [region, setRegion] = React.useState('msk')
 
   return (
     <StyledViewport>
       <StyledPage>
         <Header
+          selectedRegion={region}
           selectedProfileItem={items.profile}
           selectedLevelOneItem={(items.menu || [])[0]}
           selectedLevelTwoItem={(items.menu || [])[1]}
@@ -164,7 +174,7 @@ const ExampleComponents = () => {
             onBilling: () => setItems({ profile: 'billing' }),
             onLogout: () => alert('Вышли!'),
 
-            onRegionChange: () => {},
+            onRegionChange: setRegion,
           }}
           {...data}
         />

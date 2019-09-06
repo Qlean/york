@@ -6,7 +6,7 @@ import { transitions } from 'york-web/utils'
 
 import ClearedButton from './ClearedButton'
 import MobileBurgerHeader from './MobileBurgerHeader'
-import Geolocation from './Geolocation'
+import Region from './Region'
 import Modal from './Modal'
 
 import IconProfile from './assets/IconProfile'
@@ -117,9 +117,10 @@ export default function MobileHeader(props) {
     selectedLevelOneItem,
     selectedLevelTwoItem,
     callbacks,
+    callbacks: { onRegionChange },
     components,
     components: { Logo },
-    content: { phone, menu },
+    content: { regions, phone, menu },
   } = props
 
   const [burgerActive, toggleBurger] = React.useState(false)
@@ -154,16 +155,11 @@ export default function MobileHeader(props) {
             {Logo && <Logo />}
             <Separator width={2} />
             {selectedRegion && (
-              <Geolocation
-                isMobileVersion
-                selectedValue={selectedRegion}
-                cities={[
-                  { name: 'Санкт-Петербург', value: 'spb' },
-                  { name: 'Москва', value: 'msk' },
-                ]}
-                onChangeHandler={() =>
-                  console.log('прокинь-ка хендлер, паренёк')
-                }
+              <Region
+                isMobile
+                items={regions}
+                selectedItem={selectedRegion}
+                onChange={onRegionChange}
               />
             )}
             {/* {phone && <div>{phone}</div>} */}

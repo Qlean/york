@@ -28,8 +28,7 @@ export const headerPropTypes = {
   components: PropTypes.objectOf(PropTypes.elementType.isRequired).isRequired,
   content: PropTypes.shape({
     phone: PropTypes.string,
-    ///// proper shape
-    regions: PropTypes.array.isRequired,
+    regions: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     menu: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
