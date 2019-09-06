@@ -6,9 +6,10 @@ import { media, uiPoint, sizes } from 'york-web/utils'
 import { View, Separator } from 'york-web/components/primitive'
 import { GridContainer, GridColumn } from 'york-web/components/simple'
 
-import Geolocation from '../components/Geolocation'
-import { props } from '../assets/data'
 import { headerPropTypes } from '../utils'
+import Geolocation from '../Geolocation'
+///////
+import { props } from '../assets/data'
 
 import Tabs from './Tabs'
 import Phone from './Phone'

@@ -91,7 +91,7 @@ module.exports = {
         },
         {
           name: 'complex',
-          components: '../york-web/src/components/complex/**/*.js',
+          components: '../york-web/src/components/complex/**/index.js',
         },
         {
           name: 'inputs',

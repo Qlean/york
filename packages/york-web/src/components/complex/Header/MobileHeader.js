@@ -4,14 +4,15 @@ import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { transitions } from 'york-web/utils'
 
-import ClearedButton from '../components/ClearedButton'
-import MobileBurgerHeader from '../MobileBurgerHeader'
-import Geolocation from '../components/Geolocation'
-import IconProfile from '../assets/IconProfile'
-import IconBurger from '../assets/IconBurger'
-import Modal from '../components/Modal'
+import ClearedButton from './ClearedButton'
+import MobileBurgerHeader from './MobileBurgerHeader'
+import Geolocation from './Geolocation'
+import Modal from './Modal'
 
-import scrollHelper from './scrollHelper'
+import IconProfile from './assets/IconProfile'
+import IconBurger from './assets/IconBurger'
+
+import { scrollHelper } from './utils'
 
 const Root = styled.header`
   background-color: ${colors.white};

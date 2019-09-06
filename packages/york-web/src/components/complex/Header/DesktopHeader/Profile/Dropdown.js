@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
 import { sizes, borderRadiuses, shadows, transitions } from 'york-web/utils'
-import { Text, View, Separator } from 'york-web/components/primitive'
+import { Text, Separator } from 'york-web/components/primitive'
 
 import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
-import MenuItem from '../../components/MenuItem'
+import MenuItem from '../../MenuItem'
 
 const StyledContentWrapper = styled.div`
   pointer-events: none;

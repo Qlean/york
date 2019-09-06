@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import { menuItemShape, componentsShape, callbacksShape } from '../utils'
+import { menuItemShape, componentsShape, callbacksShape } from './utils'
 
 export default function MenuItem({
   components,

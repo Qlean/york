@@ -7,7 +7,7 @@ import { uiPoint, sizes, transitions } from 'york-web/utils'
 import { Text, View } from 'york-web/components/primitive'
 
 import { menuItemShape, componentsShape, callbacksShape } from '../utils'
-import MenuItem from '../components/MenuItem'
+import MenuItem from '../MenuItem'
 
 const StyledMenuItem = styled(MenuItem)`
   display: flex;

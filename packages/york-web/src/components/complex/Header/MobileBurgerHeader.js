@@ -5,11 +5,11 @@ import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { transitions } from 'york-web/utils'
 
-import ClearedButton from '../components/ClearedButton'
-import IconBurger from '../assets/IconBurger'
+import ClearedButton from './ClearedButton'
+import IconBurger from './assets/IconBurger'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
-import IconArrow from '../assets/arrow.svg'
+import IconArrow from './assets/arrow.svg'
 
 const Root = styled(View)`
   display: flex;

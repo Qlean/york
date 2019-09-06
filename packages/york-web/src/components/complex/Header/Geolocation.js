@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import IconGeo from '../assets/IconGeo'
+import IconGeo from './assets/IconGeo'
 
 const TopMenuGeolocation = styled.div`
   display: flex;
