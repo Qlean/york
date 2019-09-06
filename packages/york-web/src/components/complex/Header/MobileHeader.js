@@ -82,6 +82,8 @@ const Scroller = styled.div`
 
 const MenuItemWrap = styled(MenuItem)`
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
   padding: 12px 10px 13px;
 
   &:first-child {
@@ -220,6 +222,7 @@ export default function MobileHeader(props) {
                   // }}
                 >
                   <LevelThreeMenuItemText
+                    preset="caption"
                     isSelected={menuItem.title.name === selectedLevelTwoItem}
                   >
                     {menuItem.title}
