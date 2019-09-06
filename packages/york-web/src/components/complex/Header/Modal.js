@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
@@ -11,9 +11,9 @@ const Root = styled.div`
 `
 
 export default function Modal({ children }) {
-  const someRef = React.createRef()
+  const someRef = createRef()
 
-  React.useEffect(() => {
+  useEffect(() => {
     someRef.current = {}
     someRef.current.body = document.querySelector('body')
     someRef.current.marginTop = someRef.current.body.style.marginTop

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
@@ -126,11 +126,11 @@ export default function MobileHeader(props) {
     content: { tabs, regions },
   } = props
 
-  const [burgerActive, toggleBurger] = React.useState(false)
-  const [isModalShow, setModalShow] = React.useState(false)
+  const [burgerActive, toggleBurger] = useState(false)
+  const [isModalShow, setModalShow] = useState(false)
 
-  const levelTwoContainerRef = React.useRef()
-  const levelThreeContainerRef = React.useRef()
+  const levelTwoContainerRef = useRef()
+  const levelThreeContainerRef = useRef()
 
   const menu = tabs.find(({ name }) => name === defaultTab).items
   const levelTwoMenu = selectedLevelOneItem
