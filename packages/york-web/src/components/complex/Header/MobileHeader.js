@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
-import { transitions } from 'york-web/utils'
+import { sizes, transitions } from 'york-web/utils'
 
 import { headerPropTypes, scrollHelper } from './utils'
 
@@ -25,7 +25,7 @@ const ProfileIcon = styled(IconProfile)`
 `
 
 const BurgerButton = styled(Button)`
-  padding: 8px 20px 7px 10px;
+  padding: 0 ${sizes[4]}px 0px ${sizes[2]}px;
 `
 
 const Burger = styled(IconBurger)`
