@@ -91,17 +91,18 @@ const MenuItemWrap = styled(MenuItem)`
   }
 `
 
-const LevelTwoMenuItemText = styled(Text)`
+const StyledMenuItemText = styled(Text)`
   color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
-  font-weight: 500;
   font-size: 13px;
-  text-transform: uppercase;
   transition: ${transitions.medium};
 `
 
-const LevelThreeMenuItemText = styled(Text)`
+const LevelTwoMenuItemText = styled(StyledMenuItemText)`
+  text-transform: uppercase;
+`
+
+const LevelThreeMenuItemText = styled(StyledMenuItemText)`
   font-weight: normal;
-  text-transform: initial;
   letter-spacing: 0.4px;
 `
 
@@ -187,13 +188,12 @@ export default function MobileHeader(props) {
                 components={components}
                 callbacks={callbacks}
                 item={menuItem}
-
-                // onClick={evt => {
-                //   scrollHelper(levelTwoContainerRef.current, evt.target)
-                // }}
+                onClick={evt =>
+                  scrollHelper(levelTwoContainerRef.current, evt.target)
+                }
               >
                 <LevelTwoMenuItemText
-                  preset="caption"
+                  preset="link"
                   isSelected={menuItem.name === selectedLevelOneItem}
                 >
                   {menuItem.title}
@@ -206,22 +206,21 @@ export default function MobileHeader(props) {
         {levelTwoMenuItems.length > 0 && (
           <ScrollerContainer>
             <Scroller ref={levelThreeContainerRef}>
-              {levelTwoMenuItems.map(menuItem => (
+              {levelTwoMenuItems.map(item => (
                 <MenuItemWrap
-                  key={menuItem.name}
+                  key={item.name}
                   components={components}
                   callbacks={callbacks}
-                  item={menuItem}
-
-                  // onClick={evt => {
-                  //   scrollHelper(levelThreeContainerRef.current, evt.target)
-                  // }}
+                  item={item}
+                  onClick={evt => {
+                    scrollHelper(levelThreeContainerRef.current, evt.target)
+                  }}
                 >
                   <LevelThreeMenuItemText
                     preset="caption"
-                    isSelected={menuItem.title.name === selectedLevelTwoItem}
+                    isSelected={item.name === selectedLevelTwoItem}
                   >
-                    {menuItem.title}
+                    {item.title}
                   </LevelThreeMenuItemText>
                 </MenuItemWrap>
               ))}
