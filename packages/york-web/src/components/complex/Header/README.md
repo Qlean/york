@@ -1,9 +1,115 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { GridContainer, GridColumn, uiPoint, media } from '@qlean/york-web'
+import {
+  GridContainer,
+  GridColumn,
+  Text,
+  Link,
+  uiPoint,
+  media,
+} from '@qlean/york-web'
 
-import data from './assets/data'
+const data = {
+  isProfileAvailable: true,
+  isLoggedIn: true,
+  isPlusSubscriber: false,
+  defaultTab: 'home',
+  selectedProfileItem: 'profile',
+  selectedRegion: 'msk',
+  components: {
+    Logo: () => <Text preset="textLarge">Q L E A N</Text>,
+    Link,
+    QleanPlusItem: ({ children }) => (
+      <>
+        {children}
+        <Text preset="link" color="blue">
+          {'\u00A0'}ПЛЮС
+        </Text>
+      </>
+    ),
+  },
+  content: {
+    phone: '74951234567',
+    regions: [],
+    tabs: [
+      {
+        name: 'home',
+        title: 'Для дома',
+        href: '/home',
+      },
+      {
+        name: 'office',
+        title: 'Для офиса',
+        href: '/office',
+      },
+    ],
+    profile: [
+      {
+        name: 'profile',
+        title: 'Профиль',
+        callback: 'onProfile',
+      },
+      {
+        name: 'orders',
+        title: 'Мои уборки',
+        callback: 'onOrders',
+      },
+      {
+        name: 'billing',
+        title: 'Оплата',
+        callback: 'onBilling',
+      },
+      {
+        name: 'logout',
+        title: 'Выйти',
+        callback: 'onLogout',
+      },
+    ],
+    menu: [
+      {
+        name: 'cleaning',
+        title: 'Уборка',
+        callback: 'onCleaning',
+        items: [
+          { name: 'basic', title: 'Поддерживающая', callback: 'onBasic' },
+          { name: 'general', title: 'Генеральная', callback: 'onGeneral' },
+          {
+            name: 'renovation',
+            title: 'После ремонта',
+            callback: 'onRenovation',
+          },
+          { name: 'house', title: 'Загородные дома', callback: 'onHouse' },
+          { name: 'windows', title: 'Мытьё окон', callback: 'onWindows' },
+          {
+            name: 'furniture',
+            title: 'Химчистка мебели',
+            callback: 'onFurniture',
+          },
+        ],
+      },
+      {
+        name: 'laundry',
+        title: 'Стирка и химчистка',
+        callback: 'onLaundry',
+        items: [
+          { name: 'shirts', title: 'Рубашки', callback: 'onShirts' },
+          { name: 'linen', title: 'Постельное белье', callback: 'onLinen' },
+          { name: 'sneakers', title: 'Кроссовки', callback: 'onSneakers' },
+          { name: 'socks', title: 'Носки', callback: 'onSocks' },
+        ],
+      },
+      { name: 'moving', title: 'Переезды', href: '#!/Header' },
+      { name: 'cherdak', title: 'Хранение', href: '#!/Header' },
+      {
+        name: 'plus',
+        title: 'Qlean',
+        href: '#!/Header',
+        component: 'QleanPlusItem',
+      },
+    ],
+  },
+}
 
 const viewportHeight = uiPoint * 100
 
@@ -31,18 +137,53 @@ const StyledBox = styled(Example.Box)`
   width: 100%;
 `
 
-;<StyledViewport>
-  <StyledPage>
-    <Header {...data} />
-    <StyledPageBody>
-      <StyledPageContent>
-        <GridContainer>
-          <GridColumn columns={12}>
-            <StyledBox />
-          </GridColumn>
-        </GridContainer>
-      </StyledPageContent>
-    </StyledPageBody>
-  </StyledPage>
-</StyledViewport>
+const ExampleComponents = () => {
+  const [items, setItems] = React.useState({})
+
+  return (
+    <StyledViewport>
+      <StyledPage>
+        <Header
+          selectedProfileItem={items.profile}
+          selectedLevelOneItem={(items.menu || [])[0]}
+          selectedLevelTwoItem={(items.menu || [])[1]}
+          callbacks={{
+            onCleaning: () => setItems({ menu: ['cleaning'] }),
+            onBasic: () => setItems({ menu: ['cleaning', 'basic'] }),
+            onGeneral: () => setItems({ menu: ['cleaning', 'general'] }),
+            onRenovation: () => setItems({ menu: ['cleaning', 'renovation'] }),
+            onHouse: () => setItems({ menu: ['cleaning', 'house'] }),
+            onWindows: () => setItems({ menu: ['cleaning', 'windows'] }),
+            onFurniture: () => setItems({ menu: ['cleaning', 'furniture'] }),
+
+            onLaundry: () => setItems({ menu: ['laundry'] }),
+            onShirts: () => setItems({ menu: ['laundry', 'shirts'] }),
+            onLinen: () => setItems({ menu: ['laundry', 'linen'] }),
+            onSneakers: () => setItems({ menu: ['laundry', 'sneakers'] }),
+            onSocks: () => setItems({ menu: ['laundry', 'socks'] }),
+
+            onProfile: () => setItems({ profile: 'profile' }),
+            onOrders: () => setItems({ profile: 'orders' }),
+            onBilling: () => setItems({ profile: 'billing' }),
+            onLogout: () => alert('Вышли!'),
+
+            onRegionChange: () => {},
+          }}
+          {...data}
+        />
+        <StyledPageBody>
+          <StyledPageContent>
+            <GridContainer>
+              <GridColumn columns={12}>
+                <StyledBox />
+              </GridColumn>
+            </GridContainer>
+          </StyledPageContent>
+        </StyledPageBody>
+      </StyledPage>
+    </StyledViewport>
+  )
+}
+
+;<ExampleComponents />
 ```
