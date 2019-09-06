@@ -91,16 +91,18 @@ const MenuItemWrap = styled(MenuItem)`
   }
 `
 
-const LevelTwoMenuItemText = styled(Text)`
+const StyledMenuItemText = styled(Text)`
   color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
   font-size: 13px;
-  text-transform: uppercase;
   transition: ${transitions.medium};
 `
 
-const LevelThreeMenuItemText = styled(Text)`
+const LevelTwoMenuItemText = styled(StyledMenuItemText)`
+  text-transform: uppercase;
+`
+
+const LevelThreeMenuItemText = styled(StyledMenuItemText)`
   font-weight: normal;
-  text-transform: initial;
   letter-spacing: 0.4px;
 `
 
@@ -208,21 +210,21 @@ export default function MobileHeader(props) {
         {levelTwoMenuItems.length > 0 && (
           <ScrollerContainer>
             <Scroller ref={levelThreeContainerRef}>
-              {levelTwoMenuItems.map(menuItem => (
+              {levelTwoMenuItems.map(item => (
                 <MenuItemWrap
-                  key={menuItem.name}
+                  key={item.name}
                   components={components}
                   callbacks={callbacks}
-                  item={menuItem}
+                  item={item}
                   onClick={evt => {
                     scrollHelper(levelThreeContainerRef.current, evt.target)
                   }}
                 >
                   <LevelThreeMenuItemText
                     preset="caption"
-                    isSelected={menuItem.title.name === selectedLevelTwoItem}
+                    isSelected={item.name === selectedLevelTwoItem}
                   >
-                    {menuItem.title}
+                    {item.title}
                   </LevelThreeMenuItemText>
                 </MenuItemWrap>
               ))}

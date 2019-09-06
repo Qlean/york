@@ -11,6 +11,8 @@ import IconBurger from './assets/IconBurger'
 // FIXME: иконка с белым фоном, переделать с прозрачным
 import IconArrow from './assets/arrow.svg'
 
+import MenuItem from './MenuItem'
+
 const Root = styled(View)`
   display: flex;
   flex-direction: column;
@@ -22,7 +24,7 @@ const Root = styled(View)`
 
 const IconArrowWrap = styled(View)`
   transition: ${transitions.medium};
-  ${({ isActive }) => (isActive ? 'transform: rotate(-180deg);' : '')}
+  ${({ isSelected }) => (isSelected ? 'transform: rotate(-180deg);' : '')}
 `
 
 const BurgerButton = styled(ClearedButton)`
@@ -44,13 +46,11 @@ const TabMenuItem = styled(Text)`
   padding: 10px;
   ${({ isSelected }) => isSelected && `box-shadow: 0 1px 0 ${colors.black}`};
   color: ${({ isSelected }) => (isSelected ? colors.coal : colors.grey)};
-  font-weight: 500;
-  text-transform: uppercase;
   transition: ${transitions.medium};
 `
 
-const MenuItem = styled(Text)`
-  color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
+const MenuItemText = styled(Text)`
+  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
   text-transform: uppercase;
 `
 
@@ -63,12 +63,28 @@ const Footer = styled.div`
   margin-top: auto;
 `
 
+const StyledMenuItem = styled(MenuItem)`
+  display: flex;
+  align-items: center;
+`
+
+const StyledInnerMenuItem = styled(MenuItem)`
+  display: flex;
+`
+
+const StyledInnerMenuText = styled(Text)`
+  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
+  transition: ${transitions.medium};
+`
+
 export default function MobileBurgerHeader(props) {
   const {
     onCloseHandler,
     isOpened,
     selectedLevelOneItem,
     selectedLevelTwoItem,
+    callbacks,
+    components,
     components: { Logo },
     defaultTab,
     content: { tabs, menu },
@@ -88,7 +104,12 @@ export default function MobileBurgerHeader(props) {
       </View>
       <TabsContainer justifyContent="center">
         {tabs.map(({ name, title, href }) => (
-          <TabMenuItem key={name} href={href} isSelected={defaultTab === name}>
+          <TabMenuItem
+            preset="link"
+            key={name}
+            href={href}
+            isSelected={defaultTab === name}
+          >
             {title}
           </TabMenuItem>
         ))}
@@ -99,42 +120,47 @@ export default function MobileBurgerHeader(props) {
           const isCurrentActive = item.name === selectedLevelOneItem
 
           return (
-            <View
-              key={item.name}
-              flexDirection="column"
-              // onClick={() => setLevelTwoMenu(isCurrentActive ? -1 : idx)}
-            >
-              <View alignItems="center">
+            <View key={item.name} flexDirection="column">
+              <StyledMenuItem
+                components={components}
+                callbacks={callbacks}
+                item={item}
+              >
                 <View flexDirection="column">
                   <Separator height={2} />
                   <View>
                     <Separator width={4} />
-                    <MenuItem isActive={isCurrentActive}>{item.title}</MenuItem>
+                    <MenuItemText isSelected={isCurrentActive}>
+                      {item.title}
+                    </MenuItemText>
                   </View>
                   <Separator height={2} />
                 </View>
                 {isSubMenuExist && (
                   <MenuItemIconWrap>
                     <Separator width={2} />
-                    <IconArrowWrap isActive={isCurrentActive}>
+                    <IconArrowWrap isSelected={isCurrentActive}>
                       <IconArrow />
                     </IconArrowWrap>
                     <Separator width={4} />
                   </MenuItemIconWrap>
                 )}
-              </View>
+              </StyledMenuItem>
 
               {isSubMenuExist &&
                 isCurrentActive &&
                 item.items.map(subMenuItem => (
-                  <View
+                  <StyledInnerMenuItem
                     key={subMenuItem.name}
-                    // onClick={() => console.log('submenu', subMenuItem.title)}
+                    components={components}
+                    callbacks={callbacks}
+                    item={subMenuItem}
                   >
                     <Separator width={8} />
                     <View flexDirection="column">
                       <Separator height={1} />
-                      <Text
+                      <StyledInnerMenuText
+                        isSelected={subMenuItem.name === selectedLevelTwoItem}
                         color={
                           subMenuItem.name === selectedLevelTwoItem
                             ? 'green'
@@ -142,10 +168,10 @@ export default function MobileBurgerHeader(props) {
                         }
                       >
                         {subMenuItem.title}
-                      </Text>
+                      </StyledInnerMenuText>
                       <Separator height={1} />
                     </View>
-                  </View>
+                  </StyledInnerMenuItem>
                 ))}
             </View>
           )
@@ -157,7 +183,7 @@ export default function MobileBurgerHeader(props) {
           <Separator height={2} />
           <View>
             <Separator width={4} />
-            <MenuItem>ВОЙТИ</MenuItem>
+            <MenuItemText>ВОЙТИ</MenuItemText>
           </View>
           <Separator height={2} />
         </View>
@@ -166,7 +192,7 @@ export default function MobileBurgerHeader(props) {
           <Separator height={2} />
           <View>
             <Separator width={4} />
-            <MenuItem>Санкт-петербург</MenuItem>
+            <MenuItemText>Санкт-петербург</MenuItemText>
           </View>
           <Separator height={2} />
         </View>
