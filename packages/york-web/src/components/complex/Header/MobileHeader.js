@@ -16,25 +16,25 @@ import LoginIcon from './assets/login.svg'
 import IconBurger from './assets/IconBurger'
 import IconProfile from './assets/IconProfile'
 
-const Root = styled.header`
+const StyledMobileHeader = styled.header`
   background-color: ${colors.white};
 `
 
-const ProfileIcon = styled(IconProfile)`
+const StyledProfileIcon = styled(IconProfile)`
   display: block;
 `
 
-const BurgerButton = styled(Button)`
+const StyledBurgerButton = styled(Button)`
   padding: 0 ${sizes[4]}px 0px ${sizes[2]}px;
 `
 
-const Burger = styled(IconBurger)`
+const StyledBurgerIcon = styled(IconBurger)`
   display: block;
   transition: ${transitions.medium};
   ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
-const ScrollerContainer = styled.div`
+const StyledScrollerContainer = styled.div`
   position: relative;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 
@@ -68,7 +68,7 @@ const ScrollerContainer = styled.div`
   }
 `
 
-const Scroller = styled.div`
+const StyledScroller = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
@@ -80,7 +80,7 @@ const Scroller = styled.div`
   }
 `
 
-const MenuItemWrap = styled(MenuItem)`
+const StyledMenuItem = styled(MenuItem)`
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -97,16 +97,16 @@ const StyledMenuItemText = styled(Text)`
   transition: ${transitions.medium};
 `
 
-const LevelTwoMenuItemText = styled(StyledMenuItemText)`
+const StyledLevelTwoMenuItemText = styled(StyledMenuItemText)`
   text-transform: uppercase;
 `
 
-const LevelThreeMenuItemText = styled(StyledMenuItemText)`
+const StyledLevelThreeMenuItemText = styled(StyledMenuItemText)`
   font-weight: normal;
   letter-spacing: 0.4px;
 `
 
-const ScrollerItemPlaceholder = styled.div`
+const StyledScrollerItemPlaceholder = styled.div`
   flex-shrink: 0;
   width: 33vw;
 `
@@ -152,7 +152,7 @@ export default function MobileHeader(props) {
           />
         </Modal>
       )}
-      <Root>
+      <StyledMobileHeader>
         <View alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
@@ -176,7 +176,7 @@ export default function MobileHeader(props) {
                 isDisabled={false}
                 onClick={() => console.log('btn')}
               >
-                <ProfileIcon />
+                <StyledProfileIcon />
               </Button>
             ) : (
               <Button
@@ -188,7 +188,7 @@ export default function MobileHeader(props) {
                 <LoginIcon />
               </Button>
             )}
-            <BurgerButton
+            <StyledBurgerButton
               rank={0}
               name="openBurgerMenu"
               isDisabled={false}
@@ -197,14 +197,14 @@ export default function MobileHeader(props) {
                 setModalShow(!isModalShow)
               }}
             >
-              <Burger isOpen={burgerActive} />
-            </BurgerButton>
+              <StyledBurgerIcon isOpen={burgerActive} />
+            </StyledBurgerButton>
           </View>
         </View>
-        <ScrollerContainer>
-          <Scroller ref={levelTwoContainerRef}>
+        <StyledScrollerContainer>
+          <StyledScroller ref={levelTwoContainerRef}>
             {menu.map(menuItem => (
-              <MenuItemWrap
+              <StyledMenuItem
                 key={menuItem.name}
                 components={components}
                 callbacks={callbacks}
@@ -213,22 +213,22 @@ export default function MobileHeader(props) {
                   scrollHelper(levelTwoContainerRef.current, evt.target)
                 }
               >
-                <LevelTwoMenuItemText
+                <StyledLevelTwoMenuItemText
                   preset="link"
                   isSelected={menuItem.name === selectedLevelOneItem}
                 >
                   {menuItem.title}
-                </LevelTwoMenuItemText>
-              </MenuItemWrap>
+                </StyledLevelTwoMenuItemText>
+              </StyledMenuItem>
             ))}
-            <ScrollerItemPlaceholder />
-          </Scroller>
-        </ScrollerContainer>
+            <StyledScrollerItemPlaceholder />
+          </StyledScroller>
+        </StyledScrollerContainer>
         {levelTwoMenuItems.length > 0 && (
-          <ScrollerContainer>
-            <Scroller ref={levelThreeContainerRef}>
+          <StyledScrollerContainer>
+            <StyledScroller ref={levelThreeContainerRef}>
               {levelTwoMenuItems.map(item => (
-                <MenuItemWrap
+                <StyledMenuItem
                   key={item.name}
                   components={components}
                   callbacks={callbacks}
@@ -237,19 +237,19 @@ export default function MobileHeader(props) {
                     scrollHelper(levelThreeContainerRef.current, evt.target)
                   }}
                 >
-                  <LevelThreeMenuItemText
+                  <StyledLevelThreeMenuItemText
                     preset="caption"
                     isSelected={item.name === selectedLevelTwoItem}
                   >
                     {item.title}
-                  </LevelThreeMenuItemText>
-                </MenuItemWrap>
+                  </StyledLevelThreeMenuItemText>
+                </StyledMenuItem>
               ))}
-              <ScrollerItemPlaceholder />
-            </Scroller>
-          </ScrollerContainer>
+              <StyledScrollerItemPlaceholder />
+            </StyledScroller>
+          </StyledScrollerContainer>
         )}
-      </Root>
+      </StyledMobileHeader>
     </>
   )
 }
