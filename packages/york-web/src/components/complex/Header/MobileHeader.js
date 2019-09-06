@@ -13,25 +13,16 @@ import Region from './Region'
 import Modal from './Modal'
 
 import LoginIcon from './assets/login.svg'
-import IconBurger from './assets/IconBurger'
-import IconProfile from './assets/IconProfile'
+import BurgerOpened from './assets/burgerOpened.svg'
+import BurgerClosed from './assets/burgerClosed.svg'
+import IconProfile from './assets/profile.svg'
 
 const StyledMobileHeader = styled.header`
   background-color: ${colors.white};
 `
 
-const StyledProfileIcon = styled(IconProfile)`
-  display: block;
-`
-
 const StyledBurgerButton = styled(Button)`
   padding: 0 ${sizes[4]}px 0px ${sizes[2]}px;
-`
-
-const StyledBurgerIcon = styled(IconBurger)`
-  display: block;
-  transition: ${transitions.medium};
-  ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
 const StyledScrollerContainer = styled.div`
@@ -176,7 +167,7 @@ export default function MobileHeader(props) {
                 isDisabled={false}
                 onClick={() => console.log('btn')}
               >
-                <StyledProfileIcon />
+                <IconProfile />
               </Button>
             ) : (
               <Button
@@ -197,7 +188,7 @@ export default function MobileHeader(props) {
                 setModalShow(!isModalShow)
               }}
             >
-              <StyledBurgerIcon isOpen={burgerActive} />
+              {burgerActive ? <BurgerClosed /> : <BurgerOpened />}
             </StyledBurgerButton>
           </View>
         </View>

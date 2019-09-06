@@ -13,7 +13,8 @@ import MenuRow from './MenuRow'
 import LoginIcon from '../assets/login.svg'
 import ProfileIcon from '../assets/profile.svg'
 import MobileGeoIcon from '../assets/mobileGeo.svg'
-import IconBurger from '../assets/IconBurger'
+import BurgerOpened from '../assets/burgerOpened.svg'
+import BurgerClosed from '../assets/burgerClosed.svg'
 
 import MenuItem from '../MenuItem'
 
@@ -36,11 +37,6 @@ const IconArrowWrap = styled(View)`
 
 const BurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
-`
-const Burger = styled(IconBurger)`
-  display: block;
-  transition: ${transitions.medium};
-  ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
 const TabsContainer = styled(View)`
@@ -73,10 +69,6 @@ const StyledMenuItem = styled(MenuItem)`
   flex-grow: 1;
   display: flex;
   align-items: center;
-`
-
-const StyledInnerMenuItem = styled(MenuItem)`
-  display: flex;
 `
 
 // FIXME: убрать дублирование кода.
@@ -127,7 +119,7 @@ export default function MobileBurgerHeader({
             isDisabled={false}
             onClick={onCloseHandler}
           >
-            <Burger isOpen={isOpened} />
+            {isOpened ? <BurgerClosed /> : <BurgerOpened />}
           </BurgerButton>
         </View>
       </View>
@@ -202,6 +194,8 @@ export default function MobileBurgerHeader({
                   <Separator height={2} />
                   <View>
                     <Separator width={4} />
+                    <ProfileIcon />
+                    <Separator width={2} />
                     <MenuItemText>Профиль</MenuItemText>
                   </View>
                   <Separator height={2} />
@@ -216,16 +210,13 @@ export default function MobileBurgerHeader({
                 </MenuItemIconWrap>
               </View>
               <View flexDirection="column">
-                {profile.map(item => (
-                  <StyledInnerMenuItem
-                    key={item.title}
-                    item={item}
-                    components={components}
-                    callbacks={callbacks}
-                  >
-                    <Text preset="link">{item.title}</Text>
-                  </StyledInnerMenuItem>
-                ))}
+                <MenuRow
+                  components={components}
+                  callbacks={callbacks}
+                  items={profile}
+                  // FIXME: тут что-то другое должно быть
+                  selectedItem={selectedLevelTwoItem}
+                />
               </View>
             </View>
           ) : (
