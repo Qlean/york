@@ -25,7 +25,7 @@ const StyledTabText = styled(Text)`
   letter-spacing: 1px;
 `
 
-export default function Tabs({ defaultTab, content: { tabs } }) {
+export default function Tabs({ defaultTab, tabs }) {
   return (
     <View>
       {tabs.map(({ name, title, href }) => {
@@ -46,7 +46,5 @@ export default function Tabs({ defaultTab, content: { tabs } }) {
 
 Tabs.propTypes = {
   defaultTab: PropTypes.string.isRequired,
-  content: PropTypes.shape({
-    tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
-  }).isRequired,
+  tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
 }

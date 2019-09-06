@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { GridContainer, GridColumn, uiPoint, media } from '@qlean/york-web'
 
-import { props } from './assets/data'
+import data from './assets/data'
 
 const viewportHeight = uiPoint * 100
 
@@ -33,7 +33,7 @@ const StyledBox = styled(Example.Box)`
 
 ;<StyledViewport>
   <StyledPage>
-    <Header {...props} />
+    <Header {...data} />
     <StyledPageBody>
       <StyledPageContent>
         <GridContainer>

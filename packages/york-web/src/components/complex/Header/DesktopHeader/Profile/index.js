@@ -28,11 +28,11 @@ const StyledProfileText = styled(Text)`
 `
 
 export default function Profile({
-  isLoggedIn,
-  isPlusSubscriber,
-  content: { profile },
   components,
   callbacks,
+  isLoggedIn,
+  isPlusSubscriber,
+  profile,
 }) {
   return isLoggedIn ? (
     <Dropdown items={profile} components={components} callbacks={callbacks}>
@@ -54,11 +54,9 @@ export default function Profile({
 }
 
 Profile.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-  isPlusSubscriber: PropTypes.bool.isRequired,
-  content: PropTypes.shape({
-    profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
-  }).isRequired,
   components: componentsShape.isRequired,
   callbacks: callbacksShape.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isPlusSubscriber: PropTypes.bool.isRequired,
+  profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
 }

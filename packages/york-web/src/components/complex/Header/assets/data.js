@@ -1,62 +1,7 @@
 import React from 'react'
 import { Text, Link } from 'york-web/components/primitive'
 
-export const LEVEL_ONE_MENU = {
-  tabs: [{ title: 'Для дома' }, { title: 'Для офиса' }],
-  geo: {
-    selectedValue: 'spb',
-    cities: [
-      { name: 'Санкт-Петербург', value: 'spb' },
-      { name: 'Москва', value: 'msk' },
-    ],
-  },
-  profile: [
-    { title: 'Бонусы', isSelected: true },
-    { title: 'Мои уборки' },
-    { title: 'Оплата' },
-    { title: 'Настройки профиля' },
-    { title: 'Мой Qlean Плюс' },
-    { title: 'Выйти' },
-  ],
-}
-
-export const LEVEL_TWO_MENU = [
-  {
-    title: 'Уборка',
-    subMenu: [
-      { title: 'Поддерживающая' },
-      { title: 'Генеральная' },
-      { title: 'После ремонта' },
-      { title: 'Загородные дома' },
-      { title: 'Мытьё окон' },
-      { title: 'Химчистка мебели' },
-    ],
-  },
-  {
-    title: 'Стирка и химчистка',
-    subMenu: [
-      { title: 'Рубашки' },
-      { title: 'Постельное белье' },
-      { title: 'Кроссовки' },
-      { title: 'Носки' },
-    ],
-  },
-  { title: 'Переезды', subMenu: [] },
-  { title: 'Хранение' },
-  { title: 'Qlean' },
-]
-
-// const Line = () => <div style={{ height: 1, backgroundColor: 'grey' }} />
-
-// const Tab = ({ Container, containerProps, Item, itemProps, href }) => (
-//   <a href={href}>
-//     <Container {...containerProps}>
-//       <Item {...itemProps} />
-//     </Container>
-//   </a>
-// )
-
-export const props = {
+export default {
   isProfileAvailable: true,
   isLoggedIn: true,
   isPlusSubscriber: false,

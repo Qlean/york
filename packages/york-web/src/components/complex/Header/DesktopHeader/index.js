@@ -8,8 +8,6 @@ import { GridContainer, GridColumn } from 'york-web/components/simple'
 
 import { headerPropTypes } from '../utils'
 import Geolocation from '../Geolocation'
-///////
-import { props } from '../assets/data'
 
 import Tabs from './Tabs'
 import Phone from './Phone'
@@ -57,11 +55,16 @@ const StyledLevelTwoMenu = styled.div`
 
 export default function DesktopHeader({
   isProfileAvailable,
+  isLoggedIn,
+  isPlusSubscriber,
   selectedRegion,
   selectedLevelOneItem,
   selectedLevelTwoItem,
+  defaultTab,
+  components,
   components: { Logo },
-  content: { phone, menu },
+  callbacks,
+  content: { phone, menu, tabs, profile },
 }) {
   const levelTwoMenu = selectedLevelOneItem
     ? menu.find(({ name }) => name === selectedLevelOneItem)
@@ -82,7 +85,7 @@ export default function DesktopHeader({
                       <Separator width={3} />
                     </>
                   )}
-                  <Tabs {...props} />
+                  <Tabs defaultTab={defaultTab} tabs={tabs} />
                 </View>
                 <View alignItems="center">
                   {selectedRegion && (
@@ -105,7 +108,13 @@ export default function DesktopHeader({
                   )}
                   {isProfileAvailable && (
                     <StyledTopMenuItem>
-                      <Profile {...props} />
+                      <Profile
+                        components={components}
+                        callbacks={callbacks}
+                        isLoggedIn={isLoggedIn}
+                        isPlusSubscriber={isPlusSubscriber}
+                        profile={profile}
+                      />
                     </StyledTopMenuItem>
                   )}
                 </View>
@@ -119,7 +128,8 @@ export default function DesktopHeader({
           <GridContainer>
             <GridColumn columns={12}>
               <Menu
-                {...props}
+                components={components}
+                callbacks={callbacks}
                 items={menu}
                 selectedItem={selectedLevelOneItem}
                 textPreset="link"
@@ -132,7 +142,8 @@ export default function DesktopHeader({
             <GridContainer>
               <GridColumn columns={12}>
                 <Menu
-                  {...props}
+                  components={components}
+                  callbacks={callbacks}
                   items={levelTwoMenuItems}
                   selectedItem={selectedLevelTwoItem}
                   textPreset="caption"
