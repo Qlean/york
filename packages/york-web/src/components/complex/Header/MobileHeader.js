@@ -14,6 +14,8 @@ import IconBurger from './assets/IconBurger'
 
 import { scrollHelper } from './utils'
 
+import MenuItem from './MenuItem'
+
 const Root = styled.header`
   background-color: ${colors.white};
 `
@@ -78,21 +80,24 @@ const Scroller = styled.div`
   }
 `
 
-const LevelTwoMenuItem = styled(Text)`
+const MenuItemWrap = styled(MenuItem)`
   flex-shrink: 0;
   padding: 12px 10px 13px;
-  color: ${({ isActive }) => (isActive ? colors.green : colors.coal)};
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-  transition: ${transitions.medium};
 
   &:first-child {
     padding-left: 20px;
   }
 `
 
-const LevelThreeMenuItem = styled(LevelTwoMenuItem)`
+const LevelTwoMenuItemText = styled(Text)`
+  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  transition: ${transitions.medium};
+`
+
+const LevelThreeMenuItemText = styled(Text)`
   font-weight: normal;
   text-transform: initial;
   letter-spacing: 0.4px;
@@ -109,6 +114,8 @@ export default function MobileHeader(props) {
     selectedRegion,
     selectedLevelOneItem,
     selectedLevelTwoItem,
+    callbacks,
+    components,
     components: { Logo },
     content: { phone, menu },
   } = props
@@ -177,16 +184,23 @@ export default function MobileHeader(props) {
         <ScrollerContainer>
           <Scroller ref={levelTwoContainerRef}>
             {menu.map(menuItem => (
-              <LevelTwoMenuItem
+              <MenuItemWrap
                 key={menuItem.name}
-                preset="caption"
-                isActive={menuItem.name === selectedLevelOneItem}
-                onClick={evt => {
-                  scrollHelper(levelTwoContainerRef.current, evt.target)
-                }}
+                components={components}
+                callbacks={callbacks}
+                item={menuItem}
+
+                // onClick={evt => {
+                //   scrollHelper(levelTwoContainerRef.current, evt.target)
+                // }}
               >
-                {menuItem.title}
-              </LevelTwoMenuItem>
+                <LevelTwoMenuItemText
+                  preset="caption"
+                  isSelected={menuItem.name === selectedLevelOneItem}
+                >
+                  {menuItem.title}
+                </LevelTwoMenuItemText>
+              </MenuItemWrap>
             ))}
             <ScrollerItemPlaceholder />
           </Scroller>
@@ -195,15 +209,22 @@ export default function MobileHeader(props) {
           <ScrollerContainer>
             <Scroller ref={levelThreeContainerRef}>
               {levelTwoMenuItems.map(menuItem => (
-                <LevelThreeMenuItem
-                  key={menuItem.title}
-                  isActive={menuItem.title.name === selectedLevelTwoItem}
-                  onClick={evt => {
-                    scrollHelper(levelThreeContainerRef.current, evt.target)
-                  }}
+                <MenuItemWrap
+                  key={menuItem.name}
+                  components={components}
+                  callbacks={callbacks}
+                  item={menuItem}
+
+                  // onClick={evt => {
+                  //   scrollHelper(levelThreeContainerRef.current, evt.target)
+                  // }}
                 >
-                  {menuItem.title}
-                </LevelThreeMenuItem>
+                  <LevelThreeMenuItemText
+                    isSelected={menuItem.title.name === selectedLevelTwoItem}
+                  >
+                    {menuItem.title}
+                  </LevelThreeMenuItemText>
+                </MenuItemWrap>
               ))}
               <ScrollerItemPlaceholder />
             </Scroller>
