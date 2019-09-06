@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
+import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
-import ClearedButton from './ClearedButton'
 import IconBurger from './assets/IconBurger'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
@@ -27,7 +27,7 @@ const IconArrowWrap = styled(View)`
   ${({ isSelected }) => (isSelected ? 'transform: rotate(-180deg);' : '')}
 `
 
-const BurgerButton = styled(ClearedButton)`
+const BurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
 `
 
@@ -97,7 +97,12 @@ export default function MobileBurgerHeader(props) {
           {Logo && <Logo />}
         </View>
         <View alignItems="center">
-          <BurgerButton type="button" onClick={onCloseHandler}>
+          <BurgerButton
+            rank={0}
+            name="closeBurgerMenu"
+            isDisable
+            onClick={onCloseHandler}
+          >
             <Burger isOpen={isOpened} />
           </BurgerButton>
         </View>

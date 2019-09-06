@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
+import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
-import ClearedButton from './ClearedButton'
 import MobileBurgerHeader from './MobileBurgerHeader'
 import Region from './Region'
 import Modal from './Modal'
@@ -24,7 +24,7 @@ const ProfileIcon = styled(IconProfile)`
   display: block;
 `
 
-const BurgerButton = styled(ClearedButton)`
+const BurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
 `
 
@@ -166,11 +166,18 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            <ClearedButton type="button" onClick={() => console.log('btn')}>
+            <Button
+              rank={0}
+              name="openProfile"
+              isDisabled={false}
+              onClick={() => console.log('btn')}
+            >
               <ProfileIcon />
-            </ClearedButton>
+            </Button>
             <BurgerButton
-              type="button"
+              rank={0}
+              name="openBurgerMenu"
+              isDisabled={false}
               onClick={() => {
                 toggleBurger(!burgerActive)
                 setModalShow(!isModalShow)
