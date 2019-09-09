@@ -7,9 +7,9 @@ import { Text, View } from 'york-web/components/primitive'
 
 import { menuItemShape, componentsShape } from '../../utils'
 
-import LoginIcon from './assets/login.svg'
-import ProfileIcon from './assets/profile.svg'
-import ProfilePlusIcon from './assets/profilePlus.svg'
+import LoginIcon from '../../assets/login.svg'
+import ProfileIcon from '../../assets/profile.svg'
+import ProfilePlusIcon from '../../assets/profilePlus.svg'
 
 import Dropdown from './Dropdown'
 import locales from './locales'
