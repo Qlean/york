@@ -89,7 +89,7 @@ export default function MobileBurgerHeader({
   selectedLevelTwoItem,
   selectedProfileItem,
   callbacks,
-  callbacks: { onRegionChange },
+  callbacks: { onRegionChange, onLogin },
   components,
   components: { Logo },
   content: { tabs, regions, profile },
@@ -221,7 +221,7 @@ export default function MobileBurgerHeader({
                 )}
               </View>
             ) : (
-              <View>
+              <View onClick={onLogin}>
                 <Separator width={4} />
                 <LoginIcon />
                 <Separator width={2} />
