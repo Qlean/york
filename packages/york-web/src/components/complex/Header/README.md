@@ -92,7 +92,13 @@ const data = {
         name: 'office',
         title: 'Для офиса',
         href,
-        items: [],
+        items: [
+          { name: 'mainPage', title: 'Главная', href },
+          { name: 'typesOfCleaning', title: 'Виды уборки', href },
+          { name: 'howWeWork', title: 'Как мы работаем', href },
+          { name: 'whatsIncluded', title: 'Что входит', href },
+          { name: 'howToOrder', title: 'Как заказать', href },
+        ],
       },
     ],
     profile: [

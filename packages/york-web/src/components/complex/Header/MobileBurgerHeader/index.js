@@ -85,7 +85,6 @@ export default function MobileBurgerHeader({
   isLoggedIn,
   isProfileAvailable,
   selectedRegion,
-  defaultTab,
   selectedLevelOneItem,
   selectedLevelTwoItem,
   selectedProfileItem,
@@ -95,10 +94,8 @@ export default function MobileBurgerHeader({
   components: { Logo },
   content: { tabs, regions, profile },
 }) {
-  const menu = tabs.find(({ name }) => name === defaultTab).items
-
   const [isProfileActive, setProfileActive] = useState(false)
-  const [activeTab, setActiveTab] = useState('home')
+  const [activeTab, setActiveTab] = useState(0)
 
   return (
     <StyledMobileBurgerHeader flexDirection="column">
@@ -119,134 +116,129 @@ export default function MobileBurgerHeader({
         </View>
       </View>
       <StyledTabsContainer justifyContent="center">
-        {tabs.map(({ name, title }) => (
+        {tabs.map(({ name, title }, idx) => (
           <StyledTabMenuItem
             preset="link"
             key={name}
-            onClick={() => setActiveTab(name)}
-            isSelected={activeTab === name}
+            onClick={() => setActiveTab(idx)}
+            isSelected={activeTab === idx}
           >
             {title}
           </StyledTabMenuItem>
         ))}
       </StyledTabsContainer>
 
-      {activeTab === 'home' && (
+      {tabs[activeTab] && (
         <View flexDirection="column">
-          <View flexDirection="column">
-            {menu.map(item => {
-              const isSubMenuExist = item.items && !!item.items.length
-              const isCurrentActive = item.name === selectedLevelOneItem
+          {tabs[activeTab].items.map(item => {
+            const isSubMenuExist = item.items && !!item.items.length
+            const isCurrentActive = item.name === selectedLevelOneItem
 
-              return (
-                <View key={item.name} flexDirection="column">
-                  <View>
-                    <StyledMenuItem
-                      components={components}
-                      callbacks={callbacks}
-                      item={item}
-                    >
-                      <View flexDirection="column">
-                        <Separator height={2} />
-                        <View>
-                          <Separator width={4} />
-                          <StyledMenuItemText isSelected={isCurrentActive}>
-                            {item.title}
-                          </StyledMenuItemText>
-                        </View>
-                        <Separator height={2} />
+            return (
+              <View key={item.name} flexDirection="column">
+                <View>
+                  <StyledMenuItem
+                    components={components}
+                    callbacks={callbacks}
+                    item={item}
+                  >
+                    <View flexDirection="column">
+                      <Separator height={2} />
+                      <View>
+                        <Separator width={4} />
+                        <StyledMenuItemText isSelected={isCurrentActive}>
+                          {item.title}
+                        </StyledMenuItemText>
                       </View>
-                      {isSubMenuExist && (
-                        <StyledMenuItemIconWrap>
-                          <Separator width={2} />
-                          <StyledIconArrowWrap isSelected={isCurrentActive}>
-                            <StyledIconArrow />
-                          </StyledIconArrowWrap>
-                          <Separator width={4} />
-                        </StyledMenuItemIconWrap>
-                      )}
-                    </StyledMenuItem>
-                  </View>
-                  <View flexDirection="column">
-                    {isSubMenuExist && isCurrentActive && (
-                      <MenuRow
-                        components={components}
-                        callbacks={callbacks}
-                        items={item.items}
-                        selectedItem={selectedLevelTwoItem}
-                      />
-                    )}
-                  </View>
-                </View>
-              )
-            })}
-          </View>
-          <StyledFooter>
-            {isProfileAvailable && (
-              <View flexDirection="column">
-                <Separator height={2} />
-                {isLoggedIn ? (
-                  <View flexDirection="column">
-                    <View
-                      onClick={() => setProfileActive(!isProfileActive)}
-                      alignItems="center"
-                    >
-                      <View flexDirection="column">
-                        <Separator height={2} />
-                        <View>
-                          <Separator width={4} />
-                          <ProfileIcon />
-                          <Separator width={2} />
-                          <StyledMenuItemText>Профиль</StyledMenuItemText>
-                        </View>
-                        <Separator height={2} />
-                      </View>
+                      <Separator height={2} />
+                    </View>
+                    {isSubMenuExist && (
                       <StyledMenuItemIconWrap>
                         <Separator width={2} />
-                        <StyledIconArrowWrap isSelected={isProfileActive}>
+                        <StyledIconArrowWrap isSelected={isCurrentActive}>
                           <StyledIconArrow />
                         </StyledIconArrowWrap>
                         <Separator width={4} />
                       </StyledMenuItemIconWrap>
-                    </View>
-                    {isProfileActive && (
-                      <View>
-                        <Separator width={3} />
-                        <View flexDirection="column">
-                          <MenuRow
-                            components={components}
-                            callbacks={callbacks}
-                            items={profile}
-                            selectedItem={selectedProfileItem}
-                          />
-                        </View>
-                      </View>
                     )}
-                  </View>
-                ) : (
-                  <View>
-                    <Separator width={4} />
-                    <LoginIcon />
-                    <Separator width={2} />
-                    <StyledMenuItemText>Войти</StyledMenuItemText>
-                  </View>
-                )}
-                <Separator height={2} />
+                  </StyledMenuItem>
+                </View>
+                <View flexDirection="column">
+                  {isSubMenuExist && isCurrentActive && (
+                    <MenuRow
+                      components={components}
+                      callbacks={callbacks}
+                      items={item.items}
+                      selectedItem={selectedLevelTwoItem}
+                    />
+                  )}
+                </View>
               </View>
-            )}
-
-            {selectedRegion && (
-              <Region
-                regions={regions}
-                onRegionChange={onRegionChange}
-                selectedRegion={selectedRegion}
-              />
-            )}
-          </StyledFooter>
+            )
+          })}
         </View>
       )}
-
-      {activeTab === 'office' && <View>Hello</View>}
+      <StyledFooter>
+        {isProfileAvailable && (
+          <View flexDirection="column">
+            <Separator height={2} />
+            {isLoggedIn ? (
+              <View flexDirection="column">
+                <View
+                  onClick={() => setProfileActive(!isProfileActive)}
+                  alignItems="center"
+                >
+                  <View flexDirection="column">
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <ProfileIcon />
+                      <Separator width={2} />
+                      <StyledMenuItemText>Профиль</StyledMenuItemText>
+                    </View>
+                    <Separator height={2} />
+                  </View>
+                  <StyledMenuItemIconWrap>
+                    <Separator width={2} />
+                    <StyledIconArrowWrap isSelected={isProfileActive}>
+                      <StyledIconArrow />
+                    </StyledIconArrowWrap>
+                    <Separator width={4} />
+                  </StyledMenuItemIconWrap>
+                </View>
+                {isProfileActive && (
+                  <View>
+                    <Separator width={3} />
+                    <View flexDirection="column">
+                      <MenuRow
+                        components={components}
+                        callbacks={callbacks}
+                        items={profile}
+                        selectedItem={selectedProfileItem}
+                      />
+                    </View>
+                  </View>
+                )}
+              </View>
+            ) : (
+              <View>
+                <Separator width={4} />
+                <LoginIcon />
+                <Separator width={2} />
+                <StyledMenuItemText>Войти</StyledMenuItemText>
+              </View>
+            )}
+            <Separator height={2} />
+          </View>
+        )}
+        {selectedRegion && (
+          <Region
+            regions={regions}
+            onRegionChange={onRegionChange}
+            selectedRegion={selectedRegion}
+          />
+        )}
+      </StyledFooter>
     </StyledMobileBurgerHeader>
   )
 }
