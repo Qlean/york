@@ -9,17 +9,15 @@ import { transitions } from 'york-web/utils'
 
 import { headerPropTypes } from '../utils'
 import MenuRow from './MenuRow'
+import Region from './Region'
 
 import LoginIcon from '../assets/login.svg'
 import ProfileIcon from '../assets/profile.svg'
-import MobileGeoIcon from '../assets/mobileGeo.svg'
+
 import BurgerOpened from '../assets/burgerOpened.svg'
 import BurgerClosed from '../assets/burgerClosed.svg'
 
 import MenuItem from '../MenuItem'
-
-// FIXME: иконка с белым фоном, переделать с прозрачным
-import IconArrow from '../assets/arrow.svg'
 
 const StyledMobileBurgerHeader = styled(View)`
   display: flex;
@@ -30,9 +28,19 @@ const StyledMobileBurgerHeader = styled(View)`
   overflow-y: auto;
 `
 
+const StyledIconArrow = styled.span`
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid ${colors.grey};
+  border-top: 2px solid ${colors.grey};
+  border-radius: 2px;
+  transform: rotate(135deg);
+`
+
 const StyledIconArrowWrap = styled(View)`
   transition: ${transitions.medium};
-  ${({ isSelected }) => (isSelected ? 'transform: rotate(-180deg);' : '')}
+  ${({ isSelected }) =>
+    isSelected ? 'transform:  translateY(3px) rotate(-180deg);' : ''}
 `
 
 const StyledBurgerButton = styled(Button)`
@@ -69,23 +77,6 @@ const StyledMenuItem = styled(MenuItem)`
   flex-grow: 1;
   display: flex;
   align-items: center;
-`
-
-// FIXME: убрать дублирование кода.
-// Регион сильно схож с десктопным, нужно придумать общий компонент чтоле
-const StyledRegionWrap = styled(View)`
-  position: relative;
-`
-
-const StyledRegionSelect = styled.select`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  font-size: 14px;
-  cursor: pointer;
 `
 
 export default function MobileBurgerHeader({
@@ -169,7 +160,7 @@ export default function MobileBurgerHeader({
                         <StyledMenuItemIconWrap>
                           <Separator width={2} />
                           <StyledIconArrowWrap isSelected={isCurrentActive}>
-                            <IconArrow />
+                            <StyledIconArrow />
                           </StyledIconArrowWrap>
                           <Separator width={4} />
                         </StyledMenuItemIconWrap>
@@ -213,7 +204,7 @@ export default function MobileBurgerHeader({
                       <StyledMenuItemIconWrap>
                         <Separator width={2} />
                         <StyledIconArrowWrap isSelected={isProfileActive}>
-                          <IconArrow />
+                          <StyledIconArrow />
                         </StyledIconArrowWrap>
                         <Separator width={4} />
                       </StyledMenuItemIconWrap>
@@ -245,31 +236,11 @@ export default function MobileBurgerHeader({
             )}
 
             {selectedRegion && (
-              <StyledRegionWrap flexDirection="column">
-                <Separator height={2} />
-                <View>
-                  <Separator width={4} />
-                  <MobileGeoIcon />
-                  <Separator width={2} />
-                  <StyledRegionSelect
-                    onChange={evt => onRegionChange(evt.target.value)}
-                    value={selectedRegion}
-                  >
-                    {regions.map(region => (
-                      <option key={region.name} value={region.name}>
-                        {region.title}
-                      </option>
-                    ))}
-                  </StyledRegionSelect>
-                  <StyledMenuItemText>
-                    {
-                      regions.find(region => region.name === selectedRegion)
-                        .title
-                    }
-                  </StyledMenuItemText>
-                </View>
-                <Separator height={2} />
-              </StyledRegionWrap>
+              <Region
+                regions={regions}
+                onRegionChange={onRegionChange}
+                selectedRegion={selectedRegion}
+              />
             )}
           </StyledFooter>
         </View>

@@ -37,8 +37,8 @@ const StyledScrollerContainer = styled.div`
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   background-color: ${colors.white};
 
-  &::before,
-  &::after {
+  ::before,
+  ::after {
     content: '';
     position: absolute;
     top: 0;
@@ -46,7 +46,7 @@ const StyledScrollerContainer = styled.div`
     pointer-events: none;
   }
 
-  &::before {
+  ::before {
     left: 0;
     width: 20px;
     background-image: linear-gradient(
@@ -56,7 +56,7 @@ const StyledScrollerContainer = styled.div`
     );
   }
 
-  &::after {
+  ::after {
     right: 0;
     width: 40px;
     background-image: linear-gradient(
