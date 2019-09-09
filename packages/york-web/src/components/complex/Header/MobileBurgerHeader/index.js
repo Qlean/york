@@ -188,56 +188,58 @@ export default function MobileBurgerHeader({
       </View>
 
       <Footer>
-        <View flexDirection="column">
-          <Separator height={2} />
-          {isLoggedIn ? (
-            <View flexDirection="column">
-              <View
-                onClick={() => setProfileActive(!isProfileActive)}
-                alignItems="center"
-              >
-                <View flexDirection="column">
-                  <Separator height={2} />
-                  <View>
-                    <Separator width={4} />
-                    <ProfileIcon />
-                    <Separator width={2} />
-                    <MenuItemText>Профиль</MenuItemText>
-                  </View>
-                  <Separator height={2} />
-                </View>
-                <MenuItemIconWrap>
-                  <Separator width={2} />
-                  <IconArrowWrap isSelected={isProfileActive}>
-                    <IconArrow />
-                  </IconArrowWrap>
-                  <Separator width={4} />
-                </MenuItemIconWrap>
-              </View>
-              {isProfileActive && (
-                <View>
-                  <Separator width={3} />
+        {isProfileAvailable && (
+          <View flexDirection="column">
+            <Separator height={2} />
+            {isLoggedIn ? (
+              <View flexDirection="column">
+                <View
+                  onClick={() => setProfileActive(!isProfileActive)}
+                  alignItems="center"
+                >
                   <View flexDirection="column">
-                    <MenuRow
-                      components={components}
-                      callbacks={callbacks}
-                      items={profile}
-                      selectedItem={selectedProfileItem}
-                    />
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <ProfileIcon />
+                      <Separator width={2} />
+                      <MenuItemText>Профиль</MenuItemText>
+                    </View>
+                    <Separator height={2} />
                   </View>
+                  <MenuItemIconWrap>
+                    <Separator width={2} />
+                    <IconArrowWrap isSelected={isProfileActive}>
+                      <IconArrow />
+                    </IconArrowWrap>
+                    <Separator width={4} />
+                  </MenuItemIconWrap>
                 </View>
-              )}
-            </View>
-          ) : (
-            <View>
-              <Separator width={4} />
-              <LoginIcon />
-              <Separator width={2} />
-              <MenuItemText>Войти</MenuItemText>
-            </View>
-          )}
-          <Separator height={2} />
-        </View>
+                {isProfileActive && (
+                  <View>
+                    <Separator width={3} />
+                    <View flexDirection="column">
+                      <MenuRow
+                        components={components}
+                        callbacks={callbacks}
+                        items={profile}
+                        selectedItem={selectedProfileItem}
+                      />
+                    </View>
+                  </View>
+                )}
+              </View>
+            ) : (
+              <View>
+                <Separator width={4} />
+                <LoginIcon />
+                <Separator width={2} />
+                <MenuItemText>Войти</MenuItemText>
+              </View>
+            )}
+            <Separator height={2} />
+          </View>
+        )}
 
         {selectedRegion && (
           <RegionWrap flexDirection="column">

@@ -9,9 +9,15 @@ import { menuItemShape } from '../utils'
 import ArrowIcon from './assets/arrow.svg'
 
 const StyledRegion = styled.div`
+  flex-shrink: 9999;
   display: flex;
   align-items: center;
   position: relative;
+  min-width: 0;
+`
+
+const IconWrap = styled.div`
+  flex-shrink: 0;
 `
 
 const StyledSelect = styled.select`
@@ -25,14 +31,22 @@ const StyledSelect = styled.select`
   cursor: pointer;
 `
 
+const OverflowedText = styled(Text)`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`
+
 export default function Region({ isMobile, items, selectedItem, onChange }) {
   return (
     <StyledRegion>
-      <ArrowIcon />
+      <IconWrap>
+        <ArrowIcon />
+      </IconWrap>
       <Separator width={1} />
-      <Text preset="caption" color="grey">
+      <OverflowedText preset="caption" color="grey">
         {items.find(item => item.name === selectedItem).title}
-      </Text>
+      </OverflowedText>
       <StyledSelect
         isMobile={isMobile}
         value={selectedItem}

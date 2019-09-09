@@ -59,8 +59,6 @@ const StyledScrollerContainer = styled.div`
   }
 `
 
-console.log('hideScrollBar', hideScrollBar)
-
 const StyledScroller = styled.div`
   display: flex;
   flex-wrap: nowrap;
@@ -157,24 +155,28 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            {isLoggedIn ? (
-              <Button
-                rank={0}
-                name="openProfile"
-                isDisabled={false}
-                onClick={() => console.log('btn')}
-              >
-                <IconProfile />
-              </Button>
-            ) : (
-              <Button
-                rank={0}
-                name="login"
-                isDisabled={false}
-                onClick={() => console.log('btn')}
-              >
-                <LoginIcon />
-              </Button>
+            {isProfileAvailable && (
+              <>
+                {isLoggedIn ? (
+                  <Button
+                    rank={0}
+                    name="openProfile"
+                    isDisabled={false}
+                    onClick={() => console.log('btn')}
+                  >
+                    <IconProfile />
+                  </Button>
+                ) : (
+                  <Button
+                    rank={0}
+                    name="login"
+                    isDisabled={false}
+                    onClick={() => console.log('btn')}
+                  >
+                    <LoginIcon />
+                  </Button>
+                )}
+              </>
             )}
             <StyledBurgerButton
               rank={0}
