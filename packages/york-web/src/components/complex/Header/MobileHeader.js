@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
-import { colors } from '@qlean/york-core'
-import { View, Separator, Text } from 'york-web/components/primitive'
+import { colors, formatPhone, formatPhoneHref } from '@qlean/york-core'
+import { View, Separator, Text, Link } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { uiPoint, sizes, transitions, zIndexes } from 'york-web/utils'
-
 import { headerPropTypes, scrollHelper, hideScrollBar } from './utils'
 
 import MobileBurgerHeader from './MobileBurgerHeader'
@@ -120,6 +119,11 @@ const StyledScrollerItemPlaceholder = styled.div`
   width: 33vw;
 `
 
+const StyledPhoneText = styled(Text)`
+  font-weight: bold;
+  letter-spacing: 0.5px;
+`
+
 export default function MobileHeader(props) {
   const {
     selectedRegion,
@@ -130,7 +134,7 @@ export default function MobileHeader(props) {
     callbacks: { onRegionChange },
     components,
     components: { Logo },
-    content: { tabs, regions },
+    content: { tabs, regions, phone },
   } = props
 
   const [burgerActive, toggleBurger] = useState(false)
@@ -176,10 +180,16 @@ export default function MobileHeader(props) {
                 items={regions}
                 selectedItem={selectedRegion}
                 onChange={onRegionChange}
-                //////// vvvvvv
+                // ////// vvvvvv
               />
             )}
-            {/* {!selectedRegion && phone && <div>{phone}</div>} */}
+            {!selectedRegion && phone && (
+              <Link href={formatPhoneHref(phone)}>
+                <StyledPhoneText preset="caption">
+                  {formatPhone(phone)}
+                </StyledPhoneText>
+              </Link>
+            )}
           </View>
           <View alignItems="center">
             <StyledBurgerButton
