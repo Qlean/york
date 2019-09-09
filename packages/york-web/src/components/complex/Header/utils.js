@@ -62,3 +62,11 @@ export const scrollHelper = (containerNode, itemNode, options = {}) => {
     containerNode.scrollTo({ left: itemLeftPoint - offset, behavior: 'smooth' })
   }
 }
+
+export const hideScrollBar = `
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`

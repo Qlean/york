@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -7,17 +7,19 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { transitions } from 'york-web/utils'
 
-import { headerPropTypes } from './utils'
+import { headerPropTypes } from '../utils'
+import MenuRow from './MenuRow'
 
-import LoginIcon from './assets/login.svg'
-import ProfileIcon from './assets/profile.svg'
-import MobileGeoIcon from './assets/mobileGeo.svg'
-import IconBurger from './assets/IconBurger'
+import LoginIcon from '../assets/login.svg'
+import ProfileIcon from '../assets/profile.svg'
+import MobileGeoIcon from '../assets/mobileGeo.svg'
+import BurgerOpened from '../assets/burgerOpened.svg'
+import BurgerClosed from '../assets/burgerClosed.svg'
 
-import MenuItem from './MenuItem'
+import MenuItem from '../MenuItem'
 
 // FIXME: иконка с белым фоном, переделать с прозрачным
-import IconArrow from './assets/arrow.svg'
+import IconArrow from '../assets/arrow.svg'
 
 const Root = styled(View)`
   display: flex;
@@ -35,11 +37,6 @@ const IconArrowWrap = styled(View)`
 
 const BurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
-`
-const Burger = styled(IconBurger)`
-  display: block;
-  transition: ${transitions.medium};
-  ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
 const TabsContainer = styled(View)`
@@ -69,17 +66,9 @@ const Footer = styled.div`
 `
 
 const StyledMenuItem = styled(MenuItem)`
+  flex-grow: 1;
   display: flex;
   align-items: center;
-`
-
-const StyledInnerMenuItem = styled(MenuItem)`
-  display: flex;
-`
-
-const StyledInnerMenuText = styled(Text)`
-  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
-  transition: ${transitions.medium};
 `
 
 // FIXME: убрать дублирование кода.
@@ -102,20 +91,22 @@ const RegionSelect = styled.select`
 export default function MobileBurgerHeader({
   isOpened,
   onCloseHandler,
-
   isLoggedIn,
   isProfileAvailable,
   selectedRegion,
   defaultTab,
   selectedLevelOneItem,
   selectedLevelTwoItem,
+  selectedProfileItem,
   callbacks,
   callbacks: { onRegionChange },
   components,
   components: { Logo },
-  content: { tabs, regions },
+  content: { tabs, regions, profile },
 }) {
   const menu = tabs.find(({ name }) => name === defaultTab).items
+
+  const [isProfileActive, setProfileActive] = useState(false)
 
   return (
     <Root flexDirection="column">
@@ -131,7 +122,7 @@ export default function MobileBurgerHeader({
             isDisabled={false}
             onClick={onCloseHandler}
           >
-            <Burger isOpen={isOpened} />
+            {isOpened ? <BurgerClosed /> : <BurgerOpened />}
           </BurgerButton>
         </View>
       </View>
@@ -154,83 +145,101 @@ export default function MobileBurgerHeader({
 
           return (
             <View key={item.name} flexDirection="column">
-              <StyledMenuItem
-                components={components}
-                callbacks={callbacks}
-                item={item}
-              >
-                <View flexDirection="column">
-                  <Separator height={2} />
-                  <View>
-                    <Separator width={4} />
-                    <MenuItemText isSelected={isCurrentActive}>
-                      {item.title}
-                    </MenuItemText>
+              <View>
+                <StyledMenuItem
+                  components={components}
+                  callbacks={callbacks}
+                  item={item}
+                >
+                  <View flexDirection="column">
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <MenuItemText isSelected={isCurrentActive}>
+                        {item.title}
+                      </MenuItemText>
+                    </View>
+                    <Separator height={2} />
                   </View>
-                  <Separator height={2} />
-                </View>
-                {isSubMenuExist && (
-                  <MenuItemIconWrap>
-                    <Separator width={2} />
-                    <IconArrowWrap isSelected={isCurrentActive}>
-                      <IconArrow />
-                    </IconArrowWrap>
-                    <Separator width={4} />
-                  </MenuItemIconWrap>
-                )}
-              </StyledMenuItem>
-
-              {isSubMenuExist &&
-                isCurrentActive &&
-                item.items.map(subMenuItem => (
-                  <StyledInnerMenuItem
-                    key={subMenuItem.name}
+                  {isSubMenuExist && (
+                    <MenuItemIconWrap>
+                      <Separator width={2} />
+                      <IconArrowWrap isSelected={isCurrentActive}>
+                        <IconArrow />
+                      </IconArrowWrap>
+                      <Separator width={4} />
+                    </MenuItemIconWrap>
+                  )}
+                </StyledMenuItem>
+              </View>
+              <View flexDirection="column">
+                {isSubMenuExist && isCurrentActive && (
+                  <MenuRow
                     components={components}
                     callbacks={callbacks}
-                    item={subMenuItem}
-                  >
-                    <Separator width={8} />
-                    <View flexDirection="column">
-                      <Separator height={1} />
-                      <StyledInnerMenuText
-                        isSelected={subMenuItem.name === selectedLevelTwoItem}
-                        color={
-                          subMenuItem.name === selectedLevelTwoItem
-                            ? 'green'
-                            : undefined
-                        }
-                      >
-                        {subMenuItem.title}
-                      </StyledInnerMenuText>
-                      <Separator height={1} />
-                    </View>
-                  </StyledInnerMenuItem>
-                ))}
+                    items={item.items}
+                    selectedItem={selectedLevelTwoItem}
+                  />
+                )}
+              </View>
             </View>
           )
         })}
       </View>
 
       <Footer>
-        <View flexDirection="column">
-          <Separator height={2} />
-          {isLoggedIn ? (
-            <View>
-              <Separator width={4} />
-              <ProfileIcon />
-              <Separator width={2} />
-              <MenuItemText>Профиль</MenuItemText>
-            </View>
-          ) : (
-            <View>
-              <Separator width={4} />
-              <LoginIcon />
-              <Separator width={2} />
-              <MenuItemText>Войти</MenuItemText>
-            </View>
-          )}
-          <Separator height={2} />
-        </View>
+        {isProfileAvailable && (
+          <View flexDirection="column">
+            <Separator height={2} />
+            {isLoggedIn ? (
+              <View flexDirection="column">
+                <View
+                  onClick={() => setProfileActive(!isProfileActive)}
+                  alignItems="center"
+                >
+                  <View flexDirection="column">
+                    <Separator height={2} />
+                    <View>
+                      <Separator width={4} />
+                      <ProfileIcon />
+                      <Separator width={2} />
+                      <MenuItemText>Профиль</MenuItemText>
+                    </View>
+                    <Separator height={2} />
+                  </View>
+                  <MenuItemIconWrap>
+                    <Separator width={2} />
+                    <IconArrowWrap isSelected={isProfileActive}>
+                      <IconArrow />
+                    </IconArrowWrap>
+                    <Separator width={4} />
+                  </MenuItemIconWrap>
+                </View>
+                {isProfileActive && (
+                  <View>
+                    <Separator width={3} />
+                    <View flexDirection="column">
+                      <MenuRow
+                        components={components}
+                        callbacks={callbacks}
+                        items={profile}
+                        selectedItem={selectedProfileItem}
+                      />
+                    </View>
+                  </View>
+                )}
+              </View>
+            ) : (
+              <View>
+                <Separator width={4} />
+                <LoginIcon />
+                <Separator width={2} />
+                <MenuItemText>Войти</MenuItemText>
+              </View>
+            )}
+            <Separator height={2} />
+          </View>
+        )}
 
         {selectedRegion && (
           <RegionWrap flexDirection="column">

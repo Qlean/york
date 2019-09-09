@@ -11,25 +11,25 @@ const Root = styled.div`
 `
 
 export default function Modal({ children }) {
-  const someRef = createRef()
+  const bodyRef = createRef()
+  const marginTopRef = createRef()
+  const topRef = createRef()
 
   useEffect(() => {
-    someRef.current = {}
-    someRef.current.body = document.querySelector('body')
-    someRef.current.marginTop = someRef.current.body.style.marginTop
-    someRef.current.top = window.scrollY
+    bodyRef.current = document.querySelector('body')
+    marginTopRef.current = bodyRef.current.style.marginTop
+    topRef.current = window.scrollY
 
-    someRef.current.body.style.top = `-${someRef.current.top +
-      someRef.current.marginTop}px`
-    someRef.current.body.style.position = 'fixed'
-    someRef.current.body.style.paddingRight = '15px'
-    someRef.current.body.style.width = '100%'
+    bodyRef.current.style.top = `-${topRef.current + marginTopRef.current}px`
+    bodyRef.current.style.position = 'fixed'
+    bodyRef.current.style.paddingRight = '15px'
+    bodyRef.current.style.width = '100%'
 
     return () => {
-      someRef.current.body.style.top = ''
-      someRef.current.body.style.position = ''
-      someRef.current.body.style.paddingRight = ''
-      window.scrollTo(0, someRef.current.top + someRef.current.marginTop)
+      bodyRef.current.style.top = ''
+      bodyRef.current.style.position = ''
+      bodyRef.current.style.paddingRight = ''
+      window.scrollTo(0, topRef.current + marginTopRef.current)
     }
   }, [])
 

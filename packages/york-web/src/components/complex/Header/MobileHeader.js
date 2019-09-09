@@ -5,7 +5,7 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { uiPoint, sizes, transitions } from 'york-web/utils'
 
-import { headerPropTypes, scrollHelper } from './utils'
+import { headerPropTypes, scrollHelper, hideScrollBar } from './utils'
 
 import MobileBurgerHeader from './MobileBurgerHeader'
 import MenuItem from './MenuItem'
@@ -13,8 +13,9 @@ import Region from './Region'
 import Modal from './Modal'
 
 import LoginIcon from './assets/login.svg'
-import IconBurger from './assets/IconBurger'
-import IconProfile from './assets/IconProfile'
+import BurgerOpened from './assets/burgerOpened.svg'
+import BurgerClosed from './assets/burgerClosed.svg'
+import IconProfile from './assets/profile.svg'
 
 const StyledMobileHeader = styled.header`
   background-color: ${colors.white};
@@ -24,18 +25,8 @@ const StyledLogo = styled.div`
   flex-shrink: 0;
 `
 
-const StyledProfileIcon = styled(IconProfile)`
-  display: block;
-`
-
 const StyledBurgerButton = styled(Button)`
   padding: 0 ${sizes[4]}px 0px ${sizes[2]}px;
-`
-
-const StyledBurgerIcon = styled(IconBurger)`
-  display: block;
-  transition: ${transitions.medium};
-  ${({ isOpen }) => (isOpen ? 'transform: rotate(-270deg);' : '')}
 `
 
 const StyledScrollerContainer = styled.div`
@@ -74,11 +65,7 @@ const StyledScrollerContainer = styled.div`
 
 const StyledScroller = styled.div`
   overflow-x: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${hideScrollBar}
 `
 
 const StyledMenu = styled(View)`
@@ -184,24 +171,28 @@ export default function MobileHeader(props) {
             {/* {phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            {!isLoggedIn ? (
-              <Button
-                rank={0}
-                name="openProfile"
-                isDisabled={false}
-                onClick={() => console.log('btn')}
-              >
-                <StyledProfileIcon />
-              </Button>
-            ) : (
-              <Button
-                rank={0}
-                name="login"
-                isDisabled={false}
-                onClick={() => console.log('btn')}
-              >
-                <LoginIcon />
-              </Button>
+            {isProfileAvailable && (
+              <>
+                {isLoggedIn ? (
+                  <Button
+                    rank={0}
+                    name="openProfile"
+                    isDisabled={false}
+                    onClick={() => console.log('btn')}
+                  >
+                    <IconProfile />
+                  </Button>
+                ) : (
+                  <Button
+                    rank={0}
+                    name="login"
+                    isDisabled={false}
+                    onClick={() => console.log('btn')}
+                  >
+                    <LoginIcon />
+                  </Button>
+                )}
+              </>
             )}
             <StyledBurgerButton
               rank={0}
@@ -212,7 +203,7 @@ export default function MobileHeader(props) {
                 setModalShow(!isModalShow)
               }}
             >
-              <StyledBurgerIcon isOpen={burgerActive} />
+              {burgerActive ? <BurgerClosed /> : <BurgerOpened />}
             </StyledBurgerButton>
           </View>
         </View>
