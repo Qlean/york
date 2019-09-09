@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
+import { AnalyticsContext } from '@qlean/york-analytics'
 
 import {
   uiPoint,
@@ -203,7 +204,27 @@ const getPreset = (mediaProps, props) => {
  * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
  * Первый отражает важность кнопки на странице, а второй отвечает за цвет подложки.
  */
-function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
+function Button({
+  isDisabled,
+  isSubmitting,
+  onClick,
+  children,
+  name,
+  ...rest
+}) {
+  const { trackEvent, category, properties } = useContext(AnalyticsContext)
+  const buttonName = category ? `${category}.${name}` : name
+  const handleClick = () => {
+    if (typeof category === 'string' && typeof trackEvent === 'function') {
+      trackEvent({
+        category,
+        label: buttonName,
+        action: 'click',
+        properties,
+      })
+    }
+    onClick()
+  }
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
@@ -217,10 +238,11 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
   return (
     <StyledButton
       {...rest}
+      name={buttonName}
       normalizedProps={normalizedProps}
       disabled={isDisabled || isSubmitting}
       isDisabled={isDisabled || isSubmitting}
-      onClick={!isDisabled && !isSubmitting ? onClick : null}
+      onClick={!isDisabled && !isSubmitting ? handleClick : null}
     >
       <StyledContent>{content}</StyledContent>
     </StyledButton>

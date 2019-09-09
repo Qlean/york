@@ -5,7 +5,7 @@ import AnalyticsContext from '../../context'
 
 const getAnalyticsRoute = (value, category) => {
   if (value) {
-    const { analyticsRoute } = value
+    const { analyticsRoute } = value.properties
     return `${analyticsRoute}.${category}`
   }
   return category
@@ -23,13 +23,16 @@ const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
             'No event tracking function specified for `AnalyticsProvider`',
           )
         }
+
         return (
           <AnalyticsContext.Provider
             value={{
               trackEvent: getEventTrackingFunction(),
               category,
-              properties,
-              analyticsRoute: getAnalyticsRoute(value, category),
+              properties: {
+                analyticsRoute: getAnalyticsRoute(value, category),
+                ...properties,
+              },
             }}
           >
             {children}

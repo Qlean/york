@@ -1,11 +1,15 @@
 `AnalyticsProvider` - это компонент, который передает в контекст дочерним елементам категорию событийдополнительные данные (properties) и функцию трекинга. Компоненты `Button` и `Link` автоматически отправляют события, основываясь на информации из ближайшего провайдера. `AnalyticsProvider` поддерживает бесконечный нестинг, при этом на любом этапе иерархии можно подменить функцию трекинга.
 
-```js static
+```js
 import { AnalyticsProvider } from '@qlean/york-analytics'
-import { Button } from '@qlean/york-web'
+import { Button, Separator } from '@qlean/york-web'
 
-const trackEvent = event => {
-  console.log(event)
+const trackEvent = ({ category, label, action, properties }) => {
+  alert(
+    `category: ${category}\nlabel: ${label}\naction: ${action}\nproperties: ${JSON.stringify(
+      properties,
+    )}`,
+  )
 }
 
 const ExampleApp = ({ children }) => (
@@ -28,6 +32,7 @@ const ExampleApp = ({ children }) => (
     >
       Root Event
     </Button>
+    <Separator height={2} />
     <AnalyticsProvider
       category="nestedComponent"
       properties={{ exampleId: 123 }}

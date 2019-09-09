@@ -16,6 +16,7 @@
   },
   "peerDependencies": {
     "@qlean/york-core": "*",
+    "@qlean/york-analytics": "*",
     "prop-types": ">=15",
     "ramda": ">=0.26",
     "react": ">=16",
