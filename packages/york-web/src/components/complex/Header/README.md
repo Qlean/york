@@ -96,10 +96,10 @@ const data = {
         title: 'Для офиса',
         href,
         items: [
-          { name: 'index', title: 'Главная', href },
-          { name: 'types', title: 'Виды уборки', href },
+          { name: 'mainPage', title: 'Главная', href },
+          { name: 'typesOfCleaning', title: 'Виды уборки', href },
           { name: 'howWeWork', title: 'Как мы работаем', href },
-          { name: 'features', title: 'Что входит', href },
+          { name: 'whatsIncluded', title: 'Что входит', href },
           { name: 'howToOrder', title: 'Как заказать', href },
         ],
       },
