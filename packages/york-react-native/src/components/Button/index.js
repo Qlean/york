@@ -177,8 +177,8 @@ const Button = ({
             action: 'press',
             properties,
           })
-          onPress()
         }
+        onPress()
       }
     : onPress
 

@@ -227,8 +227,8 @@ function Button({
             action: 'click',
             properties,
           })
-          onClick()
         }
+        onClick()
       }
     : onClick
   const normalizedProps = normalizeResponsivePreset(
