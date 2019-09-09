@@ -5,9 +5,11 @@ import { colors } from '@qlean/york-core'
 
 import { Text, View } from 'york-web/components/primitive'
 
+import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
+
 import LoginIcon from '../../assets/login.svg'
 import ProfileIcon from '../../assets/profile.svg'
-import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
+import ProfilePlusIcon from '../../assets/profilePlus.svg'
 
 import Dropdown from './Dropdown'
 import locales from './locales'
@@ -43,7 +45,7 @@ export default function Profile({
       selectedItem={selectedItem}
     >
       <View alignItems="center">
-        <ProfileIcon />
+        {isPlusSubscriber ? <ProfilePlusIcon /> : <ProfileIcon />}
         <StyledProfileText preset="caption">
           {locales.profile}
         </StyledProfileText>
