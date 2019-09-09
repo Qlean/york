@@ -40,13 +40,10 @@ module.exports = {
       sections: [
         {
           name: 'components',
-          description:
-            'Примитивные компоненты, самые базовые строительные блоки интерфейса',
           components: '../york-analytics/src/components/**/*.js',
         },
         {
           name: 'hooks',
-          description: 'Хуки',
           sections: [
             {
               name: 'useAnalytics',
