@@ -5,7 +5,7 @@ import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { sizes, transitions } from 'york-web/utils'
 
-import { headerPropTypes, scrollHelper } from './utils'
+import { headerPropTypes, scrollHelper, hideScrollBar } from './utils'
 
 import MobileBurgerHeader from './MobileBurgerHeader'
 import MenuItem from './MenuItem'
@@ -59,16 +59,13 @@ const StyledScrollerContainer = styled.div`
   }
 `
 
+console.log('hideScrollBar', hideScrollBar)
+
 const StyledScroller = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${hideScrollBar}
 `
 
 const StyledMenuItem = styled(MenuItem)`
