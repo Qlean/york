@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { media, uiPoint, sizes } from 'york-web/utils'
+import { media, uiPoint, sizes, zIndexes } from 'york-web/utils'
 import { View, Separator } from 'york-web/components/primitive'
 import { GridContainer, GridColumn } from 'york-web/components/simple'
 
@@ -19,8 +19,8 @@ const StyledMenuContainer = styled.div`
 `
 
 const StyledMenu = styled.div`
+  z-index: ${zIndexes.header};
   position: relative;
-  z-index: 1;
   background-color: ${colors.white};
   ${media.mobile('display:none;')}
 `
@@ -36,6 +36,7 @@ const StyledTopMenuItem = styled.div`
 `
 
 const StyledStickyMenu = styled.div`
+  z-index: ${zIndexes.stickyHeader};
   position: sticky;
   top: 0;
   background-color: ${colors.white};
@@ -43,14 +44,11 @@ const StyledStickyMenu = styled.div`
 `
 
 const StyledLevelOneMenu = styled.div`
-  margin: 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `
 
 const StyledLevelTwoMenu = styled.div`
-  margin: 0 auto;
-  position: relative;
-  z-index: -1;
+  border-bottom: 1px solid ${colors.whisper};
 `
 
 export default function DesktopHeader({

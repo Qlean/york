@@ -9,6 +9,8 @@ import {
   media,
 } from '@qlean/york-web'
 
+const href = '#!/Header'
+
 const data = {
   defaultTab: 'home',
   components: {
@@ -42,7 +44,7 @@ const data = {
       {
         name: 'home',
         title: 'Для дома',
-        href: '/home',
+        href,
         items: [
           {
             name: 'cleaning',
@@ -76,12 +78,12 @@ const data = {
               { name: 'socks', title: 'Носки', callback: 'onSocks' },
             ],
           },
-          { name: 'moving', title: 'Переезды', href: '#!/Header' },
-          { name: 'cherdak', title: 'Хранение', href: '#!/Header' },
+          { name: 'moving', title: 'Переезды', href },
+          { name: 'cherdak', title: 'Хранение', href },
           {
             name: 'plus',
             title: 'Qlean',
-            href: '#!/Header',
+            href,
             component: 'QleanPlusItem',
           },
         ],
@@ -89,7 +91,7 @@ const data = {
       {
         name: 'office',
         title: 'Для офиса',
-        href: '/office',
+        href,
         items: [],
       },
     ],
@@ -126,6 +128,7 @@ const StyledViewport = styled.div`
 `
 
 const StyledPage = styled.div`
+  overflow: hidden;
   ${media.wide(`width: ${GridContainer.maxWidths.wide + 80}px;`)}
   ${media.base(`width: ${GridContainer.maxWidths.base + 60}px;`)}
   ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
@@ -149,7 +152,7 @@ const ExampleComponents = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
   const [isPlusSubscriber, setIsPlusSubscriber] = React.useState(true)
   const [items, setItems] = React.useState({})
-  const [region, setRegion] = React.useState('msk')
+  const [region, setRegion] = React.useState('ppk')
 
   return (
     <>

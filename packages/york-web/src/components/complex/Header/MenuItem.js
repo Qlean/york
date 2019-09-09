@@ -21,7 +21,7 @@ export default function MenuItem({
     return null
   }
 
-  const Wrapper = components[component] || Fragment
+  const Container = components[component] || Fragment
 
   if (href) {
     if (callback && process.env.NODE_ENV !== 'production') {
@@ -38,7 +38,7 @@ export default function MenuItem({
         className={className}
         onClick={onClick}
       >
-        <Wrapper>{children}</Wrapper>
+        <Container>{children}</Container>
       </components.Link>
     )
   }
@@ -61,7 +61,7 @@ export default function MenuItem({
           callbacks[callback]()
         }}
       >
-        <Wrapper>{children}</Wrapper>
+        <Container>{children}</Container>
       </div>
     )
   }

@@ -9,7 +9,7 @@ import { Text, Separator } from 'york-web/components/primitive'
 import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
 import MenuItem from '../../MenuItem'
 
-const StyledContentWrapper = styled.div`
+const StyledContentContainer = styled.div`
   pointer-events: none;
   opacity: 0;
   position: absolute;
@@ -21,7 +21,7 @@ const StyledContentWrapper = styled.div`
 
 const StyledDropdown = styled.div`
   position: relative;
-  &:hover > ${StyledContentWrapper} {
+  &:hover > ${StyledContentContainer} {
     pointer-events: auto;
     opacity: 1;
     transform: translateY(0);
@@ -61,7 +61,7 @@ export default function Dropdown({
   return (
     <StyledDropdown>
       {children}
-      <StyledContentWrapper>
+      <StyledContentContainer>
         <Separator height={3} />
         <StyledContent>
           {items.map(item => {
@@ -80,7 +80,7 @@ export default function Dropdown({
             )
           })}
         </StyledContent>
-      </StyledContentWrapper>
+      </StyledContentContainer>
     </StyledDropdown>
   )
 }

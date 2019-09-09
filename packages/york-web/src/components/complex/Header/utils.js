@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 
+import { uiPoint } from 'york-web/utils'
+
 export const menuItemShape = PropTypes.exact({
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -34,6 +36,7 @@ export const headerPropTypes = {
   }).isRequired,
 }
 
+/////
 // OFFSET нужен, чтобы меню скролилось не впритык, а было видно следующий элемент меню
 // давая понять пользователю, что можно и поскролить
 const OFFSET = 30

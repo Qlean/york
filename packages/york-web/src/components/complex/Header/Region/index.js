@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { colors } from '@qlean/york-core'
 
 import { Text, Separator } from 'york-web/components/primitive'
 
@@ -12,6 +13,18 @@ const StyledRegion = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  overflow: hidden;
+`
+
+const StyledArrowIcon = styled(ArrowIcon)`
+  flex-shrink: 0;
+`
+
+const StyledTextContainer = styled.div`
+  overflow: hidden;
+  color: ${colors.grey};
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
 const StyledSelect = styled.select`
@@ -25,16 +38,17 @@ const StyledSelect = styled.select`
   cursor: pointer;
 `
 
-export default function Region({ isMobile, items, selectedItem, onChange }) {
+export default function Region({ items, selectedItem, onChange }) {
   return (
     <StyledRegion>
-      <ArrowIcon />
+      <StyledArrowIcon />
       <Separator width={1} />
-      <Text preset="caption" color="grey">
-        {items.find(item => item.name === selectedItem).title}
-      </Text>
+      <StyledTextContainer>
+        <Text preset="caption" color="inherit">
+          {items.find(item => item.name === selectedItem).title}
+        </Text>
+      </StyledTextContainer>
       <StyledSelect
-        isMobile={isMobile}
         value={selectedItem}
         onChange={e => onChange(e.target.value)}
       >
@@ -49,12 +63,10 @@ export default function Region({ isMobile, items, selectedItem, onChange }) {
 }
 
 Region.defaultProps = {
-  isMobile: false,
   selectedItem: null,
 }
 
 Region.propTypes = {
-  isMobile: PropTypes.bool,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
   selectedItem: PropTypes.string,
   onChange: PropTypes.func.isRequired,
