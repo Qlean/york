@@ -12,10 +12,8 @@ import MenuItem from './MenuItem'
 import Region from './Region'
 import Modal from './Modal'
 
-import LoginIcon from './assets/login.svg'
 import BurgerOpenedIcon from './assets/burgerOpened.svg'
 import BurgerClosedIcon from './assets/burgerClosed.svg'
-import ProfileIcon from './assets/profile.svg'
 
 const StyledMobileHeader = styled.div`
   z-index: ${zIndexes.header};
@@ -124,8 +122,6 @@ const StyledScrollerItemPlaceholder = styled.div`
 
 export default function MobileHeader(props) {
   const {
-    isLoggedIn,
-    isProfileAvailable,
     selectedRegion,
     defaultTab,
     selectedLevelOneItem,
@@ -186,29 +182,6 @@ export default function MobileHeader(props) {
             {/* {!selectedRegion && phone && <div>{phone}</div>} */}
           </View>
           <View alignItems="center">
-            {isProfileAvailable && (
-              <>
-                {isLoggedIn ? (
-                  <Button
-                    rank={0}
-                    name="openProfile"
-                    isDisabled={false}
-                    onClick={() => console.log('btn')}
-                  >
-                    <ProfileIcon />
-                  </Button>
-                ) : (
-                  <Button
-                    rank={0}
-                    name="login"
-                    isDisabled={false}
-                    onClick={() => console.log('btn')}
-                  >
-                    <LoginIcon />
-                  </Button>
-                )}
-              </>
-            )}
             <StyledBurgerButton
               rank={0}
               name="openBurgerMenu"

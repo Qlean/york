@@ -205,8 +205,9 @@ const ExampleComponents = () => {
               onProfile: () => setItems({ profile: 'profile' }),
               onOrders: () => setItems({ profile: 'orders' }),
               onBilling: () => setItems({ profile: 'billing' }),
-              onLogout: () => alert('Вышли!'),
+              onLogout: () => alert('onLogout'),
 
+              onLogin: () => alert('onLogin'),
               onRegionChange: setRegion,
             }}
             {...data}

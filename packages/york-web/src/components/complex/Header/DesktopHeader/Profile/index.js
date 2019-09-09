@@ -5,11 +5,11 @@ import { colors } from '@qlean/york-core'
 
 import { Text, View } from 'york-web/components/primitive'
 
-import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
+import { menuItemShape, componentsShape } from '../../utils'
 
-import LoginIcon from '../../assets/login.svg'
-import ProfileIcon from '../../assets/profile.svg'
-import ProfilePlusIcon from '../../assets/profilePlus.svg'
+import LoginIcon from './assets/login.svg'
+import ProfileIcon from './assets/profile.svg'
+import ProfilePlusIcon from './assets/profilePlus.svg'
 
 import Dropdown from './Dropdown'
 import locales from './locales'
@@ -52,7 +52,7 @@ export default function Profile({
       </View>
     </Dropdown>
   ) : (
-    <StyledLogin alignItems="center">
+    <StyledLogin alignItems="center" onClick={callbacks.onLogin}>
       <LoginIcon />
       <Text preset="caption" color="inherit">
         {locales.login}
@@ -67,7 +67,9 @@ Profile.defaultProps = {
 
 Profile.propTypes = {
   components: componentsShape.isRequired,
-  callbacks: callbacksShape.isRequired,
+  callbacks: PropTypes.shape({
+    onLogin: PropTypes.func.isRequired,
+  }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
