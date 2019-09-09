@@ -1,45 +1,59 @@
-#### Использование в роли рутового провайдера
+`AnalyticsProvider` - это компонент, который передает в контекст дочерним елементам категорию событийдополнительные данные (properties) и функцию трекинга. Компоненты `Button` и `Link` автоматически отправляют события, основываясь на информации из ближайшего провайдера. `AnalyticsProvider` поддерживает бесконечный нестинг, при этом на любом этапе иерархии можно подменить функцию трекинга.
 
 ```js static
 import { AnalyticsProvider } from '@qlean/york-analytics'
+import { Button } from '@qlean/york-web'
+
 const trackEvent = event => {
   console.log(event)
 }
 
-/**
- * Когда провайдер используется как рутовый, в него нужно передать функцию, которая передает события в транспорт.
- * Эта функция будет доступна всем дочерним провайдерам и другим элементам через контекст
- */
-const App = () => (
-  <AnalyticsProvider category="appName" trackEvent={trackEvent}>
-    <div>Content</div>
-  </AnalyticsProvider>
-)
-```
-
-#### Использование внутри других компонентов
-
-```js static
-import React from 'react'
-import { AnalyticsProvider } from '@qlean/york-analytics'
-import { Button } from '@qlean/york-web'
-
-const SomeScreen = () => (
-  <AnalyticsProvider category="someScreen">
+const ExampleApp = ({ children }) => (
+  <AnalyticsProvider category="exampleApp" trackEvent={trackEvent}>
     <Button
-      name="pressMe"
+      name="button"
       /**
        * Помимо основного действия отправляет эвент аналитики:
        * {
-       *   category: 'someScreen',
-       *   labek: 'someScreen.pressMe',
-       *   action: 'click'
+       *   category: 'exampleApp',
+       *   label: 'exampleApp.button',
+       *   action: 'click',
+       *   properties: {
+       *     analyticsRoute: 'exampleApp'
+       *   }
        * }
        */
       onClick={() => {}}
+      isDisabled={false}
     >
-      Press Me
+      Root Event
     </Button>
+    <AnalyticsProvider
+      category="nestedComponent"
+      properties={{ exampleId: 123 }}
+    >
+      <Button
+        name="button"
+        /**
+         * Помимо основного действия отправляет эвент аналитики:
+         * {
+         *   category: 'nestedComponent',
+         *   label: 'nestedComponent.button',
+         *   action: 'click',
+         *   properties: {
+         *     analyticsRoute: 'exampleApp.nestedComponent',
+         *     exampleId: 123
+         *   }
+         * }
+         */
+        onClick={() => {}}
+        isDisabled={false}
+      >
+        Nested Event
+      </Button>
+    </AnalyticsProvider>
   </AnalyticsProvider>
 )
+
+;<ExampleApp />
 ```

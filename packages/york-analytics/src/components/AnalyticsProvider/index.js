@@ -12,31 +12,33 @@ const getAnalyticsRoute = (value, category) => {
 }
 
 /** Передает аналитический контекст дочерним компонентам */
-const AnalyticsProvider = ({ trackEvent, category, properties, children }) => (
-  <AnalyticsContext.Consumer>
-    {value => {
-      const getEventTrackingFunction = () => {
-        if (trackEvent) return trackEvent
-        if (value && value.trackEvent) return value.trackEvent
-        throw new Error(
-          'No event tracking function specified for AnalyticsProvider',
+const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
+  return (
+    <AnalyticsContext.Consumer>
+      {value => {
+        const getEventTrackingFunction = () => {
+          if (trackEvent) return trackEvent
+          if (value && value.trackEvent) return value.trackEvent
+          throw new Error(
+            'No event tracking function specified for `AnalyticsProvider`',
+          )
+        }
+        return (
+          <AnalyticsContext.Provider
+            value={{
+              trackEvent: getEventTrackingFunction(),
+              category,
+              properties,
+              analyticsRoute: getAnalyticsRoute(value, category),
+            }}
+          >
+            {children}
+          </AnalyticsContext.Provider>
         )
-      }
-      return (
-        <AnalyticsContext.Provider
-          value={{
-            trackEvent: getEventTrackingFunction(),
-            category,
-            properties,
-            analyticsRoute: getAnalyticsRoute(value, category),
-          }}
-        >
-          {children}
-        </AnalyticsContext.Provider>
-      )
-    }}
-  </AnalyticsContext.Consumer>
-)
+      }}
+    </AnalyticsContext.Consumer>
+  )
+}
 
 AnalyticsProvider.propTypes = {
   /** Функция для трекинга событий */
