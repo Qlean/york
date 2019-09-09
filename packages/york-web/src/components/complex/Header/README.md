@@ -15,12 +15,10 @@ const data = {
   defaultTab: 'home',
   components: {
     Logo: () => <Text preset="textLarge">Q L E A N</Text>,
-    QleanPlusItem: ({ children }) => (
+    CherdakItem: ({ children }) => (
       <>
         {children}
-        <Text preset="link" color="blue">
-          {'\u00A0'}ПЛЮС
-        </Text>
+        {'\u00A0'}📦
       </>
     ),
   },
@@ -79,7 +77,12 @@ const data = {
             ],
           },
           { name: 'moving', title: 'Переезды', href },
-          { name: 'cherdak', title: 'Хранение', href },
+          {
+            name: 'cherdak',
+            title: 'Хранение',
+            href,
+            component: 'CherdakItem',
+          },
           {
             name: 'plus',
             title: 'Qlean',
@@ -92,7 +95,13 @@ const data = {
         name: 'office',
         title: 'Для офиса',
         href,
-        items: [],
+        items: [
+          { name: 'index', title: 'Главная', href },
+          { name: 'types', title: 'Виды уборки', href },
+          { name: 'howWeWork', title: 'Как мы работаем', href },
+          { name: 'features', title: 'Что входит', href },
+          { name: 'howToOrder', title: 'Как заказать', href },
+        ],
       },
     ],
     profile: [

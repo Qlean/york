@@ -33,9 +33,9 @@ export const borderRadiuses = {
 }
 
 export const zIndexes = {
-  dropdown: 1,
-  stickyHeader: 49,
-  header: 50,
+  stickyHeader: 19,
+  header: 20,
+  dropdown: 50,
   modal: 100,
 }
 
