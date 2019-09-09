@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
+import { AnalyticsContext } from '@qlean/york-analytics'
 
 import { useAnimation } from 'york-react-native/utils/hooks'
 import { borderRadiuses } from 'york-react-native/utils/styles'
@@ -161,6 +162,26 @@ const Button = ({
       'Shadow can only be used with the rank 1 and white backdrop color',
     )
   }
+  const analyticsContext = useContext(AnalyticsContext)
+  const buttonName =
+    analyticsContext && analyticsContext.category
+      ? `${analyticsContext.category}.${name}`
+      : name
+  const handlePress = analyticsContext
+    ? () => {
+        const { trackEvent, category, properties } = analyticsContext
+        if (typeof category === 'string' && typeof trackEvent === 'function') {
+          trackEvent({
+            category,
+            label: buttonName,
+            action: 'press',
+            properties,
+          })
+          onPress()
+        }
+      }
+    : onPress
+
   const opacity = useAnimation({
     initialValue: isDisabled || isSubmitting ? 1 : 0,
     toValue: isDisabled || isSubmitting ? 1 : 0,
@@ -171,11 +192,11 @@ const Button = ({
   const buttonText = isSubmitting ? 'Подождите...' : title
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={handlePress}
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
       style={[styles.container, withShadow && styles.shadow]}
-      testID={name}
+      testID={buttonName}
       {...props}
     >
       <Animated.View
