@@ -21,7 +21,7 @@ import MenuItem from '../MenuItem'
 // FIXME: иконка с белым фоном, переделать с прозрачным
 import IconArrow from '../assets/arrow.svg'
 
-const Root = styled(View)`
+const StyledMobileBurgerHeader = styled(View)`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -30,20 +30,20 @@ const Root = styled(View)`
   overflow-y: auto;
 `
 
-const IconArrowWrap = styled(View)`
+const StyledIconArrowWrap = styled(View)`
   transition: ${transitions.medium};
   ${({ isSelected }) => (isSelected ? 'transform: rotate(-180deg);' : '')}
 `
 
-const BurgerButton = styled(Button)`
+const StyledBurgerButton = styled(Button)`
   padding: 8px 20px 7px 10px;
 `
 
-const TabsContainer = styled(View)`
+const StyledTabsContainer = styled(View)`
   border-bottom: 1px solid ${colors.silver};
 `
 
-const TabMenuItem = styled(Text)`
+const StyledTabMenuItem = styled(Text)`
   flex-flow: 1;
   padding: 10px;
   ${({ isSelected }) => isSelected && `box-shadow: 0 1px 0 ${colors.black}`};
@@ -51,16 +51,16 @@ const TabMenuItem = styled(Text)`
   transition: ${transitions.medium};
 `
 
-const MenuItemText = styled(Text)`
+const StyledMenuItemText = styled(Text)`
   color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
   text-transform: uppercase;
 `
 
-const MenuItemIconWrap = styled(View)`
+const StyledMenuItemIconWrap = styled(View)`
   margin-left: auto;
 `
 
-const Footer = styled.div`
+const StyledFooter = styled.div`
   border-top: 1px solid ${colors.silver};
   margin-top: auto;
 `
@@ -73,11 +73,11 @@ const StyledMenuItem = styled(MenuItem)`
 
 // FIXME: убрать дублирование кода.
 // Регион сильно схож с десктопным, нужно придумать общий компонент чтоле
-const RegionWrap = styled(View)`
+const StyledRegionWrap = styled(View)`
   position: relative;
 `
 
-const RegionSelect = styled.select`
+const StyledRegionSelect = styled.select`
   position: absolute;
   top: 0;
   left: 0;
@@ -109,35 +109,35 @@ export default function MobileBurgerHeader({
   const [isProfileActive, setProfileActive] = useState(false)
 
   return (
-    <Root flexDirection="column">
+    <StyledMobileBurgerHeader flexDirection="column">
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
           {Logo && <Logo />}
         </View>
         <View alignItems="center">
-          <BurgerButton
+          <StyledBurgerButton
             rank={0}
             name="closeBurgerMenu"
             isDisabled={false}
             onClick={onCloseHandler}
           >
             {isOpened ? <BurgerClosed /> : <BurgerOpened />}
-          </BurgerButton>
+          </StyledBurgerButton>
         </View>
       </View>
-      <TabsContainer justifyContent="center">
+      <StyledTabsContainer justifyContent="center">
         {tabs.map(({ name, title, href }) => (
-          <TabMenuItem
+          <StyledTabMenuItem
             preset="link"
             key={name}
             href={href}
             isSelected={defaultTab === name}
           >
             {title}
-          </TabMenuItem>
+          </StyledTabMenuItem>
         ))}
-      </TabsContainer>
+      </StyledTabsContainer>
       <View flexDirection="column">
         {menu.map(item => {
           const isSubMenuExist = item.items && !!item.items.length
@@ -155,20 +155,20 @@ export default function MobileBurgerHeader({
                     <Separator height={2} />
                     <View>
                       <Separator width={4} />
-                      <MenuItemText isSelected={isCurrentActive}>
+                      <StyledMenuItemText isSelected={isCurrentActive}>
                         {item.title}
-                      </MenuItemText>
+                      </StyledMenuItemText>
                     </View>
                     <Separator height={2} />
                   </View>
                   {isSubMenuExist && (
-                    <MenuItemIconWrap>
+                    <StyledMenuItemIconWrap>
                       <Separator width={2} />
-                      <IconArrowWrap isSelected={isCurrentActive}>
+                      <StyledIconArrowWrap isSelected={isCurrentActive}>
                         <IconArrow />
-                      </IconArrowWrap>
+                      </StyledIconArrowWrap>
                       <Separator width={4} />
-                    </MenuItemIconWrap>
+                    </StyledMenuItemIconWrap>
                   )}
                 </StyledMenuItem>
               </View>
@@ -187,7 +187,7 @@ export default function MobileBurgerHeader({
         })}
       </View>
 
-      <Footer>
+      <StyledFooter>
         {isProfileAvailable && (
           <View flexDirection="column">
             <Separator height={2} />
@@ -203,17 +203,17 @@ export default function MobileBurgerHeader({
                       <Separator width={4} />
                       <ProfileIcon />
                       <Separator width={2} />
-                      <MenuItemText>Профиль</MenuItemText>
+                      <StyledMenuItemText>Профиль</StyledMenuItemText>
                     </View>
                     <Separator height={2} />
                   </View>
-                  <MenuItemIconWrap>
+                  <StyledMenuItemIconWrap>
                     <Separator width={2} />
-                    <IconArrowWrap isSelected={isProfileActive}>
+                    <StyledIconArrowWrap isSelected={isProfileActive}>
                       <IconArrow />
-                    </IconArrowWrap>
+                    </StyledIconArrowWrap>
                     <Separator width={4} />
-                  </MenuItemIconWrap>
+                  </StyledMenuItemIconWrap>
                 </View>
                 {isProfileActive && (
                   <View>
@@ -234,7 +234,7 @@ export default function MobileBurgerHeader({
                 <Separator width={4} />
                 <LoginIcon />
                 <Separator width={2} />
-                <MenuItemText>Войти</MenuItemText>
+                <StyledMenuItemText>Войти</StyledMenuItemText>
               </View>
             )}
             <Separator height={2} />
@@ -242,13 +242,13 @@ export default function MobileBurgerHeader({
         )}
 
         {selectedRegion && (
-          <RegionWrap flexDirection="column">
+          <StyledRegionWrap flexDirection="column">
             <Separator height={2} />
             <View>
               <Separator width={4} />
               <MobileGeoIcon />
               <Separator width={2} />
-              <RegionSelect
+              <StyledRegionSelect
                 onChange={evt => onRegionChange(evt.target.value)}
                 value={selectedRegion}
               >
@@ -257,16 +257,16 @@ export default function MobileBurgerHeader({
                     {region.title}
                   </option>
                 ))}
-              </RegionSelect>
-              <MenuItemText>
+              </StyledRegionSelect>
+              <StyledMenuItemText>
                 {regions.find(region => region.name === selectedRegion).title}
-              </MenuItemText>
+              </StyledMenuItemText>
             </View>
             <Separator height={2} />
-          </RegionWrap>
+          </StyledRegionWrap>
         )}
-      </Footer>
-    </Root>
+      </StyledFooter>
+    </StyledMobileBurgerHeader>
   )
 }
 
