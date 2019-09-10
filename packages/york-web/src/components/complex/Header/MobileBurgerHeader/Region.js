@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from '@qlean/york-core'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
+import { uiPoint } from 'york-web/utils'
+
 import { menuItemShape } from '../utils'
 import MobileGeoIcon from '../assets/mobileGeo.svg'
 
-const StyledRegionWrap = styled(View)`
+const StyledRegion = styled(View)`
+  align-items: center;
   position: relative;
+  height: ${uiPoint * 9}px;
 `
 
 const StyledRegionSelect = styled.select`
@@ -19,38 +22,40 @@ const StyledRegionSelect = styled.select`
   height: 100%;
   opacity: 0;
   font-size: 14px;
-  cursor: pointer;
+`
+
+const StyledMobileGeoIcon = styled(MobileGeoIcon)`
+  flex-shrink: 0;
 `
 
 const StyledMenuItemText = styled(Text)`
-  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
+  white-space: nowrap;
   text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export default function Region({ regions, selectedRegion, onRegionChange }) {
   return (
-    <StyledRegionWrap flexDirection="column">
-      <Separator height={2} />
-      <View>
-        <Separator width={4} />
-        <MobileGeoIcon />
-        <Separator width={2} />
-        <StyledRegionSelect
-          onChange={evt => onRegionChange(evt.target.value)}
-          value={selectedRegion}
-        >
-          {regions.map(region => (
-            <option key={region.name} value={region.name}>
-              {region.title}
-            </option>
-          ))}
-        </StyledRegionSelect>
-        <StyledMenuItemText>
-          {regions.find(region => region.name === selectedRegion).title}
-        </StyledMenuItemText>
-      </View>
-      <Separator height={2} />
-    </StyledRegionWrap>
+    <StyledRegion>
+      <Separator width={4} />
+      <StyledMobileGeoIcon />
+      <Separator width={2} />
+      <StyledRegionSelect
+        onChange={evt => onRegionChange(evt.target.value)}
+        value={selectedRegion}
+      >
+        {regions.map(region => (
+          <option key={region.name} value={region.name}>
+            {region.title}
+          </option>
+        ))}
+      </StyledRegionSelect>
+      <StyledMenuItemText>
+        {regions.find(region => region.name === selectedRegion).title}
+      </StyledMenuItemText>
+      <Separator width={4} />
+    </StyledRegion>
   )
 }
 

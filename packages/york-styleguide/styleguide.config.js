@@ -212,5 +212,5 @@ module.exports = {
       },
     },
   },
-  require: [path.join(__dirname, 'assets/fonts/index.css')],
+  require: ['core-js', path.join(__dirname, 'assets/fonts/index.css')],
 }

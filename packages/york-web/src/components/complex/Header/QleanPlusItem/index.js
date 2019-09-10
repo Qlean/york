@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { Separator } from 'york-web/components/primitive'
+import { View, Separator } from 'york-web/components/primitive'
 
 const StyledPlusIcon = styled.div`
   width: 46px;
@@ -13,11 +13,11 @@ const StyledPlusIcon = styled.div`
 
 export default function QleanPlusItem({ children }) {
   return (
-    <>
+    <View alignItems="center">
       {children}
       <Separator width={1} />
       <StyledPlusIcon />
-    </>
+    </View>
   )
 }
 

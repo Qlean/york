@@ -144,3 +144,20 @@ export const normalizeColor = (color, opacity) => {
   const { r, g, b } = rgbaColor
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
+
+export const getScrollbarWidth = () => {
+  const outer = document.createElement('div')
+  outer.style.visibility = 'hidden'
+  outer.style.overflow = 'scroll'
+
+  document.body.appendChild(outer)
+
+  const inner = document.createElement('div')
+  outer.appendChild(inner)
+
+  const scrollbarWidth = outer.offsetWidth - inner.offsetWidth
+
+  outer.parentNode.removeChild(outer)
+
+  return scrollbarWidth
+}

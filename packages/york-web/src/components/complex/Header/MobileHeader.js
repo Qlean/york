@@ -180,7 +180,6 @@ export default function MobileHeader(props) {
                 items={regions}
                 selectedItem={selectedRegion}
                 onChange={onRegionChange}
-                // ////// vvvvvv
               />
             )}
             {!selectedRegion && phone && (

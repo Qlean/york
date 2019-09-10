@@ -4,6 +4,7 @@ import { colors } from '@qlean/york-core'
 import {
   GridContainer,
   GridColumn,
+  View,
   Text,
   uiPoint,
   media,
@@ -16,10 +17,10 @@ const data = {
   components: {
     Logo: () => <Text preset="textLarge">Q L E A N</Text>,
     CherdakItem: ({ children }) => (
-      <>
+      <View alignItems="center">
         {children}
         {'\u00A0'}📦
-      </>
+      </View>
     ),
   },
   content: {
