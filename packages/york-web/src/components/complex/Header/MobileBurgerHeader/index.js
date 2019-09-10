@@ -20,13 +20,9 @@ import MenuItem from '../MenuItem'
 
 import ArrowIcon from './assets/arrow.svg'
 
-const StyledMobileBurgerHeader = styled(View)`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: 1px;
+const StyledMobileBurgerHeader = styled.div`
+  min-height: 100%;
   background-color: ${colors.white};
-  overflow-y: auto;
   user-select: none;
 `
 
