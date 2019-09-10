@@ -4,15 +4,15 @@ import { colors, formatPhone, formatPhoneHref } from '@qlean/york-core'
 import { View, Separator, Text, Link } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { uiPoint, sizes, transitions, zIndexes } from 'york-web/utils'
-import { headerPropTypes, scrollHelper, hideScrollBar } from './utils'
 
-import MobileBurgerHeader from './MobileBurgerHeader'
-import MenuItem from './MenuItem'
-import Region from './Region'
-import Modal from './Modal'
+import { headerPropTypes, scrollHelper, hideScrollBar } from '../utils'
+import MenuItem from '../MenuItem'
+import Region from '../Region'
 
 import BurgerOpenedIcon from './assets/burgerOpened.svg'
 import BurgerClosedIcon from './assets/burgerClosed.svg'
+import MobileBurgerHeader from './MobileBurgerHeader'
+import Modal from './Modal'
 
 const StyledMobileHeader = styled.div`
   z-index: ${zIndexes.header};

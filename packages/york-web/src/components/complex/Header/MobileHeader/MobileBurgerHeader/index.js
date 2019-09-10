@@ -6,19 +6,18 @@ import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { uiPoint, transitions, sizes } from 'york-web/utils'
-import { headerPropTypes } from '../utils'
-import SubMenu from './SubMenu'
-import Region from './Region'
 
-import LoginIcon from '../assets/login.svg'
-import ProfileIcon from '../assets/profile.svg'
 import BurgerOpenedIcon from '../assets/burgerOpened.svg'
 import BurgerClosedIcon from '../assets/burgerClosed.svg'
+import ProfileIcon from '../../assets/profile.svg'
+import LoginIcon from '../../assets/login.svg'
+import { headerPropTypes } from '../../utils'
+import MenuItem from '../../MenuItem'
 
-import MenuItem from '../MenuItem'
-
-import locales from './locales'
 import ArrowIcon from './assets/arrow.svg'
+import SubMenu from './SubMenu'
+import locales from './locales'
+import Region from './Region'
 
 const StyledMobileBurgerHeader = styled.div`
   min-height: 100%;

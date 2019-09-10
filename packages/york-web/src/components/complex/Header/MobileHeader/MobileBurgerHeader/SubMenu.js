@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import { transitions } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
 
-import { menuItemShape, componentsShape, callbacksShape } from '../utils'
-import MenuItem from '../MenuItem'
+import { menuItemShape, componentsShape, callbacksShape } from '../../utils'
+import MenuItem from '../../MenuItem'
 
 const StyledMenuItem = styled(MenuItem)`
   display: flex;

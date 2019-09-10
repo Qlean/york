@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { uiPoint } from 'york-web/utils'
 
-import { menuItemShape } from '../utils'
-import MobileGeoIcon from '../assets/mobileGeo.svg'
+import { menuItemShape } from '../../utils'
+import MobileGeoIcon from '../../assets/mobileGeo.svg'
 
 const StyledRegion = styled(View)`
   align-items: center;
