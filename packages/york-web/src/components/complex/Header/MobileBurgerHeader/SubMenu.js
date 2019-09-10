@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import { transitions } from 'york-web/utils'
 import { Text, View, Separator } from 'york-web/components/primitive'
 
+import { menuItemShape, componentsShape, callbacksShape } from '../utils'
 import MenuItem from '../MenuItem'
 
 const StyledMenuItem = styled(MenuItem)`
@@ -48,4 +50,15 @@ export default function SubMenu({
       <Separator height={2} />
     </>
   )
+}
+
+SubMenu.defaultProps = {
+  selectedItem: null,
+}
+
+SubMenu.propTypes = {
+  components: componentsShape.isRequired,
+  callbacks: callbacksShape.isRequired,
+  items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
+  selectedItem: PropTypes.string,
 }
