@@ -31,8 +31,7 @@
   "dependencies": {
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web",
-    "core-js": "^3.2.1"
+    "@qlean/york-web": "file:packages/york-web"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -47,6 +46,7 @@
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "core-js": "^3.2.1",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-import-resolver-babel-module": "^5.1.0",
