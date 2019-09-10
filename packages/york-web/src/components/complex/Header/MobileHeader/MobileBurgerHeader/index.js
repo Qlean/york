@@ -44,7 +44,6 @@ const StyledTabsContainer = styled(View)`
 `
 
 const StyledTab = styled(Text)`
-  flex-flow: 1;
   padding: ${sizes[2]}px;
   transition: ${transitions.medium};
   ${({ isSelected }) => isSelected && `box-shadow: 0 1px 0 ${colors.black}`};
