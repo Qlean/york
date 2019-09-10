@@ -6,7 +6,6 @@ import { colors } from '@qlean/york-core'
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { uiPoint, transitions, sizes } from 'york-web/utils'
-
 import { headerPropTypes } from '../utils'
 import SubMenu from './SubMenu'
 import Region from './Region'
@@ -18,6 +17,7 @@ import BurgerClosedIcon from '../assets/burgerClosed.svg'
 
 import MenuItem from '../MenuItem'
 
+import locales from './locales'
 import ArrowIcon from './assets/arrow.svg'
 
 const StyledMobileBurgerHeader = styled.div`
@@ -193,7 +193,7 @@ export default function MobileBurgerHeader({
                       </StyledIcon>
                       <Separator width={2} />
                       <StyledMenuItemText isSelected={isProfileActive}>
-                        Профиль
+                        {locales.profile}
                       </StyledMenuItemText>
                     </StyledMenuItemContent>
                     <Separator width={2} />
@@ -219,7 +219,7 @@ export default function MobileBurgerHeader({
                       <LoginIcon />
                     </StyledIcon>
                     <Separator width={2} />
-                    <StyledMenuItemText>Войти</StyledMenuItemText>
+                    <StyledMenuItemText>{locales.login}</StyledMenuItemText>
                   </StyledMenuItemContent>
                 </StyledMenuItem>
               )}
