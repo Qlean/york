@@ -3,9 +3,15 @@ import styled from 'styled-components'
 import { colors, formatPhone, formatPhoneHref } from '@qlean/york-core'
 import { View, Separator, Text, Link } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
-import { uiPoint, sizes, transitions, zIndexes } from 'york-web/utils'
+import {
+  uiPoint,
+  sizes,
+  transitions,
+  zIndexes,
+  hideScrollBar,
+} from 'york-web/utils'
 
-import { headerPropTypes, scrollHelper, hideScrollBar } from '../utils'
+import { headerPropTypes, scrollHelper } from '../utils'
 import MenuItem from '../MenuItem'
 import Region from '../Region'
 

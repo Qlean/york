@@ -13,10 +13,10 @@ import ProfileIcon from '../../assets/profile.svg'
 import LoginIcon from '../../assets/login.svg'
 import { headerPropTypes } from '../../utils'
 import MenuItem from '../../MenuItem'
+import locales from '../../locales'
 
 import ArrowIcon from './assets/arrow.svg'
 import SubMenu from './SubMenu'
-import locales from './locales'
 import Region from './Region'
 
 const StyledMobileBurgerHeader = styled.div`

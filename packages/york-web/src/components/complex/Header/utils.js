@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 
-import { uiPoint } from 'york-web/utils'
-
 export const menuItemShape = PropTypes.exact({
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -36,17 +34,13 @@ export const headerPropTypes = {
   }).isRequired,
 }
 
-/////
-// OFFSET нужен, чтобы меню скролилось не впритык, а было видно следующий элемент меню
+// Отступ по умолчанию, нужен, чтобы меню скролилось не впритык, а было видно следующий элемент меню
 // давая понять пользователю, что можно и поскролить
-const OFFSET = 30
+const defaultOffset = 30
 
-/**
- *
- * @param {*} containerNode DOM-нода со скролом, на ней и будет вызываться скролл
- * @param {*} itemNode DOM-нода, от которой и будет спроисходить вычисления
- * @param {*} options
- */
+// Подскроливание при клике на элемент, внутри горизонтального меню.
+// containerNode: DOM-node, контейнер со скроллом
+// itemNode: DOM-node, элемент меню внутри контейнера
 export const scrollHelper = (containerNode, itemNode, options = {}) => {
   const containerLeftPoint = containerNode.scrollLeft
   const containerRightPoint = containerLeftPoint + containerNode.clientWidth
@@ -58,15 +52,7 @@ export const scrollHelper = (containerNode, itemNode, options = {}) => {
   const isRightItemOverflow = containerRightPoint < itemRightPoint
 
   if (isLeftItemOverflow || isRightItemOverflow) {
-    const offset = options.offset || OFFSET
+    const offset = options.offset || defaultOffset
     containerNode.scrollTo({ left: itemLeftPoint - offset, behavior: 'smooth' })
   }
 }
-
-export const hideScrollBar = `
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`

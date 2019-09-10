@@ -2,7 +2,7 @@ import React, { createRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
-import { getScrollbarWidth, zIndexes } from 'york-web/utils'
+import { zIndexes } from 'york-web/utils'
 
 const StyledModal = styled.div`
   position: fixed;
@@ -33,10 +33,11 @@ export default function Modal({ children }) {
     scrollYRef.current = window.scrollY
 
     const offsetY = scrollYRef.current + marginTopRef.current
+    const scrollSize = window.innerWidth - document.documentElement.clientWidth
 
     bodyRef.current.style.top = `-${offsetY}px`
     bodyRef.current.style.position = 'fixed'
-    bodyRef.current.style.paddingRight = `${getScrollbarWidth()}px`
+    bodyRef.current.style.paddingRight = `${scrollSize}px`
     bodyRef.current.style.width = '100%'
 
     return () => {

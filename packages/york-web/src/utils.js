@@ -145,19 +145,11 @@ export const normalizeColor = (color, opacity) => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
 
-export const getScrollbarWidth = () => {
-  const outer = document.createElement('div')
-  outer.style.visibility = 'hidden'
-  outer.style.overflow = 'scroll'
-
-  document.body.appendChild(outer)
-
-  const inner = document.createElement('div')
-  outer.appendChild(inner)
-
-  const scrollbarWidth = outer.offsetWidth - inner.offsetWidth
-
-  outer.parentNode.removeChild(outer)
-
-  return scrollbarWidth
-}
+export const hideScrollBar = `
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
