@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -127,68 +127,74 @@ Footer.propTypes = {
  * По умолчанию сейф-зона снизу включена, а сверху — отключена. Предполагается, что чаще всего экран
  * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
  */
-const Screen = ({
-  children,
-  footer,
-  leftView,
-  rightView,
-  withSafeAreaPaddingTop,
-  withSafeAreaPaddingBottom,
-  style,
-  ...rest
-}) => {
-  const [footerHeight, setFooterHeight] = useState(0)
-  const [scrollViewHeight, setScrollViewHeight] = useState(0)
-  const [contentHeight, setContentHeight] = useState(0)
-  const isScrollEnabled = contentHeight > scrollViewHeight
+const Screen = forwardRef(
+  (
+    {
+      children,
+      footer,
+      leftView,
+      rightView,
+      withSafeAreaPaddingTop,
+      withSafeAreaPaddingBottom,
+      style,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [footerHeight, setFooterHeight] = useState(0)
+    const [scrollViewHeight, setScrollViewHeight] = useState(0)
+    const [contentHeight, setContentHeight] = useState(0)
+    const isScrollEnabled = contentHeight > scrollViewHeight
 
-  const onFooterLayout = ({ nativeEvent }) =>
-    setFooterHeight(nativeEvent.layout.height)
-  const onScrollViewLayout = ({ nativeEvent }) =>
-    setScrollViewHeight(nativeEvent.layout.height)
-  const onScrollViewContentSizeChange = (width, height) =>
-    setContentHeight(height)
+    const onFooterLayout = ({ nativeEvent }) =>
+      setFooterHeight(nativeEvent.layout.height)
+    const onScrollViewLayout = ({ nativeEvent }) =>
+      setScrollViewHeight(nativeEvent.layout.height)
+    const onScrollViewContentSizeChange = (width, height) =>
+      setContentHeight(height)
 
-  return (
-    <View
-      style={[
-        styles.screenBackground,
-        style,
-        styles.root,
-        withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
-        withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
-      ]}
-    >
-      <KeyboardAvoidingView
-        /**
-         * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-         * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
-         * если вообще не задавать проп, в то время как iOS - наоборот.
-         */
-        {...(Platform.OS === 'ios' && { behavior: 'height' })}
-        style={styles.root}
+    return (
+      <View
+        style={[
+          styles.screenBackground,
+          style,
+          styles.root,
+          withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
+          withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
+        ]}
       >
-        {leftView && <SideView {...leftView} style={styles.leftView} />}
-        {rightView && <SideView {...rightView} style={styles.rightView} />}
-        <ScrollView
-          {...rest}
-          scrollEnabled={isScrollEnabled}
-          onLayout={onScrollViewLayout}
-          onContentSizeChange={onScrollViewContentSizeChange}
+        <KeyboardAvoidingView
+          /**
+           * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+           * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+           * если вообще не задавать проп, в то время как iOS - наоборот.
+           */
+          {...(Platform.OS === 'ios' && { behavior: 'height' })}
+          style={styles.root}
         >
-          {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-          {children}
-          {footer && <View style={{ height: footerHeight }} />}
-        </ScrollView>
-        {footer && (
-          <View style={styles.footerContainer} onLayout={onFooterLayout}>
-            {footer}
-          </View>
-        )}
-      </KeyboardAvoidingView>
-    </View>
-  )
-}
+          {leftView && <SideView {...leftView} style={styles.leftView} />}
+          {rightView && <SideView {...rightView} style={styles.rightView} />}
+          <ScrollView
+            {...rest}
+            ref={ref}
+            scrollEnabled={isScrollEnabled}
+            onLayout={onScrollViewLayout}
+            onContentSizeChange={onScrollViewContentSizeChange}
+          >
+            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+            {children}
+            {footer && <View style={{ height: footerHeight }} />}
+          </ScrollView>
+          {footer && (
+            <View style={styles.footerContainer} onLayout={onFooterLayout}>
+              {footer}
+            </View>
+          )}
+        </KeyboardAvoidingView>
+      </View>
+    )
+  },
+)
 
 Screen.defaultProps = {
   leftView: null,
