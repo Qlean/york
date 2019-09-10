@@ -162,6 +162,7 @@ const Button = ({
       'Shadow can only be used with the rank 1 and white backdrop color',
     )
   }
+
   const analyticsContext = useContext(AnalyticsContext)
   const buttonName =
     analyticsContext && analyticsContext.category

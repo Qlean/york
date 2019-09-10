@@ -6,6 +6,7 @@ const useAnalytics = category => {
   if (!category || typeof category !== 'string') {
     throw new Error('Error in `useAnalytics`: `category` must be a string')
   }
+
   const analyticsContext = useContext(AnalyticsContext)
   if (!analyticsContext) {
     throw new Error(

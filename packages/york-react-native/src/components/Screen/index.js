@@ -10,6 +10,7 @@ import {
   ViewPropTypes,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
+import { AnalyticsProvider } from '@qlean/york-analytics'
 
 import {
   safeAreaPaddingTop,
@@ -137,6 +138,8 @@ const Screen = forwardRef(
       withSafeAreaPaddingTop,
       withSafeAreaPaddingBottom,
       style,
+      name,
+      analyticsProperties,
       ...rest
     },
     ref,
@@ -154,58 +157,67 @@ const Screen = forwardRef(
       setContentHeight(height)
 
     return (
-      <View
-        style={[
-          styles.screenBackground,
-          style,
-          styles.root,
-          withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
-          withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
-        ]}
-      >
-        <KeyboardAvoidingView
-          /**
-           * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-           * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
-           * если вообще не задавать проп, в то время как iOS - наоборот.
-           */
-          {...(Platform.OS === 'ios' && { behavior: 'height' })}
-          style={styles.root}
+      <AnalyticsProvider category={name} properties={analyticsProperties}>
+        <View
+          style={[
+            styles.screenBackground,
+            style,
+            styles.root,
+            withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
+            withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
+          ]}
         >
-          {leftView && <SideView {...leftView} style={styles.leftView} />}
-          {rightView && <SideView {...rightView} style={styles.rightView} />}
-          <ScrollView
-            {...rest}
-            ref={ref}
-            scrollEnabled={isScrollEnabled}
-            onLayout={onScrollViewLayout}
-            onContentSizeChange={onScrollViewContentSizeChange}
+          <KeyboardAvoidingView
+            /**
+             * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+             * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+             * если вообще не задавать проп, в то время как iOS - наоборот.
+             */
+            {...(Platform.OS === 'ios' && { behavior: 'height' })}
+            style={styles.root}
           >
-            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-            {children}
-            {footer && <View style={{ height: footerHeight }} />}
-          </ScrollView>
-          {footer && (
-            <View style={styles.footerContainer} onLayout={onFooterLayout}>
-              {footer}
-            </View>
-          )}
-        </KeyboardAvoidingView>
-      </View>
+            {leftView && <SideView {...leftView} style={styles.leftView} />}
+            {rightView && <SideView {...rightView} style={styles.rightView} />}
+            <ScrollView
+              {...rest}
+              name={name}
+              ref={ref}
+              scrollEnabled={isScrollEnabled}
+              onLayout={onScrollViewLayout}
+              onContentSizeChange={onScrollViewContentSizeChange}
+            >
+              {(rightView || leftView) && (
+                <View style={styles.sideViewSpacer} />
+              )}
+              {children}
+              {footer && <View style={{ height: footerHeight }} />}
+            </ScrollView>
+            {footer && (
+              <View style={styles.footerContainer} onLayout={onFooterLayout}>
+                {footer}
+              </View>
+            )}
+          </KeyboardAvoidingView>
+        </View>
+      </AnalyticsProvider>
     )
   },
 )
 
 Screen.defaultProps = {
+  name: '',
   leftView: null,
   rightView: null,
   footer: null,
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
   style: null,
+  analyticsProperties: null,
 }
 
 Screen.propTypes = {
+  /** Название экрана */
+  name: PropTypes.string,
   /** Пропсы для левой верхней кнопки экрана */
   leftView: PropTypes.shape({
     node: PropTypes.node.isRequired,
@@ -224,6 +236,8 @@ Screen.propTypes = {
   withSafeAreaPaddingTop: PropTypes.bool,
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
+  // eslint-disable-next-line
+  analyticsProperties: PropTypes.object,
   children: PropTypes.node.isRequired,
   style: ViewPropTypes.style,
 }
