@@ -49,23 +49,37 @@ module.exports = {
           name: 'utils',
           sections: [
             {
-              name: 'format',
-              content: '../york-core/docs/format.md',
+              name: 'formatters',
+              sections: [
+                {
+                  name: 'capitalize',
+                  content: '../york-core/docs/formatters/capitalize.md',
+                },
+                {
+                  name: 'formatPhone',
+                  content: '../york-core/docs/formatters/formatPhone.md',
+                },
+                {
+                  name: 'formatPhoneHref',
+                  content: '../york-core/docs/formatters/formatPhoneHref.md',
+                },
+              ],
             },
             {
-              name: 'validate',
+              name: 'validators',
               sections: [
                 {
                   name: 'validateCardNumber',
-                  content: '../york-core/docs/validateCardNumber.md',
+                  content: '../york-core/docs/validators/validateCardNumber.md',
                 },
                 {
                   name: 'validateCardExpiry',
-                  content: '../york-core/docs/validateCardExpiry.md',
+                  content: '../york-core/docs/validators/validateCardExpiry.md',
                 },
                 {
                   name: 'validateCardSecureCode',
-                  content: '../york-core/docs/validateCardSecureCode.md',
+                  content:
+                    '../york-core/docs/validators/validateCardSecureCode.md',
                 },
               ],
             },

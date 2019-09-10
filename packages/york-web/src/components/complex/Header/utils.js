@@ -34,14 +34,16 @@ export const headerPropTypes = {
   }).isRequired,
 }
 
-// Отступ по умолчанию, нужен, чтобы меню скролилось не впритык, а было видно следующий элемент меню
-// давая понять пользователю, что можно и поскролить
+/*
+ * Отступ по умолчанию, нужен, чтобы меню скролилось не впритык, а было видно следующий элемент меню
+ * давая понять пользователю, что можно и поскролить.
+ */
 const defaultOffset = 30
 
-// Подскроливание при клике на элемент, внутри горизонтального меню.
-// containerNode: DOM-node, контейнер со скроллом
-// itemNode: DOM-node, элемент меню внутри контейнера
-export const scrollHelper = (containerNode, itemNode, options = {}) => {
+/*
+ * Хелпер для подскроливания контейнера при клике на элемент, чтобы он попадал во вьюпорт
+ */
+export const scrollHelper = (containerNode, itemNode) => {
   const containerLeftPoint = containerNode.scrollLeft
   const containerRightPoint = containerLeftPoint + containerNode.clientWidth
 
@@ -52,7 +54,9 @@ export const scrollHelper = (containerNode, itemNode, options = {}) => {
   const isRightItemOverflow = containerRightPoint < itemRightPoint
 
   if (isLeftItemOverflow || isRightItemOverflow) {
-    const offset = options.offset || defaultOffset
-    containerNode.scrollTo({ left: itemLeftPoint - offset, behavior: 'smooth' })
+    containerNode.scrollTo({
+      left: itemLeftPoint - defaultOffset,
+      behavior: 'smooth',
+    })
   }
 }

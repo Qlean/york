@@ -1,6 +1,6 @@
 export * from './styles/colors'
-export * from './utils/format'
-export * from './utils/validate'
+export * from './utils/formatters'
+export * from './utils/validators'
 export { default as sizes } from './styles/sizes'
 
 export { default as formatServerError } from './utils/legacyFormatServerError'
