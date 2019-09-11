@@ -27,6 +27,9 @@ module.exports = {
   context: {
     Example: path.resolve(__dirname, 'components/Example'),
   },
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, 'components/Wrapper'),
+  },
   sections: [
     {
       name: 'york',
