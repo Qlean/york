@@ -1,6 +1,7 @@
 ```js
 import { Text, Header, Button, Icon } from '@qlean/york-react-native'
 ;<Screen
+  name="exampleScreen"
   leftView={{
     node: <Icon name="back" />,
     onPress: () => {},
