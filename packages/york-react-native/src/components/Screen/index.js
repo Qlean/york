@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -10,7 +10,7 @@ import {
   ViewPropTypes,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { AnalyticsProvider } from '@qlean/york-analytics'
+import { AnalyticsProvider, useAnalytics } from '@qlean/york-analytics'
 
 import {
   safeAreaPaddingTop,
@@ -149,6 +149,14 @@ const Screen = forwardRef(
     const [contentHeight, setContentHeight] = useState(0)
     const isScrollEnabled = contentHeight > scrollViewHeight
 
+    const trackEvent = useAnalytics(name)
+    useEffect(() => {
+      trackEvent({
+        label: name,
+        action: 'mount',
+      })
+    }, [name])
+
     const onFooterLayout = ({ nativeEvent }) =>
       setFooterHeight(nativeEvent.layout.height)
     const onScrollViewLayout = ({ nativeEvent }) =>
@@ -157,55 +165,52 @@ const Screen = forwardRef(
       setContentHeight(height)
 
     return (
-      <AnalyticsProvider category={name} properties={analyticsProperties}>
-        <View
-          style={[
-            styles.screenBackground,
-            style,
-            styles.root,
-            withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
-            withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
-          ]}
+      <View
+        style={[
+          styles.screenBackground,
+          style,
+          styles.root,
+          withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
+          withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
+        ]}
+      >
+        <KeyboardAvoidingView
+          /**
+           * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+           * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+           * если вообще не задавать проп, в то время как iOS - наоборот.
+           */
+          {...(Platform.OS === 'ios' && { behavior: 'height' })}
+          style={styles.root}
         >
-          <KeyboardAvoidingView
-            /**
-             * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-             * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
-             * если вообще не задавать проп, в то время как iOS - наоборот.
-             */
-            {...(Platform.OS === 'ios' && { behavior: 'height' })}
-            style={styles.root}
+          {leftView && <SideView {...leftView} style={styles.leftView} />}
+          {rightView && <SideView {...rightView} style={styles.rightView} />}
+          <ScrollView
+            {...rest}
+            name={name}
+            ref={ref}
+            scrollEnabled={isScrollEnabled}
+            onLayout={onScrollViewLayout}
+            onContentSizeChange={onScrollViewContentSizeChange}
           >
-            {leftView && <SideView {...leftView} style={styles.leftView} />}
-            {rightView && <SideView {...rightView} style={styles.rightView} />}
-            <ScrollView
-              {...rest}
-              name={name}
-              ref={ref}
-              scrollEnabled={isScrollEnabled}
-              onLayout={onScrollViewLayout}
-              onContentSizeChange={onScrollViewContentSizeChange}
-            >
-              {(rightView || leftView) && (
-                <View style={styles.sideViewSpacer} />
-              )}
+            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+            <AnalyticsProvider category={name} properties={analyticsProperties}>
               {children}
-              {footer && <View style={{ height: footerHeight }} />}
-            </ScrollView>
-            {footer && (
-              <View style={styles.footerContainer} onLayout={onFooterLayout}>
-                {footer}
-              </View>
-            )}
-          </KeyboardAvoidingView>
-        </View>
-      </AnalyticsProvider>
+            </AnalyticsProvider>
+            {footer && <View style={{ height: footerHeight }} />}
+          </ScrollView>
+          {footer && (
+            <View style={styles.footerContainer} onLayout={onFooterLayout}>
+              {footer}
+            </View>
+          )}
+        </KeyboardAvoidingView>
+      </View>
     )
   },
 )
 
 Screen.defaultProps = {
-  name: '',
   leftView: null,
   rightView: null,
   footer: null,
@@ -217,7 +222,7 @@ Screen.defaultProps = {
 
 Screen.propTypes = {
   /** Название экрана */
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   /** Пропсы для левой верхней кнопки экрана */
   leftView: PropTypes.shape({
     node: PropTypes.node.isRequired,
@@ -236,6 +241,7 @@ Screen.propTypes = {
   withSafeAreaPaddingTop: PropTypes.bool,
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
+  /** Объект с дополниельными данными  для аналитики */
   // eslint-disable-next-line
   analyticsProperties: PropTypes.object,
   children: PropTypes.node.isRequired,
