@@ -1,8 +1,10 @@
-`AnalyticsProvider` - это компонент, который передает в контекст дочерним елементам категорию событийдополнительные данные (properties) и функцию трекинга. Компоненты `Button` и `Link` автоматически отправляют события, основываясь на информации из ближайшего провайдера. `AnalyticsProvider` поддерживает бесконечный нестинг, при этом на любом этапе иерархии можно подменить функцию трекинга.
+`AnalyticsProvider` - это компонент, который передает в контекст дочерним елементам категорию событий, дополнительные данные (properties) и функцию трекинга. Компонент `Button` автоматически отправляет события, основываясь на информации из ближайшего провайдера. `AnalyticsProvider` поддерживает бесконечное вложение, при этом на любом этапе иерархии можно подменить функцию трекинга.
+
+`AnalyticsProvider` уже встроен в компоненты `Screen` и `Page` для того чтобы каждый экран или страница создавали новый аналитический контекст.
 
 ```js
 import { AnalyticsProvider } from '@qlean/york-analytics'
-import { Button, Separator } from '@qlean/york-web'
+import { Button, Page, Separator } from '@qlean/york-web'
 
 const trackEvent = ({ category, label, action, properties }) => {
   alert(
@@ -33,20 +35,17 @@ const ExampleApp = ({ children }) => (
       Root Event
     </Button>
     <Separator height={2} />
-    <AnalyticsProvider
-      category="nestedComponent"
-      properties={{ exampleId: 123 }}
-    >
+    <Page name="NestedPage" analyticsProperties={{ exampleId: 123 }}>
       <Button
         name="button"
         /**
          * Помимо основного действия отправляет эвент аналитики:
          * {
-         *   category: 'nestedComponent',
-         *   label: 'nestedComponent.button',
+         *   category: 'NestedPage',
+         *   label: 'NestedPage.button',
          *   action: 'click',
          *   properties: {
-         *     analyticsRoute: 'exampleApp.nestedComponent',
+         *     analyticsRoute: 'exampleApp.NestedPage',
          *     exampleId: 123
          *   }
          * }
@@ -56,7 +55,7 @@ const ExampleApp = ({ children }) => (
       >
         Nested Event
       </Button>
-    </AnalyticsProvider>
+    </Page>
   </AnalyticsProvider>
 )
 
