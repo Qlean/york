@@ -23,6 +23,7 @@ export const getInputCss = ({
   size,
   error,
   rightView,
+  leftView,
   isFocused,
   isDisabled,
 }) => `
@@ -40,6 +41,11 @@ export const getInputCss = ({
       ? `padding-right: ${sizes[2] +
           rightView.width +
           inputPaddingHorizontal}px;`
+      : ''
+  }
+  ${
+    leftView
+      ? `padding-left: ${sizes[2] + leftView.width + inputPaddingHorizontal}px;`
       : ''
   }
   font-family: ${fontFamily};
