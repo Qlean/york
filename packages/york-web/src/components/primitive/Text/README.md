@@ -34,7 +34,16 @@ const presets = [
     preset: 'text',
   },
   {
+    caption: 'Пункты в меню, некоторые ссылки',
+    preset: 'link',
+  },
+  {
+    caption: 'Подписи в кнопках, тултипы',
     preset: 'caption',
+  },
+  {
+    caption: 'Пояснение под кнопками, юридический текст',
+    preset: 'captionSmall',
   },
 ]
 
