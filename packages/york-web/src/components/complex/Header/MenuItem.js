@@ -56,8 +56,8 @@ export default function MenuItem({
       <div
         name={name}
         className={className}
-        onClick={evt => {
-          if (onClick) onClick(evt)
+        onClick={e => {
+          if (onClick) onClick(e)
           callbacks[callback]()
         }}
       >

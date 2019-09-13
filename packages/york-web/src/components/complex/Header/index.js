@@ -9,6 +9,8 @@ import { menuItemShape } from './utils'
 
 import DesktopHeader from './DesktopHeader'
 import MobileHeader from './MobileHeader'
+
+import Logo from './Logo'
 import QleanPlusItem from './QleanPlusItem'
 
 const StyledMobileHeader = styled.div`
@@ -31,6 +33,7 @@ export default function Header({ components, ...rest }) {
   const props = {
     components: {
       Link,
+      Logo,
       QleanPlusItem,
       ...components,
     },

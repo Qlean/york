@@ -61,12 +61,13 @@ export default function DesktopHeader({
   selectedLevelOneItem,
   selectedLevelTwoItem,
   components,
-  components: { Logo },
+  components: { Link, Logo },
   callbacks,
   callbacks: { onRegionChange },
   content: { phone, tabs, regions, profile },
 }) {
-  const menu = tabs.find(({ name }) => name === defaultTab).items
+  const tab = tabs.find(({ name }) => name === defaultTab)
+  const menu = tab.items
   const levelTwoMenu = selectedLevelOneItem
     ? menu.find(({ name }) => name === selectedLevelOneItem)
     : null
@@ -80,12 +81,10 @@ export default function DesktopHeader({
             <GridColumn columns={12}>
               <StyledTopMenu>
                 <View alignItems="center">
-                  {Logo && (
-                    <>
-                      <Logo />
-                      <Separator width={3} />
-                    </>
-                  )}
+                  <Link href={tab.href}>
+                    <Logo />
+                  </Link>
+                  <Separator width={3} />
                   <Tabs defaultTab={defaultTab} tabs={tabs} />
                 </View>
                 <View alignItems="center">

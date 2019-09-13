@@ -15,7 +15,6 @@ const href = '#!/Header'
 const data = {
   defaultTab: 'home',
   components: {
-    Logo: () => <Text preset="textLarge">Q L E A N</Text>,
     CherdakItem: ({ children }) => (
       <View alignItems="center">
         {children}

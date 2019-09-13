@@ -20,28 +20,23 @@ export default function SubMenu({
   components,
   callbacks,
   items,
-  selectedItem,
+  onRequestClose,
 }) {
   return (
     <>
       {items.map(item => {
-        const isSelected = item.name === selectedItem
         return (
           <StyledMenuItem
             key={item.name}
             components={components}
             callbacks={callbacks}
             item={item}
+            onClick={onRequestClose}
           >
             <Separator width={8} />
             <View flexDirection="column">
               <Separator height={1} />
-              <StyledMenuText
-                isSelected={isSelected}
-                color={isSelected ? 'green' : 'coal'}
-              >
-                {item.title}
-              </StyledMenuText>
+              <StyledMenuText>{item.title}</StyledMenuText>
               <Separator height={1} />
             </View>
           </StyledMenuItem>
@@ -52,13 +47,9 @@ export default function SubMenu({
   )
 }
 
-SubMenu.defaultProps = {
-  selectedItem: null,
-}
-
 SubMenu.propTypes = {
   components: componentsShape.isRequired,
   callbacks: callbacksShape.isRequired,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
-  selectedItem: PropTypes.string,
+  onRequestClose: PropTypes.func.isRequired,
 }

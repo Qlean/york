@@ -39,7 +39,7 @@ const StyledMenuItem = styled(MenuItem)`
   display: flex;
   align-items: center;
   height: ${sizes[8]}px;
-  padding: 0 ${sizes[2]}px;
+  padding: 0 ${sizes[6]}px 0 ${sizes[2]}px;
   border-radius: ${borderRadiuses.medium};
   text-transform: uppercase;
   white-space: nowrap;

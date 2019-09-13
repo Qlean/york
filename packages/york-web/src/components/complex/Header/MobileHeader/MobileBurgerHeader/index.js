@@ -28,7 +28,7 @@ const StyledMobileBurgerHeader = styled.div`
 const StyledArrowIconContainer = styled.div`
   flex-shrink: 0;
   transition: ${transitions.medium};
-  ${({ isSelected }) => isSelected && 'transform: rotate(-180deg);'}
+  ${({ isActive }) => !isActive && 'transform: rotate(-180deg);'}
 `
 
 const StyledIcon = styled.div`
@@ -45,8 +45,10 @@ const StyledTabsContainer = styled(View)`
 
 const StyledTab = styled(Text)`
   padding: ${sizes[2]}px;
+  text-align: center;
   transition: ${transitions.medium};
   ${({ isSelected }) => isSelected && `box-shadow: 0 1px 0 ${colors.black}`};
+  ${({ tabsCount }) => `width ${100 / tabsCount}%;`};
 `
 
 const StyledMenuItem = styled.div`
@@ -66,7 +68,6 @@ const StyledMenuItemContent = styled(View)`
 `
 
 const StyledMenuItemText = styled(Text)`
-  color: ${({ isSelected }) => (isSelected ? colors.green : colors.coal)};
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
@@ -85,39 +86,43 @@ const StyledProfileSubmenu = styled.div`
 
 export default function MobileBurgerHeader({
   isOpened,
-  onCloseHandler,
+  onRequestClose,
   isLoggedIn,
   isProfileAvailable,
   defaultTab,
   selectedRegion,
-  selectedLevelOneItem,
-  selectedLevelTwoItem,
-  selectedProfileItem,
   callbacks,
   callbacks: { onRegionChange, onLogin },
   components,
-  components: { Logo },
+  components: { Link, Logo },
   content: { tabs, regions, profile },
 }) {
-  const [isProfileActive, setProfileActive] = useState(false)
-  const [activeTabName, setActiveTabName] = useState(defaultTab)
+  const [activeItems, setActiveItems] = useState({})
+  const setActiveItem = (name, value) =>
+    setActiveItems(prevItems => ({ ...prevItems, [name]: value }))
+  const isProfileActive = activeItems.profile
 
+  const [selectedTabName, setSelectedTabName] = useState(defaultTab)
+
+  const tab = tabs.find(({ name }) => name === defaultTab)
   const withFooter = isProfileAvailable || selectedRegion
-  const { items } = tabs.find(({ name }) => name === activeTabName)
+  const { items } = tabs.find(({ name }) => name === selectedTabName)
 
   return (
     <StyledMobileBurgerHeader flexDirection="column">
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          {Logo && <Logo />}
+          <Link href={tab.href}>
+            <Logo />
+          </Link>
         </View>
         <View alignItems="center">
           <StyledBurgerButton
             rank={0}
             name="closeBurgerMenu"
             isDisabled={false}
-            onClick={onCloseHandler}
+            onClick={onRequestClose}
           >
             {isOpened ? <BurgerClosedIcon /> : <BurgerOpenedIcon />}
           </StyledBurgerButton>
@@ -125,14 +130,15 @@ export default function MobileBurgerHeader({
       </View>
       <StyledTabsContainer justifyContent="center">
         {tabs.map(({ name, title }) => {
-          const isSelected = activeTabName === name
+          const isSelected = selectedTabName === name
           return (
             <StyledTab
               preset="link"
               key={name}
               color={isSelected ? 'coal' : 'grey'}
-              onClick={() => setActiveTabName(name)}
+              tabsCount={tabs.length}
               isSelected={isSelected}
+              onClick={() => setSelectedTabName(name)}
             >
               {title}
             </StyledTab>
@@ -142,34 +148,43 @@ export default function MobileBurgerHeader({
       <Separator height={3} />
       {items.map(item => {
         const withSubMenu = item.items && !!item.items.length
-        const isSelected = item.name === selectedLevelOneItem
+        const { name } = item
+        const isActive = activeItems[name]
         return (
-          <div key={item.name}>
-            <StyledMenuItem
-              as={MenuItem}
-              components={components}
-              callbacks={callbacks}
-              item={item}
-            >
-              <StyledMenuItemText isSelected={isSelected}>
-                {item.title}
-              </StyledMenuItemText>
-              {withSubMenu && (
-                <>
+          <div key={name}>
+            {withSubMenu ? (
+              <>
+                <StyledMenuItem
+                  item={item}
+                  onClick={() => setActiveItem(name, !isActive)}
+                >
+                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
                   <Separator width={2} />
-                  <StyledArrowIconContainer isSelected={isSelected}>
+                  <StyledArrowIconContainer isActive={isActive}>
                     <ArrowIcon />
                   </StyledArrowIconContainer>
-                </>
-              )}
-            </StyledMenuItem>
-            {withSubMenu && isSelected && (
-              <SubMenu
-                components={components}
-                callbacks={callbacks}
-                items={item.items}
-                selectedItem={selectedLevelTwoItem}
-              />
+                </StyledMenuItem>
+                {isActive && (
+                  <SubMenu
+                    components={components}
+                    callbacks={callbacks}
+                    items={item.items}
+                    onRequestClose={onRequestClose}
+                  />
+                )}
+              </>
+            ) : (
+              <>
+                <StyledMenuItem
+                  as={MenuItem}
+                  components={components}
+                  callbacks={callbacks}
+                  item={item}
+                  onClick={onRequestClose}
+                >
+                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                </StyledMenuItem>
+              </>
             )}
           </div>
         )
@@ -183,19 +198,17 @@ export default function MobileBurgerHeader({
               {isLoggedIn ? (
                 <>
                   <StyledMenuItem
-                    onClick={() => setProfileActive(!isProfileActive)}
+                    onClick={() => setActiveItem('profile', !isProfileActive)}
                   >
                     <StyledMenuItemContent>
                       <StyledIcon>
                         <ProfileIcon />
                       </StyledIcon>
                       <Separator width={2} />
-                      <StyledMenuItemText isSelected={isProfileActive}>
-                        {locales.profile}
-                      </StyledMenuItemText>
+                      <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
                     </StyledMenuItemContent>
                     <Separator width={2} />
-                    <StyledArrowIconContainer isSelected={isProfileActive}>
+                    <StyledArrowIconContainer isActive={isProfileActive}>
                       <ArrowIcon />
                     </StyledArrowIconContainer>
                   </StyledMenuItem>
@@ -205,13 +218,18 @@ export default function MobileBurgerHeader({
                         components={components}
                         callbacks={callbacks}
                         items={profile}
-                        selectedItem={selectedProfileItem}
+                        onRequestClose={onRequestClose}
                       />
                     </StyledProfileSubmenu>
                   )}
                 </>
               ) : (
-                <StyledMenuItem onClick={onLogin}>
+                <StyledMenuItem
+                  onClick={() => {
+                    onLogin()
+                    onRequestClose()
+                  }}
+                >
                   <StyledMenuItemContent>
                     <StyledIcon>
                       <LoginIcon />
@@ -239,6 +257,6 @@ export default function MobileBurgerHeader({
 
 MobileBurgerHeader.propTypes = {
   isOpened: PropTypes.bool.isRequired,
-  onCloseHandler: PropTypes.func.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
   ...headerPropTypes,
 }
