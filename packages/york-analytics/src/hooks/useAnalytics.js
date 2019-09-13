@@ -30,8 +30,8 @@ const useAnalytics = category => {
         ...data,
         category,
         properties: {
-          ...data.properties,
           analyticsRoute: `${analyticsRoute}.${category}`,
+          ...data.properties,
         },
       }),
     [trackEvent, category, analyticsRoute],
