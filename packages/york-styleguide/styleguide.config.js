@@ -23,6 +23,7 @@ module.exports = {
   skipComponentsWithoutExample: true,
   pagePerSection: true,
   getComponentPathLine,
+  ignore: ['**/*/locales.js'],
   context: {
     Example: path.resolve(__dirname, 'components/Example'),
   },
