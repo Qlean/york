@@ -107,7 +107,7 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, name, ...rest }) {
+function Link({ href, children, name, onClick, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
@@ -127,7 +127,7 @@ function Link({ href, children, name, ...rest }) {
       normalizedProps={normalizedProps}
       onClick={
         analyticsContext
-          ? () => {
+          ? e => {
               const { trackEvent, category, properties } = analyticsContext
               if (
                 typeof category === 'string' &&
@@ -142,9 +142,10 @@ function Link({ href, children, name, ...rest }) {
                     href,
                   },
                 })
+                if (onClick) onClick(e)
               }
             }
-          : undefined
+          : onClick
       }
       {...rest}
     >
@@ -156,6 +157,7 @@ function Link({ href, children, name, ...rest }) {
 Link.defaultProps = {
   rank: 0,
   backdropColor: 'white',
+  onClick: null,
 }
 
 Link.propTypes = {
@@ -167,6 +169,8 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   /** Имя ссылки. Используется для аналитики и тестов */
   name: PropTypes.string.isRequired,
+  /** Функция, которая срабатывает при клике. */
+  onClick: PropTypes.func,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

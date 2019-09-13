@@ -31,7 +31,7 @@ export default function Tabs({ defaultTab, tabs }) {
       {tabs.map(({ name, title, href }) => {
         const isSelected = defaultTab === name
         return (
-          <Link href={href} key={name}>
+          <Link name={name} href={href} key={name}>
             <StyledTab key={name} isSelected={isSelected}>
               <StyledTabText color={isSelected ? 'white' : 'grey'}>
                 {title}
