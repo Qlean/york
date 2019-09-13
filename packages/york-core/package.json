@@ -12,9 +12,7 @@
     "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
     "clean": "rimraf coverage lib",
-    "lint": "eslint . --ext .js",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "lint": "eslint . --ext .js"
   },
   "peerDependencies": {
     "ramda": ">=0.26"
