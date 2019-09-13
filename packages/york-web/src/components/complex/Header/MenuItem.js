@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { AnalyticsContext } from '@qlean/york-analytics'
 
 import { menuItemShape, componentsShape, callbacksShape } from './utils'
 
@@ -43,6 +44,12 @@ export default function MenuItem({
     )
   }
 
+  const analyticsContext = useContext(AnalyticsContext)
+  const itemName =
+    analyticsContext && analyticsContext.category
+      ? `${analyticsContext.category}.${name}`
+      : name
+
   if (callback) {
     if (!callbacks[callback]) {
       if (process.env.NODE_ENV !== 'production') {
@@ -54,10 +61,19 @@ export default function MenuItem({
 
     return (
       <div
-        name={name}
+        name={itemName}
         className={className}
         onClick={e => {
           if (onClick) onClick(e)
+          if (analyticsContext) {
+            const { trackEvent, category, properties } = analyticsContext
+            trackEvent({
+              category,
+              label: itemName,
+              action: 'click',
+              properties,
+            })
+          }
           callbacks[callback]()
         }}
       >
