@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { AnalyticsProvider } from '@qlean/york-analytics'
 
 import { media } from 'york-web/utils'
 import { Link } from 'york-web/components/primitive'
@@ -46,12 +47,12 @@ export default function Header({ components, ...rest }) {
     ...rest,
   }
   return (
-    <>
+    <AnalyticsProvider category="topNavigation">
       <DesktopHeader {...props} />
       <StyledMobileHeader>
         <MobileHeader {...props} />
       </StyledMobileHeader>
-    </>
+    </AnalyticsProvider>
   )
 }
 
