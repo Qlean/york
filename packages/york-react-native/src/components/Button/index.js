@@ -168,20 +168,21 @@ const Button = ({
     analyticsContext && analyticsContext.category
       ? `${analyticsContext.category}.${name}`
       : name
-  const handlePress = analyticsContext
-    ? () => {
-        const { trackEvent, category, properties } = analyticsContext
-        if (typeof category === 'string' && typeof trackEvent === 'function') {
-          trackEvent({
-            category,
-            label: buttonName,
-            action: 'press',
-            properties,
-          })
-        }
-        onPress()
+
+  const handlePress = ({ ...args }) => {
+    if (analyticsContext) {
+      const { trackEvent, category, properties } = analyticsContext
+      if (typeof category === 'string' && typeof trackEvent === 'function') {
+        trackEvent({
+          category,
+          label: buttonName,
+          action: 'press',
+          properties,
+        })
       }
-    : onPress
+    }
+    onPress(args)
+  }
 
   const opacity = useAnimation({
     initialValue: isDisabled || isSubmitting ? 1 : 0,

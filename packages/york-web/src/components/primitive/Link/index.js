@@ -120,33 +120,30 @@ function Link({ href, children, name, onClick, ...rest }) {
       ? `${analyticsContext.category}.${name}`
       : name
 
+  const handleClick = ({ ...args }) => {
+    if (analyticsContext) {
+      const { trackEvent, category, properties } = analyticsContext
+      if (typeof category === 'string' && typeof trackEvent === 'function') {
+        trackEvent({
+          category,
+          label: linkName,
+          action: 'click',
+          properties: {
+            ...properties,
+            href,
+          },
+        })
+      }
+    }
+    if (onClick) onClick(args)
+  }
+
   return (
     <StyledLink
       href={href}
       name={linkName}
       normalizedProps={normalizedProps}
-      onClick={
-        analyticsContext
-          ? e => {
-              const { trackEvent, category, properties } = analyticsContext
-              if (
-                typeof category === 'string' &&
-                typeof trackEvent === 'function'
-              ) {
-                trackEvent({
-                  category,
-                  label: linkName,
-                  action: 'click',
-                  properties: {
-                    ...properties,
-                    href,
-                  },
-                })
-                if (onClick) onClick(e)
-              }
-            }
-          : onClick
-      }
+      onClick={handleClick}
       {...rest}
     >
       {children}

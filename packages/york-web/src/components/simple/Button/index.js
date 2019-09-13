@@ -217,20 +217,22 @@ function Button({
     analyticsContext && analyticsContext.category
       ? `${analyticsContext.category}.${name}`
       : name
-  const handleClick = analyticsContext
-    ? () => {
-        const { trackEvent, category, properties } = analyticsContext
-        if (typeof category === 'string' && typeof trackEvent === 'function') {
-          trackEvent({
-            category,
-            label: buttonName,
-            action: 'click',
-            properties,
-          })
-        }
-        onClick()
+
+  const handleClick = ({ ...args }) => {
+    if (analyticsContext) {
+      const { trackEvent, category, properties } = analyticsContext
+      if (typeof category === 'string' && typeof trackEvent === 'function') {
+        trackEvent({
+          category,
+          label: buttonName,
+          action: 'click',
+          properties,
+        })
       }
-    : onClick
+    }
+    onClick(args)
+  }
+
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
