@@ -14,7 +14,10 @@ const useAnalytics = category => {
     )
   }
 
-  const { trackEvent, analyticsRoute } = useContext(AnalyticsContext)
+  const {
+    trackEvent,
+    properties: { analyticsRoute },
+  } = useContext(AnalyticsContext)
   if (!trackEvent) {
     throw new Error(
       'Error in `useAnalytics`: no tracking function found in context. `useAnalytics` should only be used inside `AnalyticsProvider`',
@@ -26,7 +29,10 @@ const useAnalytics = category => {
       trackEvent({
         ...data,
         category,
-        analyticsRoute: `${analyticsRoute}.${category}`,
+        properties: {
+          ...data.properties,
+          analyticsRoute: `${analyticsRoute}.${category}`,
+        },
       }),
     [trackEvent, category, analyticsRoute],
   )

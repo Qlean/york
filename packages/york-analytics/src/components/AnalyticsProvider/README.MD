@@ -7,7 +7,7 @@ import { AnalyticsProvider } from '@qlean/york-analytics'
 import { Button, Page, Separator } from '@qlean/york-web'
 
 const trackEvent = ({ category, label, action, properties }) => {
-  alert(
+  console.log(
     `category: ${category}\nlabel: ${label}\naction: ${action}\nproperties: ${JSON.stringify(
       properties,
     )}`,
