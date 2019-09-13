@@ -29,17 +29,23 @@ const StyledButtonContainer = styled.div`
   `)}
 `
 
-const StyledHeader = styled(View)`
+const StyledHeader = styled.div`
   margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
 `
 
-const StyledFooter = styled(View)`
+const StyledFooter = styled.div`
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
 `
+
+const reload = () => window.location.reload()
 
 const ReloadButton = () => (
   <StyledButtonContainer>
-    <Button name="reload" onClick={window.location.reload} isDisabled={false}>
+    <Button name="reload" onClick={reload} isDisabled={false}>
       {locales.reloadButton}
     </Button>
   </StyledButtonContainer>
@@ -90,7 +96,7 @@ const Error = ({ statusCode, header, footer }) => {
       justifyContent="center"
       alignItems="center"
     >
-      <StyledHeader flexDirection="column">
+      <StyledHeader>
         <Separator height={6} />
         {header && header}
       </StyledHeader>
@@ -99,7 +105,7 @@ const Error = ({ statusCode, header, footer }) => {
         {getErrorLayout(statusCode)}
       </StyledLayoutContainer>
       <Separator height={8} />
-      <StyledFooter flexDirection="column">
+      <StyledFooter>
         {footer && footer}
         <Separator height={6} />
       </StyledFooter>
