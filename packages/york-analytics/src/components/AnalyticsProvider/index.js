@@ -44,15 +44,19 @@ const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
 }
 
 AnalyticsProvider.propTypes = {
+  /** Категория событий этого провайдера */
+  category: PropTypes.string.isRequired,
   /** Функция для трекинга событий */
   // eslint-disable-next-line
   trackEvent: PropTypes.func,
-  /** Категория событий этого провайдера */
-  category: PropTypes.string.isRequired,
   /** Дополнительные данные, которые нужно передать вместе с событием */
   // eslint-disable-next-line
   properties: PropTypes.object,
   children: PropTypes.node.isRequired,
+}
+
+AnalyticsProvider.defaultProps = {
+  properties: {},
 }
 
 export default AnalyticsProvider
