@@ -17,11 +17,17 @@ const StyledMenuItem = styled(MenuItem)`
   transition: ${transitions.medium};
   user-select: none;
   cursor: pointer;
-  ${({ isSelected }) =>
-    isSelected ? `color: ${colors.green};` : `color: ${colors.coal};`}
-  :hover, :focus, :active {
-    color: ${({ isSelected }) => (isSelected ? colors.green : colors.ash)};
-  }
+  ${({ isSelected }) => {
+    const color = isSelected
+      ? `color: ${colors.green};`
+      : `color: ${colors.coal};`
+    return `
+      ${color}
+      :hover, :focus, :active {
+        ${color}
+      }
+    `
+  }}
   :first-child {
     padding-left: 0;
   }

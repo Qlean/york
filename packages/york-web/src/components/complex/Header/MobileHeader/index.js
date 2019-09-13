@@ -129,6 +129,7 @@ const StyledPhoneText = styled(Text)`
 export default function MobileHeader(props) {
   const {
     selectedRegion,
+    phone,
     defaultTab,
     selectedLevelOneItem,
     selectedLevelTwoItem,
@@ -136,7 +137,7 @@ export default function MobileHeader(props) {
     callbacks: { onRegionChange },
     components,
     components: { Link, Logo },
-    content: { tabs, regions, phone },
+    content: { tabs, regions },
   } = props
 
   const [burgerActive, toggleBurger] = useState(false)
@@ -155,7 +156,7 @@ export default function MobileHeader(props) {
   return (
     <>
       {isModalShow && (
-        <Modal>
+        <Modal name="mobileHeaderModal">
           <MobileBurgerHeader
             {...props}
             isOpened={isModalShow}
@@ -166,7 +167,7 @@ export default function MobileHeader(props) {
           />
         </Modal>
       )}
-      <StyledMobileHeader>
+      <StyledMobileHeader name="mobileHeader">
         <StyledTopMenu alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />

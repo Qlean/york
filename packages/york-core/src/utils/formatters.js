@@ -1,5 +1,5 @@
-export const capitalize = str =>
-  `${(str[0] || '').toUpperCase()}${str.slice(1)}`
+export const capitalize = string =>
+  `${(string[0] || '').toUpperCase()}${string.slice(1)}`
 
 export const formatPhone = phone =>
   phone

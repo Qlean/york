@@ -28,6 +28,12 @@ const StyledMobileHeader = styled.div`
  * Структуру пунктов меню и регионов см. в примере. Кастомные компоненты и коллбэки следует
  * прокидывать через словари `components` и `callbacks`, соответственно. Они намеренно сделаны
  * строками чтобы была возможность сериализовать и шарить весь объект `content`.
+ *
+ * У хедера есть несколько именованных элементов:
+ * - `desktopHeaderTop` — десктопный хедер, верхняя часть с табами и профилем
+ * - `desktopHeaderSticky` — десктопный хедер, залипающая часть
+ * - `mobileHeader` — мобильный хедер, основное меню
+ * - `mobileHeaderModal` — мобильный хедер, бургерное меню
  */
 export default function Header({ components, ...rest }) {
   const props = {
@@ -54,6 +60,7 @@ Header.defaultProps = {
   selectedLevelTwoItem: null,
   selectedProfileItem: null,
   selectedRegion: null,
+  phone: null,
   callbacks: {},
   components: {},
 }
@@ -75,6 +82,8 @@ Header.propTypes = {
   selectedProfileItem: PropTypes.string,
   /** Выбранный регион */
   selectedRegion: PropTypes.string,
+  /** Телефон */
+  phone: PropTypes.string,
   /**
    * Словарь коллбэков. По умолчанию поддерживает:
    *
@@ -92,8 +101,6 @@ Header.propTypes = {
   components: PropTypes.objectOf(PropTypes.elementType.isRequired),
   /** Содержимое хедера */
   content: PropTypes.shape({
-    /** Телефон */
-    phone: PropTypes.string,
     /** Список регионов */
     regions: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     /** Табы и основное меню */

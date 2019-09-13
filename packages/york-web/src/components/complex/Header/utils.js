@@ -24,10 +24,10 @@ export const headerPropTypes = {
   selectedLevelTwoItem: PropTypes.string,
   selectedProfileItem: PropTypes.string,
   selectedRegion: PropTypes.string,
+  phone: PropTypes.string,
   callbacks: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
   components: PropTypes.objectOf(PropTypes.elementType.isRequired).isRequired,
   content: PropTypes.shape({
-    phone: PropTypes.string,
     regions: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,

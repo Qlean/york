@@ -1,6 +1,8 @@
 `import { formatPhoneHref } from '@qlean/york-core'`
 
-`formatPhoneHref(value: String) => String` — переводит телефон формат, пригодный для ссылок.
+`formatPhoneHref(value: String) => String`
+
+Переводит телефон формат, пригодный для ссылок.
 
 ```js static
 import { formatPhoneHref } from '@qlean/york-core'

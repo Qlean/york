@@ -57,6 +57,7 @@ export default function DesktopHeader({
   isPlusSubscriber,
   selectedProfileItem,
   selectedRegion,
+  phone,
   defaultTab,
   selectedLevelOneItem,
   selectedLevelTwoItem,
@@ -64,7 +65,7 @@ export default function DesktopHeader({
   components: { Link, Logo },
   callbacks,
   callbacks: { onRegionChange },
-  content: { phone, tabs, regions, profile },
+  content: { tabs, regions, profile },
 }) {
   const tab = tabs.find(({ name }) => name === defaultTab)
   const menu = tab.items
@@ -75,7 +76,7 @@ export default function DesktopHeader({
 
   return (
     <>
-      <StyledMenu>
+      <StyledMenu name="desktopHeaderTop">
         <StyledMenuContainer>
           <GridContainer>
             <GridColumn columns={12}>
@@ -120,7 +121,7 @@ export default function DesktopHeader({
           </GridContainer>
         </StyledMenuContainer>
       </StyledMenu>
-      <StyledStickyMenu>
+      <StyledStickyMenu name="desktopHeaderSticky">
         <StyledLevelOneMenu>
           <GridContainer>
             <GridColumn columns={12}>

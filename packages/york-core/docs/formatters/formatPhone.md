@@ -1,6 +1,8 @@
 `import { formatPhone } from '@qlean/york-core'`
 
-`formatPhone(value: String) => String` — переводит телефон в человеко-читаемый формат.
+`formatPhone(value: String) => String`
+
+Переводит телефон в человеко-читаемый формат.
 
 ```js static
 import { formatPhone } from '@qlean/york-core'

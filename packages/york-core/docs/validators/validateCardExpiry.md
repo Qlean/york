@@ -1,6 +1,8 @@
 `import { validateCardExpiry } from '@qlean/york-core'`
 
-`validateCardExpiry(value: String) => Boolean` — валидирует срок действия карты.
+`validateCardExpiry(value: String) => Boolean`
+
+Валидирует срок действия карты.
 
 ```js static
 import { validateCardExpiry } from '@qlean/york-core'

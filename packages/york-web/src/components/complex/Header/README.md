@@ -22,8 +22,8 @@ const data = {
       </View>
     ),
   },
+  phone: '74951234567',
   content: {
-    phone: '74951234567',
     regions: [
       {
         name: 'msk',
