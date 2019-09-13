@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import { View, Text, Separator } from 'york-web/components/primitive'
+import { Button } from 'york-web/components/simple'
 import { media, sizes, uiPoint } from 'york-web/utils'
-
-import Button from '../Button'
 
 import locales from './locales'
 
