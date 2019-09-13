@@ -127,6 +127,7 @@ Footer.propTypes = {
  * клавиатурой. В компонент встроен футер с отступами — Screen.Footer.
  * По умолчанию сейф-зона снизу включена, а сверху — отключена. Предполагается, что чаще всего экран
  * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
+ * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics)
  */
 const Screen = forwardRef(
   (
@@ -139,7 +140,7 @@ const Screen = forwardRef(
       withSafeAreaPaddingBottom,
       style,
       name,
-      analyticsProperties,
+      analyticsProps,
       ...rest
     },
     ref,
@@ -149,13 +150,15 @@ const Screen = forwardRef(
     const [contentHeight, setContentHeight] = useState(0)
     const isScrollEnabled = contentHeight > scrollViewHeight
 
-    const trackEvent = useAnalytics(name)
+    const trackScreenEvent = useAnalytics(name)
     useEffect(() => {
-      trackEvent({
+      trackScreenEvent({
         label: name,
         action: 'mount',
       })
     }, [name])
+
+    const { trackEvent, properties } = analyticsProps
 
     const onFooterLayout = ({ nativeEvent }) =>
       setFooterHeight(nativeEvent.layout.height)
@@ -194,7 +197,11 @@ const Screen = forwardRef(
             onContentSizeChange={onScrollViewContentSizeChange}
           >
             {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-            <AnalyticsProvider category={name} properties={analyticsProperties}>
+            <AnalyticsProvider
+              category={name}
+              properties={properties}
+              trackEvent={trackEvent}
+            >
               {children}
             </AnalyticsProvider>
             {footer && <View style={{ height: footerHeight }} />}
@@ -217,7 +224,7 @@ Screen.defaultProps = {
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
   style: null,
-  analyticsProperties: null,
+  analyticsProps: {},
 }
 
 Screen.propTypes = {
@@ -241,9 +248,14 @@ Screen.propTypes = {
   withSafeAreaPaddingTop: PropTypes.bool,
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
-  /** Объект с дополниельными данными  для аналитики */
-  // eslint-disable-next-line
-  analyticsProperties: PropTypes.object,
+  /** Пропсы для AnalyticsProvider */
+  analyticsProps: PropTypes.shape({
+    /** Функция трекинга */
+    trackEvent: PropTypes.func,
+    /** Объект с дополниельными данными  для аналитики */
+    // eslint-disable-next-line
+    properties: PropTypes.object,
+  }),
   children: PropTypes.node.isRequired,
   style: ViewPropTypes.style,
 }
