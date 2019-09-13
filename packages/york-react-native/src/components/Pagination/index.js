@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import { sizes } from '@qlean/york-react-native'
+
+import { sizes } from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
   root: {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
 /**
  * Пагинация. Принимает количество страниц и номер текущей. Отсчёт начинается с 1
  */
-const Stepper = ({ pagesCount, value: currentStep }) => {
+const Pagination = ({ pagesCount, value: currentStep, name }) => {
   const steps = R.times(n => n + 1, pagesCount)
 
   return (
@@ -53,11 +54,15 @@ const Stepper = ({ pagesCount, value: currentStep }) => {
   )
 }
 
-Stepper.propTypes = {
+Pagination.defaultProps = {
+  pagesCount: 7,
+}
+
+Pagination.propTypes = {
   /** Текущая выбранная страница */
   value: PropTypes.number.isRequired,
   /** Количество страниц */
-  pagesCount: PropTypes.number.isRequired,
+  pagesCount: PropTypes.number,
 }
 
-export default Stepper
+export default Pagination
