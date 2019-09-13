@@ -96,6 +96,7 @@ Header.propTypes = {
    * Словарь компонентов. По умолчанию содержит:
    *
    * - `Link` — стандартный `Link` из `york-web`
+   * - `Logo` — логотип Qlean
    * - `QleanPlusItem` — компонент для пункта меню «Qlean Плюс»
    * */
   components: PropTypes.objectOf(PropTypes.elementType.isRequired),
