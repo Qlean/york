@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import capitalize from './capitalize'
+import { capitalize } from './formatters'
 
 const getErrorData = error => {
   const data = R.prop('data', error) || {}

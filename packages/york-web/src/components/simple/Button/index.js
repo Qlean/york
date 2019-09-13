@@ -137,7 +137,7 @@ const getBaseCss = ({
   const normalizedBackgroundColor = normalizeColor(backgroundColor, opacity)
   const normalizedBorderColor = normalizeColor(borderColor, opacity)
   return `
-    color: ${colors[color]};
+    ${color ? `color: ${colors[color]};` : ''}
     background-color: ${normalizedBackgroundColor};
     border: 1px solid ${normalizedBorderColor || normalizedBackgroundColor};
     &>${StyledContent} {
