@@ -67,12 +67,17 @@ export default function MenuItem({
           if (onClick) onClick(e)
           if (analyticsContext) {
             const { trackEvent, category, properties } = analyticsContext
-            trackEvent({
-              category,
-              label: itemName,
-              action: 'click',
-              properties,
-            })
+            if (
+              typeof category === 'string' &&
+              typeof trackEvent === 'function'
+            ) {
+              trackEvent({
+                category,
+                label: itemName,
+                action: 'click',
+                properties,
+              })
+            }
           }
           callbacks[callback]()
         }}
