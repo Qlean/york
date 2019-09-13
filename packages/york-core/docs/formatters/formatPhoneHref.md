@@ -2,7 +2,7 @@
 
 `formatPhoneHref(value: String) => String`
 
-Переводит телефон формат, пригодный для ссылок.
+Переводит номер телефона в формат, пригодный для ссылок.
 
 ```js static
 import { formatPhoneHref } from '@qlean/york-core'

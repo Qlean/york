@@ -2,7 +2,7 @@
 
 `formatPhone(value: String) => String`
 
-Переводит телефон в человеко-читаемый формат.
+Переводит номер телефона в человеко-читаемый формат.
 
 ```js static
 import { formatPhone } from '@qlean/york-core'
