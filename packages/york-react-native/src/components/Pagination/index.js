@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Пагинация. Принимает количество страниц и номер текущей. Отсчёт начинается с 1
+ * Пагинация. Принимает количество страниц и номер текущей.
  */
-const Pagination = ({ pagesCount, value: currentStep, name }) => {
+const Pagination = ({ pagesCount, value: currentStep }) => {
   const steps = R.times(n => n + 1, pagesCount)
 
   return (
