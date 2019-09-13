@@ -21,7 +21,7 @@ const ExampleComponent = () => {
         {whiteBackdropRanks.map(rank => (
           <StyledShowcaseItem key={rank} title={`Rank ${rank}`}>
             <Text>
-              <Link rank={rank} {...linkProps}>
+              <Link rank={rank} name="whiteBackdrop" {...linkProps}>
                 White Backdrop
               </Link>
             </Text>
@@ -36,7 +36,7 @@ const ExampleComponent = () => {
             titleProps={{ color: 'white' }}
           >
             <Text>
-              <Link rank={rank} backdropColor="dark" {...linkProps}>
+              <Link rank={rank} name="darkBackdrop" backdropColor="dark" {...linkProps}>
                 Dark Backdrop
               </Link>
             </Text>

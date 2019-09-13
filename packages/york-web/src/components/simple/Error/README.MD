@@ -14,7 +14,7 @@ const Footer = () => (
   <StyledContainer flexDirection="column" alignItems="center">
     <Text>Если после перезагрузки вы видите тот же экран, то позвоните нам</Text>
     <Text>
-      <Link href="tel:+74956468259">+7 495 646-82-59</Link>
+      <Link name="phone" href="tel:+74956468259">+7 495 646-82-59</Link>
     </Text>
   </StyledContainer>
 )

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
+import { AnalyticsContext } from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -101,14 +102,47 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, ...rest }) {
+function Link({ href, children, name, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
     rest,
   )
+
+  const analyticsContext = useContext(AnalyticsContext)
+  const linkName =
+    analyticsContext && analyticsContext.category
+      ? `${analyticsContext.category}.${name}`
+      : name
+
   return (
-    <StyledLink href={href} normalizedProps={normalizedProps} {...rest}>
+    <StyledLink
+      href={href}
+      name={linkName}
+      normalizedProps={normalizedProps}
+      onClick={
+        analyticsContext
+          ? () => {
+              const { trackEvent, category, properties } = analyticsContext
+              if (
+                typeof category === 'string' &&
+                typeof trackEvent === 'function'
+              ) {
+                trackEvent({
+                  category,
+                  label: linkName,
+                  action: 'click',
+                  properties: {
+                    ...properties,
+                    href,
+                  },
+                })
+              }
+            }
+          : undefined
+      }
+      {...rest}
+    >
       {children}
     </StyledLink>
   )
@@ -126,6 +160,8 @@ Link.propTypes = {
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
+  /** Имя ссылки. Используется для аналитики и тестов */
+  name: PropTypes.string.isRequired,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }
