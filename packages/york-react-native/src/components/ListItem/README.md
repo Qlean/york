@@ -19,7 +19,7 @@ const options = [
 ]
 
 ;<>
-  <ListItem title="Настройки" onPress={() => {}} withArrow />
+  <ListItem title="Настройки" onPress={() => {}} withArrow isDisabled={false}/>
   <Line />
   <ListItem title="Все заказы" onPress={() => {}} withArrow isDisabled />
   <Line />
@@ -28,7 +28,7 @@ const options = [
     data={options}
     keyExtractor={keyExtractor}
     ItemSeparatorComponent={ItemSeparatorComponent}
-    renderItem={({ item }) => <ListItem {...item} />}
+    renderItem={({ item }) => <ListItem isDisabled {...item} />}
   />
 </>
 ```
