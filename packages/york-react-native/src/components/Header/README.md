@@ -19,7 +19,7 @@ import { Pagination, Text, Separator, Icon } from '@qlean/york-react-native'
   <Separator height={4} />
   <Header
     centerNode={
-      <Pagination value={2} />
+      <Pagination value={2} pagesCount={7} />
     }
     leftView={{
       node: <Icon name="back" />,

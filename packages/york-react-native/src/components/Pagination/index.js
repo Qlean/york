@@ -6,6 +6,9 @@ import { colors } from '@qlean/york-core'
 
 import { sizes } from 'york-react-native/utils/styles'
 
+const dotSize = sizes[1]
+const dotSizeSelected = sizes[2]
+
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
@@ -13,9 +16,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dot: {
-    width: sizes[1],
-    height: sizes[1],
-    borderRadius: sizes[1] / 2,
+    width: dotSize,
+    height: dotSize,
+    borderRadius: dotSize / 2,
     backgroundColor: colors.whisper,
   },
   withRightMargin: {
@@ -25,9 +28,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
   },
   selected: {
-    width: sizes[2],
-    height: sizes[2],
-    borderRadius: sizes[2] / 2,
+    width: dotSizeSelected,
+    height: dotSizeSelected,
+    borderRadius: dotSizeSelected / 2,
   },
 })
 
@@ -54,15 +57,11 @@ const Pagination = ({ pagesCount, value: currentStep }) => {
   )
 }
 
-Pagination.defaultProps = {
-  pagesCount: 7,
-}
-
 Pagination.propTypes = {
   /** Текущая выбранная страница */
   value: PropTypes.number.isRequired,
   /** Количество страниц */
-  pagesCount: PropTypes.number,
+  pagesCount: PropTypes.number.isRequired,
 }
 
 export default Pagination

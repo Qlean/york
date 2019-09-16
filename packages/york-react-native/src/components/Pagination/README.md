@@ -1,5 +1,5 @@
 ```js
 
 
-;<Pagination value={3} pagesCount={6} />
+;<Pagination value={3} pagesCount={7} />
 ```
