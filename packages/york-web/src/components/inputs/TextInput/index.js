@@ -27,13 +27,26 @@ const StyledRightView = styled.div`
   ${({ width }) => `width: ${width}px;`}
 `
 
+const StyledLeftView = styled.div`
+  position: absolute;
+  top: 0;
+  left: ${inputPaddingHorizontal}px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  ${({ width }) => `width: ${width}px;`}
+`
+
 /**
  * Базовое однострочное поле для ввода текста, аналог `input` без `type`.
  */
 function TextInput(props) {
-  const { isDisabled, rightView } = props
+  const { isDisabled, rightView, leftView } = props
   return (
     <StyledTextInput>
+      {leftView && (
+        <StyledLeftView width={leftView.width}>{leftView.node}</StyledLeftView>
+      )}
       <StyledInput {...props} disabled={isDisabled} />
       {rightView && (
         <StyledRightView width={rightView.width}>

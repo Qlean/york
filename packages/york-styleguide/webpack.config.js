@@ -32,7 +32,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'url-loader',
@@ -50,7 +50,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(woff|eot|ttf)$/i,
+        test: /\.(svg|woff|eot|ttf)$/i,
         use: 'file-loader',
       },
     ],

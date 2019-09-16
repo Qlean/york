@@ -38,15 +38,15 @@ const presets = {
     lineHeight: 25,
     fontWeight: 700,
   },
-  textStrong: {
-    fontSize: 16,
-    lineHeight: 25,
-    fontWeight: 700,
-  },
   textLarge: {
     fontSize: 20,
     lineHeight: 30,
     fontWeight: 500,
+  },
+  textStrong: {
+    fontSize: 16,
+    lineHeight: 25,
+    fontWeight: 700,
   },
   text: {
     fontSize: 16,
@@ -78,12 +78,14 @@ const getBaseCss = ({
   fontSize,
   lineHeight,
   letterSpacing,
+  textTransform,
 }) => `
   font-size: ${fontSize}px;
   color: ${color === 'inherit' ? 'inherit' : colors[color]};
   font-weight: ${fontWeight};
   line-height: ${lineHeight}px;
   ${letterSpacing ? `letter-spacing: ${letterSpacing}px` : ''};
+  ${textTransform ? `text-transform: ${textTransform}` : ''};
 `
 
 const defaultProps = {

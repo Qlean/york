@@ -23,6 +23,7 @@ module.exports = {
   skipComponentsWithoutExample: true,
   pagePerSection: true,
   getComponentPathLine,
+  ignore: ['**/*/locales.js'],
   context: {
     Example: path.resolve(__dirname, 'components/Example'),
   },
@@ -49,9 +50,39 @@ module.exports = {
           name: 'utils',
           sections: [
             {
-              name: 'validation',
-              description: 'Функции валидации',
-              content: '../york-core/docs/validation.md',
+              name: 'formatters',
+              sections: [
+                {
+                  name: 'capitalize',
+                  content: '../york-core/docs/formatters/capitalize.md',
+                },
+                {
+                  name: 'formatPhone',
+                  content: '../york-core/docs/formatters/formatPhone.md',
+                },
+                {
+                  name: 'formatPhoneHref',
+                  content: '../york-core/docs/formatters/formatPhoneHref.md',
+                },
+              ],
+            },
+            {
+              name: 'validators',
+              sections: [
+                {
+                  name: 'validateCardNumber',
+                  content: '../york-core/docs/validators/validateCardNumber.md',
+                },
+                {
+                  name: 'validateCardExpiry',
+                  content: '../york-core/docs/validators/validateCardExpiry.md',
+                },
+                {
+                  name: 'validateCardSecureCode',
+                  content:
+                    '../york-core/docs/validators/validateCardSecureCode.md',
+                },
+              ],
             },
           ],
         },
@@ -72,6 +103,10 @@ module.exports = {
           name: 'simple',
           description: 'Простые компоненты, собираются из примитивов',
           components: '../york-web/src/components/simple/**/*.js',
+        },
+        {
+          name: 'complex',
+          components: '../york-web/src/components/complex/**/index.js',
         },
         {
           name: 'inputs',
@@ -192,5 +227,5 @@ module.exports = {
       },
     },
   },
-  require: [path.join(__dirname, 'assets/fonts/index.css')],
+  require: ['core-js', path.join(__dirname, 'assets/fonts/index.css')],
 }
