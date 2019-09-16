@@ -1,5 +1,5 @@
 ```js
-const icons = ['close', 'back']
+const icons = ['close', 'back', 'arrow']
 
 ;<Example.Showcase>
   {icons.map(icon => (
