@@ -21,7 +21,7 @@ const options = [
 ;<>
   <ListItem title="Настройки" onPress={() => {}} withArrow />
   <Line />
-  <ListItem title="Все заказы" onPress={() => {}} withArrow />
+  <ListItem title="Все заказы" onPress={() => {}} withArrow isDisabled />
   <Line />
   <FlatList
     scrollEnabled={false}

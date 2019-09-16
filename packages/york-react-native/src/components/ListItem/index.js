@@ -39,11 +39,12 @@ const ListItem = ({
   caption,
   value,
   valueProps,
+  isDisabled,
   withArrow = false,
 }) => (
   <TouchableOpacity
     style={styles.root}
-    disabled={typeof onPress !== 'function'}
+    disabled={!onPress || isDisabled}
     onPress={onPress}
   >
     <Separator height={3} />
@@ -99,9 +100,12 @@ ListItem.propTypes = {
   title: numberOrStringPropType.isRequired,
   /** Подпись к заголовку */
   caption: numberOrStringPropType,
+  /** Делает компонент недоступным для нажатия */
+  isDisabled: PropTypes.bool.isRequired,
   /** Текст в правой части компонента, всегда отображается на одной линии с заголовком */
   value: numberOrStringPropType,
   /** Пропы для компонента Text, в который обёрнут value */
+  // eslint-disable-next-line react/forbid-prop-types
   valueProps: PropTypes.object,
   /** Контроллирует отображение иконки в правой части компонента */
   withArrow: PropTypes.bool,
