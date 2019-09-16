@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 
-import { Separator, Text, Icon } from 'york-react-native/components'
+import Text from 'york-react-native/components/Text'
+import Icon from 'york-react-native/components/Icon'
+import Separator from 'york-react-native/components/Separator'
 import { sizes, uiPoint } from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
