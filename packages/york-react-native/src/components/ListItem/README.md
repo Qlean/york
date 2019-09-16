@@ -1,17 +1,34 @@
 ```js
+import { FlatList } from 'react-native'
 import { Line } from '@qlean/york-react-native'
 
+const ItemSeparatorComponent = () => <Line />
+const keyExtractor = ({ value }) => String(value)
+
+const options = [
+  {
+    title: 'Оплата за заказ',
+    caption: "11 августа в 9:00",
+    value: 200
+  },
+  {
+    title: 'Бонус',
+    caption: "10 августа в 9:00",
+    value: 100
+  }
+]
+
 ;<>
-  <ListItem
-    title="Оплата за заказ"
-    onPress={() => {}}
-    caption="11 августа в 9:00"
-    value="1000"
+  <ListItem title="Настройки" onPress={() => {}} withArrow />
+  <Line />
+  <ListItem title="Все заказы" onPress={() => {}} withArrow />
+  <Line />
+  <FlatList
+    scrollEnabled={false}
+    data={options}
+    keyExtractor={keyExtractor}
+    ItemSeparatorComponent={ItemSeparatorComponent}
+    renderItem={({ item }) => <ListItem {...item} />}
   />
-  <Line />
-  <ListItem title="Штраф за заказ" caption="10 августа в 9:00"  withIcon />
-  <Line />
-  <ListItem title="Все заказы" withIcon />
-  <Line />
 </>
 ```

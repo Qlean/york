@@ -7,7 +7,6 @@ import { sizes, uiPoint } from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
   root: {
-    display: 'flex',
     justifyContent: 'center',
     minHeight: 12 * uiPoint,
   },
@@ -40,7 +39,7 @@ const ListItem = ({
   caption,
   value,
   valueProps,
-  withIcon = false,
+  withArrow = false,
 }) => (
   <TouchableOpacity
     style={styles.root}
@@ -51,7 +50,7 @@ const ListItem = ({
     <View
       style={[
         styles.titleContainer,
-        caption && !withIcon && styles.titleWithCaption,
+        caption && !withArrow && styles.titleWithCaption,
       ]}
     >
       <View style={styles.leftView}>
@@ -67,7 +66,7 @@ const ListItem = ({
           {value}
         </Text>
       )}
-      {withIcon && (
+      {withArrow && (
         <View style={styles.iconContainer}>
           <Icon name="arrow" />
         </View>
@@ -82,18 +81,18 @@ ListItem.defaultProps = {
   caption: null,
   value: null,
   valueProps: {},
-  withIcon: false,
+  withArrow: false,
 }
 
 const numberOrStringPropType = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number,
+  PropTypes.string.isRequired,
+  PropTypes.number.isRequired,
 ])
 
 ListItem.propTypes = {
   /**
-   * Функция, вызываемая по нажатию на элемент списка.
-   * Если не передана, элемент отображается в disabled состоянии
+   * Функция, вызываемая по нажатию на элемент списка. Если не передана, элемент отображается
+   * в disabled состоянии
    */
   onPress: PropTypes.func,
   /** Заголовок */
@@ -105,7 +104,7 @@ ListItem.propTypes = {
   /** Пропы для компонента Text, в который обёрнут value */
   valueProps: PropTypes.object,
   /** Контроллирует отображение иконки в правой части компонента */
-  withIcon: PropTypes.bool,
+  withArrow: PropTypes.bool,
 }
 
 export default ListItem
