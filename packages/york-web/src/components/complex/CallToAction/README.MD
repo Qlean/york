@@ -53,7 +53,7 @@ const ExampleCallToAction = () => {
           text="Скидка на\u00a0уборку, стирку, хранение вещей и\u00a0многое другое\u00a0—\u00a0в\u00a0одной подписке "
           actionTitle="Попробовать бесплатно"
           actionHint={actionHint ? "3 месяца бесплатно, потом 249 р. в\u00a0месяц" : "" }
-          image={<StyledImage src={require('./assets/qleanplus.png')} alt="Qlean Plus" />}
+          imageNode={<StyledImage src={require('./assets/qleanplus.png')} alt="Qlean Plus" />}
         />
       </StyledContainer>
     </>

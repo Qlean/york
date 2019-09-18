@@ -28,7 +28,7 @@ const CallToAction = ({
   actionTitle,
   actionHint,
   buttonProps,
-  image,
+  imageNode,
 }) => (
   <GridContainer
     alignItems="center"
@@ -71,7 +71,7 @@ const CallToAction = ({
       }}
     >
       <>
-        {image}
+        {imageNode}
         <Separator height={0} mobileProps={{ height: 8 }} />
       </>
     </GridColumn>
@@ -100,7 +100,7 @@ CallToAction.propTypes = {
     isSubmitting: PropTypes.bool,
   }).isRequired,
   /** Компонент с картинкой */
-  image: PropTypes.node.isRequired,
+  imageNode: PropTypes.node.isRequired,
 }
 
 export default CallToAction
