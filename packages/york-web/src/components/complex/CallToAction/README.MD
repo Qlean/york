@@ -12,8 +12,8 @@ const StyledImage = styled.img`
   height: 276px;
 
   ${media.wide(`
-    width: 375;
-    height: 345;
+    width: 375px;
+    height: 345px;
   `)}
 
   ${media.mobile(`
