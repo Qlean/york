@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   checkboxWithError: {
     borderColor: colors.red,
   },
+  checkboxDisabled: {
+    backgroundColor: colors.smoke,
+  },
   textContainer: {
     flexShrink: 1,
   },
@@ -40,15 +43,29 @@ const styles = StyleSheet.create({
 /**
  * Чекбокс. Используется для выбора булевых значений.
  */
-const Checkbox = ({ title, caption, error, name, value, onChange }) => {
+const Checkbox = ({
+  title,
+  caption,
+  error,
+  name,
+  value,
+  onChange,
+  isDisabled,
+}) => {
   const onPress = () => onChange(!value)
   return (
-    <TouchableOpacity style={styles.root} onPress={onPress} testID={name}>
+    <TouchableOpacity
+      disabled={isDisabled}
+      style={styles.root}
+      onPress={onPress}
+      testID={name}
+    >
       <View
         style={[
           styles.checkbox,
           error && styles.checkboxWithError,
           value && styles.checkboxChecked,
+          isDisabled && styles.checkboxDisabled,
         ]}
       >
         <Image source={require('./assets/check.png')} />
@@ -81,6 +98,8 @@ Checkbox.propTypes = {
   value: PropTypes.bool.isRequired,
   /** Коллбек, вызываемый при изменении значения с аргументом `value` */
   onChange: PropTypes.func.isRequired,
+  /** Делает чекбокс недоступным для нажатия. */
+  isDisabled: PropTypes.bool.isRequired,
 }
 
 export default Checkbox
