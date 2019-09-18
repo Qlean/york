@@ -96,7 +96,7 @@ CallToAction.propTypes = {
     isDisabled: PropTypes.bool.isRequired,
     isSubmitting: PropTypes.bool,
   }).isRequired,
-  /** Компонент с картинкой */
+  /** Компонент, который рендерится справа */
   rightView: PropTypes.shape({
     node: PropTypes.node.isRequired,
   }).isRequired,
