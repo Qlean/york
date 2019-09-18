@@ -30,12 +30,11 @@ $ npm i @qlean/york-core @qlean/york-web
 <Button iconElement={<svg name="error" />} title="Сообщить об ошибке" />
 ```
 
-Проп, который поддерживает рендеринг любых нод, а не только элементов, должен содержать в названии `Node`
+Проп, который поддерживает рендеринг любых нод, а не только элементов может называться `propName` или `propNameNode` в зависимости от очевидности названия.
 
 ```js static
-<Header centerNode={<Pagination />} />
-<Header centerNode="Текст" />
-<Header centerNode={null} />
+<Header centerNode="Text" />
+<Screen footer={<Component />} />
 ```
 
 Проп, который принимает ноду или элемент, но требует для рендеринга дополнительные данные, передается как объект с `View` в названии и ключом `node` или `element`.
