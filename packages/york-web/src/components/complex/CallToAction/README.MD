@@ -23,8 +23,8 @@ const StyledImage = styled.img`
 `
 
 const ExampleCallToAction = () => {
-  const [ title, setTitle ] = useState(true)
-  const [ actionHint, setActionHint ] = useState(true)
+  const [title, setTitle] = useState(true)
+  const [actionHint, setActionHint] = useState(true)
 
   return (
     <>
