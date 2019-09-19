@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     borderColor: colors.red,
   },
   checkboxDisabled: {
+    borderColor: colors.silver,
     backgroundColor: colors.smoke,
   },
   textContainer: {
@@ -68,11 +69,19 @@ const Checkbox = ({
           isDisabled && styles.checkboxDisabled,
         ]}
       >
-        <Image source={require('./assets/check.png')} />
+        {value && (
+          <Image
+            source={
+              isDisabled
+                ? require('./assets/checkDisabled.png')
+                : require('./assets/check.png')
+            }
+          />
+        )}
       </View>
       <Separator width={2} />
       <View style={styles.textContainer}>
-        <Text>{title}</Text>
+        <Text color={isDisabled ? 'grey' : 'coal'}>{title}</Text>
         {caption && <Text color="grey">{caption}</Text>}
         {error && <Text color="red">{error}</Text>}
       </View>
@@ -101,5 +110,3 @@ Checkbox.propTypes = {
   /** Делает чекбокс недоступным для нажатия. */
   isDisabled: PropTypes.bool.isRequired,
 }
-
-export default Checkbox
