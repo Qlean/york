@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import { AnalyticsContext } from '@qlean/york-analytics'
+import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
 
 import {
   uiPoint,
@@ -213,10 +213,7 @@ function Button({
   ...rest
 }) {
   const analyticsContext = useContext(AnalyticsContext)
-  const buttonName =
-    analyticsContext && analyticsContext.category
-      ? `${analyticsContext.category}.${name}`
-      : name
+  const buttonName = getAnalyticsName(name, analyticsContext)
 
   const handleClick = ({ ...args }) => {
     if (analyticsContext) {

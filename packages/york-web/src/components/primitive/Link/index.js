@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import { AnalyticsContext } from '@qlean/york-analytics'
+import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -115,10 +115,7 @@ function Link({ href, children, name, onClick, ...rest }) {
   )
 
   const analyticsContext = useContext(AnalyticsContext)
-  const linkName =
-    analyticsContext && analyticsContext.category
-      ? `${analyticsContext.category}.${name}`
-      : name
+  const linkName = getAnalyticsName(name, analyticsContext)
 
   const handleClick = ({ ...args }) => {
     if (analyticsContext) {

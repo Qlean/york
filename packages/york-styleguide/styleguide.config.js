@@ -43,17 +43,20 @@ module.exports = {
       content: '../york-analytics/README.MD',
       sections: [
         {
+          name: 'AnalyticsContext',
+          content: '../york-analytics/docs/context.md',
+        },
+        {
           name: 'components',
           components: '../york-analytics/src/components/**/*.js',
         },
         {
           name: 'hooks',
-          sections: [
-            {
-              name: 'useAnalytics',
-              content: '../york-analytics/docs/useAnalytics.md',
-            },
-          ],
+          content: '../york-analytics/docs/hooks.md',
+        },
+        {
+          name: 'utils',
+          content: '../york-analytics/docs/utils.md',
         },
       ],
     },

@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { AnalyticsContext } from '@qlean/york-analytics'
+import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
 
 import { menuItemShape, componentsShape, callbacksShape } from './utils'
 
@@ -45,10 +45,7 @@ export default function MenuItem({
   }
 
   const analyticsContext = useContext(AnalyticsContext)
-  const itemName =
-    analyticsContext && analyticsContext.category
-      ? `${analyticsContext.category}.${name}`
-      : name
+  const itemName = getAnalyticsName(name, analyticsContext)
 
   if (callback) {
     if (!callbacks[callback]) {
