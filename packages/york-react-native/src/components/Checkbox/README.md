@@ -2,6 +2,7 @@
 const ExampleComponent = () => {
   const [withCaption, setWithCaption] = React.useState(false)
   const [withError, setWithError] = React.useState(false)
+  const [isDisabled, setIsDisabled] = React.useState(false)
   const [value, setValue] = React.useState(false)
 
   const extraProps = {
@@ -24,12 +25,19 @@ const ExampleComponent = () => {
         >
           error
         </Example.Checkbox>
+        <Example.Checkbox
+          value={isDisabled}
+          onChange={() => setIsDisabled(!isDisabled)}
+        >
+          isDisabled
+        </Example.Checkbox>
       </Example.InputGroup>
       <Checkbox
         name="expamleCheckbox"
         title="Title"
         value={value}
         onChange={value => setValue(value)}
+        isDisabled={isDisabled}
         {...extraProps}
       />
     </>
