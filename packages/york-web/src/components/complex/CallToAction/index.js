@@ -67,10 +67,8 @@ const CallToAction = ({
         columns: 12,
       }}
     >
-      <>
-        {rightView.node}
-        <Separator height={0} mobileProps={{ height: 8 }} />
-      </>
+      {rightView.node}
+      <Separator height={0} mobileProps={{ height: 8 }} />
     </GridColumn>
   </GridContainer>
 )
