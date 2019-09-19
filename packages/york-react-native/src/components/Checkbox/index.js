@@ -110,3 +110,5 @@ Checkbox.propTypes = {
   /** Делает чекбокс недоступным для нажатия. */
   isDisabled: PropTypes.bool.isRequired,
 }
+
+export default Checkbox
