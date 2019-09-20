@@ -212,6 +212,7 @@ Wrapper.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+/** Промо карточка. Семантически может быть кнопкой или ссылкой. Если передан проп `href`, то проп `onClick` не сработает. */
 const PromoCard = ({
   name,
   size,
@@ -222,8 +223,8 @@ const PromoCard = ({
   background,
   textColor,
   image,
-  onClick,
   href,
+  onClick,
 }) => {
   return (
     <StyledContainer color={textColor} background={background} size={size}>
@@ -274,25 +275,36 @@ const PromoCard = ({
 
 PromoCard.defaultProps = {
   size: 'l',
+  description: null,
+  priceLabel: null,
   image: null,
   href: null,
   onClick: null,
-  priceLabel: null,
-  description: null,
 }
 
 PromoCard.propTypes = {
+  /** Имя карточки */
   name: PropTypes.string.isRequired,
+  /** Размер карточки */
   size: PropTypes.oneOf(['l', 'm', 's']),
+  /** Заголовок */
   title: PropTypes.string.isRequired,
+  /** Описание  */
   description: PropTypes.string,
+  /** Строка с ценой */
   priceLabel: PropTypes.string,
+  /** Строка, описывающая действите, которое произойдет при клике по карточке */
   actionLabel: PropTypes.string.isRequired,
+  /** Фон - валидная строка для css свойства `background`. В будущем будут гайдовые фоны */
   background: PropTypes.string.isRequired,
+  /** Цвет текста. В будущем будет зависить от фона */
   textColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  /** Картинка. Позиционируется в зависимости от размера карточки и медиа брейкпойнта */
   image: PropTypes.string,
-  onClick: PropTypes.func,
+  /** Ссылка */
   href: PropTypes.string,
+  /** Функция, вызываемая при клике по карточке. Не вызывается, если указана ссылка. */
+  onClick: PropTypes.func,
 }
 
 export default PromoCard
