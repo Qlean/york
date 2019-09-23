@@ -43,8 +43,6 @@ const StyledOverlay = styled.div`
 
 const StyledContainer = styled.div`
   position: relative;
-  background: ${({ background }) => background};
-  color: ${({ color }) => color};
   border-radius: ${borderRadiuses.medium};
   overflow: hidden;
 
@@ -59,6 +57,10 @@ const StyledContainer = styled.div`
       height: ${heights[size].mobile}px;
     `)}
   `}
+
+  :hover ${StyledOverlay} {
+    opacity: 1;
+  }
 `
 
 const StyledImageContainer = styled.div`
@@ -131,7 +133,7 @@ const StyledLabelOverlay = styled.span`
   opacity: 0.05;
 `
 
-const StyledAction = styled.div`
+const StyledCaption = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -148,127 +150,57 @@ const StyledAction = styled.div`
   `)}
 `
 
-const StyledButtonWrapper = styled.button`
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-
-  &:hover ${StyledOverlay} {
-    opacity: 1;
-  }
-
-  &:focus ${StyledOverlay} {
-    opacity: 1;
-  }
-`
-
-const StyledLinkWrapper = styled.a`
-  display: block;
-  height: 100%;
-  width: 100%;
-  color: inherit;
-  cursor: pointer;
-
-  &:hover ${StyledOverlay} {
-    opacity: 1;
-  }
-
-  &:focus ${StyledOverlay} {
-    opacity: 1;
-  }
-`
-
-const Wrapper = ({ name, href, onClick, children }) => {
-  if (href)
-    return (
-      <StyledLinkWrapper name={name} href={href}>
-        {children}
-      </StyledLinkWrapper>
-    )
-  if (onClick)
-    return (
-      <StyledButtonWrapper name={name} onClick={onClick}>
-        {children}
-      </StyledButtonWrapper>
-    )
-  return children
-}
-
-Wrapper.defaultProps = {
-  href: null,
-  onClick: null,
-}
-
-Wrapper.propTypes = {
-  name: PropTypes.string.isRequired,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
-}
-
-/** Промо карточка. Семантически может быть кнопкой или ссылкой. Если передан проп `href`, то проп `onClick` не сработает. */
+/** Промо карточка */
 const PromoCard = ({
-  name,
   size,
   title,
   description,
   label,
   caption,
-  background,
-  textColor,
   image,
-  href,
-  onClick,
+  ...rest
 }) => {
   return (
-    <StyledContainer color={textColor} background={background} size={size}>
-      <Wrapper name={name} href={href} onClick={onClick}>
-        {image && <StyledImageContainer image={image} size={size} />}
-        <StyledOverlay />
-        <StyledContent size={size}>
-          <Text
-            color="inherit"
-            preset="header4"
-            baseProps={{ preset: 'header5' }}
-            mobileProps={{ preset: 'header5' }}
-          >
-            {title}
-          </Text>
-          {description && (
-            <>
-              <Separator height={2} />
-              <StyledDescription
-                color="inherit"
-                baseProps={{ preset: 'caption' }}
-              >
-                {description}
-              </StyledDescription>
-            </>
-          )}
-          {label && (
-            <>
-              <Separator height={2} />
-              <StyledLabel>
-                <StyledLabelOverlay />
-                <Text color="inherit" preset="caption">
-                  {label}
-                </Text>
-              </StyledLabel>
-            </>
-          )}
-        </StyledContent>
-        <StyledAction>
-          <Text preset="link" color="inherit">
-            {caption}
-          </Text>
-        </StyledAction>
-      </Wrapper>
+    <StyledContainer size={size} {...rest}>
+      {image && <StyledImageContainer image={image} size={size} />}
+      <StyledOverlay />
+      <StyledContent size={size}>
+        <Text
+          color="inherit"
+          preset="header4"
+          baseProps={{ preset: 'header5' }}
+          mobileProps={{ preset: 'header5' }}
+        >
+          {title}
+        </Text>
+        {description && (
+          <>
+            <Separator height={2} />
+            <StyledDescription
+              color="inherit"
+              baseProps={{ preset: 'caption' }}
+            >
+              {description}
+            </StyledDescription>
+          </>
+        )}
+        {label && (
+          <>
+            <Separator height={2} />
+            <StyledLabel>
+              <StyledLabelOverlay />
+              <Text color="inherit" preset="caption">
+                {label}
+              </Text>
+            </StyledLabel>
+          </>
+        )}
+      </StyledContent>
+      <StyledCaption>
+        <Text preset="link" color="inherit">
+          {caption}
+        </Text>
+      </StyledCaption>
     </StyledContainer>
   )
 }
@@ -278,13 +210,9 @@ PromoCard.defaultProps = {
   description: null,
   label: null,
   image: null,
-  href: null,
-  onClick: null,
 }
 
 PromoCard.propTypes = {
-  /** Имя карточки */
-  name: PropTypes.string.isRequired,
   /** Размер карточки */
   size: PropTypes.oneOf(['l', 'm', 's']),
   /** Заголовок */
@@ -295,16 +223,8 @@ PromoCard.propTypes = {
   label: PropTypes.string,
   /** Строка, описывающая действите, которое произойдет при клике по карточке */
   caption: PropTypes.string.isRequired,
-  /** Фон - валидная строка для css свойства `background`. В будущем будут гайдовые фоны */
-  background: PropTypes.string.isRequired,
-  /** Цвет текста. В будущем будет зависить от фона */
-  textColor: PropTypes.oneOf(Object.keys(colors)).isRequired,
   /** Картинка. Позиционируется в зависимости от размера карточки и медиа брейкпойнта */
   image: PropTypes.string,
-  /** Ссылка */
-  href: PropTypes.string,
-  /** Функция, вызываемая при клике по карточке. Не вызывается, если указана ссылка. */
-  onClick: PropTypes.func,
 }
 
 export default PromoCard
