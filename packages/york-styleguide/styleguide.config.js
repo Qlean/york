@@ -51,6 +51,10 @@ module.exports = {
           components: '../york-analytics/src/components/**/*.js',
         },
         {
+          name: 'eventActionTypes',
+          content: '../york-analytics/docs/eventActionTypes.md',
+        },
+        {
           name: 'hooks',
           content: '../york-analytics/docs/hooks.md',
         },

@@ -1,6 +1,10 @@
 import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
+import {
+  AnalyticsContext,
+  getAnalyticsName,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 import { menuItemShape, componentsShape, callbacksShape } from './utils'
 
@@ -71,7 +75,7 @@ export default function MenuItem({
               trackEvent({
                 category,
                 label: itemName,
-                action: 'click',
+                action: eventActionTypes.click,
                 properties,
               })
             }

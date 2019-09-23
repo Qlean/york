@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
+import {
+  AnalyticsContext,
+  getAnalyticsName,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 import {
   uiPoint,
@@ -222,7 +226,7 @@ function Button({
         trackEvent({
           category,
           label: buttonName,
-          action: 'click',
+          action: eventActionTypes.click,
           properties,
         })
       }

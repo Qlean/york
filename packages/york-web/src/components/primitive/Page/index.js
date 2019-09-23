@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { AnalyticsProvider, useAnalytics } from '@qlean/york-analytics'
+import {
+  AnalyticsProvider,
+  useAnalytics,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 /** Компонет, отвечающий за рендер страницы. `Page` автоматически создает новый контекст для аналитики (см. york-analytics) */
 const Page = ({ name, analyticsProps, children }) => {
@@ -8,9 +12,9 @@ const Page = ({ name, analyticsProps, children }) => {
   useEffect(() => {
     trackPageEvent({
       label: name,
-      action: 'mount',
+      action: eventActionTypes.mount,
     })
-  }, [name])
+  }, [name, trackPageEvent])
   const { trackEvent, properties } = analyticsProps
   return (
     <AnalyticsProvider

@@ -1,7 +1,7 @@
 Объект аналитического контекста. Может пригодиться в ситуациях когда нет возможности использовать хуки или нужно написать кастомный хэндлер для какого-то элемента.
 
 ```js static
-import { AnalyticsContext } from '@qlean/york-analytics'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 const ExampleComponent = () => (
   <AnalyticsContext.Consumer>
@@ -10,7 +10,7 @@ const ExampleComponent = () => (
         trackEvent({
           category,
           label: 'exampleButton',
-          action: 'click'
+          action: eventActionTypes.click
         })
       }>
         ExampleButton

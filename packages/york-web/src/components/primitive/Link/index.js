@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
+import {
+  AnalyticsContext,
+  getAnalyticsName,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -124,7 +128,7 @@ function Link({ href, children, name, onClick, ...rest }) {
         trackEvent({
           category,
           label: linkName,
-          action: 'click',
+          action: eventActionTypes.click,
           properties: {
             ...properties,
             href,

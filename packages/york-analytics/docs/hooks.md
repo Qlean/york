@@ -5,7 +5,7 @@
 ```js static
 import React, { useState, useEffect } from 'react'
 import { Page } from '@qlean/york-web'
-import { useAnalytics } from '@qlean/york-analytics'
+import { useAnalytics, eventActionTypes } from '@qlean/york-analytics'
 
 const ExampleComponent = () => {
   const trackEvent = useAnalytics('ExampleComponent')
@@ -15,7 +15,7 @@ const ExampleComponent = () => {
     trackEvent(
       {
         label: 'ExampleComponent',
-        action: 'mount',
+        action: eventActionTypes.mount,
       },
       [trackEvent],
     )

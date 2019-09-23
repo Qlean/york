@@ -10,7 +10,11 @@ import {
   ViewPropTypes,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { AnalyticsProvider, useAnalytics } from '@qlean/york-analytics'
+import {
+  AnalyticsProvider,
+  useAnalytics,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 import {
   safeAreaPaddingTop,
@@ -154,9 +158,9 @@ const Screen = forwardRef(
     useEffect(() => {
       trackScreenEvent({
         label: name,
-        action: 'mount',
+        action: eventActionTypes.mount,
       })
-    }, [name])
+    }, [name, trackScreenEvent])
 
     const { trackEvent, properties } = analyticsProps
 
