@@ -47,7 +47,6 @@ AnalyticsProvider.propTypes = {
   /** Категория событий этого провайдера */
   category: PropTypes.string.isRequired,
   /** Функция для трекинга событий */
-  // eslint-disable-next-line
   trackEvent: PropTypes.func,
   /** Дополнительные данные, которые нужно передать вместе с событием */
   // eslint-disable-next-line react/forbid-prop-types
@@ -57,6 +56,7 @@ AnalyticsProvider.propTypes = {
 
 AnalyticsProvider.defaultProps = {
   properties: {},
+  trackEvent: null,
 }
 
 export default AnalyticsProvider
