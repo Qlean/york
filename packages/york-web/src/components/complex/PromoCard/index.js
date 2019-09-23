@@ -65,29 +65,18 @@ const StyledContainer = styled.div`
 
 const StyledImageContainer = styled.div`
   position: absolute;
-  top: ${({ size }) => (size === 'l' ? 0 : '50%')};
   right: 0;
   bottom: 0;
-  left: ${({ size }) => (size === 'l' ? '50%' : 0)};
   background-image: url(${({ image }) => image});
-  background-position: ${({ size }) => (size === 'l' ? 'right bottom' : 'top')};
   background-repeat: no-repeat;
   background-size: contain;
+  height: 100%;
+  width: 100%;
+  background-position: bottom right;
 
-  ${({ size }) => `
-    ${media.wide(`
-      padding: ${sizes[6]}px;
-    `)}
-    ${media.base(`
-      padding: ${sizes[5]}px;
-    `)}
-    ${media.mobile(`
-      top: ${size === 'l' ? '25%' : '40%'};
-      right: 0;
-      bottom: 0;
-      left: 0;
-    `)}
-  `}
+  ${media.mobile(`
+    bottom: -5%;
+  `)}
 `
 
 const StyledContent = styled.div`
@@ -150,7 +139,9 @@ const StyledCaption = styled.div`
   `)}
 `
 
-/** Промо карточка */
+/** Промо карточка.
+ * Картинка должна представлять собой квадратный PNG. Позиционируется в правый нижний угол в режиме `contain`. В мобильной версии опускается на 5% высоты карточки вниз.
+ */
 const PromoCard = ({
   size,
   title,
@@ -221,9 +212,9 @@ PromoCard.propTypes = {
   description: PropTypes.string,
   /** Строка с ценой */
   label: PropTypes.string,
-  /** Строка, описывающая действите, которое произойдет при клике по карточке */
+  /** Описание действия при клике */
   caption: PropTypes.string.isRequired,
-  /** Картинка. Позиционируется в зависимости от размера карточки и медиа брейкпойнта */
+  /** Ссылка на картинку */
   image: PropTypes.string,
 }
 
