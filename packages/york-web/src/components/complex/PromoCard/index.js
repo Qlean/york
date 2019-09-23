@@ -206,7 +206,7 @@ const PromoCard = ({
 }
 
 PromoCard.defaultProps = {
-  size: 'l',
+  size: 'm',
   description: null,
   label: null,
   image: null,
