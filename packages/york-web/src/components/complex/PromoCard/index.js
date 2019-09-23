@@ -218,8 +218,8 @@ const PromoCard = ({
   size,
   title,
   description,
-  priceLabel,
-  actionLabel,
+  label,
+  caption,
   background,
   textColor,
   image,
@@ -251,13 +251,13 @@ const PromoCard = ({
               </StyledDescription>
             </>
           )}
-          {priceLabel && (
+          {label && (
             <>
               <Separator height={2} />
               <StyledLabel>
                 <StyledLabelOverlay />
                 <Text color="inherit" preset="caption">
-                  {priceLabel}
+                  {label}
                 </Text>
               </StyledLabel>
             </>
@@ -265,7 +265,7 @@ const PromoCard = ({
         </StyledContent>
         <StyledAction>
           <Text preset="link" color="inherit">
-            {actionLabel}
+            {caption}
           </Text>
         </StyledAction>
       </Wrapper>
@@ -276,7 +276,7 @@ const PromoCard = ({
 PromoCard.defaultProps = {
   size: 'l',
   description: null,
-  priceLabel: null,
+  label: null,
   image: null,
   href: null,
   onClick: null,
@@ -292,9 +292,9 @@ PromoCard.propTypes = {
   /** Описание  */
   description: PropTypes.string,
   /** Строка с ценой */
-  priceLabel: PropTypes.string,
+  label: PropTypes.string,
   /** Строка, описывающая действите, которое произойдет при клике по карточке */
-  actionLabel: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
   /** Фон - валидная строка для css свойства `background`. В будущем будут гайдовые фоны */
   background: PropTypes.string.isRequired,
   /** Цвет текста. В будущем будет зависить от фона */
