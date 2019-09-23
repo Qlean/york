@@ -50,7 +50,7 @@ AnalyticsProvider.propTypes = {
   // eslint-disable-next-line
   trackEvent: PropTypes.func,
   /** Дополнительные данные, которые нужно передать вместе с событием */
-  // eslint-disable-next-line
+  // eslint-disable-next-line react/forbid-prop-types
   properties: PropTypes.object,
   children: PropTypes.node.isRequired,
 }

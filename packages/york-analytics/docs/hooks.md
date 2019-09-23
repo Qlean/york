@@ -1,6 +1,6 @@
 `useAnalytics(category: String) => trackEvent({ label: String, action: String, properties: Object })`
 
-Хук `useAnalytics` возвращает функцию, которую можно вызвать в любой момент, например при первом рендере компонента или в onChange инпута. Эта функция берется из ближайшего `AnalyticsProvider` и автоматически добавляет в событие категорию и `analyticsRoute`.
+Хук `useAnalytics` возвращает функцию, которую можно вызвать в любой момент, например при первом рендере компонента или в `onChange` инпута. Эта функция берется из ближайшего `AnalyticsProvider` и автоматически добавляет в событие категорию и `analyticsRoute`.
 
 ```js static
 import React, { useState, useEffect } from 'react'

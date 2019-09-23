@@ -24,7 +24,7 @@ export const useAnalytics = category => {
     )
   }
 
-  const memoizedTrackEvent = useCallback(
+  return useCallback(
     data =>
       trackEvent({
         ...data,
@@ -36,5 +36,4 @@ export const useAnalytics = category => {
       }),
     [trackEvent, category, analyticsRoute],
   )
-  return memoizedTrackEvent
 }

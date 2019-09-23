@@ -253,7 +253,6 @@ Screen.propTypes = {
     /** Функция трекинга */
     trackEvent: PropTypes.func,
     /** Объект с дополниельными данными  для аналитики */
-    // eslint-disable-next-line
     properties: PropTypes.object,
   }),
   children: PropTypes.node.isRequired,
