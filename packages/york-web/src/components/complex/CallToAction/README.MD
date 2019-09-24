@@ -48,26 +48,24 @@ const ExampleCallToAction = () => {
       <StyledContainer>
         <CallToAction
           buttonProps={{
+            title: 'Попробовать бесплатно',
             name: 'qleanPlus',
             onClick: () => {},
             isDisabled: false,
           }}
           title={title ? 'Попробуйте QLEAN ПЛЮС' : ''}
           description="Скидка на\u00a0уборку, стирку, хранение вещей и\u00a0многое другое\u00a0—\u00a0в\u00a0одной подписке "
-          buttonTitle="Попробовать бесплатно"
           caption={
             caption ? '3 месяца бесплатно, потом 249 р. в\u00a0месяц' : ''
           }
-          rightView={{
-            node: (
-              <StyledRightView>
-                <StyledImage
-                  src={require('./assets/qleanplus.png')}
-                  alt="Qlean Plus"
-                />
-              </StyledRightView>
-            ),
-          }}
+          rightNode={
+            <StyledRightView>
+              <StyledImage
+                src={require('./assets/qleanplus.png')}
+                alt="Qlean Plus"
+              />
+            </StyledRightView>
+          }
         />
       </StyledContainer>
     </>

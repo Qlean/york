@@ -25,10 +25,9 @@ const StyledButtonContainer = styled.div`
 const CallToAction = ({
   title,
   description,
-  buttonTitle,
   caption,
   buttonProps,
-  rightView,
+  rightNode,
 }) => (
   <GridContainer
     alignItems="center"
@@ -52,7 +51,7 @@ const CallToAction = ({
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
       <StyledButtonContainer>
-        <Button {...buttonProps}>{buttonTitle}</Button>
+        <Button {...buttonProps}>{buttonProps.title}</Button>
         {caption && (
           <>
             <Separator height={2} />
@@ -67,7 +66,7 @@ const CallToAction = ({
         columns: 12,
       }}
     >
-      {rightView.node}
+      {rightNode}
       <Separator height={0} mobileProps={{ height: 8 }} />
     </GridColumn>
   </GridContainer>
@@ -83,21 +82,18 @@ CallToAction.propTypes = {
   title: PropTypes.string,
   /** Текст */
   description: PropTypes.string.isRequired,
-  /** Текст кнопки */
-  buttonTitle: PropTypes.string.isRequired,
   /** Подсказка под кнопкой */
   caption: PropTypes.string,
   /** Пропсы кнопки */
   buttonProps: PropTypes.shape({
+    title: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     isSubmitting: PropTypes.bool,
   }).isRequired,
   /** Компонент, который рендерится справа */
-  rightView: PropTypes.shape({
-    node: PropTypes.node.isRequired,
-  }).isRequired,
+  rightNode: PropTypes.node.isRequired,
 }
 
 export default CallToAction
