@@ -15,7 +15,7 @@ const StyledButtonContainer = styled.div`
   `)}
 `
 
-/** Компонент для призыва к действию */
+/** Компонент призыва к действию */
 const CallToAction = ({
   title,
   description,
