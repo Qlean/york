@@ -2,15 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  GridContainer,
-  GridColumn,
-  Text,
-  Separator,
-  Button,
-  uiPoint,
-  media,
-} from '@qlean/york-web'
+import { GridContainer, GridColumn, Button } from 'york-web/components/simple'
+import { Text, Separator } from 'york-web/components/primitive'
+import { uiPoint, media } from 'york-web/utils'
 
 const StyledButtonContainer = styled.div`
   width: ${uiPoint * 80}px;
@@ -51,7 +45,7 @@ const CallToAction = ({
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
       <StyledButtonContainer>
-        <Button {...buttonProps}>{buttonProps.title}</Button>
+        <Button {...buttonProps} />
         {caption && (
           <>
             <Separator height={2} />
@@ -84,14 +78,9 @@ CallToAction.propTypes = {
   description: PropTypes.string.isRequired,
   /** Подсказка под кнопкой */
   caption: PropTypes.string,
-  /** Пропсы кнопки */
-  buttonProps: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
-    isSubmitting: PropTypes.bool,
-  }).isRequired,
+  /** Пропы кнопки */
+  // eslint-disable-next-line react/forbid-prop-types
+  buttonProps: PropTypes.object.isRequired,
   /** Компонент, который рендерится справа */
   rightNode: PropTypes.node.isRequired,
 }

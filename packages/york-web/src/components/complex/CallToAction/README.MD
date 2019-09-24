@@ -48,7 +48,7 @@ const ExampleCallToAction = () => {
       <StyledContainer>
         <CallToAction
           buttonProps={{
-            title: 'Попробовать бесплатно',
+            children: 'Попробовать бесплатно',
             name: 'qleanPlus',
             onClick: () => {},
             isDisabled: false,
