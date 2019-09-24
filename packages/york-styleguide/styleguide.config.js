@@ -39,6 +39,10 @@ module.exports = {
       content: '../york-core/README.md',
       sections: [
         {
+          name: 'api',
+          content: '../york-core/docs/api.md',
+        },
+        {
           name: 'colors',
           content: '../york-core/docs/colors.md',
         },

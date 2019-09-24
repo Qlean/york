@@ -1,3 +1,4 @@
+export { default as api } from './api'
 export * from './styles/colors'
 export * from './utils/formatters'
 export * from './utils/validators'
