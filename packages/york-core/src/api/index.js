@@ -28,21 +28,19 @@ const api = ({
   requestDataTransformer,
   responseDataTransformer,
 }) => {
-  const refreshToken = getRefreshToken()
-  const accessToken = getAccessToken()
+  const originalRefreshToken = getRefreshToken()
+  const originalAccessToken = getAccessToken()
 
   const getNewAccessToken = oldRefreshToken =>
     fetch(`${ssoUrl}${oldRefreshToken}`)
       .then(data => data.json())
-      .then(
-        ({ refreshToken: newRefreshToken, accessToken: newAccessToken }) => {
-          onRefresh({
-            accessToken: newAccessToken,
-            refreshToken: newRefreshToken,
-          })
-          return { refreshToken: newRefreshToken, accessToken: newAccessToken }
-        },
-      )
+      .then(({ refreshToken, accessToken }) => {
+        onRefresh({
+          accessToken,
+          refreshToken,
+        })
+        return { refreshToken, accessToken }
+      })
 
   const request = async (method, url, payload, config) => {
     const fetchConfig = {
@@ -67,23 +65,23 @@ const api = ({
 
     if (isRefreshing) return subscribe(originalRequest)
 
-    const response = await originalRequest(accessToken).then(res => {
+    const response = await originalRequest(originalAccessToken).then(res => {
       if (res.status === 419) {
         if (isRefreshing) return subscribe(originalRequest)
 
         isRefreshing = true
-        return getNewAccessToken(refreshToken)
-          .then(async ({ accessToken: newAccessToken }) => {
+        return getNewAccessToken(originalRefreshToken)
+          .then(async ({ accessToken }) => {
             /**
              * FIXME: Очень узкое место. Ждем, пока выполнится первый запрос, чтобы после этого
              * выполнить всю очередь. По каким-то причинам очередь не успевает заполнятся полностью,
              * если так не сделать.
              */
-            await originalRequest(newAccessToken)
-            return newAccessToken
+            await originalRequest(accessToken)
+            return accessToken
           })
-          .then(newAccessToken => {
-            processQueue(null, newAccessToken)
+          .then(accessToken => {
+            processQueue(null, accessToken)
           })
       }
 
