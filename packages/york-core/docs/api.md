@@ -1,0 +1,81 @@
+`import { api } from '@qlean/york-core'`
+
+`api[method](url: String, payload: Object, config: Object) => Promise`
+
+Абстракция над нативным `fetch`. Чем-то похож на `axios`. Нужен для того, чтобы:
+
+- Не прописывать метод и базовый урл в конфигурации
+- Автоматически рефрешить `accessToken`
+- Складывать в очередь запросы с протухшим токеном и выполнять их после рефреша
+- Трансформировать входящие и исходящие данные
+- Бросать особый тип ошибок `NetworkError`
+- Не проставлять вручную `content-type: application/json`
+- Возвращать `res.json()` или `res.text()` без обработки промиса
+
+В остальном идентичен нативному `fetch` — возвращает промис, может делать `.then` и `.catch`.
+По этой причине требуется полифилл для старых браузеров и для ноды. Рекомендуется `unfetch` и его изоморфная версия.
+
+Для начала, требуется конфигурация:
+
+```js static
+/* utils/api.js */
+
+import cookies from 'js-cookie'
+import { camelizeKeys, decamelizeKeys } from 'humps'
+import { api } from '@qlean/york-core`
+
+export default api({
+  /**
+   * Хост, который будет приклеиваться в начало каждого урла.
+   */
+  baseUrl: 'http://qlean-master-puma.service.consul',
+  /**
+   * Урл сервиса, с которого запрашивается рефреш.
+   */
+  ssoUrl:
+    'https://master-sso-identity-svs.stage.cloud.qlean.ru/http/users/refreshToken/?refreshToken=',
+  /**
+   * Функция для получения `accessToken`. Не строка, чтобы избежать замыкания.
+   */
+  getRefreshToken: () => cookies.get('refreshToken'),
+  /**
+   * Функция для получения `refreshToken`. Не строка, чтобы избежать замыкания.
+   */
+  getAccessToken: () => cookies.get('accessToken'),
+  /**
+   * Коллбэк, который выполнится после рефреша. Возвращает объект с `accessToken` и `refreshToken`
+   */
+  onRefresh: ({ refreshToken, accessToken }) => {
+    cookies.set('accessToken', accessToken)
+    cookies.set('refreshToken', refreshToken)
+  },
+  /**
+   * Трансформер для отправляемых данных. Необязательный параметр.
+   */
+  requestDataTransformer: decamelizeKeys,
+  /**
+   * Трансформер для получаемых данных. Необязательный параметр.
+   */
+  responseDataTransformer: camelizeKeys,
+})
+```
+
+Использование сконфигурированной функции:
+```js static
+import api from 'utils/api'
+
+export const fetchCreditCards = () =>
+  api.get('/api/plus/v1/credit_cards')
+
+export const addCreditCard = ({ payload }) =>
+  api.post('/api/plus/v1/credit_cards', { creditCard: payload })
+
+export const setAsRootCreditCard = ({ id }) =>
+  api.put(`/api/plus/v1/credit_cards/${id}/root`)
+
+export const deleteCreditCard = ({ id }) =>
+  api.delete(`/api/plus/v1/credit_cards/${id}`)
+
+export const subscribeToPlus = () =>
+  api.post('/api/plus/v1/subscriptions')
+```
