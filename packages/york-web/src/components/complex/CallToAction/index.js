@@ -24,9 +24,9 @@ const StyledButtonContainer = styled.div`
 /** Компонент для призыва к действию */
 const CallToAction = ({
   title,
-  text,
-  actionTitle,
-  actionHint,
+  description,
+  buttonTitle,
+  caption,
   buttonProps,
   rightView,
 }) => (
@@ -48,15 +48,15 @@ const CallToAction = ({
         wideProps={{ preset: 'header2' }}
         mobileProps={{ preset: 'header5' }}
       >
-        {text}
+        {description}
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
       <StyledButtonContainer>
-        <Button {...buttonProps}>{actionTitle}</Button>
-        {actionHint && (
+        <Button {...buttonProps}>{buttonTitle}</Button>
+        {caption && (
           <>
             <Separator height={2} />
-            <Text color="grey">{actionHint}</Text>
+            <Text color="grey">{caption}</Text>
           </>
         )}
       </StyledButtonContainer>
@@ -75,18 +75,18 @@ const CallToAction = ({
 
 CallToAction.defaultProps = {
   title: null,
-  actionHint: null,
+  caption: null,
 }
 
 CallToAction.propTypes = {
   /** Заголовок */
   title: PropTypes.string,
   /** Текст */
-  text: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   /** Текст кнопки */
-  actionTitle: PropTypes.string.isRequired,
+  buttonTitle: PropTypes.string.isRequired,
   /** Подсказка под кнопкой */
-  actionHint: PropTypes.string,
+  caption: PropTypes.string,
   /** Пропсы кнопки */
   buttonProps: PropTypes.shape({
     name: PropTypes.string.isRequired,
