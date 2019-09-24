@@ -1,105 +1,106 @@
 import { NetworkError, getResponseBody } from './utils'
 
-const getNewAccessToken = () => new Promise(resolve => resolve('xyz'))
-
 let isRefreshing = false
-let subscribers = []
+let failedQueue = []
 
-const subscribe = subscriber => {
-  if (
-    typeof subscriber !== 'function' ||
-    subscribers.indexOf(subscriber) !== -1
-  )
-    return false
-
-  subscribers.push(subscriber)
-}
-
-const broadcast = (error = null, data) => {
-  isRefreshing = false
-
-  subscribers.forEach(subscriber => {
-    subscriber(error, data)
+const subscribe = request =>
+  new Promise((resolve, reject) => {
+    failedQueue.push({ resolve, reject })
   })
+    .then(token => request(token))
+    .catch(err => Promise.reject(err))
 
-  subscribers = []
+const processQueue = (error, token = null) => {
+  isRefreshing = false
+  failedQueue.forEach(({ reject, resolve }) => {
+    if (error) reject(error)
+    else resolve(token)
+  })
+  failedQueue = []
 }
 
-const refreshAccessToken = () => {
-  if (isRefreshing) {
-    return new Promise((resolve, reject) => {
-      const subscriber = (error, accessToken) =>
-        error ? reject(error) : resolve(accessToken)
+const api = ({
+  baseUrl,
+  ssoUrl,
+  getRefreshToken,
+  getAccessToken,
+  onRefresh,
+  requestDataTransformer,
+  responseDataTransformer,
+}) => {
+  const refreshToken = getRefreshToken()
+  const accessToken = getAccessToken()
 
-      subscribe(subscriber)
-    })
-  }
+  const getNewAccessToken = oldRefreshToken =>
+    fetch(`${ssoUrl}${oldRefreshToken}`)
+      .then(data => data.json())
+      .then(
+        ({ refreshToken: newRefreshToken, accessToken: newAccessToken }) => {
+          onRefresh({
+            accessToken: newAccessToken,
+            refreshToken: newRefreshToken,
+          })
+          return { refreshToken: newRefreshToken, accessToken: newAccessToken }
+        },
+      )
 
-  isRefreshing = true
+  const request = async (method, url, payload, config) => {
+    const fetchConfig = {
+      method,
+      body: payload
+        ? JSON.stringify(
+            requestDataTransformer ? requestDataTransformer(payload) : payload,
+          )
+        : null,
+      headers: {
+        'content-type': 'application/json',
+        ...config.headers,
+      },
+      ...config,
+    }
 
-  return getNewAccessToken()
-    .then(accessToken => {
-      broadcast(null, accessToken)
-      return accessToken
-    })
-    .catch(error => {
-      broadcast(error)
-      throw error
-    })
-}
+    const originalRequest = token =>
+      fetch(`${baseUrl}${url}`, {
+        ...fetchConfig,
+        headers: { ...fetchConfig.headers, Authorization: token },
+      })
 
-export const makeRequest = (...args) => {
-  const retryRequestIfExpired = request =>
-    request.then(response => {
-      if (response.status === 401) {
-        return refreshAccessToken().then(newAccessToken => {
-          const newArgs = [
-            args[0],
-            {
-              ...args[1],
-              headers: {
-                ...(args[1] || {}).headers,
-                Authorization: newAccessToken,
-              },
-            },
-          ]
-          return makeRequest(...newArgs)
-        })
+    if (isRefreshing) return subscribe(originalRequest)
+
+    const response = await originalRequest(accessToken).then(res => {
+      if (res.status === 419) {
+        if (isRefreshing) return subscribe(originalRequest)
+
+        isRefreshing = true
+        return getNewAccessToken(refreshToken)
+          .then(async ({ accessToken: newAccessToken }) => {
+            /**
+             * FIXME: Очень узкое место. Ждем, пока выполнится первый запрос, чтобы после этого
+             * выполнить всю очередь. По каким-то причинам очередь не успевает заполнятся полностью,
+             * если так не сделать.
+             */
+            await originalRequest(newAccessToken)
+            return newAccessToken
+          })
+          .then(newAccessToken => {
+            processQueue(null, newAccessToken)
+          })
       }
-      return response
+
+      return res
     })
 
-  const req = fetch(...args)
-
-  return retryRequestIfExpired(req)
-}
-
-const request = async (method, url, payload, config = {}) => {
-  const fetchConfig = {
-    method,
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: payload ? JSON.stringify(payload) : null,
-    ...config,
+    if (response.ok) return getResponseBody(response, responseDataTransformer)
+    throw new NetworkError(response, responseDataTransformer)
   }
-  const { req } = config
-  const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : ''
-  const fullUrl = `${baseUrl}${url}`
 
-  const response = await makeRequest(fullUrl, fetchConfig)
-
-  if (response.ok) return getResponseBody(response)
-
-  throw new NetworkError(response)
-}
-
-const api = {
-  get: (url, config) => request('GET', url, null, config),
-  put: (...args) => request('PUT', ...args),
-  patch: (...args) => request('PATCH', ...args),
-  post: (...args) => request('POST', ...args),
-  delete: (...args) => request('DELETE', ...args),
+  return {
+    get: (url, config) => request('GET', url, null, config),
+    put: (...args) => request('PUT', ...args),
+    patch: (...args) => request('PATCH', ...args),
+    post: (...args) => request('POST', ...args),
+    delete: (...args) => request('DELETE', ...args),
+  }
 }
 
 export default api
