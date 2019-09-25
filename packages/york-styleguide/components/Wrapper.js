@@ -7,7 +7,7 @@ const client = new Qat({
   buffer: [],
   options: {
     url: 'https://anlt.cloud.qlean.ru/collect',
-    timeout: 5000,
+    timeout: 0,
     wrapLink: false,
   },
 })
