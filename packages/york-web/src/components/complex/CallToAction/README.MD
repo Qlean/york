@@ -33,42 +33,39 @@ const StyledImage = styled.img`
 
 const ExampleCallToAction = () => {
   const [title, setTitle] = useState(true)
-  const [actionHint, setActionHint] = useState(true)
+  const [caption, setCaption] = useState(true)
 
   return (
     <>
       <Example.InputGroup>
-        <Example.Checkbox
-          value={title}
-          onChange={() => setTitle(!title)}
-        >
+        <Example.Checkbox value={title} onChange={() => setTitle(!title)}>
           title
         </Example.Checkbox>
-        <Example.Checkbox
-          value={actionHint}
-          onChange={() => setActionHint(!actionHint)}
-        >
-          actionHint
+        <Example.Checkbox value={caption} onChange={() => setCaption(!caption)}>
+          caption
         </Example.Checkbox>
       </Example.InputGroup>
       <StyledContainer>
         <CallToAction
           buttonProps={{
+            children: 'Попробовать бесплатно',
             name: 'qleanPlus',
             onClick: () => {},
             isDisabled: false,
           }}
-          title={title ? "Попробуйте QLEAN ПЛЮС" : ""}
-          text="Скидка на\u00a0уборку, стирку, хранение вещей и\u00a0многое другое\u00a0—\u00a0в\u00a0одной подписке "
-          actionTitle="Попробовать бесплатно"
-          actionHint={actionHint ? "3 месяца бесплатно, потом 249 р. в\u00a0месяц" : "" }
-          rightView={{
-            node: (
-              <StyledRightView>
-                <StyledImage src={require('./assets/qleanplus.png')} alt="Qlean Plus" />
-              </StyledRightView>
-            )
-          }}
+          title={title ? 'Попробуйте QLEAN ПЛЮС' : ''}
+          description="Скидка на\u00a0уборку, стирку, хранение вещей и\u00a0многое другое\u00a0—\u00a0в\u00a0одной подписке "
+          caption={
+            caption ? '3 месяца бесплатно, потом 249 р. в\u00a0месяц' : ''
+          }
+          rightNode={
+            <StyledRightView>
+              <StyledImage
+                src={require('./assets/qleanplus.png')}
+                alt="Qlean Plus"
+              />
+            </StyledRightView>
+          }
         />
       </StyledContainer>
     </>

@@ -2,15 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  GridContainer,
-  GridColumn,
-  Text,
-  Separator,
-  Button,
-  uiPoint,
-  media,
-} from '@qlean/york-web'
+import { GridContainer, GridColumn, Button } from 'york-web/components/simple'
+import { Text, Separator } from 'york-web/components/primitive'
+import { uiPoint, media } from 'york-web/utils'
 
 const StyledButtonContainer = styled.div`
   width: ${uiPoint * 80}px;
@@ -21,14 +15,13 @@ const StyledButtonContainer = styled.div`
   `)}
 `
 
-/** Компонент для призыва к действию */
+/** Компонент призыва к действию */
 const CallToAction = ({
   title,
-  text,
-  actionTitle,
-  actionHint,
+  description,
+  caption,
   buttonProps,
-  rightView,
+  rightNode,
 }) => (
   <GridContainer
     alignItems="center"
@@ -48,15 +41,15 @@ const CallToAction = ({
         wideProps={{ preset: 'header2' }}
         mobileProps={{ preset: 'header5' }}
       >
-        {text}
+        {description}
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
       <StyledButtonContainer>
-        <Button {...buttonProps}>{actionTitle}</Button>
-        {actionHint && (
+        <Button {...buttonProps} />
+        {caption && (
           <>
             <Separator height={2} />
-            <Text color="grey">{actionHint}</Text>
+            <Text color="grey">{caption}</Text>
           </>
         )}
       </StyledButtonContainer>
@@ -67,7 +60,7 @@ const CallToAction = ({
         columns: 12,
       }}
     >
-      {rightView.node}
+      {rightNode}
       <Separator height={0} mobileProps={{ height: 8 }} />
     </GridColumn>
   </GridContainer>
@@ -75,29 +68,21 @@ const CallToAction = ({
 
 CallToAction.defaultProps = {
   title: null,
-  actionHint: null,
+  caption: null,
 }
 
 CallToAction.propTypes = {
   /** Заголовок */
   title: PropTypes.string,
   /** Текст */
-  text: PropTypes.string.isRequired,
-  /** Текст кнопки */
-  actionTitle: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   /** Подсказка под кнопкой */
-  actionHint: PropTypes.string,
-  /** Пропсы кнопки */
-  buttonProps: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
-    isSubmitting: PropTypes.bool,
-  }).isRequired,
+  caption: PropTypes.string,
+  /** Пропы кнопки */
+  // eslint-disable-next-line react/forbid-prop-types
+  buttonProps: PropTypes.object.isRequired,
   /** Компонент, который рендерится справа */
-  rightView: PropTypes.shape({
-    node: PropTypes.node.isRequired,
-  }).isRequired,
+  rightNode: PropTypes.node.isRequired,
 }
 
 export default CallToAction
