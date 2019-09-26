@@ -79,3 +79,39 @@ export const deleteCreditCard = ({ id }) =>
 export const subscribeToPlus = () =>
   api.post('/api/plus/v1/subscriptions')
 ```
+
+Пример для next.js
+```js
+import nookies from 'nookies'
+import { camelizeKeys, decamelizeKeys } from 'humps'
+
+import sdk from './sdk'
+
+export default (ctx = {}) =>
+  sdk({
+    baseUrl: 'http://qlean-master-puma.service.consul',
+    ssoUrl:
+      'https://master-sso-identity-svs.stage.cloud.qlean.ru/http/users/refreshToken/?refreshToken=',
+    getRefreshToken: () => nookies.get(ctx).refreshToken,
+    getAccessToken: () => nookies.get(ctx).accessToken,
+    onRefresh: ({ refreshToken, accessToken }) => {
+      nookies.set(ctx, 'accessToken', accessToken, {})
+      nookies.set(ctx, 'refreshToken', refreshToken, {})
+    },
+    requestDataTransformer: decamelizeKeys,
+    responseDataTransformer: camelizeKeys,
+  })
+```
+
+Использование в next.js
+```js
+/* actions.js */
+export const fetchCreditCards = ctx => api(ctx).get('/api/plus/v1/credit_cards')
+
+/* pages/index.js */
+PaymentMethods.getInitialProps = async ctx => {
+  const { creditCards } = await fetchCreditCards(ctx).catch(err => ({}))
+
+  return { creditCards }
+}
+```

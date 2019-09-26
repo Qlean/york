@@ -42,7 +42,7 @@ const api = ({
         return { refreshToken, accessToken }
       })
 
-  const request = async (method, url, payload, config) => {
+  const request = async (method, url, payload, config = {}) => {
     const fetchConfig = {
       method,
       body: payload
@@ -70,19 +70,18 @@ const api = ({
         if (isRefreshing) return subscribe(originalRequest)
 
         isRefreshing = true
-        return getNewAccessToken(originalRefreshToken)
-          .then(async ({ accessToken }) => {
+        return getNewAccessToken(originalRefreshToken).then(
+          async ({ accessToken }) => {
             /**
              * FIXME: Очень узкое место. Ждем, пока выполнится первый запрос, чтобы после этого
              * выполнить всю очередь. По каким-то причинам очередь не успевает заполнятся полностью,
              * если так не сделать.
              */
-            await originalRequest(accessToken)
-            return accessToken
-          })
-          .then(accessToken => {
+            const newResponse = await originalRequest(accessToken)
             processQueue(null, accessToken)
-          })
+            return newResponse
+          },
+        )
       }
 
       return res
