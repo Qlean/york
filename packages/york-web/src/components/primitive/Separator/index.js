@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
@@ -34,13 +35,15 @@ const getCss = props => {
   `
 }
 
+const StyledSeparator = styled.div`
+  ${getCss}
+`
+
 /**
  * Используется для создания отступов между элементами. Ширина и высота разделителя может принимать
  * только значения указанные в core/sizes.
  */
-const Separator = styled.div`
-  ${getCss}
-`
+const Separator = props => <StyledSeparator {...props} />
 
 const propTypes = {
   /** Высота разделителя в `uiPoint` */
@@ -56,5 +59,4 @@ Separator.propTypes = {
   ...getResponsivePropTypes(propTypes),
 }
 
-/** @component */
 export default Separator

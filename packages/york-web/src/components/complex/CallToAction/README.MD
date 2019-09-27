@@ -1,7 +1,7 @@
 ```js
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CallToAction, media } from '@qlean/york-web'
+import { Button, CallToAction, media } from '@qlean/york-web'
 
 const StyledContainer = styled.div`
   overflow: auto;
@@ -32,32 +32,25 @@ const StyledImage = styled.img`
 `
 
 const ExampleCallToAction = () => {
-  const [title, setTitle] = useState(true)
   const [caption, setCaption] = useState(true)
 
   return (
     <>
       <Example.InputGroup>
-        <Example.Checkbox value={title} onChange={() => setTitle(!title)}>
-          title
-        </Example.Checkbox>
         <Example.Checkbox value={caption} onChange={() => setCaption(!caption)}>
           caption
         </Example.Checkbox>
       </Example.InputGroup>
       <StyledContainer>
         <CallToAction
-          buttonProps={{
-            children: 'Попробовать бесплатно',
-            name: 'qleanPlus',
-            onClick: () => {},
-            isDisabled: false,
-          }}
-          title={title ? 'Попробуйте QLEAN ПЛЮС' : ''}
-          description="Скидка на\u00a0уборку, стирку, хранение вещей и\u00a0многое другое\u00a0—\u00a0в\u00a0одной подписке "
-          caption={
-            caption ? '3 месяца бесплатно, потом 249 р. в\u00a0месяц' : ''
+          title="Попробуйте QLEAN ПЛЮС"
+          description="Скидка на уборку, стирку, хранение вещей и многое другое — в одной подписке"
+          action={
+            <Button name="example" onClick={() => {}} isDisabled={false}>
+              Попробовать бесплатно
+            </Button>
           }
+          caption={caption ? '3 месяца бесплатно, потом 299 р. в месяц' : ''}
           rightNode={
             <StyledRightView>
               <StyledImage

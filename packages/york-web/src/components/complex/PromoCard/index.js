@@ -86,15 +86,16 @@ const StyledContent = styled.div`
   left: 0;
   width: ${({ size }) => (size === 'l' ? '50%' : '100%')};
   height: 100%;
-
-  ${media.wide(`
-    padding: ${sizes[6]}px;
-    padding-right: 0;
-  `)}
-  ${media.base(`
-    padding: ${sizes[4]}px;
-    padding-right: 0;
-  `)}
+  ${({ size }) => `
+    ${media.wide(`
+      padding: ${sizes[6]}px;
+      ${size === 'l' ? 'padding-right: 0;' : ''}
+    `)}
+    ${media.base(`
+      padding: ${sizes[4]}px;
+      ${size === 'l' ? 'padding-right: 0;' : ''}
+    `)}
+  `}
   ${media.mobile(`
     padding: ${sizes[4]}px;
     width: 100%;
@@ -109,7 +110,6 @@ const StyledLabel = styled.span`
   position: relative;
   width: auto;
   padding: ${sizes[1]}px ${sizes[2]}px;
-  border-radius: ${borderRadiuses.small};
 `
 
 const StyledLabelOverlay = styled.span`
@@ -120,6 +120,7 @@ const StyledLabelOverlay = styled.span`
   height: 100%;
   background: ${colors.black};
   opacity: 0.05;
+  border-radius: ${borderRadiuses.medium};
 `
 
 const StyledCaption = styled.div`
@@ -139,8 +140,9 @@ const StyledCaption = styled.div`
   `)}
 `
 
-/** Промо карточка.
- * Картинка должна представлять собой квадратный PNG. Позиционируется в правый нижний угол в режиме `contain`. В мобильной версии опускается на 5% высоты карточки вниз.
+/**
+ * Промо карточка. Картинка должна быть квадратным PNG. Позиционируется в правый нижний угол
+ * в режиме `contain`. В мобильной версии опускается на 5% высоты карточки вниз.
  */
 const PromoCard = ({
   size,

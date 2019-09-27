@@ -4,7 +4,7 @@ import {
   PromoCard,
   GridContainer,
   GridColumn,
-  Separator
+  Separator,
 } from '@qlean/york-web'
 import { colors } from '@qlean/york-core'
 
@@ -13,19 +13,24 @@ const StyledContainer = styled.div`
 `
 
 const GreenPromoCard = styled(PromoCard)`
-  background: linear-gradient(251deg, #41CD91 0.45%, #00AA64 98.05%), #C4C4C4;
+  background: linear-gradient(251deg, #41cd91 0.45%, #00aa64 98.05%), #c4c4c4;
   color: ${colors.white};
 `
 const YellowPromoCard = styled(PromoCard)`
-  background: linear-gradient(260.37deg, #FFE173 0%, #FFDC46 98.06%), #C4C4C4;
+  background: linear-gradient(260.37deg, #ffe173 0%, #ffdc46 98.06%), #c4c4c4;
   color: ${colors.coal};
 `
 const PinkPromoCard = styled(PromoCard)`
-  background: linear-gradient(54.36deg, #F5D2C3 0%, #FAE6E1 100%), #CFD9DF;
+  background: linear-gradient(54.36deg, #f5d2c3 0%, #fae6e1 100%), #cfd9df;
   color: ${colors.coal};
 `
 const BluePromoCard = styled(PromoCard)`
-  background: linear-gradient(98.5deg, #788CBE 0%, #82A0D2 51.04%, #A0D2E6 100%);
+  background: linear-gradient(
+    98.5deg,
+    #788cbe 0%,
+    #82a0d2 51.04%,
+    #a0d2e6 100%
+  );
   color: ${colors.white};
 `
 
@@ -35,7 +40,7 @@ const BluePromoCard = styled(PromoCard)`
       <GreenPromoCard
         size="l"
         title="Поддерживающая уборка"
-        description="Для регулярного избавления от\u00a0пыли и\u00a0мусора"
+        description="Для регулярного избавления от пыли и мусора"
         label="от 1490 р."
         caption="Рассчитать стоимость"
         image={require('./assets/cleaner.png')}
@@ -46,7 +51,7 @@ const BluePromoCard = styled(PromoCard)`
       <YellowPromoCard
         size="m"
         title="Генеральная уборка"
-        description="Если давно не\u00a0убирались или\u00a0устроили вечеринку"
+        description="Если давно не убирались или устроили вечеринку"
         label="от 3490 р."
         caption="Подробнее"
         image={require('./assets/vacuum.png')}
