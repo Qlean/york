@@ -201,11 +201,11 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
 }
 
-const viewportHeight = uiPoint * 100
+const frameHeight = uiPoint * 100
 
-const StyledViewport = styled.div`
+const StyledFrame = styled.div`
   overflow: auto;
-  height: ${viewportHeight}px;
+  height: ${frameHeight}px;
 `
 
 const StyledPage = styled.div`
@@ -214,17 +214,17 @@ const StyledPage = styled.div`
   ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
 `
 
-const Viewport = ({ children }) => (
-  <StyledViewport>
+const Frame = ({ children }) => (
+  <StyledFrame>
     <StyledPage>{children}</StyledPage>
-  </StyledViewport>
+  </StyledFrame>
 )
 
-Viewport.propTypes = {
+Frame.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-Viewport.height = viewportHeight
+Frame.height = frameHeight
 
 const text = {
   short: 'Аляскинский маламут',
@@ -294,7 +294,7 @@ const Example = {
   ShowcaseItem,
   Image,
   Select,
-  Viewport,
+  Frame,
   text,
   options,
   tabs,
