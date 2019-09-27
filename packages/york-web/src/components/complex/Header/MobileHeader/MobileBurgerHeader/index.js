@@ -104,8 +104,6 @@ export default function MobileBurgerHeader({
 
   const [selectedTabName, setSelectedTabName] = useState(defaultTab)
 
-  const tab = tabs.find(({ name }) => name === defaultTab)
-  const withFooter = isProfileAvailable || selectedRegion
   const { items } = tabs.find(({ name }) => name === selectedTabName)
 
   return (
@@ -113,7 +111,7 @@ export default function MobileBurgerHeader({
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          <Link href={tab.href}>
+          <Link href="/">
             <Logo />
           </Link>
         </View>
@@ -190,67 +188,65 @@ export default function MobileBurgerHeader({
         )
       })}
       <Separator height={3} />
-      {withFooter && (
-        <StyledFooter>
-          <Separator height={3} />
-          {isProfileAvailable && (
-            <>
-              {isLoggedIn ? (
-                <>
-                  <StyledMenuItem
-                    onClick={() => setActiveItem('profile', !isProfileActive)}
-                  >
-                    <StyledMenuItemContent>
-                      <StyledIcon>
-                        <ProfileIcon />
-                      </StyledIcon>
-                      <Separator width={2} />
-                      <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
-                    </StyledMenuItemContent>
-                    <Separator width={2} />
-                    <StyledArrowIconContainer isActive={isProfileActive}>
-                      <ArrowIcon />
-                    </StyledArrowIconContainer>
-                  </StyledMenuItem>
-                  {isProfileActive && (
-                    <StyledProfileSubmenu>
-                      <SubMenu
-                        components={components}
-                        callbacks={callbacks}
-                        items={profile}
-                        onRequestClose={onRequestClose}
-                      />
-                    </StyledProfileSubmenu>
-                  )}
-                </>
-              ) : (
-                <StyledMenuItem
-                  onClick={() => {
-                    onLogin()
-                    onRequestClose()
-                  }}
-                >
-                  <StyledMenuItemContent>
-                    <StyledIcon>
-                      <LoginIcon />
-                    </StyledIcon>
-                    <Separator width={2} />
-                    <StyledMenuItemText>{locales.login}</StyledMenuItemText>
-                  </StyledMenuItemContent>
-                </StyledMenuItem>
-              )}
-            </>
-          )}
-          {selectedRegion && (
-            <Region
-              regions={regions}
-              onRegionChange={onRegionChange}
-              selectedRegion={selectedRegion}
-            />
-          )}
-          <Separator height={3} />
-        </StyledFooter>
-      )}
+      <StyledFooter>
+        <Separator height={3} />
+        {isLoggedIn ? (
+          <>
+            <StyledMenuItem
+              onClick={() => setActiveItem('profile', !isProfileActive)}
+            >
+              <StyledMenuItemContent>
+                <StyledIcon>
+                  <ProfileIcon />
+                </StyledIcon>
+                <Separator width={2} />
+                <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
+              </StyledMenuItemContent>
+              <Separator width={2} />
+              <StyledArrowIconContainer isActive={isProfileActive}>
+                <ArrowIcon />
+              </StyledArrowIconContainer>
+            </StyledMenuItem>
+            {isProfileActive && (
+              <StyledProfileSubmenu>
+                <SubMenu
+                  components={components}
+                  callbacks={callbacks}
+                  items={
+                    isProfileAvailable
+                      ? profile
+                      : profile.filter(({ name }) => name === 'logout')
+                  }
+                  onRequestClose={onRequestClose}
+                />
+              </StyledProfileSubmenu>
+            )}
+          </>
+        ) : (
+          <StyledMenuItem
+            onClick={() => {
+              onLogin()
+              onRequestClose()
+            }}
+          >
+            <StyledMenuItemContent>
+              <StyledIcon>
+                <LoginIcon />
+              </StyledIcon>
+              <Separator width={2} />
+              <StyledMenuItemText>{locales.login}</StyledMenuItemText>
+            </StyledMenuItemContent>
+          </StyledMenuItem>
+        )}
+        {selectedRegion && (
+          <Region
+            regions={regions}
+            onRegionChange={onRegionChange}
+            selectedRegion={selectedRegion}
+          />
+        )}
+        <Separator height={3} />
+      </StyledFooter>
     </StyledMobileBurgerHeader>
   )
 }

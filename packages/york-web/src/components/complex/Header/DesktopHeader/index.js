@@ -82,7 +82,7 @@ export default function DesktopHeader({
             <GridColumn columns={12}>
               <StyledTopMenu>
                 <View alignItems="center">
-                  <Link href={tab.href}>
+                  <Link href="/">
                     <Logo />
                   </Link>
                   <Separator width={3} />
@@ -103,18 +103,17 @@ export default function DesktopHeader({
                       <Phone phone={phone} />
                     </StyledTopMenuItem>
                   )}
-                  {isProfileAvailable && (
-                    <StyledTopMenuItem>
-                      <Profile
-                        components={components}
-                        callbacks={callbacks}
-                        isLoggedIn={isLoggedIn}
-                        isPlusSubscriber={isPlusSubscriber}
-                        items={profile}
-                        selectedItem={selectedProfileItem}
-                      />
-                    </StyledTopMenuItem>
-                  )}
+                  <StyledTopMenuItem>
+                    <Profile
+                      components={components}
+                      callbacks={callbacks}
+                      isLoggedIn={isLoggedIn}
+                      isPlusSubscriber={isPlusSubscriber}
+                      isProfileAvailable={isProfileAvailable}
+                      items={profile}
+                      selectedItem={selectedProfileItem}
+                    />
+                  </StyledTopMenuItem>
                 </View>
               </StyledTopMenu>
             </GridColumn>
