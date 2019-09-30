@@ -60,7 +60,7 @@ Checkbox.propTypes = {
 }
 
 const Select = ({ title, value, options, onChange }) => (
-  <View>
+  <View alignItems="center">
     <StyledLabel>
       <Text>{title}</Text>
     </StyledLabel>

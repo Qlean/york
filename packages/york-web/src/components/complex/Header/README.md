@@ -130,7 +130,7 @@ const data = {
 }
 
 const StyledPageBody = styled.div`
-  height: ${Example.StyledFrame.height * 2}px;
+  height: ${Example.Frame.height * 2}px;
   background: linear-gradient(${colors.whisper}, ${colors.coal});
 `
 
@@ -171,7 +171,7 @@ const ExampleComponents = () => {
           isPlusSubscriber
         </Example.Checkbox>
       </Example.InputGroup>
-      <Example.StyledFrame>
+      <Example.Frame>
         <Header
           isProfileAvailable={isProfileAvailable}
           isLoggedIn={isLoggedIn}
@@ -214,7 +214,7 @@ const ExampleComponents = () => {
             </GridContainer>
           </StyledPageContent>
         </StyledPageBody>
-      </Example.StyledFrame>
+      </Example.Frame>
     </>
   )
 }

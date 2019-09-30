@@ -20,10 +20,14 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
   <GridContainer mobileProps={{ flexDirection: 'column-reverse' }}>
     <GridColumn columns={6} mobileProps={{ columns: 12 }}>
       <Separator height={3} mobileProps={{ height: 8 }} />
-      <Text preset="link" color="green">
-        {title}
-      </Text>
-      <Separator height={3} mobileProps={{ height: 1 }} />
+      {title && (
+        <>
+          <Text preset="link" color="green">
+            {title}
+          </Text>
+          <Separator height={3} mobileProps={{ height: 1 }} />
+        </>
+      )}
       <Text
         preset="header3"
         wideProps={{ preset: 'header2' }}
@@ -54,12 +58,13 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
 )
 
 CallToAction.defaultProps = {
+  title: null,
   caption: null,
 }
 
 CallToAction.propTypes = {
   /** Заголовок */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   /** Текст */
   description: PropTypes.string.isRequired,
   /** Кнопка, ссылка или другой экшен */

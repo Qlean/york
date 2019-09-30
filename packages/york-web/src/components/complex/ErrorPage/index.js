@@ -88,7 +88,7 @@ const getErrorLayout = statusCode => {
 }
 
 /** Страница ошибок. Занимает высоту родителя. */
-const Error = ({ statusCode, header, footer }) => {
+const ErrorPage = ({ statusCode, header, footer }) => {
   return (
     <StyledContainer
       flexDirection="column"
@@ -112,7 +112,7 @@ const Error = ({ statusCode, header, footer }) => {
   )
 }
 
-Error.propTypes = {
+ErrorPage.propTypes = {
   /** Код ошибки */
   statusCode: PropTypes.number,
   /** Элемент заголовка */
@@ -121,10 +121,10 @@ Error.propTypes = {
   footer: PropTypes.element,
 }
 
-Error.defaultProps = {
+ErrorPage.defaultProps = {
   statusCode: null,
   header: null,
   footer: null,
 }
 
-export default Error
+export default ErrorPage
