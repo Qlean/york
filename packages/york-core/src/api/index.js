@@ -96,7 +96,7 @@ const api = ({
     put: (...args) => request('PUT', ...args),
     patch: (...args) => request('PATCH', ...args),
     post: (...args) => request('POST', ...args),
-    delete: (...args) => request('DELETE', ...args),
+    delete: (url, config) => request('DELETE', url, null, config),
   }
 }
 

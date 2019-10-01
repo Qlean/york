@@ -1,5 +1,7 @@
 `import { api } from '@qlean/york-core'`
 
+`api.get(url: String, config: Object) => Promise`
+`api.delete(url: String, config: Object) => Promise`
 `api[method](url: String, payload: Object, config: Object) => Promise`
 
 Абстракция над нативным `fetch`. Чем-то похож на `axios`. Нужен для того, чтобы:
@@ -12,7 +14,7 @@
 - Не проставлять вручную `content-type: application/json`
 - Возвращать `res.json()` или `res.text()` без обработки промиса
 
-В остальном идентичен нативному `fetch` — возвращает промис, может делать `.then` и `.catch`. По этой причине требуется полифилл для старых браузеров и для ноды. Рекомендуется `unfetch` и его изоморфная версия.
+В остальном идентичен нативному `fetch` — возвращает промис, реджектится при сетевых ошибках. По этой причине требуется полифилл для старых браузеров и для ноды. Рекомендуется `unfetch` и его изоморфная версия.
 
 Для начала, требуется конфигурация:
 
@@ -35,14 +37,17 @@ export default api({
     'https://master-sso-identity-svs.stage.cloud.qlean.ru/http/users/refreshToken/?refreshToken=',
   /**
    * Функция для получения `accessToken`. Не строка, чтобы избежать замыкания.
+   * getRefreshToken() => String
    */
   getRefreshToken: () => cookies.get('refreshToken'),
   /**
    * Функция для получения `refreshToken`. Не строка, чтобы избежать замыкания.
+   * getAccessToken() => String
    */
   getAccessToken: () => cookies.get('accessToken'),
   /**
    * Коллбэк, который выполнится после рефреша. Возвращает объект с `accessToken` и `refreshToken`
+   * onRefresh({ refreshToken: String, accessToken: String }: Object) => void
    */
   onRefresh: ({ refreshToken, accessToken }) => {
     cookies.set('accessToken', accessToken)
@@ -80,7 +85,7 @@ export const subscribeToPlus = () =>
 ```
 
 Пример для next.js
-```js
+```js static
 import nookies from 'nookies'
 import { camelizeKeys, decamelizeKeys } from 'humps'
 
@@ -103,7 +108,7 @@ export default (ctx = {}) =>
 ```
 
 Использование в next.js
-```js
+```js static
 /* actions.js */
 export const fetchCreditCards = ctx => api(ctx).get('/api/plus/v1/credit_cards')
 
