@@ -7,7 +7,7 @@ import { Text, Separator } from 'york-web/components/primitive'
 import { uiPoint, media } from 'york-web/utils'
 
 const StyledActionContainer = styled.div`
-  width: ${uiPoint * 80}px;
+  width: ${uiPoint * 60}px;
 
   ${media.mobile(`
     width: 100%;
@@ -22,6 +22,7 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
     mobileProps={{ flexDirection: 'column-reverse' }}
   >
     <GridColumn columns={6} mobileProps={{ columns: 12 }}>
+      <Separator mobileProps={{ height: 8 }} />
       {title && (
         <>
           <Text preset="link" color="green">
@@ -38,15 +39,13 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
         {description}
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
-      <StyledActionContainer>
-        {action}
-        {caption && (
-          <>
-            <Separator height={2} />
-            <Text color="grey">{caption}</Text>
-          </>
-        )}
-      </StyledActionContainer>
+      <StyledActionContainer>{action}</StyledActionContainer>
+      {caption && (
+        <>
+          <Separator height={2} />
+          <Text color="grey">{caption}</Text>
+        </>
+      )}
     </GridColumn>
     <GridColumn
       columns={6}
