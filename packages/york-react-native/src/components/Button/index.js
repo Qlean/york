@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { AnalyticsContext, getAnalyticsName } from '@qlean/york-analytics'
+import { AnalyticsContext } from '@qlean/york-analytics'
 
 import { useAnimation } from 'york-react-native/utils/hooks'
 import { borderRadiuses } from 'york-react-native/utils/styles'
@@ -164,19 +164,16 @@ const Button = ({
   }
 
   const analyticsContext = useContext(AnalyticsContext)
-  const buttonName = getAnalyticsName(name, analyticsContext)
 
   const handlePress = ({ ...args }) => {
     if (analyticsContext) {
       const { trackEvent, category, properties } = analyticsContext
-      if (typeof category === 'string' && typeof trackEvent === 'function') {
-        trackEvent({
-          category,
-          label: buttonName,
-          action: 'press',
-          properties,
-        })
-      }
+      trackEvent({
+        category,
+        label: name,
+        action: 'press',
+        properties,
+      })
     }
     onPress(args)
   }
@@ -195,7 +192,7 @@ const Button = ({
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
       style={[styles.container, withShadow && styles.shadow]}
-      testID={buttonName}
+      testID={name}
       {...props}
     >
       <Animated.View

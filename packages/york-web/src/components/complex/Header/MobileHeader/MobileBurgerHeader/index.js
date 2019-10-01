@@ -111,7 +111,7 @@ export default function MobileBurgerHeader({
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          <Link href="/">
+          <Link href="/" name="logoLink">
             <Logo />
           </Link>
         </View>

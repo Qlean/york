@@ -3,11 +3,7 @@ import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import {
-  AnalyticsContext,
-  getAnalyticsName,
-  eventActionTypes,
-} from '@qlean/york-analytics'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import {
   uiPoint,
@@ -217,19 +213,16 @@ function Button({
   ...rest
 }) {
   const analyticsContext = useContext(AnalyticsContext)
-  const buttonName = getAnalyticsName(name, analyticsContext)
 
   const handleClick = ({ ...args }) => {
     if (analyticsContext) {
       const { trackEvent, category, properties } = analyticsContext
-      if (typeof category === 'string' && typeof trackEvent === 'function') {
-        trackEvent({
-          category,
-          label: buttonName,
-          action: eventActionTypes.click,
-          properties,
-        })
-      }
+      trackEvent({
+        category,
+        label: name,
+        action: eventActionTypes.click,
+        properties,
+      })
     }
     onClick(args)
   }
@@ -247,7 +240,7 @@ function Button({
   return (
     <StyledButton
       {...rest}
-      name={buttonName}
+      name={name}
       normalizedProps={normalizedProps}
       disabled={isDisabled || isSubmitting}
       isDisabled={isDisabled || isSubmitting}

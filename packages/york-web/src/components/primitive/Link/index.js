@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
+import {
+  AnalyticsContext,
+  eventActionTypes,
+  getAnalyticsUrl,
+} from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -107,7 +111,7 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, name, onClick, ...rest }) {
+function Link({ href, children, name, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
@@ -118,22 +122,27 @@ function Link({ href, children, name, onClick, ...rest }) {
 
   let analyticsHref = href
 
-  const handleClick = ({ ...args }) => {
-    if (analyticsContext) {
-      const { category, redirectUrl } = analyticsContext
-      analyticsHref = `${redirectUrl}?tstamp0=${Date.now()}ec0=${category}&el0=${name}&ea0=${
-        eventActionTypes.click
-      }&rul0${href}&dl0=${window.location.href}`
+  if (analyticsContext) {
+    const { category, redirectUrl } = analyticsContext
+
+    if (redirectUrl) {
+      analyticsHref = getAnalyticsUrl({
+        href,
+        category,
+        name,
+        action: eventActionTypes.click,
+        redirectUrl,
+      })
     }
-    if (onClick) onClick(args)
   }
+
+  console.log(analyticsHref)
 
   return (
     <StyledLink
       href={analyticsHref}
       name={name}
       normalizedProps={normalizedProps}
-      onClick={handleClick}
       {...rest}
     >
       {children}
@@ -144,7 +153,6 @@ function Link({ href, children, name, onClick, ...rest }) {
 Link.defaultProps = {
   rank: 0,
   backdropColor: 'white',
-  onClick: null,
 }
 
 Link.propTypes = {
@@ -156,8 +164,6 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   /** Имя ссылки. Используется для аналитики и тестов */
   name: PropTypes.string.isRequired,
-  /** Функция, которая срабатывает при клике. */
-  onClick: PropTypes.func,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

@@ -82,7 +82,7 @@ export default function DesktopHeader({
             <GridColumn columns={12}>
               <StyledTopMenu>
                 <View alignItems="center">
-                  <Link href="/">
+                  <Link href="/" name="logoLink">
                     <Logo />
                   </Link>
                   <Separator width={3} />

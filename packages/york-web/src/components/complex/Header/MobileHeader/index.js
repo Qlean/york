@@ -171,7 +171,7 @@ export default function MobileHeader(props) {
         <StyledTopMenu alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
-            <Link href="/">
+            <Link href="/" name="logoLink">
               <StyledLogo>
                 <Logo />
               </StyledLogo>

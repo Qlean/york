@@ -29,12 +29,17 @@ const AnalyticsProvider = ({
             'No event tracking function specified for `AnalyticsProvider`',
           )
         }
+        const getRedirectUrl = () => {
+          if (redirectUrl) return redirectUrl
+          if (value && value.redirectUrl) return value.redirectUrl
+          throw new Error('No redirect url specified for `AnalyticsProvider`')
+        }
 
         return (
           <AnalyticsContext.Provider
             value={{
               trackEvent: getEventTrackingFunction(),
-              redirectUrl,
+              redirectUrl: getRedirectUrl(),
               category,
               properties: {
                 analyticsRoute: getAnalyticsRoute(value, category),
