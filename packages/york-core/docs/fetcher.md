@@ -1,8 +1,8 @@
 `import { api } from '@qlean/york-core'`
 
-`api.get(url: String, config: Object) => Promise`
-`api.delete(url: String, config: Object) => Promise`
-`api[method](url: String, payload: Object, config: Object) => Promise`
+`fetcher.get(url: String, config: Object) => Promise`
+`fetcher.delete(url: String, config: Object) => Promise`
+`fetcher[method](url: String, payload: Object, config: Object) => Promise`
 
 Абстракция над нативным `fetch`. Чем-то похож на `axios`. Нужен для того, чтобы:
 
@@ -23,9 +23,9 @@
 
 import cookies from 'js-cookie'
 import { camelizeKeys, decamelizeKeys } from 'humps'
-import { api } from '@qlean/york-core`
+import { fetcher } from '@qlean/york-core`
 
-export default api({
+export default fetcher({
   /**
    * Хост, который будет приклеиваться в начало каждого урла.
    */
@@ -88,11 +88,10 @@ export const subscribeToPlus = () =>
 ```js static
 import nookies from 'nookies'
 import { camelizeKeys, decamelizeKeys } from 'humps'
-
-import sdk from './sdk'
+import { fetcher } from '@qlean/york-core`
 
 export default (ctx = {}) =>
-  sdk({
+  fetcher({
     baseUrl: 'http://qlean-master-puma.service.consul',
     ssoUrl:
       'https://master-sso-identity-svs.stage.cloud.qlean.ru/http/users/refreshToken/?refreshToken=',
