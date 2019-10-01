@@ -17,9 +17,11 @@ const StyledActionContainer = styled.div`
 
 /** Компонент призыва к действию */
 const CallToAction = ({ title, description, caption, action, rightNode }) => (
-  <GridContainer mobileProps={{ flexDirection: 'column-reverse' }}>
+  <GridContainer
+    alignItems="center"
+    mobileProps={{ flexDirection: 'column-reverse' }}
+  >
     <GridColumn columns={6} mobileProps={{ columns: 12 }}>
-      <Separator height={3} mobileProps={{ height: 8 }} />
       {title && (
         <>
           <Text preset="link" color="green">

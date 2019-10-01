@@ -1,6 +1,6 @@
 ```js
 import styled from 'styled-components'
-import { Error, Text, Link, View } from '@qlean/york-web'
+import { ErrorPage, Text, Link, View } from '@qlean/york-web'
 
 const Header = () => (
   <img src={require('./assets/logo.svg')} alt="Логотип Qlean" />
@@ -64,7 +64,7 @@ const ExampleComponent = () => {
         options={statusCodes}
         onChange={e => setStatusCode(e.target.value)}
       />
-      <Error
+      <ErrorPage
         statusCode={Number(statusCode)}
         header={withHeader ? <Header /> : null}
         footer={withFooter ? <Footer /> : null}
