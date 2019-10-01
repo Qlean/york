@@ -19,7 +19,7 @@ const processQueue = (error, token = null) => {
   failedRequests = []
 }
 
-const api = ({
+const fetcher = ({
   baseUrl,
   ssoUrl,
   getRefreshToken,
@@ -100,4 +100,4 @@ const api = ({
   }
 }
 
-export default api
+export default fetcher

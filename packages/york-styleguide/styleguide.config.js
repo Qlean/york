@@ -39,8 +39,8 @@ module.exports = {
       content: '../york-core/README.md',
       sections: [
         {
-          name: 'api',
-          content: '../york-core/docs/api.md',
+          name: 'fetcher',
+          content: '../york-core/docs/fetcher.md',
         },
         {
           name: 'colors',
