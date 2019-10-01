@@ -32,18 +32,22 @@ const StyledImage = styled.img`
 `
 
 const ExampleCallToAction = () => {
+  const [title, setTitle] = useState(true)
   const [caption, setCaption] = useState(true)
 
   return (
     <>
       <Example.InputGroup>
+        <Example.Checkbox value={title} onChange={() => setTitle(!title)}>
+          title
+        </Example.Checkbox>
         <Example.Checkbox value={caption} onChange={() => setCaption(!caption)}>
           caption
         </Example.Checkbox>
       </Example.InputGroup>
       <StyledContainer>
         <CallToAction
-          title="Попробуйте QLEAN ПЛЮС"
+          title={title ? 'Попробуйте QLEAN ПЛЮС' : ''}
           description="Скидка на уборку, стирку, хранение вещей и многое другое — в одной подписке"
           action={
             <Button name="example" onClick={() => {}} isDisabled={false}>

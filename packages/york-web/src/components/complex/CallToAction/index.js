@@ -7,7 +7,7 @@ import { Text, Separator } from 'york-web/components/primitive'
 import { uiPoint, media } from 'york-web/utils'
 
 const StyledActionContainer = styled.div`
-  width: ${uiPoint * 80}px;
+  width: ${uiPoint * 60}px;
 
   ${media.mobile(`
     width: 100%;
@@ -17,13 +17,20 @@ const StyledActionContainer = styled.div`
 
 /** Компонент призыва к действию */
 const CallToAction = ({ title, description, caption, action, rightNode }) => (
-  <GridContainer mobileProps={{ flexDirection: 'column-reverse' }}>
+  <GridContainer
+    alignItems="center"
+    mobileProps={{ flexDirection: 'column-reverse' }}
+  >
     <GridColumn columns={6} mobileProps={{ columns: 12 }}>
-      <Separator height={3} mobileProps={{ height: 8 }} />
-      <Text preset="link" color="green">
-        {title}
-      </Text>
-      <Separator height={3} mobileProps={{ height: 1 }} />
+      <Separator mobileProps={{ height: 8 }} />
+      {title && (
+        <>
+          <Text preset="link" color="green">
+            {title}
+          </Text>
+          <Separator height={3} mobileProps={{ height: 1 }} />
+        </>
+      )}
       <Text
         preset="header3"
         wideProps={{ preset: 'header2' }}
@@ -32,15 +39,13 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
         {description}
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
-      <StyledActionContainer>
-        {action}
-        {caption && (
-          <>
-            <Separator height={2} />
-            <Text color="grey">{caption}</Text>
-          </>
-        )}
-      </StyledActionContainer>
+      <StyledActionContainer>{action}</StyledActionContainer>
+      {caption && (
+        <>
+          <Separator height={2} />
+          <Text color="grey">{caption}</Text>
+        </>
+      )}
     </GridColumn>
     <GridColumn
       columns={6}
@@ -54,12 +59,13 @@ const CallToAction = ({ title, description, caption, action, rightNode }) => (
 )
 
 CallToAction.defaultProps = {
+  title: null,
   caption: null,
 }
 
 CallToAction.propTypes = {
   /** Заголовок */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   /** Текст */
   description: PropTypes.string.isRequired,
   /** Кнопка, ссылка или другой экшен */
