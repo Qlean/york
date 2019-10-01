@@ -1,9 +1,9 @@
 ```js
 import styled from 'styled-components'
-import { Error, Text, Link, View } from '@qlean/york-web'
+import { ErrorPage, Text, Link, View } from '@qlean/york-web'
 
 const Header = () => (
-  <img src={require('./assets/logo.svg')} alt="Логотип Qlean"/>
+  <img src={require('./assets/logo.svg')} alt="Логотип Qlean" />
 )
 
 const StyledContainer = styled(View)`
@@ -12,9 +12,13 @@ const StyledContainer = styled(View)`
 
 const Footer = () => (
   <StyledContainer flexDirection="column" alignItems="center">
-    <Text>Если после перезагрузки вы видите тот же экран, то позвоните нам</Text>
     <Text>
-      <Link href="tel:+74956468259">+7 495 646-82-59</Link>
+      Если после перезагрузки вы видите тот же экран, то позвоните нам
+    </Text>
+    <Text>
+      <Link rank={1} href="tel:+74956468259">
+        +7 495 646-82-59
+      </Link>
     </Text>
   </StyledContainer>
 )
@@ -22,7 +26,7 @@ const Footer = () => (
 const statusCodes = [
   {
     value: '',
-    label: 'empty'
+    label: 'empty',
   },
   {
     value: '404',
@@ -35,10 +39,9 @@ const statusCodes = [
 ]
 
 const ExampleComponent = () => {
-  const [ withHeader, setWithHeader ] = React.useState(true)
-  const [ withFooter, setWithFooter ] = React.useState(true)
-  const [ statusCode, setStatusCode ] = React.useState('')
-
+  const [withHeader, setWithHeader] = React.useState(true)
+  const [withFooter, setWithFooter] = React.useState(true)
+  const [statusCode, setStatusCode] = React.useState('')
   return (
     <>
       <Example.InputGroup>
@@ -56,12 +59,12 @@ const ExampleComponent = () => {
         </Example.Checkbox>
       </Example.InputGroup>
       <Example.Select
-        title='statusCode'
+        title="statusCode"
         value={statusCode}
         options={statusCodes}
-        onChange={(e) => setStatusCode(e.target.value)}
+        onChange={e => setStatusCode(e.target.value)}
       />
-      <Error
+      <ErrorPage
         statusCode={Number(statusCode)}
         header={withHeader ? <Header /> : null}
         footer={withFooter ? <Footer /> : null}

@@ -114,6 +114,10 @@ const StyledText = styled.span`
 
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans.
+ *
+ * Для смены тега, нужно использовать пропс `as`
+ *
+ * Если `Text` обернут в `styled`, то нужно будет использовать `forwardedAs`
  */
 const Text = props => {
   return <StyledText {...props} />
