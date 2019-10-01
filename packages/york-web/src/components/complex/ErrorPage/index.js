@@ -6,6 +6,9 @@ import { View, Text, Separator } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import { media, sizes, uiPoint } from 'york-web/utils'
 
+import ServerErrorImage from './assets/500.svg'
+import NotFoundImage from './assets/404.svg'
+
 import locales from './locales'
 
 const StyledContainer = styled(View)`
@@ -15,10 +18,6 @@ const StyledContainer = styled(View)`
 
 const StyledLayoutContainer = styled(View)`
   text-align: center;
-`
-
-const StyledImage = styled.img`
-  max-width: 100%;
 `
 
 const StyledButtonContainer = styled.div`
@@ -55,7 +54,7 @@ const getErrorLayout = statusCode => {
     case 404:
       return (
         <>
-          <StyledImage src={require('./assets/404.svg')} />
+          <NotFoundImage />
           <Separator height={8} />
           <Text preset="header4">{locales.errors[404].title}</Text>
           <Separator height={2} />
@@ -65,7 +64,7 @@ const getErrorLayout = statusCode => {
     case 500:
       return (
         <>
-          <StyledImage src={require('./assets/500.svg')} />
+          <ServerErrorImage />
           <Separator height={8} />
           <Text preset="header4">{locales.errors[500].title}</Text>
           <Separator height={2} />
