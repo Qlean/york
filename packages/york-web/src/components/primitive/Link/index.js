@@ -3,11 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import {
-  AnalyticsContext,
-  getAnalyticsName,
-  eventActionTypes,
-} from '@qlean/york-analytics'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -119,30 +115,23 @@ function Link({ href, children, name, onClick, ...rest }) {
   )
 
   const analyticsContext = useContext(AnalyticsContext)
-  const linkName = getAnalyticsName(name, analyticsContext)
+
+  let analyticsHref = href
 
   const handleClick = ({ ...args }) => {
     if (analyticsContext) {
-      const { trackEvent, category, properties } = analyticsContext
-      if (typeof category === 'string' && typeof trackEvent === 'function') {
-        trackEvent({
-          category,
-          label: linkName,
-          action: eventActionTypes.click,
-          properties: {
-            ...properties,
-            href,
-          },
-        })
-      }
+      const { category, redirectUrl } = analyticsContext
+      analyticsHref = `${redirectUrl}?tstamp0=${Date.now()}ec0=${category}&el0=${name}&ea0=${
+        eventActionTypes.click
+      }&rul0${href}&dl0=${window.location.href}`
     }
     if (onClick) onClick(args)
   }
 
   return (
     <StyledLink
-      href={href}
-      name={linkName}
+      href={analyticsHref}
+      name={name}
       normalizedProps={normalizedProps}
       onClick={handleClick}
       {...rest}

@@ -67,7 +67,7 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
-  /** Доступен ли профиль и логин */
+  /** Доступен ли профиль */
   isProfileAvailable: PropTypes.bool.isRequired,
   /** Залогинен ли пользоватеть */
   isLoggedIn: PropTypes.bool.isRequired,
@@ -88,7 +88,7 @@ Header.propTypes = {
   /**
    * Словарь коллбэков. По умолчанию поддерживает:
    *
-   * - `onLogin` — вызывается по клику на «Войти». Обязателен, если `isProfileAvailable` равен `true`.
+   * - `onLogin` — вызывается по клику на «Войти». Обязателен.
    * - `onRegionChange` — вызывается при смене региона с аргументом `value: String`. Обязателен, если
    * `selectedRegion` задан.
    */

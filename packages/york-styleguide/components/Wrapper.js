@@ -35,7 +35,11 @@ const trackEvent = ({ category, label, action, properties }) => {
 }
 
 const Wrapper = ({ children }) => (
-  <AnalyticsProvider category="york" trackEvent={trackEvent}>
+  <AnalyticsProvider
+    category="york"
+    trackEvent={trackEvent}
+    redirectUrl="https://anlt.cloud.qlean.ru/collect"
+  >
     {children}
   </AnalyticsProvider>
 )
