@@ -1,22 +1,22 @@
 import { NetworkError, getResponseBody } from './utils'
 
-let isRefreshing = false
-let failedQueue = []
+let isTokenRefreshing = false
+let failedRequests = []
 
-const subscribe = request =>
+const pushToFailedRequests = request =>
   new Promise((resolve, reject) => {
-    failedQueue.push({ resolve, reject })
+    failedRequests.push({ resolve, reject })
   })
     .then(token => request(token))
-    .catch(err => Promise.reject(err))
+    .catch(error => Promise.reject(error))
 
 const processQueue = (error, token = null) => {
-  isRefreshing = false
-  failedQueue.forEach(({ reject, resolve }) => {
+  isTokenRefreshing = false
+  failedRequests.forEach(({ reject, resolve }) => {
     if (error) reject(error)
     else resolve(token)
   })
-  failedQueue = []
+  failedRequests = []
 }
 
 const api = ({
@@ -63,13 +63,13 @@ const api = ({
         headers: { ...fetchConfig.headers, Authorization: token },
       })
 
-    if (isRefreshing) return subscribe(originalRequest)
+    if (isTokenRefreshing) return pushToFailedRequests(originalRequest)
 
     const response = await originalRequest(originalAccessToken).then(res => {
       if (res.status === 419) {
-        if (isRefreshing) return subscribe(originalRequest)
+        if (isTokenRefreshing) return pushToFailedRequests(originalRequest)
 
-        isRefreshing = true
+        isTokenRefreshing = true
         return getNewAccessToken(originalRefreshToken).then(
           async ({ accessToken }) => {
             /**
