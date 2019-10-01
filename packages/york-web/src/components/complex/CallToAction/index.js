@@ -2,18 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {
-  GridContainer,
-  GridColumn,
-  Text,
-  Separator,
-  Button,
-  uiPoint,
-  media,
-} from '@qlean/york-web'
+import { GridContainer, GridColumn } from 'york-web/components/simple'
+import { Text, Separator } from 'york-web/components/primitive'
+import { uiPoint, media } from 'york-web/utils'
 
-const StyledButtonContainer = styled.div`
-  width: ${uiPoint * 80}px;
+const StyledActionContainer = styled.div`
+  width: ${uiPoint * 60}px;
 
   ${media.mobile(`
     width: 100%;
@@ -21,20 +15,14 @@ const StyledButtonContainer = styled.div`
   `)}
 `
 
-/** Компонент для призыва к действию */
-const CallToAction = ({
-  title,
-  text,
-  actionTitle,
-  actionHint,
-  buttonProps,
-  rightView,
-}) => (
+/** Компонент призыва к действию */
+const CallToAction = ({ title, description, caption, action, rightNode }) => (
   <GridContainer
     alignItems="center"
     mobileProps={{ flexDirection: 'column-reverse' }}
   >
     <GridColumn columns={6} mobileProps={{ columns: 12 }}>
+      <Separator mobileProps={{ height: 8 }} />
       {title && (
         <>
           <Text preset="link" color="green">
@@ -48,18 +36,16 @@ const CallToAction = ({
         wideProps={{ preset: 'header2' }}
         mobileProps={{ preset: 'header5' }}
       >
-        {text}
+        {description}
       </Text>
       <Separator height={8} mobileProps={{ height: 4 }} />
-      <StyledButtonContainer>
-        <Button {...buttonProps}>{actionTitle}</Button>
-        {actionHint && (
-          <>
-            <Separator height={2} />
-            <Text color="grey">{actionHint}</Text>
-          </>
-        )}
-      </StyledButtonContainer>
+      <StyledActionContainer>{action}</StyledActionContainer>
+      {caption && (
+        <>
+          <Separator height={2} />
+          <Text color="grey">{caption}</Text>
+        </>
+      )}
     </GridColumn>
     <GridColumn
       columns={6}
@@ -67,37 +53,27 @@ const CallToAction = ({
         columns: 12,
       }}
     >
-      {rightView.node}
-      <Separator height={0} mobileProps={{ height: 8 }} />
+      {rightNode}
     </GridColumn>
   </GridContainer>
 )
 
 CallToAction.defaultProps = {
   title: null,
-  actionHint: null,
+  caption: null,
 }
 
 CallToAction.propTypes = {
   /** Заголовок */
   title: PropTypes.string,
   /** Текст */
-  text: PropTypes.string.isRequired,
-  /** Текст кнопки */
-  actionTitle: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  /** Кнопка, ссылка или другой экшен */
+  action: PropTypes.node.isRequired,
   /** Подсказка под кнопкой */
-  actionHint: PropTypes.string,
-  /** Пропсы кнопки */
-  buttonProps: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
-    isSubmitting: PropTypes.bool,
-  }).isRequired,
+  caption: PropTypes.string,
   /** Компонент, который рендерится справа */
-  rightView: PropTypes.shape({
-    node: PropTypes.node.isRequired,
-  }).isRequired,
+  rightNode: PropTypes.node.isRequired,
 }
 
 export default CallToAction

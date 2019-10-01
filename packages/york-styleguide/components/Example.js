@@ -4,7 +4,15 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 
 import { colors } from '@qlean/york-core'
-import { Text, View, Separator, sizes, media } from '@qlean/york-web'
+import {
+  Text,
+  View,
+  Separator,
+  GridContainer,
+  sizes,
+  uiPoint,
+  media,
+} from '@qlean/york-web'
 
 const StyledBox = styled.div`
   display: flex;
@@ -52,7 +60,7 @@ Checkbox.propTypes = {
 }
 
 const Select = ({ title, value, options, onChange }) => (
-  <View>
+  <View alignItems="center">
     <StyledLabel>
       <Text>{title}</Text>
     </StyledLabel>
@@ -193,6 +201,31 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
 }
 
+const frameHeight = uiPoint * 100
+
+const StyledFrame = styled.div`
+  overflow: auto;
+  height: ${frameHeight}px;
+`
+
+const StyledPage = styled.div`
+  ${media.wide(`width: ${GridContainer.maxWidths.wide + 80}px;`)}
+  ${media.base(`width: ${GridContainer.maxWidths.base + 60}px;`)}
+  ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
+`
+
+const Frame = ({ children }) => (
+  <StyledFrame>
+    <StyledPage>{children}</StyledPage>
+  </StyledFrame>
+)
+
+Frame.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+Frame.height = frameHeight
+
 const text = {
   short: 'Аляскинский маламут',
   medium:
@@ -260,10 +293,11 @@ const Example = {
   Showcase,
   ShowcaseItem,
   Image,
+  Select,
+  Frame,
   text,
   options,
   tabs,
-  Select,
 }
 
 export default Example

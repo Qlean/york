@@ -129,22 +129,8 @@ const data = {
   },
 }
 
-const viewportHeight = uiPoint * 100
-
-const StyledViewport = styled.div`
-  overflow: auto;
-  height: ${viewportHeight}px;
-`
-
-const StyledPage = styled.div`
-  overflow: hidden;
-  ${media.wide(`width: ${GridContainer.maxWidths.wide + 80}px;`)}
-  ${media.base(`width: ${GridContainer.maxWidths.base + 60}px;`)}
-  ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
-`
-
 const StyledPageBody = styled.div`
-  height: ${viewportHeight * 2}px;
+  height: ${Example.Frame.height * 2}px;
   background: linear-gradient(${colors.whisper}, ${colors.coal});
 `
 
@@ -185,53 +171,50 @@ const ExampleComponents = () => {
           isPlusSubscriber
         </Example.Checkbox>
       </Example.InputGroup>
-      <StyledViewport>
-        <StyledPage>
-          <Header
-            isProfileAvailable={isProfileAvailable}
-            isLoggedIn={isLoggedIn}
-            isPlusSubscriber={isPlusSubscriber}
-            selectedRegion={region}
-            selectedProfileItem={items.profile}
-            selectedLevelOneItem={(items.menu || [])[0]}
-            selectedLevelTwoItem={(items.menu || [])[1]}
-            callbacks={{
-              onCleaning: () => setItems({ menu: ['cleaning'] }),
-              onBasic: () => setItems({ menu: ['cleaning', 'basic'] }),
-              onGeneral: () => setItems({ menu: ['cleaning', 'general'] }),
-              onRenovation: () =>
-                setItems({ menu: ['cleaning', 'renovation'] }),
-              onHouse: () => setItems({ menu: ['cleaning', 'house'] }),
-              onWindows: () => setItems({ menu: ['cleaning', 'windows'] }),
-              onFurniture: () => setItems({ menu: ['cleaning', 'furniture'] }),
+      <Example.Frame>
+        <Header
+          isProfileAvailable={isProfileAvailable}
+          isLoggedIn={isLoggedIn}
+          isPlusSubscriber={isPlusSubscriber}
+          selectedRegion={region}
+          selectedProfileItem={items.profile}
+          selectedLevelOneItem={(items.menu || [])[0]}
+          selectedLevelTwoItem={(items.menu || [])[1]}
+          callbacks={{
+            onCleaning: () => setItems({ menu: ['cleaning'] }),
+            onBasic: () => setItems({ menu: ['cleaning', 'basic'] }),
+            onGeneral: () => setItems({ menu: ['cleaning', 'general'] }),
+            onRenovation: () => setItems({ menu: ['cleaning', 'renovation'] }),
+            onHouse: () => setItems({ menu: ['cleaning', 'house'] }),
+            onWindows: () => setItems({ menu: ['cleaning', 'windows'] }),
+            onFurniture: () => setItems({ menu: ['cleaning', 'furniture'] }),
 
-              onLaundry: () => setItems({ menu: ['laundry'] }),
-              onShirts: () => setItems({ menu: ['laundry', 'shirts'] }),
-              onLinen: () => setItems({ menu: ['laundry', 'linen'] }),
-              onSneakers: () => setItems({ menu: ['laundry', 'sneakers'] }),
-              onSocks: () => setItems({ menu: ['laundry', 'socks'] }),
+            onLaundry: () => setItems({ menu: ['laundry'] }),
+            onShirts: () => setItems({ menu: ['laundry', 'shirts'] }),
+            onLinen: () => setItems({ menu: ['laundry', 'linen'] }),
+            onSneakers: () => setItems({ menu: ['laundry', 'sneakers'] }),
+            onSocks: () => setItems({ menu: ['laundry', 'socks'] }),
 
-              onProfile: () => setItems({ profile: 'profile' }),
-              onOrders: () => setItems({ profile: 'orders' }),
-              onBilling: () => setItems({ profile: 'billing' }),
-              onLogout: () => alert('onLogout'),
+            onProfile: () => setItems({ profile: 'profile' }),
+            onOrders: () => setItems({ profile: 'orders' }),
+            onBilling: () => setItems({ profile: 'billing' }),
+            onLogout: () => alert('onLogout'),
 
-              onLogin: () => alert('onLogin'),
-              onRegionChange: setRegion,
-            }}
-            {...data}
-          />
-          <StyledPageBody>
-            <StyledPageContent>
-              <GridContainer>
-                <GridColumn columns={12}>
-                  <StyledBox />
-                </GridColumn>
-              </GridContainer>
-            </StyledPageContent>
-          </StyledPageBody>
-        </StyledPage>
-      </StyledViewport>
+            onLogin: () => alert('onLogin'),
+            onRegionChange: setRegion,
+          }}
+          {...data}
+        />
+        <StyledPageBody>
+          <StyledPageContent>
+            <GridContainer>
+              <GridColumn columns={12}>
+                <StyledBox />
+              </GridColumn>
+            </GridContainer>
+          </StyledPageContent>
+        </StyledPageBody>
+      </Example.Frame>
     </>
   )
 }

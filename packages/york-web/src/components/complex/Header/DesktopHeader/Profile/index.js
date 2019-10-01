@@ -34,6 +34,7 @@ export default function Profile({
   callbacks,
   isLoggedIn,
   isPlusSubscriber,
+  isProfileAvailable,
   items,
   selectedItem,
 }) {
@@ -41,7 +42,11 @@ export default function Profile({
     <Dropdown
       components={components}
       callbacks={callbacks}
-      items={items}
+      items={
+        isProfileAvailable
+          ? items
+          : items.filter(({ name }) => name === 'logout')
+      }
       selectedItem={selectedItem}
     >
       <View alignItems="center">
@@ -72,6 +77,7 @@ Profile.propTypes = {
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,
+  isProfileAvailable: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
   selectedItem: PropTypes.string,
 }
