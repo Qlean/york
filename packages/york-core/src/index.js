@@ -1,3 +1,4 @@
+export { default as fetcher } from './fetcher'
 export * from './styles/colors'
 export * from './utils/formatters'
 export * from './utils/validators'

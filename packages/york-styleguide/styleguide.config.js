@@ -70,6 +70,10 @@ module.exports = {
       content: '../york-core/README.md',
       sections: [
         {
+          name: 'fetcher',
+          content: '../york-core/docs/fetcher.md',
+        },
+        {
           name: 'colors',
           content: '../york-core/docs/colors.md',
         },
