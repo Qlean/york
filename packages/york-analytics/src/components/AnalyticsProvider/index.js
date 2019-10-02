@@ -12,13 +12,7 @@ const getAnalyticsRoute = (value, category) => {
 }
 
 /** Передает аналитический контекст дочерним компонентам */
-const AnalyticsProvider = ({
-  trackEvent,
-  category,
-  redirectUrl,
-  properties,
-  children,
-}) => {
+const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
   return (
     <AnalyticsContext.Consumer>
       {value => {
@@ -29,17 +23,11 @@ const AnalyticsProvider = ({
             'No event tracking function specified for `AnalyticsProvider`',
           )
         }
-        const getRedirectUrl = () => {
-          if (redirectUrl) return redirectUrl
-          if (value && value.redirectUrl) return value.redirectUrl
-          throw new Error('No redirect url specified for `AnalyticsProvider`')
-        }
 
         return (
           <AnalyticsContext.Provider
             value={{
               trackEvent: getEventTrackingFunction(),
-              redirectUrl: getRedirectUrl(),
               category,
               properties: {
                 analyticsRoute: getAnalyticsRoute(value, category),
@@ -60,8 +48,6 @@ AnalyticsProvider.propTypes = {
   category: PropTypes.string.isRequired,
   /** Функция для трекинга событий */
   trackEvent: PropTypes.func,
-  /** Url, через который должны проходить ссылки */
-  redirectUrl: PropTypes.string,
   /** Дополнительные данные, которые нужно передать вместе с событием */
   // eslint-disable-next-line react/forbid-prop-types
   properties: PropTypes.object,
@@ -71,7 +57,6 @@ AnalyticsProvider.propTypes = {
 AnalyticsProvider.defaultProps = {
   properties: {},
   trackEvent: null,
-  redirectUrl: null,
 }
 
 export default AnalyticsProvider

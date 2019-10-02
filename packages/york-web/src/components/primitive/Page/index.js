@@ -8,23 +8,7 @@ import {
 
 /** Компонет, отвечающий за рендер страницы. `Page` автоматически создает новый контекст для аналитики (см. york-analytics) */
 const Page = ({ name, analyticsProps, children }) => {
-  const trackPageEvent = useAnalytics(name)
-  useEffect(() => {
-    trackPageEvent({
-      label: name,
-      action: eventActionTypes.mount,
-    })
-  }, [name, trackPageEvent])
-  const { trackEvent, properties } = analyticsProps
-  return (
-    <AnalyticsProvider
-      category={name}
-      trackEvent={trackEvent}
-      properties={properties}
-    >
-      {children}
-    </AnalyticsProvider>
-  )
+  return <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
 }
 
 Page.propTypes = {

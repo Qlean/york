@@ -111,7 +111,7 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, name, ...rest }) {
+function Link({ href, children, name, onClick, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
@@ -119,30 +119,27 @@ function Link({ href, children, name, ...rest }) {
   )
 
   const analyticsContext = useContext(AnalyticsContext)
-
-  let analyticsHref = href
-
-  if (analyticsContext) {
-    const { category, redirectUrl } = analyticsContext
-
-    if (redirectUrl) {
-      analyticsHref = getAnalyticsUrl({
-        href,
-        category,
-        name,
-        action: eventActionTypes.click,
-        redirectUrl,
-      })
-    }
-  }
-
-  console.log(analyticsHref)
+  const handleClick = analyticsContext
+    ? (...args) => {
+        if (onClick) {
+          onClick(args)
+        }
+        const { trackEvent, category, properties } = analyticsContext
+        trackEvent({
+          category,
+          label: name,
+          action: eventActionTypes.click,
+          properties,
+        })
+      }
+    : onClick
 
   return (
     <StyledLink
-      href={analyticsHref}
+      href={href}
       name={name}
       normalizedProps={normalizedProps}
+      onClick={handleClick}
       {...rest}
     >
       {children}
@@ -153,6 +150,7 @@ function Link({ href, children, name, ...rest }) {
 Link.defaultProps = {
   rank: 0,
   backdropColor: 'white',
+  onClick: null,
 }
 
 Link.propTypes = {
@@ -164,6 +162,8 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   /** Имя ссылки. Используется для аналитики и тестов */
   name: PropTypes.string.isRequired,
+  /** Функция, выполняемая при клике */
+  onClick: PropTypes.func,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

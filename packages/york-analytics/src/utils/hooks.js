@@ -3,15 +3,15 @@ import { useContext, useCallback } from 'react'
 import AnalyticsContext from '../context'
 
 export const useAnalytics = category => {
-  if (!category || typeof category !== 'string') {
-    throw new Error('Error in `useAnalytics`: `category` must be a string')
-  }
-
   const analyticsContext = useContext(AnalyticsContext)
   if (!analyticsContext) {
     throw new Error(
       'Error in `useAnalytics`: no analytics context found. `useAnalytics` should only be used inside `AnalyticsProvider`',
     )
+  }
+
+  if (!category || typeof category !== 'string') {
+    throw new Error('Error in `useAnalytics`: `category` must be a string')
   }
 
   const {

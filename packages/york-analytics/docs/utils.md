@@ -1,9 +1,9 @@
 `getAnalyticsUrl({ href: String, category: String, label: String, action: String, redirectUrl: String }) => String`
 
-Функция для добавления аналитического редиректа к ссылке.
+Функция для составления аналитического URL из оригинальной ссылки и параметров события.
 
 ```js static
-const href = 'http://qlean.ru'
+const href = 'https://qlean.ru/plus'
 
 getAnalyticsUrl({
   href,
