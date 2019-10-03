@@ -88,7 +88,9 @@ const fetcher = ({
     })
 
     if (response.ok) return getResponseBody(response, responseDataTransformer)
-    throw new NetworkError(response, responseDataTransformer)
+
+    const errorData = await getResponseBody(response, responseDataTransformer)
+    throw new NetworkError(response, errorData)
   }
 
   return {
