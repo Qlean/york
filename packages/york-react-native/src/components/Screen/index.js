@@ -176,7 +176,7 @@ const Screen = forwardRef(
     const onScrollViewContentSizeChange = (width, height) =>
       setContentHeight(height)
 
-    return (
+    const renderScreenBody = () => (
       <View
         style={[
           styles.screenBackground,
@@ -206,7 +206,7 @@ const Screen = forwardRef(
             onContentSizeChange={onScrollViewContentSizeChange}
           >
             {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-            <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
+            {children}
             {footer && <View style={{ height: footerHeight }} />}
           </ScrollView>
           {footer && (
@@ -216,6 +216,14 @@ const Screen = forwardRef(
           )}
         </KeyboardAvoidingView>
       </View>
+    )
+
+    return analyticsContext ? (
+      <AnalyticsProvider category={name}>
+        {renderScreenBody()}
+      </AnalyticsProvider>
+    ) : (
+      renderScreenBody()
     )
   },
 )

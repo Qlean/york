@@ -23,7 +23,11 @@ const Page = ({ name, analyticsData, children }) => {
     }
   }, [analyticsContext, analyticsData, name])
 
-  return <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
+  return analyticsContext ? (
+    <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
+  ) : (
+    children
+  )
 }
 
 Page.propTypes = {
