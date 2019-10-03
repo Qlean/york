@@ -1,15 +1,14 @@
-export function NetworkError(response, responseDataTransformer) {
-  const { method, url, status, message, data } = response || {}
+export function NetworkError(response = {}, data = null) {
+  const { method, url, status, statusText } = response
 
   this.name = 'NetworkError'
-  this.message = message || status || null
+  this.statusText = statusText || null
+  this.status = status || null
+  this.data = data
 
   this.request = {
     method,
     url,
-    status: status || null,
-    data:
-      (responseDataTransformer ? responseDataTransformer(data) : data) || null,
   }
 
   this.stack = new Error().stack

@@ -44,17 +44,17 @@ const fetcher = ({
 
   const request = async (method, url, payload, config = {}) => {
     const fetchConfig = {
+      ...config,
+      headers: {
+        'content-type': 'application/json',
+        ...config.headers,
+      },
       method,
       body: payload
         ? JSON.stringify(
             requestDataTransformer ? requestDataTransformer(payload) : payload,
           )
         : null,
-      headers: {
-        'content-type': 'application/json',
-        ...config.headers,
-      },
-      ...config,
     }
 
     const originalRequest = token =>
@@ -88,7 +88,9 @@ const fetcher = ({
     })
 
     if (response.ok) return getResponseBody(response, responseDataTransformer)
-    throw new NetworkError(response, responseDataTransformer)
+
+    const errorData = await getResponseBody(response, responseDataTransformer)
+    throw new NetworkError(response, errorData)
   }
 
   return {
