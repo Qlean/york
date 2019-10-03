@@ -5,14 +5,14 @@ import AnalyticsContext from '../../context'
 
 const getAnalyticsRoute = (value, category) => {
   if (value) {
-    const { analyticsRoute } = value.properties
-    return `${analyticsRoute}.${category}`
+    const { analyticsRoute } = value
+    return `${analyticsRoute}/${category}`
   }
   return category
 }
 
 /** Передает аналитический контекст дочерним компонентам */
-const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
+const AnalyticsProvider = ({ trackEvent, category, children }) => {
   return (
     <AnalyticsContext.Consumer>
       {value => {
@@ -23,16 +23,13 @@ const AnalyticsProvider = ({ trackEvent, category, properties, children }) => {
             'No event tracking function specified for `AnalyticsProvider`',
           )
         }
-
+        const analyticsRoute = getAnalyticsRoute(value, category)
         return (
           <AnalyticsContext.Provider
             value={{
               trackEvent: getEventTrackingFunction(),
               category,
-              properties: {
-                analyticsRoute: getAnalyticsRoute(value, category),
-                ...properties,
-              },
+              analyticsRoute,
             }}
           >
             {children}
@@ -48,14 +45,11 @@ AnalyticsProvider.propTypes = {
   category: PropTypes.string.isRequired,
   /** Функция для трекинга событий */
   trackEvent: PropTypes.func,
-  /** Дополнительные данные, которые нужно передать вместе с событием */
-  // eslint-disable-next-line react/forbid-prop-types
-  properties: PropTypes.object,
+  /** Позволяет отключить трекинг для этого провайдера, передается дальше по контексту */
   children: PropTypes.node.isRequired,
 }
 
 AnalyticsProvider.defaultProps = {
-  properties: {},
   trackEvent: null,
 }
 

@@ -61,13 +61,12 @@ export default function MenuItem({
         onClick={e => {
           if (onClick) onClick(e)
           if (analyticsContext) {
-            const { trackEvent, category, properties } = analyticsContext
+            const { trackEvent, category } = analyticsContext
 
             trackEvent({
               category,
               label: name,
               action: eventActionTypes.click,
-              properties,
             })
           }
           callbacks[callback]()

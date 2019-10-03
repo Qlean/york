@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react'
+import React, { forwardRef, useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -12,7 +12,7 @@ import {
 import { colors } from '@qlean/york-core'
 import {
   AnalyticsProvider,
-  useAnalytics,
+  AnalyticsContext,
   eventActionTypes,
 } from '@qlean/york-analytics'
 
@@ -144,7 +144,7 @@ const Screen = forwardRef(
       withSafeAreaPaddingBottom,
       style,
       name,
-      analyticsProps,
+      analyticsData,
       ...rest
     },
     ref,
@@ -154,15 +154,20 @@ const Screen = forwardRef(
     const [contentHeight, setContentHeight] = useState(0)
     const isScrollEnabled = contentHeight > scrollViewHeight
 
-    const trackScreenEvent = useAnalytics(name)
-    useEffect(() => {
-      trackScreenEvent({
-        label: name,
-        action: eventActionTypes.mount,
-      })
-    }, [name, trackScreenEvent])
+    const analyticsContext = useContext(AnalyticsContext)
 
-    const { trackEvent, properties } = analyticsProps
+    useEffect(() => {
+      if (analyticsContext) {
+        const { trackEvent, analyticsRoute } = analyticsContext
+        trackEvent({
+          label: name,
+          category: name,
+          action: eventActionTypes.mount,
+          analyticsRoute,
+          ...analyticsData,
+        })
+      }
+    }, [analyticsContext, analyticsData, name])
 
     const onFooterLayout = ({ nativeEvent }) =>
       setFooterHeight(nativeEvent.layout.height)
@@ -201,13 +206,7 @@ const Screen = forwardRef(
             onContentSizeChange={onScrollViewContentSizeChange}
           >
             {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-            <AnalyticsProvider
-              category={name}
-              properties={properties}
-              trackEvent={trackEvent}
-            >
-              {children}
-            </AnalyticsProvider>
+            <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
             {footer && <View style={{ height: footerHeight }} />}
           </ScrollView>
           {footer && (
@@ -228,7 +227,7 @@ Screen.defaultProps = {
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
   style: null,
-  analyticsProps: {},
+  analyticsData: {},
 }
 
 Screen.propTypes = {
@@ -252,13 +251,9 @@ Screen.propTypes = {
   withSafeAreaPaddingTop: PropTypes.bool,
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
-  /** Пропсы для AnalyticsProvider */
-  analyticsProps: PropTypes.shape({
-    /** Функция трекинга */
-    trackEvent: PropTypes.func,
-    /** Объект с дополниельными данными  для аналитики */
-    properties: PropTypes.object,
-  }),
+  /** Дополнительные данные для аналитики */
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
   children: PropTypes.node.isRequired,
   style: ViewPropTypes.style,
 }

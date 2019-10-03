@@ -10,30 +10,32 @@ export const useAnalytics = category => {
     )
   }
 
-  if (!category || typeof category !== 'string') {
-    throw new Error('Error in `useAnalytics`: `category` must be a string')
-  }
-
   const {
     trackEvent,
-    properties: { analyticsRoute },
-  } = useContext(AnalyticsContext)
+    category: contextCategory,
+    analyticsRoute,
+    ...rest
+  } = analyticsContext
+
+  const finalCategory = category || contextCategory
+
   if (!trackEvent) {
     throw new Error(
       'Error in `useAnalytics`: no tracking function found in context. `useAnalytics` should only be used inside `AnalyticsProvider`',
     )
   }
 
-  return useCallback(
-    data =>
-      trackEvent({
-        ...data,
-        category,
-        properties: {
-          analyticsRoute: `${analyticsRoute}.${category}`,
-          ...data.properties,
-        },
-      }),
-    [trackEvent, category, analyticsRoute],
-  )
+  return {
+    trackEvent: useCallback(
+      data =>
+        trackEvent({
+          ...data,
+          category: finalCategory,
+          analyticsRoute,
+        }),
+      [trackEvent, finalCategory, analyticsRoute],
+    ),
+    analyticsRoute,
+    ...rest,
+  }
 }

@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
-import {
-  AnalyticsContext,
-  eventActionTypes,
-  getAnalyticsUrl,
-} from '@qlean/york-analytics'
 
 import { media, transitions, normalizeResponsivePreset } from 'york-web/utils'
 
@@ -111,35 +106,18 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, name, onClick, ...rest }) {
+function Link({ href, children, name, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
     rest,
   )
 
-  const analyticsContext = useContext(AnalyticsContext)
-  const handleClick = analyticsContext
-    ? (...args) => {
-        if (onClick) {
-          onClick(args)
-        }
-        const { trackEvent, category, properties } = analyticsContext
-        trackEvent({
-          category,
-          label: name,
-          action: eventActionTypes.click,
-          properties,
-        })
-      }
-    : onClick
-
   return (
     <StyledLink
       href={href}
       name={name}
       normalizedProps={normalizedProps}
-      onClick={handleClick}
       {...rest}
     >
       {children}
@@ -150,7 +128,6 @@ function Link({ href, children, name, onClick, ...rest }) {
 Link.defaultProps = {
   rank: 0,
   backdropColor: 'white',
-  onClick: null,
 }
 
 Link.propTypes = {
@@ -162,8 +139,6 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   /** Имя ссылки. Используется для аналитики и тестов */
   name: PropTypes.string.isRequired,
-  /** Функция, выполняемая при клике */
-  onClick: PropTypes.func,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

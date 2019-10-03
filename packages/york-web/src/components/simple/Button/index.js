@@ -210,21 +210,23 @@ function Button({
   onClick,
   children,
   name,
+  analyticsData,
   ...rest
 }) {
   const analyticsContext = useContext(AnalyticsContext)
 
-  const handleClick = ({ ...args }) => {
+  const handleClick = (...args) => {
     if (analyticsContext) {
-      const { trackEvent, category, properties } = analyticsContext
+      const { trackEvent, category, analyticsRoute } = analyticsContext
       trackEvent({
         category,
         label: name,
         action: eventActionTypes.click,
-        properties,
+        analyticsRoute,
+        ...analyticsData,
       })
     }
-    onClick(args)
+    onClick(...args)
   }
 
   const normalizedProps = normalizeResponsivePreset(
@@ -259,6 +261,7 @@ const defaultProps = {
   size: 'm',
   withShadow: false,
   isSubmitting: false,
+  analyticsData: {},
 }
 
 const propTypes = {
@@ -287,6 +290,9 @@ Button.propTypes = {
   isSubmitting: PropTypes.bool,
   /** Коллбек, вызываемый по клику. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
   onClick: PropTypes.func.isRequired,
+  /** Дополнительные данные для аналитики */
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
 }
 
 Button.presets = presets
