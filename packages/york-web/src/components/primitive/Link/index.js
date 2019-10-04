@@ -106,14 +106,20 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, ...rest }) {
+function Link({ href, children, name, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
     rest,
   )
+
   return (
-    <StyledLink href={href} normalizedProps={normalizedProps} {...rest}>
+    <StyledLink
+      href={href}
+      name={name}
+      normalizedProps={normalizedProps}
+      {...rest}
+    >
       {children}
     </StyledLink>
   )
@@ -131,6 +137,8 @@ Link.propTypes = {
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
+  /** Имя ссылки. Используется для аналитики и тестов */
+  name: PropTypes.string.isRequired,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

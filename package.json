@@ -29,6 +29,7 @@
     "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
+    "@qlean/york-analytics": "file:packages/york-analytics",
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
     "@qlean/york-web": "file:packages/york-web"
@@ -40,8 +41,8 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
-    "@qlean/eslint-config": "4.1.0",
-    "@qlean/eslint-config-react-native": "4.1.0",
+    "@qlean/eslint-config": "5.0.1",
+    "@qlean/eslint-config-react-native": "5.0.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-inline-react-svg": "^1.1.0",

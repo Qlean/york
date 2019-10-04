@@ -5,6 +5,7 @@
 ## Пакеты
 
 - `york-core` — Утилиты, гайдовые цвета
+- `york-analytics` — Аналитика для React
 - `york-web` — UI-компоненты для React
 - `york-react-native` — UI-компоненты для React Native
 - `york-styleguide` — Стайлгайд с компонентами

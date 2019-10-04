@@ -3,6 +3,7 @@ const path = require('path')
 const propsParser = require('./propsParser')
 
 const lernaConfig = require('../../lerna.json')
+const yorkAnalyticsPackage = require('../york-analytics/package.json')
 const yorkCorePackage = require('../york-core/package.json')
 const yorkWebPackage = require('../york-web/package.json')
 const yorkReactNativePackage = require('../york-react-native/package.json')
@@ -27,11 +28,37 @@ module.exports = {
   context: {
     Example: path.resolve(__dirname, 'components/Example'),
   },
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, 'components/Wrapper'),
+  },
   sections: [
     {
       name: 'york',
       description: `Версия ${lernaConfig.version}`,
       content: './README.md',
+    },
+    {
+      name: 'york-analytics',
+      description: `Версия ${yorkAnalyticsPackage.version}`,
+      content: '../york-analytics/README.MD',
+      sections: [
+        {
+          name: 'AnalyticsContext',
+          content: '../york-analytics/docs/context.md',
+        },
+        {
+          name: 'components',
+          components: '../york-analytics/src/components/**/*.js',
+        },
+        {
+          name: 'eventActionTypes',
+          content: '../york-analytics/docs/eventActionTypes.md',
+        },
+        {
+          name: 'hooks',
+          content: '../york-analytics/docs/hooks.md',
+        },
+      ],
     },
     {
       name: 'york-core',

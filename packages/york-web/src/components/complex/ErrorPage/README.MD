@@ -16,7 +16,7 @@ const Footer = () => (
       Если после перезагрузки вы видите тот же экран, то позвоните нам
     </Text>
     <Text>
-      <Link rank={1} href="tel:+74956468259">
+      <Link rank={1} href="tel:+74956468259" name="phone">
         +7 495 646-82-59
       </Link>
     </Text>

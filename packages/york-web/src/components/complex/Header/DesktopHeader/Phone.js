@@ -11,7 +11,7 @@ const StyledPhoneText = styled(Text)`
 
 export default function Phone({ phone }) {
   return (
-    <Link href={formatPhoneHref(phone)}>
+    <Link name="phone" href={formatPhoneHref(phone)}>
       <StyledPhoneText preset="caption">{formatPhone(phone)}</StyledPhoneText>
     </Link>
   )

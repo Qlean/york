@@ -1,6 +1,6 @@
 {
-  "name": "@qlean/york-web",
-  "version": "3.8.4",
+  "name": "@qlean/york-analytics",
+  "version": "3.0.0",
   "description": "",
   "license": "MIT",
   "repository": {
@@ -15,12 +15,7 @@
     "lint": "eslint src --ext .js"
   },
   "peerDependencies": {
-    "@qlean/york-core": "*",
-    "@qlean/york-analytics": "*",
     "prop-types": ">=15",
-    "ramda": ">=0.26",
-    "react": ">=16",
-    "react-dom": ">=16",
-    "styled-components": ">=4"
+    "react": ">=16"
   }
 }

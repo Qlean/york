@@ -171,7 +171,7 @@ export default function MobileHeader(props) {
         <StyledTopMenu alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
-            <Link href="/">
+            <Link href="/" name="logo">
               <StyledLogo>
                 <Logo />
               </StyledLogo>
@@ -185,7 +185,7 @@ export default function MobileHeader(props) {
               />
             )}
             {!selectedRegion && phone && (
-              <Link href={formatPhoneHref(phone)}>
+              <Link name="phone" href={formatPhoneHref(phone)}>
                 <StyledPhoneText preset="caption">
                   {formatPhone(phone)}
                 </StyledPhoneText>

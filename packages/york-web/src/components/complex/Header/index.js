@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { AnalyticsProvider, AnalyticsContext } from '@qlean/york-analytics'
 
 import { media } from 'york-web/utils'
 import { Link } from 'york-web/components/primitive'
@@ -36,6 +37,7 @@ const StyledMobileHeader = styled.div`
  * - `mobileHeaderModal` — мобильный хедер, бургерное меню
  */
 export default function Header({ components, ...rest }) {
+  const analyticsContext = useContext(AnalyticsContext)
   const props = {
     components: {
       Link,
@@ -45,13 +47,21 @@ export default function Header({ components, ...rest }) {
     },
     ...rest,
   }
-  return (
+
+  const renderContent = () => (
     <>
       <DesktopHeader {...props} />
       <StyledMobileHeader>
         <MobileHeader {...props} />
       </StyledMobileHeader>
     </>
+  )
+  return analyticsContext ? (
+    <AnalyticsProvider category="topNavigation">
+      {renderContent()}
+    </AnalyticsProvider>
+  ) : (
+    renderContent()
   )
 }
 

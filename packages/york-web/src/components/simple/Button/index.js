@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 import * as R from 'ramda'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import {
   uiPoint,
@@ -203,7 +204,31 @@ const getPreset = (mediaProps, props) => {
  * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
  * Первый отражает важность кнопки на странице, а второй отвечает за цвет подложки.
  */
-function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
+function Button({
+  isDisabled,
+  isSubmitting,
+  onClick,
+  children,
+  name,
+  analyticsData,
+  ...rest
+}) {
+  const analyticsContext = useContext(AnalyticsContext)
+
+  const handleClick = e => {
+    if (analyticsContext) {
+      const { trackEvent, category, analyticsRoute } = analyticsContext
+      trackEvent({
+        category,
+        label: name,
+        action: eventActionTypes.click,
+        analyticsRoute,
+        ...analyticsData,
+      })
+    }
+    onClick(e)
+  }
+
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
@@ -217,10 +242,11 @@ function Button({ isDisabled, isSubmitting, onClick, children, ...rest }) {
   return (
     <StyledButton
       {...rest}
+      name={name}
       normalizedProps={normalizedProps}
       disabled={isDisabled || isSubmitting}
       isDisabled={isDisabled || isSubmitting}
-      onClick={!isDisabled && !isSubmitting ? onClick : null}
+      onClick={!isDisabled && !isSubmitting ? handleClick : null}
     >
       <StyledContent>{content}</StyledContent>
     </StyledButton>
@@ -235,6 +261,7 @@ const defaultProps = {
   size: 'm',
   withShadow: false,
   isSubmitting: false,
+  analyticsData: {},
 }
 
 const propTypes = {
@@ -263,6 +290,9 @@ Button.propTypes = {
   isSubmitting: PropTypes.bool,
   /** Коллбек, вызываемый по клику. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
   onClick: PropTypes.func.isRequired,
+  /** Дополнительные данные для аналитики */
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
 }
 
 Button.presets = presets

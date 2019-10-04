@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { Text, View } from 'york-web/components/primitive'
 
@@ -38,6 +39,7 @@ export default function Profile({
   items,
   selectedItem,
 }) {
+  const analyticsContext = useContext(AnalyticsContext)
   return isLoggedIn ? (
     <Dropdown
       components={components}
@@ -57,7 +59,21 @@ export default function Profile({
       </View>
     </Dropdown>
   ) : (
-    <StyledLogin alignItems="center" onClick={callbacks.onLogin}>
+    <StyledLogin
+      alignItems="center"
+      onClick={e => {
+        if (analyticsContext) {
+          const { trackEvent, category, analyticsRoute } = analyticsContext
+          trackEvent({
+            category,
+            label: 'loginButton',
+            action: eventActionTypes.click,
+            analyticsRoute,
+          })
+        }
+        callbacks.onLogin(e)
+      }}
+    >
       <LoginIcon />
       <Text preset="caption" color="inherit">
         {locales.login}
