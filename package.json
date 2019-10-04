@@ -32,8 +32,7 @@
     "@qlean/york-analytics": "file:packages/york-analytics",
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web",
-    "@qleanlabs/analytics-client": "^0.3.5"
+    "@qlean/york-web": "file:packages/york-web"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
