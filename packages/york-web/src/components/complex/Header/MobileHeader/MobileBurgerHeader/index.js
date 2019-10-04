@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
@@ -97,6 +98,7 @@ export default function MobileBurgerHeader({
   components: { Link, Logo },
   content: { tabs, regions, profile },
 }) {
+  const analyticsContext = useContext(AnalyticsContext)
   const [activeItems, setActiveItems] = useState({})
   const setActiveItem = (name, value) =>
     setActiveItems(prevItems => ({ ...prevItems, [name]: value }))
@@ -225,6 +227,19 @@ export default function MobileBurgerHeader({
         ) : (
           <StyledMenuItem
             onClick={() => {
+              if (analyticsContext) {
+                const {
+                  trackEvent,
+                  category,
+                  analyticsRoute,
+                } = analyticsContext
+                trackEvent({
+                  category,
+                  label: 'loginButtonMobile',
+                  action: eventActionTypes.click,
+                  analyticsRoute,
+                })
+              }
               onLogin()
               onRequestClose()
             }}
