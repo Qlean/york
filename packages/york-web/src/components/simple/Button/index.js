@@ -215,7 +215,7 @@ function Button({
 }) {
   const analyticsContext = useContext(AnalyticsContext)
 
-  const handleClick = (...args) => {
+  const handleClick = e => {
     if (analyticsContext) {
       const { trackEvent, category, analyticsRoute } = analyticsContext
       trackEvent({
@@ -226,7 +226,7 @@ function Button({
         ...analyticsData,
       })
     }
-    onClick(...args)
+    onClick(e)
   }
 
   const normalizedProps = normalizeResponsivePreset(

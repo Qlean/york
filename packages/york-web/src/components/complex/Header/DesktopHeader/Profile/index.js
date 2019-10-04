@@ -61,7 +61,7 @@ export default function Profile({
   ) : (
     <StyledLogin
       alignItems="center"
-      onClick={(...args) => {
+      onClick={e => {
         if (analyticsContext) {
           const { trackEvent, category, analyticsRoute } = analyticsContext
           trackEvent({
@@ -71,7 +71,7 @@ export default function Profile({
             analyticsRoute,
           })
         }
-        callbacks.onLogin(...args)
+        callbacks.onLogin(e)
       }}
     >
       <LoginIcon />

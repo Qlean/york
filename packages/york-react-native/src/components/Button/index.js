@@ -166,7 +166,7 @@ const Button = ({
 
   const analyticsContext = useContext(AnalyticsContext)
 
-  const handlePress = (...args) => {
+  const handlePress = e => {
     if (analyticsContext) {
       const { trackEvent, category, analyticsRoute } = analyticsContext
       trackEvent({
@@ -177,7 +177,7 @@ const Button = ({
         ...analyticsData,
       })
     }
-    onPress(...args)
+    onPress(e)
   }
 
   const opacity = useAnimation({
