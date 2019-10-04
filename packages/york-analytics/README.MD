@@ -53,4 +53,55 @@
 `Button` - автоматически отправляет событие `click` при нажатии. Категория события берется из ближайшего провайдера.
 
 ### Трэкинг ссылок
-TBD
+Ссылки в разных приложениях могут вести себя по разному, поэтому на данный момент в `york-analytics` нет универсального решения для трекинга нажатия на них.
+
+Вот пример реализации для ссылки с трекингом:
+```js static
+import React, { useContext, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Link as YorkLink } from '@qlean/york-web'
+import { eventActionTypes, AnalyticsContext } from '@qlean/york-analytics'
+
+// Функция, которая преобразует url. В идеале является частью модуля транспорта.
+import { getAnalyticsUrl } from 'modules/analytics/utils'
+
+const Link = ({ href, name, analyticsData, ...rest }) => {
+  const [url, setUrl] = useState(href)
+  const analyticsContext = useContext(AnalyticsContext)
+
+  useEffect(() => {
+    if (analyticsContext) {
+      const externalPattern = new RegExp('^(?:[a-z]+:)?//', 'i')
+      const isExternalLink = externalPattern.test(href)
+      const { category, analyticsRoute } = analyticsContext
+      setUrl(
+        getAnalyticsUrl({
+          href: isExternalLink ? href : `${window.location.origin}${href}`,
+          category,
+          label: name,
+          action: eventActionTypes.click,
+          redirectUrl: 'https://anlt.cloud.qlean.ru/collect',
+          analyticsRoute,
+          destination: href,
+          ...analyticsData,
+        }),
+      )
+    }
+  }, [href, name, analyticsContext, analyticsData])
+
+  return <YorkLink href={url} name={name} {...rest} />
+}
+
+Link.defaultProps = {
+  analyticsData: {},
+}
+
+Link.propTypes = {
+  href: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
+}
+
+export default Link
+```

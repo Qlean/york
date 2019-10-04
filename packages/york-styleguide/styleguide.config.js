@@ -58,10 +58,6 @@ module.exports = {
           name: 'hooks',
           content: '../york-analytics/docs/hooks.md',
         },
-        {
-          name: 'utils',
-          content: '../york-analytics/docs/utils.md',
-        },
       ],
     },
     {

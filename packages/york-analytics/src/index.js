@@ -1,6 +1,4 @@
 export * from './constants'
 export { default as AnalyticsContext } from './context'
 export { default as AnalyticsProvider } from './components/AnalyticsProvider'
-export { default as getAnalyticsUrl } from './utils/getAnalyticsUrl'
-export { default as encodeAnalyticsEvent } from './utils/encodeAnalyticsEvent'
 export * from './utils/hooks'
