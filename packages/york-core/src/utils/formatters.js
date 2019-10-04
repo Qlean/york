@@ -10,3 +10,5 @@ export const formatPhone = phone =>
     )
 
 export const formatPhoneHref = phone => `tel:+${phone.replace(/\D/g, '')}`
+
+export const formatMoney = money => `${money}\u00a0р.`

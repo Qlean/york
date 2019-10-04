@@ -20,6 +20,7 @@ const StyledTab = styled(View)`
 
 const StyledTabText = styled(Text)`
   font-size: 11px;
+  font-weight: 700;
   line-height: ${sizes[4]}px;
   text-transform: uppercase;
   letter-spacing: 1px;

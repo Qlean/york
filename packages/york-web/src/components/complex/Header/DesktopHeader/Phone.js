@@ -6,6 +6,7 @@ import { formatPhone, formatPhoneHref } from '@qlean/york-core'
 import { Text, Link } from 'york-web/components/primitive'
 
 const StyledPhoneText = styled(Text)`
+  font-weight: 700;
   letter-spacing: 0.5px;
 `
 
