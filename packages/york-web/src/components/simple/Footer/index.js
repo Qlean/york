@@ -25,97 +25,100 @@ const SocialNetworks = () => (
 )
 
 const topLinks = [
-  {
-    title: 'Уборка',
-    items: [
-      {
-        title: 'Поддерживающая',
-        href: '',
-      },
-      {
-        title: 'Генеральная',
-        href: '',
-      },
-      {
-        title: 'После ремонта',
-        href: '',
-      },
-      {
-        title: 'Загородные дома',
-        href: '',
-      },
-      {
-        title: 'Мытье окон',
-        href: '',
-      },
-      {
-        title: 'Химчистка мебели',
-        href: '',
-      },
-    ],
-  },
-  {
-    title: 'Химчистка',
-    items: [
-      {
-        title: 'Шторы',
-        href: '',
-      },
-      {
-        title: 'Кроссовки',
-        href: '',
-      },
-    ],
-  },
-  {
-    itemsPreset: 'textStrong',
-    items: [
-      {
-        title: 'Qlean Plus',
-        href: '',
-      },
-      {
-        title: 'Переезды',
-        href: '',
-      },
-      {
-        title: 'Хранение',
-        href: '',
-      },
-      {
-        title: 'Стирка и глажка',
-        href: '',
-      },
-      {
-        title: 'Уборка офисов',
-        href: '',
-      },
-    ],
-  },
-  {
-    items: [
-      {
-        title: 'Вопросы',
-        href: '',
-      },
-      {
-        title: 'Цены на уборку',
-        href: '',
-      },
-      {
-        title: 'Отзывы',
-        href: '',
-      },
-      {
-        title: 'Стать клинером',
-        href: '',
-      },
-      {
-        title: 'Вакансии',
-        href: '',
-      },
-    ],
-  },
+  [
+    {
+      title: 'Уборка',
+      items: [
+        {
+          title: 'Поддерживающая',
+          href: '',
+        },
+        {
+          title: 'Генеральная',
+          href: '',
+        },
+        {
+          title: 'После ремонта',
+          href: '',
+        },
+        {
+          title: 'Загородные дома',
+          href: '',
+        },
+        {
+          title: 'Мытье окон',
+          href: '',
+        },
+        {
+          title: 'Химчистка мебели',
+          href: '',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: 'Химчистка',
+      items: [
+        {
+          title: 'Шторы',
+          href: '',
+        },
+        {
+          title: 'Кроссовки',
+          href: '',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: 'Qlean Plus',
+      href: '',
+    },
+    {
+      title: 'Переезды',
+      href: '',
+    },
+    {
+      title: 'Хранение',
+      href: '',
+    },
+    {
+      title: 'Стирка и глажка',
+      href: '',
+    },
+    {
+      title: 'Уборка офисов',
+      href: '',
+    },
+  ],
+  [
+    {
+      items: [
+        {
+          title: 'Вопросы',
+          href: '',
+        },
+        {
+          title: 'Цены на уборку',
+          href: '',
+        },
+        {
+          title: 'Отзывы',
+          href: '',
+        },
+        {
+          title: 'Стать клинером',
+          href: '',
+        },
+        {
+          title: 'Вакансии',
+          href: '',
+        },
+      ],
+    },
+  ],
 ]
 
 const Footer = ({
@@ -131,33 +134,31 @@ const Footer = ({
       <StyledFooterTop>
         <Separator height={12} />
         <GridContainer>
-          {topLinks.map(({ title, items, itemsPreset }, i) => (
-            <GridColumn columns={3} key={title}>
-              {title && (
+          {topLinks.map(column => (
+            <GridColumn columns={3}>
+              {column.map(({ title, items }) => (
                 <>
-                  <Text preset="textStrong">{title}</Text>
-                  <Separator height={2} />
+                  {title && (
+                    <>
+                      <Text preset="textStrong">
+                        <Link rank={2}>{title}</Link>
+                      </Text>
+                      <Separator height={2} />
+                    </>
+                  )}
+                  {items &&
+                    items.map(item => (
+                      <>
+                        <Text>
+                          <Link rank={2} backdropColor="dark">
+                            {item.title}
+                          </Link>
+                        </Text>
+                        <Separator height={2} />
+                      </>
+                    ))}
                 </>
-              )}
-              {items.map(item => (
-                <Fragment key={item.title}>
-                  <Text
-                    preset={itemsPreset || 'text'}
-                    color={itemsPreset ? 'black' : 'coal'}
-                  >
-                    <Link rank={2} backdropColor="dark" href={item.href}>
-                      {item.title}
-                    </Link>
-                  </Text>
-                  <Separator height={itemsPreset ? 2 : 1} />
-                </Fragment>
               ))}
-              {i === topLinks.length - 1 && (
-                <>
-                  <Separator height={4} />
-                  <SocialNetworks />
-                </>
-              )}
             </GridColumn>
           ))}
         </GridContainer>

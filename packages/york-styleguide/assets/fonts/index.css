@@ -67,3 +67,7 @@
   font-weight: 900;
   font-style: italic;
 }
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
