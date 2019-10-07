@@ -2,7 +2,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Text } from 'york-web/components/primitive'
-import { sizes } from 'york-web/utils'
+import { sizes, transitions } from 'york-web/utils'
+
+import ArrowIcon from './assets/arrow.svg'
+
+const StyledArrowIconContainer = styled.div`
+  flex-shrink: 0;
+  transition: ${transitions.medium};
+  ${({ isActive }) => !isActive && 'transform: rotate(-180deg);'}
+`
 
 const StyledToggler = styled.div`
   width: 300px;
@@ -20,15 +28,19 @@ const Accordion = ({ items }) => {
   return (
     <>
       {items.map(item => {
-        const isActiveItem = item.title === value
-        const onClick = () => setValue(isActiveItem ? null : item.title)
+        const isActive = item.title === value
+        const onClick = () => setValue(isActive ? null : item.title)
         return (
           <div>
             <StyledToggler onClick={onClick}>
               <Text color="grey">{item.title}</Text>
-              {item.content && <img src={require('./assets/arrow.svg')} />}
+              {item.content && (
+                <StyledArrowIconContainer isActive={isActive}>
+                  <ArrowIcon />
+                </StyledArrowIconContainer>
+              )}
             </StyledToggler>
-            {isActiveItem && item.content}
+            {isActive && item.content}
           </div>
         )
       })}

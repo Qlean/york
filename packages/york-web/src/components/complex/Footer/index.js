@@ -1,15 +1,17 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { flatten } from 'ramda'
 
 import { View, Separator, Text, Link } from 'york-web/components/primitive'
-import { GridContainer, GridColumn } from 'york-web/components/simple'
+import {
+  GridContainer,
+  GridColumn,
+  SocialButton,
+  Accordion,
+} from 'york-web/components/simple'
 import { sizes } from 'york-web/utils'
-
-import SocialButton from '../SocialButton'
-import Accordion from '../Accordion'
 
 const StyledFooterTop = styled.div``
 const StyledFooterBottom = styled.div`
