@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -32,12 +33,14 @@ const getCss = props => {
   `
 }
 
+const StyledView = styled.div`
+  ${getCss}
+`
+
 /**
  * Универсальный контейнер, аналог `<View>` из React Native.
  */
-const View = styled.div`
-  ${getCss}
-`
+const View = props => <StyledView {...props} />
 
 const propTypes = {
   /** Аналог `flex-direction` */
@@ -65,5 +68,4 @@ View.propTypes = {
   ...getResponsivePropTypes(propTypes),
 }
 
-/** @component */
 export default View

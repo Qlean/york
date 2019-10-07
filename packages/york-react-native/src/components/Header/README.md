@@ -1,5 +1,5 @@
 ```js
-import { Picker, Text, Separator, Icon } from '@qlean/york-react-native'
+import { Pagination, Text, Separator, Icon } from '@qlean/york-react-native'
 
 ;
 <>
@@ -19,13 +19,7 @@ import { Picker, Text, Separator, Icon } from '@qlean/york-react-native'
   <Separator height={4} />
   <Header
     centerNode={
-      <Picker
-        name="example"
-        options={Example.options}
-        value={Example.options[0].value}
-        isDisabled={false}
-        onChange={() => {}}
-      />
+      <Pagination value={2} pagesCount={7} />
     }
     leftView={{
       node: <Icon name="back" />,

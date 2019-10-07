@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black,
     opacity: 0.4,
   },
-  pickerWrapper: {
+  pickerContainer: {
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -224,7 +224,7 @@ export default function Picker({
           <TouchableWithoutFeedback onPress={hideModal}>
             <View style={styles.modal} />
           </TouchableWithoutFeedback>
-          <View style={styles.pickerWrapper} pointerEvents="box-none">
+          <View style={styles.pickerContainer} pointerEvents="box-none">
             <View style={{ height: pickerHeight }}>
               <ScrollView style={styles.pickerScrollView}>
                 <View style={styles.pickerContent}>

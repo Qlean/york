@@ -3,6 +3,7 @@ const path = require('path')
 const propsParser = require('./propsParser')
 
 const lernaConfig = require('../../lerna.json')
+const yorkAnalyticsPackage = require('../york-analytics/package.json')
 const yorkCorePackage = require('../york-core/package.json')
 const yorkWebPackage = require('../york-web/package.json')
 const yorkReactNativePackage = require('../york-react-native/package.json')
@@ -23,14 +24,41 @@ module.exports = {
   skipComponentsWithoutExample: true,
   pagePerSection: true,
   getComponentPathLine,
+  ignore: ['**/*/locales.js'],
   context: {
     Example: path.resolve(__dirname, 'components/Example'),
+  },
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, 'components/Wrapper'),
   },
   sections: [
     {
       name: 'york',
       description: `Версия ${lernaConfig.version}`,
       content: './README.md',
+    },
+    {
+      name: 'york-analytics',
+      description: `Версия ${yorkAnalyticsPackage.version}`,
+      content: '../york-analytics/README.MD',
+      sections: [
+        {
+          name: 'AnalyticsContext',
+          content: '../york-analytics/docs/context.md',
+        },
+        {
+          name: 'components',
+          components: '../york-analytics/src/components/**/*.js',
+        },
+        {
+          name: 'eventActionTypes',
+          content: '../york-analytics/docs/eventActionTypes.md',
+        },
+        {
+          name: 'hooks',
+          content: '../york-analytics/docs/hooks.md',
+        },
+      ],
     },
     {
       name: 'york-core',
@@ -42,6 +70,10 @@ module.exports = {
           content: '../york-core/docs/colors.md',
         },
         {
+          name: 'fetcher',
+          content: '../york-core/docs/fetcher.md',
+        },
+        {
           name: 'sizes',
           content: '../york-core/docs/sizes.md',
         },
@@ -49,9 +81,43 @@ module.exports = {
           name: 'utils',
           sections: [
             {
-              name: 'validation',
-              description: 'Функции валидации',
-              content: '../york-core/docs/validation.md',
+              name: 'formatters',
+              sections: [
+                {
+                  name: 'capitalize',
+                  content: '../york-core/docs/formatters/capitalize.md',
+                },
+                {
+                  name: 'formatMoney',
+                  content: '../york-core/docs/formatters/formatMoney.md',
+                },
+                {
+                  name: 'formatPhone',
+                  content: '../york-core/docs/formatters/formatPhone.md',
+                },
+                {
+                  name: 'formatPhoneHref',
+                  content: '../york-core/docs/formatters/formatPhoneHref.md',
+                },
+              ],
+            },
+            {
+              name: 'validators',
+              sections: [
+                {
+                  name: 'validateCardNumber',
+                  content: '../york-core/docs/validators/validateCardNumber.md',
+                },
+                {
+                  name: 'validateCardExpiry',
+                  content: '../york-core/docs/validators/validateCardExpiry.md',
+                },
+                {
+                  name: 'validateCardSecureCode',
+                  content:
+                    '../york-core/docs/validators/validateCardSecureCode.md',
+                },
+              ],
             },
           ],
         },
@@ -72,6 +138,10 @@ module.exports = {
           name: 'simple',
           description: 'Простые компоненты, собираются из примитивов',
           components: '../york-web/src/components/simple/**/*.js',
+        },
+        {
+          name: 'complex',
+          components: '../york-web/src/components/complex/**/index.js',
         },
         {
           name: 'inputs',
@@ -192,5 +262,5 @@ module.exports = {
       },
     },
   },
-  require: [path.join(__dirname, 'assets/fonts/index.css')],
+  require: ['core-js', path.join(__dirname, 'assets/fonts/index.css')],
 }

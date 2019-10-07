@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -10,6 +10,11 @@ import {
   ViewPropTypes,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
+import {
+  AnalyticsProvider,
+  AnalyticsContext,
+  eventActionTypes,
+} from '@qlean/york-analytics'
 
 import {
   safeAreaPaddingTop,
@@ -22,6 +27,9 @@ const sideViewContainerPadding = sizes[2]
 const sideViewContainerSize = 2 * sideViewContainerPadding + sideViewSize
 
 const styles = StyleSheet.create({
+  screenBackground: {
+    backgroundColor: colors.white,
+  },
   root: {
     flex: 1,
     paddingTop: 0,
@@ -64,6 +72,12 @@ const styles = StyleSheet.create({
   },
   sideViewSpacer: {
     height: sideViewContainerSize,
+  },
+  footerContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   leftView: { left: 0 },
   rightView: { right: 0 },
@@ -117,62 +131,102 @@ Footer.propTypes = {
  * клавиатурой. В компонент встроен футер с отступами — Screen.Footer.
  * По умолчанию сейф-зона снизу включена, а сверху — отключена. Предполагается, что чаще всего экран
  * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
+ * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics)
  */
-const Screen = ({
-  children,
-  footer,
-  leftView,
-  rightView,
-  withSafeAreaPaddingTop,
-  withSafeAreaPaddingBottom,
-  style,
-  ...rest
-}) => {
-  const [scrollViewHeight, setScrollViewHeight] = useState(0)
-  const [contentHeight, setContentHeight] = useState(0)
-  const isScrollEnabled = contentHeight > scrollViewHeight
+const Screen = forwardRef(
+  (
+    {
+      children,
+      footer,
+      leftView,
+      rightView,
+      withSafeAreaPaddingTop,
+      withSafeAreaPaddingBottom,
+      style,
+      name,
+      analyticsData,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [footerHeight, setFooterHeight] = useState(0)
+    const [scrollViewHeight, setScrollViewHeight] = useState(0)
+    const [contentHeight, setContentHeight] = useState(0)
+    const isScrollEnabled = contentHeight > scrollViewHeight
 
-  const onScrollViewLayout = ({ nativeEvent }) =>
-    setScrollViewHeight(nativeEvent.layout.height)
-  const onScrollViewContentSizeChange = (width, height) =>
-    setContentHeight(height)
+    const analyticsContext = useContext(AnalyticsContext)
 
-  return (
-    <View
-      style={[
-        style,
-        styles.root,
-        withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
-        withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
-      ]}
-    >
-      <KeyboardAvoidingView
-        /**
-         * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
-         * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
-         * если вообще не задавать проп, в то время как iOS - наоборот.
-         */
-        {...(Platform.OS === 'ios' && { behavior: 'padding' })}
-        style={styles.root}
+    useEffect(() => {
+      if (analyticsContext) {
+        const { trackEvent, analyticsRoute } = analyticsContext
+        trackEvent({
+          label: name,
+          category: name,
+          action: eventActionTypes.mount,
+          analyticsRoute,
+          ...analyticsData,
+        })
+      }
+    }, [analyticsContext, analyticsData, name])
+
+    const onFooterLayout = ({ nativeEvent }) =>
+      setFooterHeight(nativeEvent.layout.height)
+    const onScrollViewLayout = ({ nativeEvent }) =>
+      setScrollViewHeight(nativeEvent.layout.height)
+    const onScrollViewContentSizeChange = (width, height) =>
+      setContentHeight(height)
+
+    const renderScreenBody = () => (
+      <View
+        style={[
+          styles.screenBackground,
+          style,
+          styles.root,
+          withSafeAreaPaddingTop && styles.withSafeAreaPaddingTop,
+          withSafeAreaPaddingBottom && styles.withSafeAreaPaddingBottom,
+        ]}
       >
-        {leftView ? <SideView {...leftView} style={styles.leftView} /> : null}
-        {rightView ? (
-          <SideView {...rightView} style={styles.rightView} />
-        ) : null}
-        <ScrollView
-          {...rest}
-          scrollEnabled={isScrollEnabled}
-          onLayout={onScrollViewLayout}
-          onContentSizeChange={onScrollViewContentSizeChange}
+        <KeyboardAvoidingView
+          /**
+           * https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
+           * Android и iOS по-разному взаимодействуют с `behavior`. Android может вести себя лучше,
+           * если вообще не задавать проп, в то время как iOS - наоборот.
+           */
+          {...(Platform.OS === 'ios' && { behavior: 'height' })}
+          style={styles.root}
         >
-          {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
-          {children}
-        </ScrollView>
-        {footer}
-      </KeyboardAvoidingView>
-    </View>
-  )
-}
+          {leftView && <SideView {...leftView} style={styles.leftView} />}
+          {rightView && <SideView {...rightView} style={styles.rightView} />}
+          <ScrollView
+            {...rest}
+            name={name}
+            ref={ref}
+            scrollEnabled={isScrollEnabled}
+            onLayout={onScrollViewLayout}
+            onContentSizeChange={onScrollViewContentSizeChange}
+          >
+            {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
+            {children}
+            {footer && <View style={{ height: footerHeight }} />}
+          </ScrollView>
+          {footer && (
+            <View style={styles.footerContainer} onLayout={onFooterLayout}>
+              {footer}
+            </View>
+          )}
+        </KeyboardAvoidingView>
+      </View>
+    )
+
+    return analyticsContext ? (
+      <AnalyticsProvider category={name}>
+        {renderScreenBody()}
+      </AnalyticsProvider>
+    ) : (
+      renderScreenBody()
+    )
+  },
+)
 
 Screen.defaultProps = {
   leftView: null,
@@ -181,9 +235,12 @@ Screen.defaultProps = {
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
   style: null,
+  analyticsData: {},
 }
 
 Screen.propTypes = {
+  /** Название экрана */
+  name: PropTypes.string.isRequired,
   /** Пропсы для левой верхней кнопки экрана */
   leftView: PropTypes.shape({
     node: PropTypes.node.isRequired,
@@ -202,6 +259,9 @@ Screen.propTypes = {
   withSafeAreaPaddingTop: PropTypes.bool,
   /** Автоматический отступ до безопасной зоны снизу */
   withSafeAreaPaddingBottom: PropTypes.bool,
+  /** Дополнительные данные для аналитики */
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
   children: PropTypes.node.isRequired,
   style: ViewPropTypes.style,
 }

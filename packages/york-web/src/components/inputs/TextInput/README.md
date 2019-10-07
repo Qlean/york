@@ -43,7 +43,7 @@ const ExampleComponent = () => {
         {...inputProps}
         value={value}
         isDisabled={isDisabled}
-        onChange={(e, value) => setValue(value)}
+        onChange={e => setValue(e.target.value)}
       />
     </>
   )

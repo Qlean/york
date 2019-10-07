@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 
 const hexColors = {
-  green: 0x20a052ff,
-  jungle: 0x23b059ff,
-  red: 0xd13737ff,
-  blue: 0x2fafdeff,
-  yellow: 0xfae12eff,
+  green: 0x00aa64ff,
+  jungle: 0x41cd91ff,
+  red: 0xf54146ff,
+  blue: 0x2dbefaff,
+  yellow: 0xffdc46ff,
   transparent: 0x00000000,
   white: 0xffffffff,
   smoke: 0xf8f8f8ff,
