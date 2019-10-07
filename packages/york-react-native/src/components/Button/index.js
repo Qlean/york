@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
 import { colors } from '@qlean/york-core'
+import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { useAnimation } from 'york-react-native/utils/hooks'
 import { borderRadiuses } from 'york-react-native/utils/styles'
@@ -149,6 +150,7 @@ const Button = ({
   iconElement,
   name,
   onPress,
+  analyticsData,
   ...props
 }) => {
   if (
@@ -161,6 +163,23 @@ const Button = ({
       'Shadow can only be used with the rank 1 and white backdrop color',
     )
   }
+
+  const analyticsContext = useContext(AnalyticsContext)
+
+  const handlePress = e => {
+    if (analyticsContext) {
+      const { trackEvent, category, analyticsRoute } = analyticsContext
+      trackEvent({
+        category,
+        label: name,
+        action: eventActionTypes.press,
+        analyticsRoute,
+        ...analyticsData,
+      })
+    }
+    onPress(e)
+  }
+
   const opacity = useAnimation({
     initialValue: isDisabled || isSubmitting ? 1 : 0,
     toValue: isDisabled || isSubmitting ? 1 : 0,
@@ -171,7 +190,7 @@ const Button = ({
   const buttonText = isSubmitting ? 'Подождите...' : title
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={handlePress}
       disabled={isDisabled || isSubmitting}
       activeOpacity={0.8}
       style={[styles.container, withShadow && styles.shadow]}
@@ -238,6 +257,7 @@ Button.defaultProps = {
   withShadow: false,
   isSubmitting: false,
   iconElement: null,
+  analyticsData: {},
 }
 
 Button.propTypes = {
@@ -261,6 +281,9 @@ Button.propTypes = {
   name: PropTypes.string.isRequired,
   /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
   onPress: PropTypes.func.isRequired,
+  /** Дополнительные данные для аналитики */
+  // eslint-disable-next-line react/forbid-prop-types
+  analyticsData: PropTypes.object,
 }
 
 export default Button

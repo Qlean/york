@@ -37,10 +37,11 @@ const presets = {
     },
   },
   blank: {
-    color: 'coal',
+    borderBottomColor: 'none',
+    color: 'none',
     hoverProps: {
-      borderBottomColor: 'coal',
-      color: 'coal',
+      borderBottomColor: 'none',
+      color: 'none',
     },
   },
 }
@@ -54,8 +55,12 @@ const presetsByBackdropColorAndRank = {
 }
 
 const getBaseCss = ({ color, borderBottomColor = 'transparent' }) => `
-  color: ${colors[color]};
-  border-bottom: 1px solid ${colors[borderBottomColor]};
+  ${color === 'none' ? '' : `color: ${colors[color]};`}
+  ${
+    borderBottomColor === 'none'
+      ? ''
+      : `border-bottom: 1px solid ${colors[borderBottomColor]};`
+  }
 `
 
 const getMediaCss = ({ hoverProps, ...rest }) => `
@@ -101,21 +106,27 @@ const StyledLink = styled.a`
 /**
  * Компонент для оформления ссылок.
  */
-function Link({ href, children, ...rest }) {
+function Link({ href, children, name, ...rest }) {
   const normalizedProps = normalizeResponsivePreset(
     getPreset,
     presetsByBackdropColorAndRank,
     rest,
   )
+
   return (
-    <StyledLink href={href} normalizedProps={normalizedProps} {...rest}>
+    <StyledLink
+      href={href}
+      name={name}
+      normalizedProps={normalizedProps}
+      {...rest}
+    >
       {children}
     </StyledLink>
   )
 }
 
 Link.defaultProps = {
-  rank: 1,
+  rank: 0,
   backdropColor: 'white',
 }
 
@@ -126,6 +137,8 @@ Link.propTypes = {
   backdropColor: PropTypes.oneOf(['white', 'dark']),
   /** Путь ссылки */
   href: PropTypes.string.isRequired,
+  /** Имя ссылки. Используется для аналитики и тестов */
+  name: PropTypes.string.isRequired,
   /** Содержимое ссылки */
   children: PropTypes.node.isRequired,
 }

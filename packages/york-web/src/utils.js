@@ -33,7 +33,9 @@ export const borderRadiuses = {
 }
 
 export const zIndexes = {
-  dropdown: 1,
+  stickyHeader: 19,
+  header: 20,
+  dropdown: 50,
   modal: 100,
 }
 
@@ -142,3 +144,12 @@ export const normalizeColor = (color, opacity) => {
   const { r, g, b } = rgbaColor
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
+
+export const hideScrollBar = `
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`

@@ -5,6 +5,7 @@ module.exports = {
     alias: {
       'react-native': 'react-native-web',
       'york-web': path.resolve(__dirname, '../york-web/src'),
+      'york-analytics': path.resolve(__dirname, '../york-analytics/src'),
       'york-react-native': path.resolve(__dirname, '../york-react-native/src'),
     },
   },
@@ -32,7 +33,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'url-loader',
@@ -50,7 +51,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(woff|eot|ttf)$/i,
+        test: /\.(svg|woff|eot|ttf)$/i,
         use: 'file-loader',
       },
     ],

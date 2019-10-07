@@ -4,7 +4,15 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 
 import { colors } from '@qlean/york-core'
-import { Text, View, Separator, sizes, media } from '@qlean/york-web'
+import {
+  Text,
+  View,
+  Separator,
+  GridContainer,
+  sizes,
+  uiPoint,
+  media,
+} from '@qlean/york-web'
 
 const StyledBox = styled.div`
   display: flex;
@@ -48,6 +56,34 @@ const Checkbox = ({ value, children, onChange }) => (
 Checkbox.propTypes = {
   value: PropTypes.bool.isRequired,
   children: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
+const Select = ({ title, value, options, onChange }) => (
+  <View alignItems="center">
+    <StyledLabel>
+      <Text>{title}</Text>
+    </StyledLabel>
+    <Separator width={1} />
+    <select value={value} onChange={onChange}>
+      {options.map(({ label, value: optionValue }) => (
+        <option key={optionValue} value={optionValue}>
+          {label}
+        </option>
+      ))}
+    </select>
+  </View>
+)
+
+Select.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   onChange: PropTypes.func.isRequired,
 }
 
@@ -165,6 +201,31 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
 }
 
+const frameHeight = uiPoint * 100
+
+const StyledFrame = styled.div`
+  overflow: auto;
+  height: ${frameHeight}px;
+`
+
+const StyledPage = styled.div`
+  ${media.wide(`width: ${GridContainer.maxWidths.wide + 80}px;`)}
+  ${media.base(`width: ${GridContainer.maxWidths.base + 60}px;`)}
+  ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
+`
+
+const Frame = ({ children }) => (
+  <StyledFrame>
+    <StyledPage>{children}</StyledPage>
+  </StyledFrame>
+)
+
+Frame.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+Frame.height = frameHeight
+
 const text = {
   short: 'Аляскинский маламут',
   medium:
@@ -232,6 +293,8 @@ const Example = {
   Showcase,
   ShowcaseItem,
   Image,
+  Select,
+  Frame,
   text,
   options,
   tabs,
