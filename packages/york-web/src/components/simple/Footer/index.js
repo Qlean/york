@@ -2,15 +2,27 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
+import { flatten } from 'ramda'
 
 import { View, Separator, Text, Link } from 'york-web/components/primitive'
+import { GridContainer, GridColumn } from 'york-web/components/simple'
+import { sizes } from 'york-web/utils'
 
-import { GridContainer, GridColumn } from 'york-web/components'
 import SocialButton from '../SocialButton'
+import Accordion from '../Accordion'
 
 const StyledFooterTop = styled.div``
 const StyledFooterBottom = styled.div`
   background-color: ${colors.coal};
+`
+const StyledMenuItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${sizes[2]}px 0;
+  padding-left: ${sizes[4]}px;
+  user-select: none;
 `
 
 const SocialNetworks = () => (
@@ -121,6 +133,34 @@ const topLinks = [
   ],
 ]
 
+const mobileMenuItems = flatten(topLinks)
+  .reduce(
+    (acc, item) =>
+      item.items && !item.title ? [...acc, ...item.items] : [...acc, item],
+    [],
+  )
+  .map(({ title, items }) => {
+    const content = items
+      ? items.map(itemItem => (
+          <StyledMenuItem>
+            <Text color="grey">
+              <Link rank={2} backdropColor="dark">
+                {itemItem.title}
+              </Link>
+            </Text>
+          </StyledMenuItem>
+        ))
+      : null
+    return {
+      title: (
+        <Link rank={2} backdropColor="dark">
+          {title}
+        </Link>
+      ),
+      content: content ? <>{content}</> : null,
+    }
+  })
+
 const Footer = ({
   legalInfo,
   phones,
@@ -131,6 +171,7 @@ const Footer = ({
 }) => {
   return (
     <>
+      <Accordion items={mobileMenuItems} />
       <StyledFooterTop>
         <Separator height={12} />
         <GridContainer>
