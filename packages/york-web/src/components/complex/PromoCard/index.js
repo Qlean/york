@@ -107,6 +107,7 @@ const StyledDescription = styled(Text)`
 `
 
 const StyledLabel = styled.span`
+  display: inline-block;
   position: relative;
   width: auto;
   padding: ${sizes[1]}px ${sizes[2]}px;

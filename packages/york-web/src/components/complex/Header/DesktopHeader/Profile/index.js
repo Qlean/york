@@ -26,7 +26,12 @@ const StyledLogin = styled(View)`
   }
 `
 
+const StyledLoginText = styled(Text)`
+  font-weight: 700;
+`
+
 const StyledProfileText = styled(Text)`
+  font-weight: 700;
   user-select: none;
 `
 
@@ -75,9 +80,9 @@ export default function Profile({
       }}
     >
       <LoginIcon />
-      <Text preset="caption" color="inherit">
+      <StyledLoginText preset="caption" color="inherit">
         {locales.login}
-      </Text>
+      </StyledLoginText>
     </StyledLogin>
   )
 }

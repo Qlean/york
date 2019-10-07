@@ -66,12 +66,12 @@ module.exports = {
       content: '../york-core/README.md',
       sections: [
         {
-          name: 'fetcher',
-          content: '../york-core/docs/fetcher.md',
-        },
-        {
           name: 'colors',
           content: '../york-core/docs/colors.md',
+        },
+        {
+          name: 'fetcher',
+          content: '../york-core/docs/fetcher.md',
         },
         {
           name: 'sizes',
@@ -86,6 +86,10 @@ module.exports = {
                 {
                   name: 'capitalize',
                   content: '../york-core/docs/formatters/capitalize.md',
+                },
+                {
+                  name: 'formatMoney',
+                  content: '../york-core/docs/formatters/formatMoney.md',
                 },
                 {
                   name: 'formatPhone',
