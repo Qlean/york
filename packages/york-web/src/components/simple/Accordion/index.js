@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Text } from 'york-web/components/primitive'
@@ -13,7 +14,6 @@ const StyledArrowIconContainer = styled.div`
 `
 
 const StyledToggler = styled.div`
-  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -22,11 +22,11 @@ const StyledToggler = styled.div`
   user-select: none;
 `
 
-const Accordion = ({ items }) => {
+const Accordion = ({ items, ...rest }) => {
   const [value, setValue] = useState(null)
 
   return (
-    <>
+    <div {...rest}>
       {items.map(item => {
         const isActive = item.title === value
         const onClick = () => setValue(isActive ? null : item.title)
@@ -44,8 +44,15 @@ const Accordion = ({ items }) => {
           </div>
         )
       })}
-    </>
+    </div>
   )
+}
+
+Accordion.propTypes = {
+  items: PropTypes.exact({
+    title: PropTypes.node.isRequired,
+    content: PropTypes.node.isRequired,
+  }).isRequired,
 }
 
 export default Accordion
