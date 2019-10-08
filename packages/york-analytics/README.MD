@@ -52,6 +52,44 @@
 `Screen` - автоматически создает аналитический контекст и отправляет событие `mount` при первом рендере. Категория события равна свойству `name`
 `Button` - автоматически отправляет событие `click` при нажатии. Категория события берется из ближайшего провайдера.
 
+### Добавление трекинга к кастомным компонентам
+```js static
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import { eventActionTypes, AnalyticsContext } from '@qlean/york-analytics'
+
+const CustomButton = ({ onClick, analyticsData, ...rest }) => {
+  const analyticsContext = useContext(AnalyticsContext)
+
+  const handleClick = e => {
+    if (analyticsContext) {
+      const { trackEvent, category, analyticsRoute } = analyticsContext
+      trackEvent({
+        category,
+        label: name,
+        action: eventActionTypes.click,
+        analyticsRoute,
+        ...analyticsData,
+      })
+    }
+    onClick(e)
+  }
+
+  return <button name={name} onClick={handleClick} {...rest} />
+}
+
+CustomButton.defaultProps = {
+  analyticsData: {}
+}
+
+CustomButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  analyticsData: PropTypes.object,
+}
+
+export default CustomButton
+```
+
 ### Трэкинг ссылок
 Ссылки в разных приложениях могут вести себя по разному, поэтому на данный момент в `york-analytics` нет универсального решения для трекинга нажатия на них.
 
