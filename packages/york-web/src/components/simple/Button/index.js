@@ -33,7 +33,6 @@ const presets = {
   },
   whiteBackdropRank2: {
     color: 'green',
-    backgroundColor: 'white',
     borderColor: 'green',
     hoverProps: {
       opacity: 0.5,
