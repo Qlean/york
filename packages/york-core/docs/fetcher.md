@@ -65,11 +65,11 @@ export default fetcher({
 ```
 
 Использование сконфигурированной функции:
+
 ```js static
 import api from 'utils/api'
 
-export const fetchCreditCards = () =>
-  api.get('/api/plus/v1/credit_cards')
+export const fetchCreditCards = () => api.get('/api/plus/v1/credit_cards')
 
 export const addCreditCard = ({ payload }) =>
   api.post('/api/plus/v1/credit_cards', { creditCard: payload })
@@ -80,11 +80,11 @@ export const setAsRootCreditCard = ({ id }) =>
 export const deleteCreditCard = ({ id }) =>
   api.delete(`/api/plus/v1/credit_cards/${id}`)
 
-export const subscribeToPlus = () =>
-  api.post('/api/plus/v1/subscriptions')
+export const subscribeToPlus = () => api.post('/api/plus/v1/subscriptions')
 ```
 
 Пример для next.js
+
 ```js static
 import nookies from 'nookies'
 import { camelizeKeys, decamelizeKeys } from 'humps'
@@ -107,6 +107,7 @@ export default (ctx = {}) =>
 ```
 
 Использование в next.js
+
 ```js static
 /* actions.js */
 export const fetchCreditCards = ctx => api(ctx).get('/api/plus/v1/credit_cards')
