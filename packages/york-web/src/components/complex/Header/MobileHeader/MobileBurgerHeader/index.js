@@ -11,6 +11,7 @@ import { uiPoint, transitions, sizes } from 'york-web/utils'
 import BurgerOpenedIcon from '../assets/burgerOpened.svg'
 import BurgerClosedIcon from '../assets/burgerClosed.svg'
 import ProfileIcon from '../../assets/profile.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon'
 import LoginIcon from '../../assets/login.svg'
 import { headerPropTypes } from '../../utils'
 import MenuItem from '../../MenuItem'
@@ -34,6 +35,7 @@ const StyledArrowIconContainer = styled.div`
 `
 
 const StyledIcon = styled.div`
+  font-size: 0;
   flex-shrink: 0;
 `
 
@@ -89,6 +91,7 @@ export default function MobileBurgerHeader({
   isOpened,
   onRequestClose,
   isLoggedIn,
+  isPlusSubscriber,
   isProfileAvailable,
   defaultTab,
   selectedRegion,
@@ -203,7 +206,7 @@ export default function MobileBurgerHeader({
             >
               <StyledMenuItemContent>
                 <StyledIcon>
-                  <ProfileIcon />
+                  {isPlusSubscriber ? <ProfilePlusIcon /> : <ProfileIcon />}
                 </StyledIcon>
                 <Separator width={2} />
                 <StyledMenuItemText preset="link">

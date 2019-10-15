@@ -11,7 +11,7 @@ import { menuItemShape, componentsShape } from '../../utils'
 import locales from '../../locales'
 import LoginIcon from '../../assets/login.svg'
 import ProfileIcon from '../../assets/profile.svg'
-import ProfilePlusIcon from '../../assets/profilePlus.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon'
 
 import Dropdown from './Dropdown'
 
