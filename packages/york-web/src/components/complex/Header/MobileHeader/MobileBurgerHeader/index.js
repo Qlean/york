@@ -27,6 +27,7 @@ const StyledMobileBurgerHeader = styled.div`
 `
 
 const StyledArrowIconContainer = styled.div`
+  font-size: 0;
   flex-shrink: 0;
   transition: ${transitions.medium};
   ${({ isActive }) => !isActive && 'transform: rotate(-180deg);'}
@@ -69,7 +70,6 @@ const StyledMenuItemContent = styled(View)`
 `
 
 const StyledMenuItemText = styled(Text)`
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -158,7 +158,9 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={() => setActiveItem(name, !isActive)}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                   <Separator width={2} />
                   <StyledArrowIconContainer isActive={isActive}>
                     <ArrowIcon />
@@ -182,7 +184,9 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={onRequestClose}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                 </StyledMenuItem>
               </>
             )}
@@ -202,7 +206,9 @@ export default function MobileBurgerHeader({
                   <ProfileIcon />
                 </StyledIcon>
                 <Separator width={2} />
-                <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
+                <StyledMenuItemText preset="link">
+                  {locales.profile}
+                </StyledMenuItemText>
               </StyledMenuItemContent>
               <Separator width={2} />
               <StyledArrowIconContainer isActive={isProfileActive}>
@@ -249,7 +255,9 @@ export default function MobileBurgerHeader({
                 <LoginIcon />
               </StyledIcon>
               <Separator width={2} />
-              <StyledMenuItemText>{locales.login}</StyledMenuItemText>
+              <StyledMenuItemText preset="link">
+                {locales.login}
+              </StyledMenuItemText>
             </StyledMenuItemContent>
           </StyledMenuItem>
         )}

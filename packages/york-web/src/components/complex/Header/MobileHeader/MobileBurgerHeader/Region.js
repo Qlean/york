@@ -30,7 +30,6 @@ const StyledMobileGeoIcon = styled(MobileGeoIcon)`
 
 const StyledMenuItemText = styled(Text)`
   white-space: nowrap;
-  text-transform: uppercase;
   overflow: hidden;
   text-overflow: ellipsis;
 `
@@ -51,7 +50,7 @@ export default function Region({ regions, selectedRegion, onRegionChange }) {
           </option>
         ))}
       </StyledRegionSelect>
-      <StyledMenuItemText>
+      <StyledMenuItemText preset="link">
         {regions.find(region => region.name === selectedRegion).title}
       </StyledMenuItemText>
       <Separator width={4} />
