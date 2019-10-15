@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { sizes, borderRadiuses } from 'york-web/utils'
+import { uiPoint, borderRadiuses } from 'york-web/utils'
 import { Text, View, Link } from 'york-web/components/primitive'
 
 import { menuItemShape } from '../utils'
 
 const StyledTab = styled(View)`
   align-items: center;
-  height: 24px;
+  height: ${uiPoint * 5}px;
   padding: 0 8px;
   border-radius: ${borderRadiuses.medium};
   user-select: none;
@@ -21,7 +21,7 @@ const StyledTab = styled(View)`
 const StyledTabText = styled(Text)`
   font-size: 11px;
   font-weight: 700;
-  line-height: ${sizes[4]}px;
+  line-height: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
 `
