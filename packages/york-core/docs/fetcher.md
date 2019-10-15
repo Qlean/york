@@ -36,17 +36,17 @@ export default fetcher({
   ssoUrl:
     'https://master-sso-identity-svs.stage.cloud.qlean.ru/http/users/refreshToken/?refreshToken=',
   /**
-   * Функция для получения `accessToken`. Не строка, чтобы избежать замыкания.
+   * Функция для получения accessToken. Не строка, чтобы избежать замыкания.
    * getRefreshToken() => String
    */
   getRefreshToken: () => cookies.get('refreshToken'),
   /**
-   * Функция для получения `refreshToken`. Не строка, чтобы избежать замыкания.
+   * Функция для получения refreshToken. Не строка, чтобы избежать замыкания.
    * getAccessToken() => String
    */
   getAccessToken: () => cookies.get('accessToken'),
   /**
-   * Коллбэк, который выполнится после рефреша. Возвращает объект с `accessToken` и `refreshToken`
+   * Коллбэк, который выполнится после рефреша. Возвращает объект с accessToken и refreshToken
    * onRefresh({ refreshToken: String, accessToken: String }: Object) => void
    */
   onRefresh: ({ refreshToken, accessToken }) => {
