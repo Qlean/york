@@ -160,9 +160,9 @@ const ShowcaseItem = ({ title, titleProps, caption, children, ...rest }) => (
 )
 
 ShowcaseItem.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   titleProps: PropTypes.shape(Text.propTypes.isRequired),
-  caption: PropTypes.string,
+  caption: PropTypes.node,
   children: PropTypes.node.isRequired,
 }
 

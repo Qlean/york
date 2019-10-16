@@ -129,6 +129,10 @@ module.exports = {
       content: '../york-web/README.md',
       sections: [
         {
+          name: 'fonts',
+          content: '../york-web/docs/fonts.md',
+        },
+        {
           name: 'primitive',
           description:
             'Примитивные компоненты, самые базовые строительные блоки интерфейса',
@@ -262,5 +266,16 @@ module.exports = {
       },
     },
   },
-  require: ['core-js', path.join(__dirname, 'assets/fonts/index.css')],
+  template: {
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href:
+            'http://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/master/fonts/fonts.css',
+        },
+      ],
+    },
+  },
+  require: ['core-js'],
 }

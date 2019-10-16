@@ -11,6 +11,7 @@ import { uiPoint, transitions, sizes } from 'york-web/utils'
 import BurgerOpenedIcon from '../assets/burgerOpened.svg'
 import BurgerClosedIcon from '../assets/burgerClosed.svg'
 import ProfileIcon from '../../assets/profile.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon'
 import LoginIcon from '../../assets/login.svg'
 import { headerPropTypes } from '../../utils'
 import MenuItem from '../../MenuItem'
@@ -27,12 +28,14 @@ const StyledMobileBurgerHeader = styled.div`
 `
 
 const StyledArrowIconContainer = styled.div`
+  font-size: 0;
   flex-shrink: 0;
   transition: ${transitions.medium};
   ${({ isActive }) => !isActive && 'transform: rotate(-180deg);'}
 `
 
 const StyledIcon = styled.div`
+  font-size: 0;
   flex-shrink: 0;
 `
 
@@ -69,7 +72,6 @@ const StyledMenuItemContent = styled(View)`
 `
 
 const StyledMenuItemText = styled(Text)`
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -89,6 +91,7 @@ export default function MobileBurgerHeader({
   isOpened,
   onRequestClose,
   isLoggedIn,
+  isPlusSubscriber,
   isProfileAvailable,
   defaultTab,
   selectedRegion,
@@ -158,7 +161,9 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={() => setActiveItem(name, !isActive)}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                   <Separator width={2} />
                   <StyledArrowIconContainer isActive={isActive}>
                     <ArrowIcon />
@@ -182,7 +187,9 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={onRequestClose}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                 </StyledMenuItem>
               </>
             )}
@@ -199,10 +206,12 @@ export default function MobileBurgerHeader({
             >
               <StyledMenuItemContent>
                 <StyledIcon>
-                  <ProfileIcon />
+                  {isPlusSubscriber ? <ProfilePlusIcon /> : <ProfileIcon />}
                 </StyledIcon>
                 <Separator width={2} />
-                <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
+                <StyledMenuItemText preset="link">
+                  {locales.profile}
+                </StyledMenuItemText>
               </StyledMenuItemContent>
               <Separator width={2} />
               <StyledArrowIconContainer isActive={isProfileActive}>
@@ -249,7 +258,9 @@ export default function MobileBurgerHeader({
                 <LoginIcon />
               </StyledIcon>
               <Separator width={2} />
-              <StyledMenuItemText>{locales.login}</StyledMenuItemText>
+              <StyledMenuItemText preset="link">
+                {locales.login}
+              </StyledMenuItemText>
             </StyledMenuItemContent>
           </StyledMenuItem>
         )}

@@ -6,14 +6,14 @@ import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 const ExampleComponent = () => (
   <AnalyticsContext.Consumer>
     {({ trackEvent, category, analyticsRoute }) => (
-      <button onClick={
-        trackEvent({
+      <button
+        onClick={trackEvent({
           category,
           label: 'exampleButton',
           action: eventActionTypes.click,
-          analyticsRoute
-        })
-      }>
+          analyticsRoute,
+        })}
+      >
         ExampleButton
       </button>
     )}

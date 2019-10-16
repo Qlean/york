@@ -51,6 +51,10 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `
 
+const StyledText = styled(Text)`
+  line-height: ${sizes[8]}px;
+`
+
 export default function Dropdown({
   components,
   callbacks,
@@ -73,9 +77,9 @@ export default function Dropdown({
                 components={components}
                 callbacks={callbacks}
               >
-                <Text color={isSelected ? 'green' : 'coal'} preset="link">
+                <StyledText color={isSelected ? 'green' : 'coal'} preset="link">
                   {item.title}
-                </Text>
+                </StyledText>
               </StyledMenuItem>
             )
           })}
