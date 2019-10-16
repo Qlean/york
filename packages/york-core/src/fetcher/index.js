@@ -61,8 +61,8 @@ const fetcher = ({
       fetch(`${baseUrl}${url}`, {
         ...fetchConfig,
         headers: {
-          ...fetchConfig.headers,
           ...(token ? { Authorization: token } : {}),
+          ...fetchConfig.headers,
         },
       })
 
