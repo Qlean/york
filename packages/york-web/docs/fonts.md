@@ -1,7 +1,7 @@
 ```html
 <link
   rel="stylesheet"
-  href="http://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/master/fonts/fonts.css"
+  href="https://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/master/fonts/fonts.css"
 />
 ```
 

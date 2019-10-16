@@ -272,7 +272,7 @@ module.exports = {
         {
           rel: 'stylesheet',
           href:
-            'http://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/master/fonts/fonts.css',
+            'https://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/master/fonts/fonts.css',
         },
       ],
     },
