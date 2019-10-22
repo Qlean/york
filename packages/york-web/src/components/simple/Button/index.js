@@ -216,7 +216,7 @@ function Button({
   const analyticsContext = useContext(AnalyticsContext)
 
   const handleClick = e => {
-    if (analyticsContext) {
+    if (analyticsContext && onClick) {
       const { trackEvent, category, analyticsRoute } = analyticsContext
       trackEvent({
         category,
@@ -226,7 +226,9 @@ function Button({
         ...analyticsData,
       })
     }
-    onClick(e)
+    if (onClick) {
+      onClick(e)
+    }
   }
 
   const normalizedProps = normalizeResponsivePreset(
@@ -262,6 +264,7 @@ const defaultProps = {
   withShadow: false,
   isSubmitting: false,
   analyticsData: {},
+  onClick: null,
 }
 
 const propTypes = {
@@ -289,7 +292,7 @@ Button.propTypes = {
   /** Идет ли отправка данных. Показывает на кнопке лоадер и дизейблит ее. */
   isSubmitting: PropTypes.bool,
   /** Коллбек, вызываемый по клику. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
   analyticsData: PropTypes.object,
