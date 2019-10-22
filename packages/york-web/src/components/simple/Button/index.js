@@ -216,17 +216,17 @@ function Button({
   const analyticsContext = useContext(AnalyticsContext)
 
   const handleClick = e => {
-    if (analyticsContext && onClick) {
-      const { trackEvent, category, analyticsRoute } = analyticsContext
-      trackEvent({
-        category,
-        label: name,
-        action: eventActionTypes.click,
-        analyticsRoute,
-        ...analyticsData,
-      })
-    }
     if (onClick) {
+      if (analyticsContext) {
+        const { trackEvent, category, analyticsRoute } = analyticsContext
+        trackEvent({
+          category,
+          label: name,
+          action: eventActionTypes.click,
+          analyticsRoute,
+          ...analyticsData,
+        })
+      }
       onClick(e)
     }
   }
