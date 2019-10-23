@@ -176,7 +176,7 @@ export default function MobileHeader(props) {
         <StyledTopMenu alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
-            <Link href="/" name="logo">
+            <Link href={tab.href} name="logo">
               <StyledLogo>
                 <Logo />
               </StyledLogo>

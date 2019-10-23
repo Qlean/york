@@ -56,10 +56,9 @@ export default function Header({ components, ...rest }) {
       </StyledMobileHeader>
     </>
   )
+
   return analyticsContext ? (
-    <AnalyticsProvider category="topNavigation">
-      {renderContent()}
-    </AnalyticsProvider>
+    <AnalyticsProvider category="header">{renderContent()}</AnalyticsProvider>
   ) : (
     renderContent()
   )
