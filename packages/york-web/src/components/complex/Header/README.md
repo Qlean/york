@@ -171,7 +171,7 @@ const ExampleComponents = () => {
           isPlusSubscriber
         </Example.Checkbox>
         <Example.Checkbox
-          value={isPlusSubscriber}
+          value={Boolean(region)}
           onChange={() => setRegion(region ? null : 'ppk')}
         >
           region

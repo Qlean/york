@@ -203,7 +203,7 @@ export default function MobileBurgerHeader({
           <Separator height={3} />
           <StyledFooter>
             <Separator height={3} />
-            {isProfileActive && (
+            {isProfileAvailable && (
               <>
                 {isLoggedIn ? (
                   <>
