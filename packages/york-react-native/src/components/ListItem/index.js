@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 
@@ -62,13 +63,13 @@ const ListItem = ({
         <Text style={styles.text} {...titleProps}>
           {title}
         </Text>
-        {caption && (
+        {R.isNil(caption) ? null : (
           <Text style={styles.text} color="grey" {...captionProps}>
             {caption}
           </Text>
         )}
       </View>
-      {value && (
+      {R.isNil(value) ? null : (
         <Text style={styles.text} {...valueProps}>
           {value}
         </Text>
