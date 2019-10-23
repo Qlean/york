@@ -9,7 +9,7 @@ const ExampleComponent = () => (
       <button
         onClick={trackEvent({
           category,
-          label: 'exampleButton',
+          label: 'doExampleAction',
           action: eventActionTypes.click,
           analyticsRoute,
         })}

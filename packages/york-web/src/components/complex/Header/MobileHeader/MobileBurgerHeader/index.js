@@ -107,6 +107,8 @@ export default function MobileBurgerHeader({
     setActiveItems(prevItems => ({ ...prevItems, [name]: value }))
   const isProfileActive = activeItems.profile
 
+  const tab = tabs.find(({ name }) => name === defaultTab)
+
   const [selectedTabName, setSelectedTabName] = useState(defaultTab)
 
   const { items } = tabs.find(({ name }) => name === selectedTabName)
@@ -116,7 +118,7 @@ export default function MobileBurgerHeader({
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          <Link href="/" name="logoLink">
+          <Link href={tab.href} name="logo">
             <Logo />
           </Link>
         </View>
@@ -196,83 +198,95 @@ export default function MobileBurgerHeader({
           </div>
         )
       })}
-      <Separator height={3} />
-      <StyledFooter>
-        <Separator height={3} />
-        {isLoggedIn ? (
-          <>
-            <StyledMenuItem
-              onClick={() => setActiveItem('profile', !isProfileActive)}
-            >
-              <StyledMenuItemContent>
-                <StyledIcon>
-                  {isPlusSubscriber ? <ProfilePlusIcon /> : <ProfileIcon />}
-                </StyledIcon>
-                <Separator width={2} />
-                <StyledMenuItemText preset="link">
-                  {locales.profile}
-                </StyledMenuItemText>
-              </StyledMenuItemContent>
-              <Separator width={2} />
-              <StyledArrowIconContainer isActive={isProfileActive}>
-                <ArrowIcon />
-              </StyledArrowIconContainer>
-            </StyledMenuItem>
+      {(isProfileAvailable || selectedRegion) && (
+        <>
+          <Separator height={3} />
+          <StyledFooter>
+            <Separator height={3} />
             {isProfileActive && (
-              <StyledProfileSubmenu>
-                <SubMenu
-                  components={components}
-                  callbacks={callbacks}
-                  items={
-                    isProfileAvailable
-                      ? profile
-                      : profile.filter(({ name }) => name === 'logout')
-                  }
-                  onRequestClose={onRequestClose}
-                />
-              </StyledProfileSubmenu>
+              <>
+                {isLoggedIn ? (
+                  <>
+                    <StyledMenuItem
+                      onClick={() => setActiveItem('profile', !isProfileActive)}
+                    >
+                      <StyledMenuItemContent>
+                        <StyledIcon>
+                          {isPlusSubscriber ? (
+                            <ProfilePlusIcon />
+                          ) : (
+                            <ProfileIcon />
+                          )}
+                        </StyledIcon>
+                        <Separator width={2} />
+                        <StyledMenuItemText preset="link">
+                          {locales.profile}
+                        </StyledMenuItemText>
+                      </StyledMenuItemContent>
+                      <Separator width={2} />
+                      <StyledArrowIconContainer isActive={isProfileActive}>
+                        <ArrowIcon />
+                      </StyledArrowIconContainer>
+                    </StyledMenuItem>
+                    {isProfileActive && (
+                      <StyledProfileSubmenu>
+                        <SubMenu
+                          components={components}
+                          callbacks={callbacks}
+                          items={
+                            isProfileAvailable
+                              ? profile
+                              : profile.filter(({ name }) => name === 'logout')
+                          }
+                          onRequestClose={onRequestClose}
+                        />
+                      </StyledProfileSubmenu>
+                    )}
+                  </>
+                ) : (
+                  <StyledMenuItem
+                    onClick={() => {
+                      if (analyticsContext) {
+                        const {
+                          trackEvent,
+                          category,
+                          analyticsRoute,
+                        } = analyticsContext
+                        trackEvent({
+                          category,
+                          label: 'login',
+                          action: eventActionTypes.click,
+                          analyticsRoute,
+                        })
+                      }
+                      onLogin()
+                      onRequestClose()
+                    }}
+                  >
+                    <StyledMenuItemContent>
+                      <StyledIcon>
+                        <LoginIcon />
+                      </StyledIcon>
+                      <Separator width={2} />
+                      <StyledMenuItemText preset="link">
+                        {locales.login}
+                      </StyledMenuItemText>
+                    </StyledMenuItemContent>
+                  </StyledMenuItem>
+                )}
+              </>
             )}
-          </>
-        ) : (
-          <StyledMenuItem
-            onClick={() => {
-              if (analyticsContext) {
-                const {
-                  trackEvent,
-                  category,
-                  analyticsRoute,
-                } = analyticsContext
-                trackEvent({
-                  category,
-                  label: 'loginButtonMobile',
-                  action: eventActionTypes.click,
-                  analyticsRoute,
-                })
-              }
-              onLogin()
-              onRequestClose()
-            }}
-          >
-            <StyledMenuItemContent>
-              <StyledIcon>
-                <LoginIcon />
-              </StyledIcon>
-              <Separator width={2} />
-              <StyledMenuItemText preset="link">
-                {locales.login}
-              </StyledMenuItemText>
-            </StyledMenuItemContent>
-          </StyledMenuItem>
-        )}
-        {selectedRegion && (
-          <Region
-            regions={regions}
-            onRegionChange={onRegionChange}
-            selectedRegion={selectedRegion}
-          />
-        )}
-        <Separator height={3} />
-      </StyledFooter>
+            {selectedRegion && (
+              <Region
+                regions={regions}
+                onRegionChange={onRegionChange}
+                selectedRegion={selectedRegion}
+              />
+            )}
+          </StyledFooter>
+        </>
+      )}
+      <Separator height={3} />
     </StyledMobileBurgerHeader>
   )
 }
