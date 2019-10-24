@@ -1,4 +1,4 @@
-`AnalyticsProvider` - это компонент, который передает в контекст дочерним елементам категорию событий и функцию трекинга. `AnalyticsProvider` поддерживает бесконечное вложение, при этом на любом этапе иерархии можно подменить функцию трекинга.
+`AnalyticsProvider` — это компонент, который передает в контекст дочерним елементам категорию событий и функцию трекинга. `AnalyticsProvider` поддерживает бесконечное вложение, при этом на любом этапе иерархии можно подменить функцию трекинга.
 
 ```js
 import { AnalyticsProvider } from '@qlean/york-analytics'
@@ -7,12 +7,12 @@ import { Button, Page, Separator } from '@qlean/york-web'
 const ExampleApp = ({ children }) => (
   <AnalyticsProvider category="exampleApp" trackEvent={console.log}>
     <Button
-      name="button"
+      name="doExampleAction"
       /**
        * Помимо основного действия отправляет эвент аналитики:
        * {
        *   category: 'exampleApp',
-       *   label: 'exampleApp.button',
+       *   label: 'doExampleAction',
        *   action: 'click',
        *   analyticsRoute: 'exampleApp'
        * }
@@ -25,13 +25,13 @@ const ExampleApp = ({ children }) => (
     <Separator height={2} />
     <Page name="NestedPage">
       <Button
-        name="button"
+        name="doExampleAction"
         analyticsData={{ exampleId: 123 }}
         /**
          * Помимо основного действия отправляет эвент аналитики:
          * {
          *   category: 'NestedPage',
-         *   label: 'NestedPage.button',
+         *   label: 'doExampleAction',
          *   action: 'click',
          *   analyticsRoute: 'exampleApp.NestedPage',
          *   exampleId: 123
