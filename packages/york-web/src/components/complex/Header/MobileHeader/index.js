@@ -1,7 +1,12 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { colors, formatPhone, formatPhoneHref } from '@qlean/york-core'
-import { View, Separator, Text } from 'york-web/components/primitive'
+import {
+  View,
+  Separator,
+  Text,
+  Link as YorkLink,
+} from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import {
   uiPoint,
@@ -171,7 +176,7 @@ export default function MobileHeader(props) {
         <StyledTopMenu alignItems="center" justifyContent="space-between">
           <View alignItems="center">
             <Separator width={4} />
-            <Link href="/" name="logo">
+            <Link href={tab.href} name="logo">
               <StyledLogo>
                 <Logo />
               </StyledLogo>
@@ -185,11 +190,11 @@ export default function MobileHeader(props) {
               />
             )}
             {!selectedRegion && phone && (
-              <Link name="phone" href={formatPhoneHref(phone)}>
+              <YorkLink name="phone" href={formatPhoneHref(phone)}>
                 <StyledPhoneText preset="caption">
                   {formatPhone(phone)}
                 </StyledPhoneText>
-              </Link>
+              </YorkLink>
             )}
           </View>
           <View alignItems="center">

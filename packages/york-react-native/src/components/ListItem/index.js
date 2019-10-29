@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 
@@ -41,6 +42,8 @@ const ListItem = ({
   caption,
   value,
   valueProps,
+  titleProps,
+  captionProps,
   isDisabled,
   withArrow = false,
 }) => (
@@ -57,14 +60,16 @@ const ListItem = ({
       ]}
     >
       <View style={styles.leftView}>
-        <Text style={styles.text}>{title}</Text>
-        {caption && (
-          <Text style={styles.text} color="grey">
+        <Text style={styles.text} {...titleProps}>
+          {title}
+        </Text>
+        {R.isNil(caption) ? null : (
+          <Text style={styles.text} color="grey" {...captionProps}>
             {caption}
           </Text>
         )}
       </View>
-      {value && (
+      {R.isNil(value) ? null : (
         <Text style={styles.text} {...valueProps}>
           {value}
         </Text>
@@ -83,6 +88,8 @@ ListItem.defaultProps = {
   onPress: undefined,
   caption: null,
   value: null,
+  titleProps: {},
+  captionProps: {},
   valueProps: {},
   withArrow: false,
 }
@@ -106,6 +113,12 @@ ListItem.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   /** Текст в правой части компонента, всегда отображается на одной линии с заголовком */
   value: numberOrStringPropType,
+  /** Пропы для компонента Text, в который обёрнут title */
+  // eslint-disable-next-line react/forbid-prop-types
+  titleProps: PropTypes.object,
+  /** Пропы для компонента Text, в который обёрнут caption */
+  // eslint-disable-next-line react/forbid-prop-types
+  captionProps: PropTypes.object,
   /** Пропы для компонента Text, в который обёрнут value */
   // eslint-disable-next-line react/forbid-prop-types
   valueProps: PropTypes.object,

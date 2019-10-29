@@ -33,7 +33,7 @@ const presets = {
   },
   whiteBackdropRank2: {
     color: 'green',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     borderColor: 'green',
     hoverProps: {
       opacity: 0.5,
@@ -216,17 +216,19 @@ function Button({
   const analyticsContext = useContext(AnalyticsContext)
 
   const handleClick = e => {
-    if (analyticsContext) {
-      const { trackEvent, category, analyticsRoute } = analyticsContext
-      trackEvent({
-        category,
-        label: name,
-        action: eventActionTypes.click,
-        analyticsRoute,
-        ...analyticsData,
-      })
+    if (onClick) {
+      if (analyticsContext) {
+        const { trackEvent, category, analyticsRoute } = analyticsContext
+        trackEvent({
+          category,
+          label: name,
+          action: eventActionTypes.click,
+          analyticsRoute,
+          ...analyticsData,
+        })
+      }
+      onClick(e)
     }
-    onClick(e)
   }
 
   const normalizedProps = normalizeResponsivePreset(
@@ -262,6 +264,7 @@ const defaultProps = {
   withShadow: false,
   isSubmitting: false,
   analyticsData: {},
+  onClick: null,
 }
 
 const propTypes = {
@@ -289,7 +292,7 @@ Button.propTypes = {
   /** Идет ли отправка данных. Показывает на кнопке лоадер и дизейблит ее. */
   isSubmitting: PropTypes.bool,
   /** Коллбек, вызываемый по клику. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
   analyticsData: PropTypes.object,

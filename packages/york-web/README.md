@@ -39,7 +39,8 @@ const StyledText = styled(Text)`
 Если нужно переопределить стандартный html-тег компонента, то можно воспользоваться пропом `as`
 https://www.styled-components.com/docs/api#as-polymorphic-prop
 
-
 ```js static
-<Text preset="header1" as="h1">Заголовок</Text>
+<Text preset="header1" as="h1">
+  Заголовок
+</Text>
 ```

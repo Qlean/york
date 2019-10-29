@@ -11,7 +11,7 @@ import { menuItemShape, componentsShape } from '../../utils'
 import locales from '../../locales'
 import LoginIcon from '../../assets/login.svg'
 import ProfileIcon from '../../assets/profile.svg'
-import ProfilePlusIcon from '../../assets/profilePlus.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon'
 
 import Dropdown from './Dropdown'
 
@@ -40,7 +40,6 @@ export default function Profile({
   callbacks,
   isLoggedIn,
   isPlusSubscriber,
-  isProfileAvailable,
   items,
   selectedItem,
 }) {
@@ -49,11 +48,7 @@ export default function Profile({
     <Dropdown
       components={components}
       callbacks={callbacks}
-      items={
-        isProfileAvailable
-          ? items
-          : items.filter(({ name }) => name === 'logout')
-      }
+      items={items}
       selectedItem={selectedItem}
     >
       <View alignItems="center">
@@ -71,7 +66,7 @@ export default function Profile({
           const { trackEvent, category, analyticsRoute } = analyticsContext
           trackEvent({
             category,
-            label: 'loginButton',
+            label: 'login',
             action: eventActionTypes.click,
             analyticsRoute,
           })
@@ -98,7 +93,6 @@ Profile.propTypes = {
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,
-  isProfileAvailable: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
   selectedItem: PropTypes.string,
 }

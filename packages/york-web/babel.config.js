@@ -1,7 +1,7 @@
 module.exports = {
   presets: ['@babel/preset-react', '@babel/preset-env'],
   plugins: [
-    'inline-react-svg',
+    ['inline-react-svg', { svgo: false }],
     '@babel/plugin-proposal-class-properties',
     [
       'babel-plugin-styled-components',

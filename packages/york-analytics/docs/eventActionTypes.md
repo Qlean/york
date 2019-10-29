@@ -11,5 +11,3 @@ const event = {
   action: eventActionTypes.click,
 }
 ```
-
-

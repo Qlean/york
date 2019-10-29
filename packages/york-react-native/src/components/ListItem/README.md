@@ -8,18 +8,18 @@ const keyExtractor = ({ value }) => String(value)
 const options = [
   {
     title: 'Оплата за заказ',
-    caption: "11 августа в 9:00",
-    value: 200
+    caption: '11 августа в 9:00',
+    value: 200,
   },
   {
     title: 'Бонус',
-    caption: "10 августа в 9:00",
-    value: 100
-  }
+    caption: '10 августа в 9:00',
+    value: 100,
+  },
 ]
 
 ;<>
-  <ListItem title="Настройки" onPress={() => {}} withArrow isDisabled={false}/>
+  <ListItem title="Настройки" onPress={() => {}} withArrow isDisabled={false} />
   <Line />
   <ListItem title="Все заказы" onPress={() => {}} withArrow isDisabled />
   <Line />

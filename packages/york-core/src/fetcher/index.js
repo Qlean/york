@@ -60,7 +60,10 @@ const fetcher = ({
     const originalRequest = token =>
       fetch(`${baseUrl}${url}`, {
         ...fetchConfig,
-        headers: { ...fetchConfig.headers, Authorization: token },
+        headers: {
+          ...(token ? { Authorization: token } : {}),
+          ...fetchConfig.headers,
+        },
       })
 
     if (isTokenRefreshing) return pushToFailedRequests(originalRequest)

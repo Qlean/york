@@ -11,6 +11,7 @@ import { uiPoint, transitions, sizes } from 'york-web/utils'
 import BurgerOpenedIcon from '../assets/burgerOpened.svg'
 import BurgerClosedIcon from '../assets/burgerClosed.svg'
 import ProfileIcon from '../../assets/profile.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon'
 import LoginIcon from '../../assets/login.svg'
 import { headerPropTypes } from '../../utils'
 import MenuItem from '../../MenuItem'
@@ -27,12 +28,14 @@ const StyledMobileBurgerHeader = styled.div`
 `
 
 const StyledArrowIconContainer = styled.div`
+  font-size: 0;
   flex-shrink: 0;
   transition: ${transitions.medium};
   ${({ isActive }) => !isActive && 'transform: rotate(-180deg);'}
 `
 
 const StyledIcon = styled.div`
+  font-size: 0;
   flex-shrink: 0;
 `
 
@@ -69,7 +72,6 @@ const StyledMenuItemContent = styled(View)`
 `
 
 const StyledMenuItemText = styled(Text)`
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -89,6 +91,7 @@ export default function MobileBurgerHeader({
   isOpened,
   onRequestClose,
   isLoggedIn,
+  isPlusSubscriber,
   isProfileAvailable,
   defaultTab,
   selectedRegion,
@@ -104,6 +107,8 @@ export default function MobileBurgerHeader({
     setActiveItems(prevItems => ({ ...prevItems, [name]: value }))
   const isProfileActive = activeItems.profile
 
+  const tab = tabs.find(({ name }) => name === defaultTab)
+
   const [selectedTabName, setSelectedTabName] = useState(defaultTab)
 
   const { items } = tabs.find(({ name }) => name === selectedTabName)
@@ -113,7 +118,7 @@ export default function MobileBurgerHeader({
       <View alignItems="center" justifyContent="space-between">
         <View alignItems="center">
           <Separator width={4} />
-          <Link href="/" name="logoLink">
+          <Link href={tab.href} name="logo">
             <Logo />
           </Link>
         </View>
@@ -158,7 +163,9 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={() => setActiveItem(name, !isActive)}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                   <Separator width={2} />
                   <StyledArrowIconContainer isActive={isActive}>
                     <ArrowIcon />
@@ -182,86 +189,104 @@ export default function MobileBurgerHeader({
                   item={item}
                   onClick={onRequestClose}
                 >
-                  <StyledMenuItemText>{item.title}</StyledMenuItemText>
+                  <StyledMenuItemText preset="link">
+                    {item.title}
+                  </StyledMenuItemText>
                 </StyledMenuItem>
               </>
             )}
           </div>
         )
       })}
-      <Separator height={3} />
-      <StyledFooter>
-        <Separator height={3} />
-        {isLoggedIn ? (
-          <>
-            <StyledMenuItem
-              onClick={() => setActiveItem('profile', !isProfileActive)}
-            >
-              <StyledMenuItemContent>
-                <StyledIcon>
-                  <ProfileIcon />
-                </StyledIcon>
-                <Separator width={2} />
-                <StyledMenuItemText>{locales.profile}</StyledMenuItemText>
-              </StyledMenuItemContent>
-              <Separator width={2} />
-              <StyledArrowIconContainer isActive={isProfileActive}>
-                <ArrowIcon />
-              </StyledArrowIconContainer>
-            </StyledMenuItem>
-            {isProfileActive && (
-              <StyledProfileSubmenu>
-                <SubMenu
-                  components={components}
-                  callbacks={callbacks}
-                  items={
-                    isProfileAvailable
-                      ? profile
-                      : profile.filter(({ name }) => name === 'logout')
-                  }
-                  onRequestClose={onRequestClose}
-                />
-              </StyledProfileSubmenu>
+      {(isProfileAvailable || selectedRegion) && (
+        <>
+          <Separator height={3} />
+          <StyledFooter>
+            <Separator height={3} />
+            {isProfileAvailable && (
+              <>
+                {isLoggedIn ? (
+                  <>
+                    <StyledMenuItem
+                      onClick={() => setActiveItem('profile', !isProfileActive)}
+                    >
+                      <StyledMenuItemContent>
+                        <StyledIcon>
+                          {isPlusSubscriber ? (
+                            <ProfilePlusIcon />
+                          ) : (
+                            <ProfileIcon />
+                          )}
+                        </StyledIcon>
+                        <Separator width={2} />
+                        <StyledMenuItemText preset="link">
+                          {locales.profile}
+                        </StyledMenuItemText>
+                      </StyledMenuItemContent>
+                      <Separator width={2} />
+                      <StyledArrowIconContainer isActive={isProfileActive}>
+                        <ArrowIcon />
+                      </StyledArrowIconContainer>
+                    </StyledMenuItem>
+                    {isProfileActive && (
+                      <StyledProfileSubmenu>
+                        <SubMenu
+                          components={components}
+                          callbacks={callbacks}
+                          items={
+                            isProfileAvailable
+                              ? profile
+                              : profile.filter(({ name }) => name === 'logout')
+                          }
+                          onRequestClose={onRequestClose}
+                        />
+                      </StyledProfileSubmenu>
+                    )}
+                  </>
+                ) : (
+                  <StyledMenuItem
+                    onClick={() => {
+                      if (analyticsContext) {
+                        const {
+                          trackEvent,
+                          category,
+                          analyticsRoute,
+                        } = analyticsContext
+                        trackEvent({
+                          category,
+                          label: 'login',
+                          action: eventActionTypes.click,
+                          analyticsRoute,
+                        })
+                      }
+                      onLogin()
+                      onRequestClose()
+                    }}
+                  >
+                    <StyledMenuItemContent>
+                      <StyledIcon>
+                        <LoginIcon />
+                      </StyledIcon>
+                      <Separator width={2} />
+                      <StyledMenuItemText preset="link">
+                        {locales.login}
+                      </StyledMenuItemText>
+                    </StyledMenuItemContent>
+                  </StyledMenuItem>
+                )}
+              </>
             )}
-          </>
-        ) : (
-          <StyledMenuItem
-            onClick={() => {
-              if (analyticsContext) {
-                const {
-                  trackEvent,
-                  category,
-                  analyticsRoute,
-                } = analyticsContext
-                trackEvent({
-                  category,
-                  label: 'loginButtonMobile',
-                  action: eventActionTypes.click,
-                  analyticsRoute,
-                })
-              }
-              onLogin()
-              onRequestClose()
-            }}
-          >
-            <StyledMenuItemContent>
-              <StyledIcon>
-                <LoginIcon />
-              </StyledIcon>
-              <Separator width={2} />
-              <StyledMenuItemText>{locales.login}</StyledMenuItemText>
-            </StyledMenuItemContent>
-          </StyledMenuItem>
-        )}
-        {selectedRegion && (
-          <Region
-            regions={regions}
-            onRegionChange={onRegionChange}
-            selectedRegion={selectedRegion}
-          />
-        )}
-        <Separator height={3} />
-      </StyledFooter>
+            {selectedRegion && (
+              <Region
+                regions={regions}
+                onRegionChange={onRegionChange}
+                selectedRegion={selectedRegion}
+              />
+            )}
+          </StyledFooter>
+        </>
+      )}
+      <Separator height={3} />
     </StyledMobileBurgerHeader>
   )
 }
