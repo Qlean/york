@@ -8,11 +8,16 @@ import {
   GridContainer,
   GridColumn,
   SocialButton,
+  AppStoreButton,
 } from 'york-web/components/simple'
 import { media } from 'york-web/utils'
 
 const StyledFooterBottom = styled.div`
   background-color: ${colors.coal};
+`
+
+const StyledStoreButtons = styled(View)`
+  flex: 1;
 `
 
 const StyledComma = styled(Text)`
@@ -73,7 +78,7 @@ const FooterBottom = ({
               <Separator width={8} mobileProps={{ height: 4 }} />
             </>
           )}
-          <View flexDirection="column" alignItems="center">
+          <View flexDirection="column" mobileProps={{ alignItems: 'center' }}>
             <Text>
               <Link rank={2} backdropColor="dark" href="">
                 Карта сайта
@@ -85,7 +90,13 @@ const FooterBottom = ({
                 Пользовательское соглашение
               </Link>
             </Text>
+            <Separator mobileProps={{ height: 6 }} />
           </View>
+          <StyledStoreButtons justifyContent="flex-end" alignItems="center">
+            <AppStoreButton store="apple" />
+            <Separator width={4} />
+            <AppStoreButton store="google" />
+          </StyledStoreButtons>
         </GridColumn>
       </GridContainer>
       <Separator height={8} />
