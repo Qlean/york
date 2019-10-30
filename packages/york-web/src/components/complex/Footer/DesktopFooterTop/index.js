@@ -15,6 +15,10 @@ const StyledDesktopFooterTop = styled.div`
   `)}
 `
 
+const StyledTitle = styled(Link)`
+  border-color: ${colors.transparent};
+`
+
 const DesktopFooterTop = ({ content }) => {
   return (
     <StyledDesktopFooterTop>
@@ -27,7 +31,7 @@ const DesktopFooterTop = ({ content }) => {
                 {title && (
                   <>
                     <Text preset="textStrong">
-                      <Link rank={2}>{title}</Link>
+                      <StyledTitle rank={2}>{title}</StyledTitle>
                     </Text>
                     <Separator height={2} />
                   </>

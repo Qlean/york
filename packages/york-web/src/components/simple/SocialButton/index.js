@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 
-import { sizes, borderRadiuses, uiPoint } from 'york-web/utils'
+import { media, sizes, borderRadiuses, uiPoint } from 'york-web/utils'
 import { Separator, Text } from 'york-web/components/primitive'
 
 const networks = {
@@ -75,6 +75,10 @@ const StyledSocialButton = styled.a`
   border-radius: ${({ size }) => buttonSizes[size].borderRadius};
   background-color: ${({ backdropColor }) =>
     backdropColor === 'dark' ? colors.ash : colors.whisper};
+
+  ${media.mobile(`
+    width: 100%;
+  `)}
 `
 
 const SocialButton = ({ slug, href, size, backdropColor }) => {
