@@ -153,7 +153,8 @@ const Screen = forwardRef(
     const [footerHeight, setFooterHeight] = useState(0)
     const [scrollViewHeight, setScrollViewHeight] = useState(0)
     const [contentHeight, setContentHeight] = useState(0)
-    const isScrollEnabled = !refreshControl && contentHeight > scrollViewHeight
+    const isScrollEnabled =
+      Boolean(refreshControl) || contentHeight > scrollViewHeight
 
     const analyticsContext = useContext(AnalyticsContext)
 
