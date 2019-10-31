@@ -145,6 +145,7 @@ const Screen = forwardRef(
       style,
       name,
       analyticsData,
+      refreshControl,
       ...rest
     },
     ref,
@@ -152,7 +153,7 @@ const Screen = forwardRef(
     const [footerHeight, setFooterHeight] = useState(0)
     const [scrollViewHeight, setScrollViewHeight] = useState(0)
     const [contentHeight, setContentHeight] = useState(0)
-    const isScrollEnabled = contentHeight > scrollViewHeight
+    const isScrollEnabled = !refreshControl && contentHeight > scrollViewHeight
 
     const analyticsContext = useContext(AnalyticsContext)
 
@@ -204,6 +205,7 @@ const Screen = forwardRef(
             scrollEnabled={isScrollEnabled}
             onLayout={onScrollViewLayout}
             onContentSizeChange={onScrollViewContentSizeChange}
+            refreshControl={refreshControl}
           >
             {(rightView || leftView) && <View style={styles.sideViewSpacer} />}
             {children}
@@ -235,6 +237,7 @@ Screen.defaultProps = {
   withSafeAreaPaddingTop: false,
   withSafeAreaPaddingBottom: true,
   style: null,
+  refreshControl: null,
   analyticsData: {},
 }
 
@@ -263,6 +266,7 @@ Screen.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   analyticsData: PropTypes.object,
   children: PropTypes.node.isRequired,
+  refreshControl: PropTypes.element,
   style: ViewPropTypes.style,
 }
 
