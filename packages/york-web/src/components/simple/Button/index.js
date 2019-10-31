@@ -243,6 +243,7 @@ function Button({
   )
   return (
     <StyledButton
+      type="button"
       {...rest}
       name={name}
       normalizedProps={normalizedProps}
