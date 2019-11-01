@@ -76,7 +76,7 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
-  /** Доступна ли нафигация */
+  /** Доступна ли навигация */
   isNavigationAvailable: PropTypes.bool,
   /** Доступен ли профиль */
   isProfileAvailable: PropTypes.bool.isRequired,
