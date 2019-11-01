@@ -16,6 +16,7 @@ export const componentsShape = PropTypes.objectOf(
 )
 
 export const headerPropTypes = {
+  isNavigationAvailable: PropTypes.bool.isRequired,
   isProfileAvailable: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,

@@ -65,6 +65,7 @@ export default function Header({ components, ...rest }) {
 }
 
 Header.defaultProps = {
+  isNavigationAvailable: true,
   selectedLevelOneItem: null,
   selectedLevelTwoItem: null,
   selectedProfileItem: null,
@@ -75,6 +76,8 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
+  /** Доступна ли нафигация */
+  isNavigationAvailable: PropTypes.bool,
   /** Доступен ли профиль */
   isProfileAvailable: PropTypes.bool.isRequired,
   /** Залогинен ли пользоватеть */
