@@ -190,14 +190,14 @@ export default function MobileHeader(props) {
               </StyledLogo>
             </Link>
             <Separator width={2} />
-            {selectedRegion && (
+            {selectedRegion && !phone && (
               <Region
                 items={regions}
                 selectedItem={selectedRegion}
                 onChange={onRegionChange}
               />
             )}
-            {!selectedRegion && phone && (
+            {phone && (
               <YorkLink name="phone" href={formatPhoneHref(phone)}>
                 <StyledPhoneText preset="caption">
                   {formatPhone(phone)}
