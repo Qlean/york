@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     borderColor: colors.green,
   },
   textContainer: {
-    flexShrink: 0,
+    flexShrink: 1,
   },
 })
 
