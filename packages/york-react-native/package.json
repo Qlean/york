@@ -14,6 +14,7 @@
     "clean": "rimraf lib"
   },
   "peerDependencies": {
+    "@qlean/york-analytics": "*",
     "@qlean/york-core": "*",
     "prop-types": ">=15",
     "react": ">=16",
