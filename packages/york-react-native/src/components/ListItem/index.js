@@ -6,15 +6,12 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native'
 import Text from 'york-react-native/components/Text'
 import Icon from 'york-react-native/components/Icon'
 import Separator from 'york-react-native/components/Separator'
-import { sizes, uiPoint } from 'york-react-native/utils/styles'
+import { uiPoint } from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
   root: {
     justifyContent: 'center',
     minHeight: 12 * uiPoint,
-  },
-  text: {
-    lineHeight: sizes[4],
   },
   titleContainer: {
     flexDirection: 'row',
@@ -60,20 +57,14 @@ const ListItem = ({
       ]}
     >
       <View style={styles.leftView}>
-        <Text style={styles.text} {...titleProps}>
-          {title}
-        </Text>
+        <Text {...titleProps}>{title}</Text>
         {R.isNil(caption) ? null : (
-          <Text style={styles.text} color="grey" {...captionProps}>
+          <Text preset="caption" color="grey" {...captionProps}>
             {caption}
           </Text>
         )}
       </View>
-      {R.isNil(value) ? null : (
-        <Text style={styles.text} {...valueProps}>
-          {value}
-        </Text>
-      )}
+      {R.isNil(value) ? null : <Text {...valueProps}>{value}</Text>}
       {withArrow && (
         <View style={styles.iconContainer}>
           <Icon name="arrow" />
