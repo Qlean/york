@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { RootAnalyticsContext } from '../../context'
 import AnalyticsProvider from '../AnalyticsProvider'
+import { RootAnalyticsContext } from '../../context'
 
 const RootAnalyticsProvider = ({ appId, trackEvent, children }) => {
   return (

@@ -1,20 +1,20 @@
-`AnalyticsProvider` — это компонент, который передает в контекст дочерним елементам категорию событий и функцию трекинга. `AnalyticsProvider` поддерживает бесконечное вложение, при этом на любом этапе иерархии можно подменить функцию трекинга.
+`AnalyticsProvider` — Создает новый аналитический контекст c категорией событий равной пропу `category`. Все дочерние элементы получают доступ к этому контексту через React Context API.
 
 ```js
 import { AnalyticsProvider } from '@qlean/york-analytics'
 import { Button, Page, Separator } from '@qlean/york-web'
 
-const ExampleApp = ({ children }) => (
-  <AnalyticsProvider category="exampleApp" trackEvent={console.log}>
+const ExampleComponent = ({ children }) => (
+  <AnalyticsProvider category="exampleComponent">
     <Button
       name="doExampleAction"
       /**
        * Помимо основного действия отправляет эвент аналитики:
        * {
-       *   category: 'exampleApp',
+       *   category: 'exampleComponent',
        *   label: 'doExampleAction',
        *   action: 'click',
-       *   analyticsRoute: 'exampleApp'
+       *   analyticsRoute: 'york/exampleComponent'
        * }
        */
       onClick={() => {}}
@@ -23,17 +23,17 @@ const ExampleApp = ({ children }) => (
       Root Event
     </Button>
     <Separator height={2} />
-    <Page name="NestedPage">
+    <Page name="nestedPage">
       <Button
         name="doExampleAction"
         analyticsData={{ exampleId: 123 }}
         /**
          * Помимо основного действия отправляет эвент аналитики:
          * {
-         *   category: 'NestedPage',
+         *   category: 'nestedPage',
          *   label: 'doExampleAction',
          *   action: 'click',
-         *   analyticsRoute: 'exampleApp.NestedPage',
+         *   analyticsRoute: 'york/exampleComponent/nestedPage',
          *   exampleId: 123
          * }
          */
@@ -46,5 +46,5 @@ const ExampleApp = ({ children }) => (
   </AnalyticsProvider>
 )
 
-;<ExampleApp />
+;<ExampleComponent />
 ```

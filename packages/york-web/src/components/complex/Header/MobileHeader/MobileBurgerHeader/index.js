@@ -247,16 +247,11 @@ export default function MobileBurgerHeader({
                   <StyledMenuItem
                     onClick={() => {
                       if (analyticsContext) {
-                        const {
-                          trackEvent,
-                          category,
-                          analyticsRoute,
-                        } = analyticsContext
+                        const { trackEvent, category } = analyticsContext
                         trackEvent({
                           category,
                           label: 'login',
                           action: eventActionTypes.click,
-                          analyticsRoute,
                         })
                       }
                       onLogin()

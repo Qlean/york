@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useContext } from 'react'
+import React, { forwardRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 import {
-  AnalyticsProvider,
   AnalyticsContext,
-  eventActionTypes,
+  AnalyticsProvider,
+  useViewTracking,
 } from '@qlean/york-analytics'
 
 import {
@@ -156,21 +156,6 @@ const Screen = forwardRef(
     const isScrollEnabled =
       Boolean(refreshControl) || contentHeight > scrollViewHeight
 
-    const analyticsContext = useContext(AnalyticsContext)
-
-    useEffect(() => {
-      if (analyticsContext) {
-        const { trackEvent, analyticsRoute } = analyticsContext
-        trackEvent({
-          label: name,
-          category: name,
-          action: eventActionTypes.mount,
-          analyticsRoute,
-          ...analyticsData,
-        })
-      }
-    }, [analyticsContext, analyticsData, name])
-
     const onFooterLayout = ({ nativeEvent }) =>
       setFooterHeight(nativeEvent.layout.height)
     const onScrollViewLayout = ({ nativeEvent }) =>
@@ -221,6 +206,9 @@ const Screen = forwardRef(
       </View>
     )
 
+    const analyticsContext = useContext(AnalyticsContext)
+    useViewTracking({ name, analyticsData })
+
     return analyticsContext ? (
       <AnalyticsProvider category={name}>
         {renderScreenBody()}
@@ -239,7 +227,7 @@ Screen.defaultProps = {
   withSafeAreaPaddingBottom: true,
   style: null,
   refreshControl: null,
-  analyticsData: {},
+  analyticsData: null,
 }
 
 Screen.propTypes = {

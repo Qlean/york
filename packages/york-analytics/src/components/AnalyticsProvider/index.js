@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
-export const AnalyticsProvider = ({ category, children }) => {
+const AnalyticsProvider = ({ category, children }) => {
   const { appId, trackEvent } = useContext(RootAnalyticsContext)
   const parentContext = useContext(AnalyticsContext)
   const analyticsRoute = parentContext

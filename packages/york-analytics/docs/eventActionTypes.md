@@ -1,6 +1,6 @@
 Стандартные названия действий для событий.
 
-Доступны: `mount`, `click`, `press`, `submit`.
+Доступны: `pageView`, `mount`, `click`, `press`, `submit`.
 
 ```js static
 import { eventActionTypes } from '@qlean/york-analytics'
