@@ -13,7 +13,7 @@ const usePrevious = value => {
 }
 
 const shouldSendEvent = data =>
-  Object.values(data).filter(item => Boolean(item)).length ===
+  Object.values(data).filter(item => Boolean(item) || item === 0).length ===
   Object.keys(data).length
 
 const useViewTracking = ({ name, analyticsData }) => {
@@ -28,6 +28,7 @@ const useViewTracking = ({ name, analyticsData }) => {
       const action = window
         ? eventActionTypes.pageView
         : eventActionTypes.screenView
+
       const { trackEvent, category } = analyticsContext
       if (!analyticsData) {
         trackEvent({
@@ -43,11 +44,15 @@ const useViewTracking = ({ name, analyticsData }) => {
       const hasDataUpdated =
         prev && JSON.stringify(analyticsData) !== JSON.stringify(prev)
 
-      if (analyticsData && shouldSendEvent(analyticsData) && hasDataUpdated) {
+      if (
+        (!prev && shouldSendEvent(analyticsData)) ||
+        (shouldSendEvent(analyticsData) && hasDataUpdated)
+      ) {
         trackEvent({
           action,
           category,
           label: name,
+          ...analyticsData,
         })
       }
     }

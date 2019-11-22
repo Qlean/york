@@ -4,47 +4,49 @@
 import { AnalyticsProvider } from '@qlean/york-analytics'
 import { Button, Page, Separator } from '@qlean/york-web'
 
-const ExampleComponent = ({ children }) => (
-  <AnalyticsProvider category="exampleComponent">
-    <Button
-      name="doExampleAction"
-      /**
-       * Помимо основного действия отправляет эвент аналитики:
-       * {
-       *   category: 'exampleComponent',
-       *   label: 'doExampleAction',
-       *   action: 'click',
-       *   analyticsRoute: 'york/exampleComponent'
-       * }
-       */
-      onClick={() => {}}
-      isDisabled={false}
-    >
-      Root Event
-    </Button>
-    <Separator height={2} />
-    <Page name="nestedPage">
+const ExampleComponent = ({ children }) => {
+  return (
+    <AnalyticsProvider category="exampleComponent">
       <Button
         name="doExampleAction"
-        analyticsData={{ exampleId: 123 }}
         /**
          * Помимо основного действия отправляет эвент аналитики:
          * {
-         *   category: 'nestedPage',
+         *   category: 'exampleComponent',
          *   label: 'doExampleAction',
          *   action: 'click',
-         *   analyticsRoute: 'york/exampleComponent/nestedPage',
-         *   exampleId: 123
+         *   analyticsRoute: 'york/exampleComponent'
          * }
          */
         onClick={() => {}}
         isDisabled={false}
       >
-        Nested Event
+        Root Event
       </Button>
-    </Page>
-  </AnalyticsProvider>
-)
+      <Separator height={2} />
+      <Page name="nestedPage" analyticsData={{ exampleId: 123, count: 1 }}>
+        <Button
+          name="doExampleAction"
+          analyticsData={{ exampleId: 123 }}
+          /**
+           * Помимо основного действия отправляет эвент аналитики:
+           * {
+           *   category: 'nestedPage',
+           *   label: 'doExampleAction',
+           *   action: 'click',
+           *   analyticsRoute: 'york/exampleComponent/nestedPage',
+           *   exampleId: 123
+           * }
+           */
+          onClick={() => {}}
+          isDisabled={false}
+        >
+          Nested Event
+        </Button>
+      </Page>
+    </AnalyticsProvider>
+  )
+}
 
 ;<ExampleComponent />
 ```
