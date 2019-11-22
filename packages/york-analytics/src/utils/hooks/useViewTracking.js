@@ -12,6 +12,7 @@ const usePrevious = value => {
   return ref.current
 }
 
+// Считаем что данные готовы к отправке, если все значения логически равны true
 const shouldSendEvent = data =>
   Object.values(data).filter(item => Boolean(item) || item === 0).length ===
   Object.keys(data).length
