@@ -9,7 +9,7 @@ import { RootAnalyticsProvider } from '@qlean/york-analytics'
 
 const App = () => (
   <RootAnalyticsProvider appId="exampleApp" trackEvent={console.log}>
-    // children
+    // Остальной код приложения
   </RootAnalyticsProvider>
 )
 ```
