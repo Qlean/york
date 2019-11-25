@@ -13,7 +13,7 @@ import { colors } from '@qlean/york-core'
 import {
   AnalyticsContext,
   AnalyticsProvider,
-  useViewTracking,
+  usePageView,
 } from '@qlean/york-analytics'
 
 import {
@@ -144,8 +144,9 @@ const Screen = forwardRef(
       withSafeAreaPaddingBottom,
       style,
       name,
-      analyticsData,
+      analyticsPayload,
       refreshControl,
+      isPayloadReady,
       ...rest
     },
     ref,
@@ -207,7 +208,7 @@ const Screen = forwardRef(
     )
 
     const analyticsContext = useContext(AnalyticsContext)
-    useViewTracking({ name, analyticsData })
+    usePageView({ name, payload: analyticsPayload, isPayloadReady })
 
     return analyticsContext ? (
       <AnalyticsProvider category={name}>
@@ -227,7 +228,8 @@ Screen.defaultProps = {
   withSafeAreaPaddingBottom: true,
   style: null,
   refreshControl: null,
-  analyticsData: null,
+  analyticsPayload: null,
+  isPayloadReady: true,
 }
 
 Screen.propTypes = {
@@ -253,10 +255,11 @@ Screen.propTypes = {
   withSafeAreaPaddingBottom: PropTypes.bool,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
-  analyticsData: PropTypes.object,
+  analyticsPayload: PropTypes.object,
   children: PropTypes.node.isRequired,
   refreshControl: PropTypes.element,
   style: ViewPropTypes.style,
+  isPayloadReady: PropTypes.bool,
 }
 
 Screen.Footer = Footer

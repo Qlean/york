@@ -37,14 +37,14 @@ const ExampleComponent = () => {
 }
 ```
 
-### useViewTracking
-`useViewTracking({ name: String, analyticsData: Object? })`
-Хук `useViewTracking` отправляет событие о просмотре страницы или экрана (`pageView` для браузеров, `screenView` для react-native). Если не передавать `analyticsData`, то событие сработает при первом рендере, в противном случае хук отправит событие только после того как все значения в `analyticsData` будут логически истинны (true). Это сделано для того чтобы исключить повторные отправки событий при изменении данных, например когда они загружаются асинхронно.
+### usePageView
+`usePageView({ name: String, analyticsPayload: Object? })`
+Хук `usePageView` отправляет событие о просмотре страницы или экрана (`pageView` для браузеров, `screenView` для react-native). Если не передавать `analyticsPayload`, то событие сработает при первом рендере, в противном случае хук отправит событие только после того как все значения в `analyticsPayload` будут логически истинны (true). Это сделано для того чтобы исключить повторные отправки событий при изменении данных, например когда они загружаются асинхронно.
 
 Пример:
 ```js static
 import React, { useState, useEffect } from 'react'
-import { useViewTracking } from '@qlean/york-analytics'
+import { usePageView } from '@qlean/york-analytics'
 
 const CustomPage = ({ name, children }) => {
   const [orderId, setOrderId] = useState(null)
@@ -57,7 +57,7 @@ const CustomPage = ({ name, children }) => {
     fetchOrderId()
   }, [])
 
-  useViewTracking({ name, analyticsData: { orderId } })
+  usePageView({ name, analyticsPayload: { orderId } })
 
   return <div name={name}>{children}</div>
 }

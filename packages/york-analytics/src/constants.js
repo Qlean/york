@@ -3,6 +3,5 @@ export const eventActionTypes = {
   pageView: 'pageView',
   mount: 'mount',
   press: 'press',
-  screenView: 'screenView',
   submit: 'submit',
 }

@@ -28,7 +28,7 @@ const App = () => (
   label: String, // Название элемента, отправляющего событие
   action: String, // Название действия
   analyticsRoute: String // Генерируется автоматически из иерархии провайдеров
-  ...analyticsData: Object, // Дополнительные данные, которые нужно приложить к событию
+  ...analyticsPayload: Object, // Дополнительные данные, которые нужно приложить к событию
 }
 
 // Примеры:
@@ -77,7 +77,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { eventActionTypes, useAnalytics } from '@qlean/york-analytics'
 
-const CustomButton = ({ onClick, analyticsData, ...rest }) => {
+const CustomButton = ({ onClick, analyticsPayload, ...rest }) => {
   const { trackEvent, category } = useAnalytics()
 
   const handleClick = e => {
@@ -85,7 +85,7 @@ const CustomButton = ({ onClick, analyticsData, ...rest }) => {
       category,
       label: name,
       action: eventActionTypes.click,
-      ...analyticsData,
+      ...analyticsPayload,
     })
     onClick(e)
   }
@@ -94,12 +94,12 @@ const CustomButton = ({ onClick, analyticsData, ...rest }) => {
 }
 
 CustomButton.defaultProps = {
-  analyticsData: {},
+  analyticsPayload: {},
 }
 
 CustomButton.propTypes = {
   onClick: PropTypes.func.isRequired,
-  analyticsData: PropTypes.object,
+  analyticsPayload: PropTypes.object,
 }
 
 export default CustomButton

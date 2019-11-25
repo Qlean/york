@@ -24,10 +24,10 @@ const ExampleComponent = ({ children }) => {
         Root Event
       </Button>
       <Separator height={2} />
-      <Page name="nestedPage" analyticsData={{ exampleId: 123, count: 1 }}>
+      <Page name="nestedPage" analyticsPayload={{ exampleId: 123, count: 1 }}>
         <Button
           name="doExampleAction"
-          analyticsData={{ exampleId: 123 }}
+          analyticsPayload={{ exampleId: 123 }}
           /**
            * Помимо основного действия отправляет эвент аналитики:
            * {

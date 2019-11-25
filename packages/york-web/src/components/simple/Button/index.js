@@ -210,7 +210,7 @@ function Button({
   onClick,
   children,
   name,
-  analyticsData,
+  analyticsPayload,
   ...rest
 }) {
   const analyticsContext = useContext(AnalyticsContext)
@@ -223,7 +223,7 @@ function Button({
           category,
           label: name,
           action: eventActionTypes.click,
-          ...analyticsData,
+          ...analyticsPayload,
         })
       }
       onClick(e)
@@ -263,7 +263,7 @@ const defaultProps = {
   size: 'm',
   withShadow: false,
   isSubmitting: false,
-  analyticsData: {},
+  analyticsPayload: {},
   onClick: null,
 }
 
@@ -295,7 +295,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
-  analyticsData: PropTypes.object,
+  analyticsPayload: PropTypes.object,
 }
 
 Button.presets = presets
