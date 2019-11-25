@@ -8,7 +8,7 @@ import { View } from 'york-web/components/primitive'
 const gutter = uiPoint * 4
 
 const maxWidths = {
-  mobile: 360,
+  mobile: 420,
   base: 940,
   wide: 1120,
 }
