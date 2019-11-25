@@ -214,8 +214,8 @@ const StyledPage = styled.div`
   ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
 `
 
-const Frame = ({ children }) => (
-  <StyledFrame>
+const Frame = ({ children, ...rest }) => (
+  <StyledFrame {...rest}>
     <StyledPage>{children}</StyledPage>
   </StyledFrame>
 )

@@ -41,6 +41,8 @@ export const zIndexes = {
 
 export const minScreenWidth = 320
 
+export const mobileHorizontalPadding = sizes[4]
+
 export const fontFamily = '"Museo Sans", sans-serif'
 
 export const mediaBreakpoints = {
