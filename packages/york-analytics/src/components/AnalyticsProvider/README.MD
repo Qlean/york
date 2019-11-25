@@ -1,6 +1,7 @@
 `AnalyticsProvider` — Создает новый аналитический контекст c категорией событий равной пропу `category`. Все дочерние элементы получают доступ к этому контексту через React Context API.
 
 ```js
+import { useState, useEffect } from 'react'
 import { AnalyticsProvider } from '@qlean/york-analytics'
 import { Button, Page, Separator } from '@qlean/york-web'
 

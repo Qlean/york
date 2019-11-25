@@ -18,31 +18,31 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
   }
   if (typeof isPayloadReady === 'undefined') {
     // eslint-disable-next-line no-console
-    console.warn('`usePageView`: `isPayloadReady` is not defined')
+    console.warn('Warning in `usePageView`: `isPayloadReady` is not defined, ')
   }
-  const prev = usePrevious(payload)
+
+  const wasPayloadReady = usePrevious(isPayloadReady)
   const analyticsContext = useContext(AnalyticsContext)
 
   useEffect(() => {
-    if (analyticsContext) {
-      const action = eventActionTypes.pageView
-
+    if (analyticsContext && !payload) {
       const { trackEvent, category } = analyticsContext
       if (!payload) {
         trackEvent({
-          action,
+          action: eventActionTypes.pageView,
           category,
           label: name,
         })
       }
+    }
+  }, [name, analyticsContext, payload])
 
-      // Мы можем спокойно использовать сравнение строк потому что
-      // подразумевается что payload - это простой объект, формируемый вручную,
-      // с плоской структурой, и он все равно конвертируется в JSON перед отправкой.
-      const hasDataUpdated =
-        prev && JSON.stringify(payload) !== JSON.stringify(prev)
+  useEffect(() => {
+    if (analyticsContext && payload) {
+      const action = eventActionTypes.pageView
+      const { trackEvent, category } = analyticsContext
 
-      if (isPayloadReady && (!prev || hasDataUpdated)) {
+      if (!wasPayloadReady && isPayloadReady) {
         trackEvent({
           action,
           category,
@@ -51,7 +51,7 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
         })
       }
     }
-  }, [name, payload, prev, analyticsContext, isPayloadReady])
+  }, [name, payload, analyticsContext, isPayloadReady, wasPayloadReady])
 }
 
 export default usePageView
