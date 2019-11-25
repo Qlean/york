@@ -35,7 +35,9 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
         })
       }
     }
+  }, [name, analyticsContext, payload])
 
+  useEffect(() => {
     if (analyticsContext && payload) {
       const action = eventActionTypes.pageView
       const { trackEvent, category } = analyticsContext
@@ -49,7 +51,7 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
         })
       }
     }
-  }, [name, analyticsContext, payload, isPayloadReady, wasPayloadReady])
+  }, [name, payload, analyticsContext, isPayloadReady, wasPayloadReady])
 }
 
 export default usePageView
