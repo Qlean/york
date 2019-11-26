@@ -16,9 +16,11 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
   if (!name) {
     throw new Error('Error in `usePageView`: `name` is not specified')
   }
-  if (typeof isPayloadReady === 'undefined') {
+  if (payload && typeof isPayloadReady === 'undefined') {
     // eslint-disable-next-line no-console
-    console.warn('Warning in `usePageView`: `isPayloadReady` is not defined, ')
+    console.warn(
+      'Warning in `usePageView`: `isPayloadReady` is not defined, event will never fire',
+    )
   }
 
   const wasPayloadReady = usePrevious(isPayloadReady)

@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { AnalyticsProvider, usePageView } from '@qlean/york-analytics'
-
+import {
+  AnalyticsContext,
+  AnalyticsProvider,
+  usePageView,
+} from '@qlean/york-analytics'
+/**
+ * Компонент страницы. Автоматичесуки отправляет событие о просмотре страницы с помощью `york-analytics`
+ */
 const Page = ({ name, analyticsPayload, isPayloadReady, children }) => {
   usePageView({ name, payload: analyticsPayload, isPayloadReady })
-  return <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
+  const analyticsContext = useContext(AnalyticsContext)
+  return analyticsContext ? (
+    <AnalyticsProvider category={name}>{children}</AnalyticsProvider>
+  ) : (
+    children
+  )
 }
 
 Page.defaultProps = {
