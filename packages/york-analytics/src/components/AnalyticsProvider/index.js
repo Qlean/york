@@ -4,6 +4,12 @@ import PropTypes from 'prop-types'
 import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
 const AnalyticsProvider = ({ category, children }) => {
+  const rootAnalyticsContext = useContext(RootAnalyticsContext)
+  if (!rootAnalyticsContext) {
+    throw new Error(
+      'Error in `AnalyticsProvider`: No `RootAnalyticsContext` found. Please make sure to wrap your app into `RootAnalyticsProvider`',
+    )
+  }
   const { appId, trackEvent } = useContext(RootAnalyticsContext)
   const parentContext = useContext(AnalyticsContext)
   const analyticsRoute = parentContext
