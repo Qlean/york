@@ -3,11 +3,7 @@ import PropTypes from 'prop-types'
 import { RootAnalyticsProvider } from '@qlean/york-analytics'
 
 const Wrapper = ({ children }) => (
-  <RootAnalyticsProvider
-    appId="york"
-    // eslint-disable-next-line no-console
-    trackEvent={console.log}
-  >
+  <RootAnalyticsProvider appId="york" trackEvent={() => {}}>
     {children}
   </RootAnalyticsProvider>
 )
