@@ -10,7 +10,7 @@ const AnalyticsProvider = ({ category, children }) => {
       'Error in `AnalyticsProvider`: No `RootAnalyticsContext` found. Please make sure to wrap your app into `RootAnalyticsProvider`',
     )
   }
-  const { appId, trackEvent } = useContext(RootAnalyticsContext)
+  const { appId, trackEvent } = rootAnalyticsContext
   const parentContext = useContext(AnalyticsContext)
   const analyticsRoute = parentContext
     ? `${parentContext.analyticsRoute}/${category}`
