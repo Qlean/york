@@ -31,6 +31,7 @@ const ExampleComponent = () => {
           label: 'exampleInput',
           action: 'change',
         })
+        setValue(e.target.value)
       }}
     />
   )
