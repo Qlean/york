@@ -38,8 +38,8 @@ const ExampleComponent = () => {
 ```
 
 ### usePageView
-`usePageView({ name: String, analyticsPayload: Object? })`
-Хук `usePageView` отправляет событие о просмотре страницы или экрана (`pageView` для браузеров, `screenView` для react-native). Если не передавать `analyticsPayload`, то событие сработает при первом рендере, в противном случае хук отправит событие только после того как все значения в `analyticsPayload` будут логически истинны (true). Это сделано для того чтобы исключить повторные отправки событий при изменении данных, например когда они загружаются асинхронно.
+`usePageView({ name: String, payload?: Object, isPayloadReady?: Boolean })`
+Хук `usePageView` отправляет событие о просмотре страницы или экрана. Если не передавать `payload`, то событие сработает при первом рендере, в противном случае хук отправит событие только после того как `isPayloadReady` станет равен `true`. Таким образом можно дождать асинхронной загрузки данных перед отправкой события.
 
 Пример:
 ```js static
@@ -48,16 +48,24 @@ import { usePageView } from '@qlean/york-analytics'
 
 const CustomPage = ({ name, children }) => {
   const [orderId, setOrderId] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchOrderId = async () => {
       const orderId = await api.getOrderId()
       setOrderId(setOrderId)
+      setIsLoading(false)
     }
     fetchOrderId()
   }, [])
 
-  usePageView({ name, analyticsPayload: { orderId } })
+  usePageView({
+    name,
+    payload: {
+      orderId
+    },
+    isPayloadReady: !isLoading
+  })
 
   return <div name={name}>{children}</div>
 }
