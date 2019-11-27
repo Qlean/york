@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useContext } from 'react'
+import React, { forwardRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 import {
-  AnalyticsProvider,
   AnalyticsContext,
-  eventActionTypes,
+  AnalyticsProvider,
+  usePageView,
 } from '@qlean/york-analytics'
 
 import {
@@ -131,7 +131,8 @@ Footer.propTypes = {
  * клавиатурой. В компонент встроен футер с отступами — Screen.Footer.
  * По умолчанию сейф-зона снизу включена, а сверху — отключена. Предполагается, что чаще всего экран
  * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
- * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics)
+ * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics) и отправляет событие
+ * о просмотре экрана.
  */
 const Screen = forwardRef(
   (
@@ -144,8 +145,9 @@ const Screen = forwardRef(
       withSafeAreaPaddingBottom,
       style,
       name,
-      analyticsData,
+      analyticsPayload,
       refreshControl,
+      isPayloadReady,
       ...rest
     },
     ref,
@@ -155,21 +157,6 @@ const Screen = forwardRef(
     const [contentHeight, setContentHeight] = useState(0)
     const isScrollEnabled =
       Boolean(refreshControl) || contentHeight > scrollViewHeight
-
-    const analyticsContext = useContext(AnalyticsContext)
-
-    useEffect(() => {
-      if (analyticsContext) {
-        const { trackEvent, analyticsRoute } = analyticsContext
-        trackEvent({
-          label: name,
-          category: name,
-          action: eventActionTypes.mount,
-          analyticsRoute,
-          ...analyticsData,
-        })
-      }
-    }, [analyticsContext, analyticsData, name])
 
     const onFooterLayout = ({ nativeEvent }) =>
       setFooterHeight(nativeEvent.layout.height)
@@ -221,6 +208,9 @@ const Screen = forwardRef(
       </View>
     )
 
+    const analyticsContext = useContext(AnalyticsContext)
+    usePageView({ name, payload: analyticsPayload, isPayloadReady })
+
     return analyticsContext ? (
       <AnalyticsProvider category={name}>
         {renderScreenBody()}
@@ -239,7 +229,8 @@ Screen.defaultProps = {
   withSafeAreaPaddingBottom: true,
   style: null,
   refreshControl: null,
-  analyticsData: {},
+  analyticsPayload: null,
+  isPayloadReady: true,
 }
 
 Screen.propTypes = {
@@ -265,10 +256,11 @@ Screen.propTypes = {
   withSafeAreaPaddingBottom: PropTypes.bool,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
-  analyticsData: PropTypes.object,
+  analyticsPayload: PropTypes.object,
   children: PropTypes.node.isRequired,
   refreshControl: PropTypes.element,
   style: ViewPropTypes.style,
+  isPayloadReady: PropTypes.bool,
 }
 
 Screen.Footer = Footer

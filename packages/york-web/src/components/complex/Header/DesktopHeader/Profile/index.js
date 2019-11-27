@@ -63,12 +63,11 @@ export default function Profile({
       alignItems="center"
       onClick={e => {
         if (analyticsContext) {
-          const { trackEvent, category, analyticsRoute } = analyticsContext
+          const { trackEvent, category } = analyticsContext
           trackEvent({
             category,
             label: 'login',
             action: eventActionTypes.click,
-            analyticsRoute,
           })
         }
         callbacks.onLogin(e)

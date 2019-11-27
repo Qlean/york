@@ -150,7 +150,7 @@ const Button = ({
   iconElement,
   name,
   onPress,
-  analyticsData,
+  analyticsPayload,
   ...props
 }) => {
   if (
@@ -168,13 +168,12 @@ const Button = ({
 
   const handlePress = e => {
     if (analyticsContext) {
-      const { trackEvent, category, analyticsRoute } = analyticsContext
+      const { trackEvent, category } = analyticsContext
       trackEvent({
         category,
         label: name,
         action: eventActionTypes.press,
-        analyticsRoute,
-        ...analyticsData,
+        ...analyticsPayload,
       })
     }
     onPress(e)
@@ -257,7 +256,7 @@ Button.defaultProps = {
   withShadow: false,
   isSubmitting: false,
   iconElement: null,
-  analyticsData: {},
+  analyticsPayload: {},
 }
 
 Button.propTypes = {
@@ -283,7 +282,7 @@ Button.propTypes = {
   onPress: PropTypes.func.isRequired,
   /** Дополнительные данные для аналитики */
   // eslint-disable-next-line react/forbid-prop-types
-  analyticsData: PropTypes.object,
+  analyticsPayload: PropTypes.object,
 }
 
 export default Button

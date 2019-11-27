@@ -1,15 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AnalyticsProvider } from '@qlean/york-analytics'
+import { RootAnalyticsProvider } from '@qlean/york-analytics'
 
 const Wrapper = ({ children }) => (
-  <AnalyticsProvider
-    category="york"
-    // eslint-disable-next-line no-console
-    trackEvent={console.log}
-  >
+  <RootAnalyticsProvider appId="york" trackEvent={() => {}}>
     {children}
-  </AnalyticsProvider>
+  </RootAnalyticsProvider>
 )
 
 Wrapper.propTypes = {

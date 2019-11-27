@@ -1,5 +1,4 @@
 import { createContext } from 'react'
 
-const AnalyticsContext = createContext()
-
-export default AnalyticsContext
+export const AnalyticsContext = createContext()
+export const RootAnalyticsContext = createContext()
