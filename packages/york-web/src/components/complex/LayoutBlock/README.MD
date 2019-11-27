@@ -15,7 +15,7 @@ const StyledBox = styled(Example.Box)`
   width: 100%;
 `
 
-const ExampleComponents = () => {
+const ExampleComponent = () => {
   const [withVerticalPadding, setWithVerticalPadding] = React.useState(false)
   return (
     <>
@@ -36,5 +36,5 @@ const ExampleComponents = () => {
   )
 }
 
-;<ExampleComponents />
+;<ExampleComponent />
 ```
