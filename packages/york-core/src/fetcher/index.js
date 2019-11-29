@@ -8,6 +8,7 @@ const pushToFailedRequests = request =>
     failedRequests.push({ resolve, reject })
   })
     .then(token => request(token))
+    .then(getResponseBody)
     .catch(error => Promise.reject(error))
 
 const processQueue = (error, token = null) => {
