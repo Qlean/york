@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 12 * uiPoint,
   },
-  itemsContainer: {
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -35,7 +35,7 @@ const ListItem = ({ title, caption, value, onPress, isDisabled }) => (
     onPress={onPress}
   >
     <Separator height={3} />
-    <View style={styles.itemsContainer}>
+    <View style={styles.content}>
       <View style={styles.leftView}>
         {React.isValidElement(title) ? title : <Text>{title}</Text>}
 
@@ -62,23 +62,17 @@ ListItem.defaultProps = {
   value: null,
 }
 
-const labelPropTypes = PropTypes.oneOfType([
-  PropTypes.string.isRequired,
-  PropTypes.number.isRequired,
-  PropTypes.element.isRequired,
-])
-
 ListItem.propTypes = {
   /** Заголовок */
-  title: labelPropTypes.isRequired,
+  title: PropTypes.node.isRequired,
   /** Подпись к заголовку */
-  caption: labelPropTypes,
+  caption: PropTypes.node,
   /** Текст в правой части компонента  если передан `string` или `number`,
    * то он позиционируется на одной линии с заголовком.
    * Позиция кастомного элемента (текст нестандартного цвета или иконка)
    * устанавливается через стиль View `align-self`
    */
-  value: labelPropTypes,
+  value: PropTypes.node,
   /**
    * Функция, вызываемая по нажатию на элемент списка. Если не передана, элемент отображается
    * в disabled состоянии
