@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 
 import { View, Text, Separator } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
-import { media, sizes, uiPoint } from 'york-web/utils'
-
-import ServerErrorImage from './assets/500.svg'
-import NotFoundImage from './assets/404.svg'
+import { media, sizes, uiPoint, getAssetsUrl } from 'york-web/utils'
 
 import locales from './locales'
 
@@ -54,7 +51,7 @@ const getErrorLayout = statusCode => {
     case 404:
       return (
         <>
-          <NotFoundImage />
+          <img src={getAssetsUrl('/404/v1.svg')} />
           <Separator height={8} />
           <Text preset="header4">{locales.errors[404].title}</Text>
           <Separator height={2} />
@@ -64,7 +61,7 @@ const getErrorLayout = statusCode => {
     case 500:
       return (
         <>
-          <ServerErrorImage />
+          <img src={getAssetsUrl('/500/v1.svg')} />
           <Separator height={8} />
           <Text preset="header4">{locales.errors[500].title}</Text>
           <Separator height={2} />

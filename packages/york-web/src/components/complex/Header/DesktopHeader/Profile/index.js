@@ -4,14 +4,14 @@ import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
 import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
+import { getAssetsUrl } from 'york-web/utils'
+
 import { Text, View } from 'york-web/components/primitive'
 
 import { menuItemShape, componentsShape } from '../../utils'
 
 import locales from '../../locales'
-import LoginIcon from '../../assets/login.svg'
-import ProfileIcon from '../../assets/profile.svg'
-import ProfilePlusIcon from '../../ProfilePlusIcon'
+import ProfilePlusIcon from '../../ProfilePlusIcon' // TODO: :aaaa:
 
 import Dropdown from './Dropdown'
 
@@ -52,7 +52,11 @@ export default function Profile({
       selectedItem={selectedItem}
     >
       <View alignItems="center">
-        {isPlusSubscriber ? <ProfilePlusIcon /> : <ProfileIcon />}
+        {isPlusSubscriber ? (
+          <ProfilePlusIcon />
+        ) : (
+          <img src={getAssetsUrl('/profile/v1.svg')} />
+        )}
         <StyledProfileText preset="caption">
           {locales.profile}
         </StyledProfileText>
@@ -73,7 +77,7 @@ export default function Profile({
         callbacks.onLogin(e)
       }}
     >
-      <LoginIcon />
+      <img src={getAssetsUrl('/login/v1.svg')} />
       <StyledLoginText preset="caption" color="inherit">
         {locales.login}
       </StyledLoginText>

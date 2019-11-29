@@ -14,14 +14,13 @@ import {
   transitions,
   zIndexes,
   hideScrollBar,
+  getAssetsUrl,
 } from 'york-web/utils'
 
 import { headerPropTypes, scrollHelper } from '../utils'
 import MenuItem from '../MenuItem'
 import Region from '../Region'
 
-import BurgerOpenedIcon from './assets/burgerOpened.svg'
-import BurgerClosedIcon from './assets/burgerClosed.svg'
 import MobileBurgerHeader from './MobileBurgerHeader'
 import Modal from './Modal'
 
@@ -215,7 +214,11 @@ export default function MobileHeader(props) {
                 setModalShow(!isModalShow)
               }}
             >
-              {burgerActive ? <BurgerClosedIcon /> : <BurgerOpenedIcon />}
+              {burgerActive ? (
+                <img src={getAssetsUrl('/burgerClosed/v1.svg')} />
+              ) : (
+                <img src={getAssetsUrl('/burgerOpened/v1.svg')} />
+              )}
             </StyledBurgerButton>
           </View>
         </StyledTopMenu>

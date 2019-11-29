@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
-import { uiPoint } from 'york-web/utils'
+import { uiPoint, getAssetsUrl } from 'york-web/utils'
 
 import { menuItemShape } from '../../utils'
-import MobileGeoIcon from '../../assets/mobileGeo.svg'
 
 const StyledRegion = styled(View)`
   align-items: center;
@@ -24,7 +23,7 @@ const StyledRegionSelect = styled.select`
   font-size: 14px;
 `
 
-const StyledMobileGeoIcon = styled(MobileGeoIcon)`
+const StyledMobileGeoIcon = styled.img`
   flex-shrink: 0;
 `
 
@@ -38,7 +37,7 @@ export default function Region({ regions, selectedRegion, onRegionChange }) {
   return (
     <StyledRegion>
       <Separator width={4} />
-      <StyledMobileGeoIcon />
+      <StyledMobileGeoIcon src={getAssetsUrl('/mobileGeo/v1.svg')} />
       <Separator width={2} />
       <StyledRegionSelect
         onChange={evt => onRegionChange(evt.target.value)}

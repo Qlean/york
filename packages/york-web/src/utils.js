@@ -2,6 +2,9 @@ import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { sizes as coreSizes, colors, rgbaColors } from '@qlean/york-core'
 
+export const getAssetsUrl = path =>
+  `https://storage.googleapis.com/pltf-prod-plus-static-bucket/platform-libraries-shared-static/york-web-assets/york-web${path}`
+
 export const uiPoint = 5
 
 export const sizes = R.map(size => size * uiPoint, coreSizes)

@@ -6,18 +6,13 @@ import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { View, Separator, Text } from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
-import { uiPoint, transitions, sizes } from 'york-web/utils'
+import { uiPoint, transitions, sizes, getAssetsUrl } from 'york-web/utils'
 
-import BurgerOpenedIcon from '../assets/burgerOpened.svg'
-import BurgerClosedIcon from '../assets/burgerClosed.svg'
-import ProfileIcon from '../../assets/profile.svg'
-import ProfilePlusIcon from '../../ProfilePlusIcon'
-import LoginIcon from '../../assets/login.svg'
+import ProfilePlusIcon from '../../ProfilePlusIcon' // TODO: :aaaa:
 import { headerPropTypes } from '../../utils'
 import MenuItem from '../../MenuItem'
 import locales from '../../locales'
 
-import ArrowIcon from './assets/arrow.svg'
 import SubMenu from './SubMenu'
 import Region from './Region'
 
@@ -129,7 +124,11 @@ export default function MobileBurgerHeader({
             isDisabled={false}
             onClick={onRequestClose}
           >
-            {isOpened ? <BurgerClosedIcon /> : <BurgerOpenedIcon />}
+            {isOpened ? (
+              <img src={getAssetsUrl('/burgerClosed/v1.svg')} />
+            ) : (
+              <img src={getAssetsUrl('/burgerOpened/v1.svg')} />
+            )}
           </StyledBurgerButton>
         </View>
       </View>
@@ -168,7 +167,7 @@ export default function MobileBurgerHeader({
                   </StyledMenuItemText>
                   <Separator width={2} />
                   <StyledArrowIconContainer isActive={isActive}>
-                    <ArrowIcon />
+                    <img src={getAssetsUrl('/mobileBurgerArrow/v1.svg')} />
                   </StyledArrowIconContainer>
                 </StyledMenuItem>
                 {isActive && (
@@ -215,7 +214,7 @@ export default function MobileBurgerHeader({
                           {isPlusSubscriber ? (
                             <ProfilePlusIcon />
                           ) : (
-                            <ProfileIcon />
+                            <img src={getAssetsUrl('/profile/v1.svg')} />
                           )}
                         </StyledIcon>
                         <Separator width={2} />
@@ -225,7 +224,7 @@ export default function MobileBurgerHeader({
                       </StyledMenuItemContent>
                       <Separator width={2} />
                       <StyledArrowIconContainer isActive={isProfileActive}>
-                        <ArrowIcon />
+                        <img src={getAssetsUrl('/mobileBurgerArrow/v1.svg')} />
                       </StyledArrowIconContainer>
                     </StyledMenuItem>
                     {isProfileActive && (
@@ -260,7 +259,7 @@ export default function MobileBurgerHeader({
                   >
                     <StyledMenuItemContent>
                       <StyledIcon>
-                        <LoginIcon />
+                        <img src={getAssetsUrl('/login/v1.svg')} />
                       </StyledIcon>
                       <Separator width={2} />
                       <StyledMenuItemText preset="link">

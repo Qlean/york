@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import LogoImage from './assets/logo.svg'
+import { getAssetsUrl } from 'york-web/utils'
 
 const StyledLogo = styled.div`
   line-height: 0;
@@ -10,7 +10,7 @@ const StyledLogo = styled.div`
 export default function Logo() {
   return (
     <StyledLogo>
-      <LogoImage />
+      <img src={getAssetsUrl('/logo/v1.svg')} />
     </StyledLogo>
   )
 }

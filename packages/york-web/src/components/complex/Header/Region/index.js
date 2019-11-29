@@ -5,9 +5,9 @@ import { colors } from '@qlean/york-core'
 
 import { Text, Separator } from 'york-web/components/primitive'
 
-import { menuItemShape } from '../utils'
+import { getAssetsUrl } from 'york-web/utils'
 
-import ArrowIcon from './assets/arrow.svg'
+import { menuItemShape } from '../utils'
 
 const StyledRegion = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const StyledRegion = styled.div`
   overflow: hidden;
 `
 
-const StyledArrowIcon = styled(ArrowIcon)`
+const StyledArrowIcon = styled.img`
   flex-shrink: 0;
 `
 
@@ -41,7 +41,7 @@ const StyledSelect = styled.select`
 export default function Region({ items, selectedItem, onChange }) {
   return (
     <StyledRegion>
-      <StyledArrowIcon />
+      <StyledArrowIcon src={getAssetsUrl('/regionArrow/v1.svg')} />
       <Separator width={1} />
       <StyledTextContainer>
         <Text preset="caption" color="inherit">
