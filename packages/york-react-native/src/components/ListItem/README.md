@@ -21,14 +21,14 @@ const options = [
 ;<>
   <ListItem
     title="Заголовок"
-    caption={<Text color="red">Кастомная подпись</Text>}
+    caption={<Text color="red" preset="caption">Кастомная подпись</Text>}
     value="1"
     isDisabled
   />
   <Line />
   <ListItem
     title="Заголовок"
-    caption={<Text color="red">Кастомная подпись</Text>}
+    caption={<Text color="red" preset="caption">Кастомная подпись</Text>}
     value={0}
     isDisabled
   />
