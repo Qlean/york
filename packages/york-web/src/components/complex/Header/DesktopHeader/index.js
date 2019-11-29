@@ -14,6 +14,8 @@ import Phone from './Phone'
 import Profile from './Profile'
 import Menu from './Menu'
 
+const shadow = '0 2px 6px rgba(0, 0, 0, 0.1)'
+
 const StyledMenuContainer = styled.div`
   margin: 0 auto;
 `
@@ -22,6 +24,7 @@ const StyledMenu = styled.div`
   z-index: ${zIndexes.header};
   position: relative;
   background-color: ${colors.white};
+  ${({ withShadow }) => withShadow && `box-shadow: ${shadow};`}
   ${media.mobile('display:none;')}
 `
 
@@ -44,7 +47,7 @@ const StyledStickyMenu = styled.div`
 `
 
 const StyledLevelOneMenu = styled.div`
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadow};
 `
 
 const StyledLevelTwoMenu = styled.div`
@@ -52,6 +55,7 @@ const StyledLevelTwoMenu = styled.div`
 `
 
 export default function DesktopHeader({
+  isNavigationAvailable,
   isProfileAvailable,
   isLoggedIn,
   isPlusSubscriber,
@@ -76,17 +80,21 @@ export default function DesktopHeader({
 
   return (
     <>
-      <StyledMenu name="desktopHeaderTop">
+      <StyledMenu name="desktopHeaderTop" withShadow={!isNavigationAvailable}>
         <StyledMenuContainer>
           <GridContainer>
             <GridColumn columns={12}>
               <StyledTopMenu>
                 <View alignItems="center">
-                  <Link href="/" name="logo">
+                  <Link href={tab.href} name="logo">
                     <Logo />
                   </Link>
-                  <Separator width={3} />
-                  <Tabs defaultTab={defaultTab} tabs={tabs} />
+                  {isNavigationAvailable && (
+                    <>
+                      <Separator width={3} />
+                      <Tabs defaultTab={defaultTab} tabs={tabs} />
+                    </>
+                  )}
                 </View>
                 <View alignItems="center">
                   {selectedRegion && (
@@ -103,53 +111,56 @@ export default function DesktopHeader({
                       <Phone phone={phone} />
                     </StyledTopMenuItem>
                   )}
-                  <StyledTopMenuItem>
-                    <Profile
-                      components={components}
-                      callbacks={callbacks}
-                      isLoggedIn={isLoggedIn}
-                      isPlusSubscriber={isPlusSubscriber}
-                      isProfileAvailable={isProfileAvailable}
-                      items={profile}
-                      selectedItem={selectedProfileItem}
-                    />
-                  </StyledTopMenuItem>
+                  {isProfileAvailable && (
+                    <StyledTopMenuItem>
+                      <Profile
+                        components={components}
+                        callbacks={callbacks}
+                        isLoggedIn={isLoggedIn}
+                        isPlusSubscriber={isPlusSubscriber}
+                        items={profile}
+                        selectedItem={selectedProfileItem}
+                      />
+                    </StyledTopMenuItem>
+                  )}
                 </View>
               </StyledTopMenu>
             </GridColumn>
           </GridContainer>
         </StyledMenuContainer>
       </StyledMenu>
-      <StyledStickyMenu name="desktopHeaderSticky">
-        <StyledLevelOneMenu>
-          <GridContainer>
-            <GridColumn columns={12}>
-              <Menu
-                components={components}
-                callbacks={callbacks}
-                items={menu}
-                selectedItem={selectedLevelOneItem}
-                textPreset="link"
-              />
-            </GridColumn>
-          </GridContainer>
-        </StyledLevelOneMenu>
-        {Boolean(levelTwoMenuItems.length) && (
-          <StyledLevelTwoMenu>
+      {isNavigationAvailable && (
+        <StyledStickyMenu name="desktopHeaderSticky">
+          <StyledLevelOneMenu>
             <GridContainer>
               <GridColumn columns={12}>
                 <Menu
                   components={components}
                   callbacks={callbacks}
-                  items={levelTwoMenuItems}
-                  selectedItem={selectedLevelTwoItem}
-                  textPreset="caption"
+                  items={menu}
+                  selectedItem={selectedLevelOneItem}
+                  textPreset="link"
                 />
               </GridColumn>
             </GridContainer>
-          </StyledLevelTwoMenu>
-        )}
-      </StyledStickyMenu>
+          </StyledLevelOneMenu>
+          {Boolean(levelTwoMenuItems.length) && (
+            <StyledLevelTwoMenu>
+              <GridContainer>
+                <GridColumn columns={12}>
+                  <Menu
+                    components={components}
+                    callbacks={callbacks}
+                    items={levelTwoMenuItems}
+                    selectedItem={selectedLevelTwoItem}
+                    textPreset="caption"
+                  />
+                </GridColumn>
+              </GridContainer>
+            </StyledLevelTwoMenu>
+          )}
+        </StyledStickyMenu>
+      )}
     </>
   )
 }

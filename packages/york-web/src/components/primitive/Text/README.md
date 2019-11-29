@@ -48,10 +48,17 @@ const presets = [
 ]
 
 ;<Example.Showcase overflow="hidden">
-  {presets.map(({ preset, caption }) => (
-    <Example.ShowcaseItem key={preset} title={preset} caption={caption}>
-      <Text preset={preset}>{Example.text.medium}</Text>
-    </Example.ShowcaseItem>
-  ))}
+  {presets.map(({ preset, caption }) => {
+    const { fontSize, lineHeight } = Text.presets[preset]
+    return (
+      <Example.ShowcaseItem
+        key={preset}
+        title={`${preset} ${fontSize}/${lineHeight}`}
+        caption={caption}
+      >
+        <Text preset={preset}>{Example.text.medium}</Text>
+      </Example.ShowcaseItem>
+    )
+  })}
 </Example.Showcase>
 ```

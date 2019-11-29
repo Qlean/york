@@ -1,8 +1,7 @@
-import { useContext, useCallback } from 'react'
+import { useCallback, useContext } from 'react'
+import { AnalyticsContext } from '../../context'
 
-import AnalyticsContext from '../context'
-
-export const useAnalytics = category => {
+const useAnalytics = category => {
   const analyticsContext = useContext(AnalyticsContext)
   if (!analyticsContext) {
     throw new Error(
@@ -10,12 +9,7 @@ export const useAnalytics = category => {
     )
   }
 
-  const {
-    trackEvent,
-    category: contextCategory,
-    analyticsRoute,
-    ...rest
-  } = analyticsContext
+  const { trackEvent, category: contextCategory, ...rest } = analyticsContext
 
   const finalCategory = category || contextCategory
 
@@ -31,11 +25,11 @@ export const useAnalytics = category => {
         trackEvent({
           ...data,
           category: finalCategory,
-          analyticsRoute,
         }),
-      [trackEvent, finalCategory, analyticsRoute],
+      [trackEvent, finalCategory],
     ),
-    analyticsRoute,
     ...rest,
   }
 }
+
+export default useAnalytics

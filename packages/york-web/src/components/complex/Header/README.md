@@ -143,6 +143,7 @@ const StyledBox = styled(Example.Box)`
 `
 
 const ExampleComponents = () => {
+  const [isNavigationAvailable, setIsNavigationAvailable] = React.useState(true)
   const [isProfileAvailable, setIsProfileAvailable] = React.useState(true)
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
   const [isPlusSubscriber, setIsPlusSubscriber] = React.useState(true)
@@ -152,6 +153,12 @@ const ExampleComponents = () => {
   return (
     <>
       <Example.InputGroup>
+        <Example.Checkbox
+          value={isNavigationAvailable}
+          onChange={() => setIsNavigationAvailable(!isNavigationAvailable)}
+        >
+          isNavigationAvailable
+        </Example.Checkbox>
         <Example.Checkbox
           value={isProfileAvailable}
           onChange={() => setIsProfileAvailable(!isProfileAvailable)}
@@ -170,9 +177,16 @@ const ExampleComponents = () => {
         >
           isPlusSubscriber
         </Example.Checkbox>
+        <Example.Checkbox
+          value={Boolean(region)}
+          onChange={() => setRegion(region ? null : 'ppk')}
+        >
+          region
+        </Example.Checkbox>
       </Example.InputGroup>
       <Example.Frame>
         <Header
+          isNavigationAvailable={isNavigationAvailable}
           isProfileAvailable={isProfileAvailable}
           isLoggedIn={isLoggedIn}
           isPlusSubscriber={isPlusSubscriber}

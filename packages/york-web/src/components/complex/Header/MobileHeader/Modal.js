@@ -46,6 +46,7 @@ export default function Modal({ children }) {
       bodyRef.current.style.paddingRight = ''
       window.scrollTo(0, offsetY)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return ReactDOM.createPortal(

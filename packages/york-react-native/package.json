@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-react-native",
-  "version": "3.10.0",
+  "version": "4.0.1",
   "description": "",
   "license": "MIT",
   "repository": {
@@ -14,6 +14,7 @@
     "clean": "rimraf lib"
   },
   "peerDependencies": {
+    "@qlean/york-analytics": "*",
     "@qlean/york-core": "*",
     "prop-types": ">=15",
     "react": ">=16",

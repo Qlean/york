@@ -60,12 +60,11 @@ export default function MenuItem({
         className={className}
         onClick={e => {
           if (analyticsContext) {
-            const { trackEvent, category, analyticsRoute } = analyticsContext
+            const { trackEvent, category } = analyticsContext
             trackEvent({
               category,
               label: name,
               action: eventActionTypes.click,
-              analyticsRoute,
             })
           }
           if (onClick) onClick(e)

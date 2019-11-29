@@ -1,6 +1,7 @@
 export const eventActionTypes = {
-  mount: 'mount',
   click: 'click',
+  pageView: 'pageView',
+  mount: 'mount',
   press: 'press',
   submit: 'submit',
 }

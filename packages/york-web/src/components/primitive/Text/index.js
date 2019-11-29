@@ -137,4 +137,6 @@ Text.propTypes = {
   ...getResponsivePropTypes(propTypes),
 }
 
+Text.presets = presets
+
 export default Text

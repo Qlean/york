@@ -11,6 +11,7 @@ const R = require('ramda')
  * запускать Экспо не стартуя бабель и пересборку.
  */
 const yorkCoreSrc = path.resolve(__dirname, '../york-core/src')
+const yorkAnalyticsSrc = path.resolve(__dirname, '../york-analytics/src')
 const yorkReactNativeSrc = path.resolve(__dirname, '../york-react-native/src')
 
 /**
@@ -41,6 +42,7 @@ module.exports = {
   resolver: {
     extraNodeModules: {
       '@qlean/york-core': yorkCoreSrc,
+      '@qlean/york-analytics': yorkAnalyticsSrc,
       '@qlean/york-react-native': yorkReactNativeSrc,
       'york-react-native': yorkReactNativeSrc,
 
@@ -53,5 +55,10 @@ module.exports = {
   },
 
   // Неудачное название параметра, на самом деле это директории из которых резолвятся зависимости
-  watchFolders: [yorkCoreSrc, yorkReactNativeSrc, ...externalModuleFolders],
+  watchFolders: [
+    yorkCoreSrc,
+    yorkAnalyticsSrc,
+    yorkReactNativeSrc,
+    ...externalModuleFolders,
+  ],
 }

@@ -1,7 +1,12 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { colors, formatPhone, formatPhoneHref } from '@qlean/york-core'
-import { View, Separator, Text } from 'york-web/components/primitive'
+import {
+  View,
+  Separator,
+  Text,
+  Link as YorkLink,
+} from 'york-web/components/primitive'
 import { Button } from 'york-web/components/simple'
 import {
   uiPoint,
@@ -20,6 +25,8 @@ import BurgerClosedIcon from './assets/burgerClosed.svg'
 import MobileBurgerHeader from './MobileBurgerHeader'
 import Modal from './Modal'
 
+const shadow = '0px 2px 6px rgba(0, 0, 0, 0.1)'
+
 const StyledMobileHeader = styled.div`
   z-index: ${zIndexes.header};
   position: relative;
@@ -28,6 +35,7 @@ const StyledMobileHeader = styled.div`
 
 const StyledTopMenu = styled(View)`
   background-color: ${colors.white};
+  ${({ withShadow }) => withShadow && `box-shadow: ${shadow};`}
 `
 
 const StyledLogo = styled.div`
@@ -40,7 +48,7 @@ const StyledBurgerButton = styled(Button)`
 
 const StyledScrollerContainer = styled.div`
   position: relative;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadow};
   background-color: ${colors.white};
 
   ::before,
@@ -128,6 +136,7 @@ const StyledPhoneText = styled(Text)`
 
 export default function MobileHeader(props) {
   const {
+    isNavigationAvailable,
     selectedRegion,
     phone,
     defaultTab,
@@ -168,28 +177,32 @@ export default function MobileHeader(props) {
         </Modal>
       )}
       <StyledMobileHeader name="mobileHeader">
-        <StyledTopMenu alignItems="center" justifyContent="space-between">
+        <StyledTopMenu
+          alignItems="center"
+          justifyContent="space-between"
+          withShadow={!isNavigationAvailable}
+        >
           <View alignItems="center">
             <Separator width={4} />
-            <Link href="/" name="logo">
+            <Link href={tab.href} name="logo">
               <StyledLogo>
                 <Logo />
               </StyledLogo>
             </Link>
             <Separator width={2} />
-            {selectedRegion && (
+            {selectedRegion && !phone && (
               <Region
                 items={regions}
                 selectedItem={selectedRegion}
                 onChange={onRegionChange}
               />
             )}
-            {!selectedRegion && phone && (
-              <Link name="phone" href={formatPhoneHref(phone)}>
+            {phone && (
+              <YorkLink name="phone" href={formatPhoneHref(phone)}>
                 <StyledPhoneText preset="caption">
                   {formatPhone(phone)}
                 </StyledPhoneText>
-              </Link>
+              </YorkLink>
             )}
           </View>
           <View alignItems="center">
@@ -206,65 +219,69 @@ export default function MobileHeader(props) {
             </StyledBurgerButton>
           </View>
         </StyledTopMenu>
-        <StyledLevelOneScrollerContainer>
-          <StyledScroller ref={levelTwoContainerRef}>
-            <View>
-              <StyledMenu>
-                {menu.map(menuItem => (
-                  <StyledMenuItem
-                    key={menuItem.name}
-                    components={components}
-                    callbacks={callbacks}
-                    item={menuItem}
-                    onClick={e =>
-                      scrollHelper(
-                        levelTwoContainerRef.current,
-                        e.currentTarget,
-                      )
-                    }
-                  >
-                    <StyledLevelOneMenuItemText
-                      preset="link"
-                      isSelected={menuItem.name === selectedLevelOneItem}
-                    >
-                      {menuItem.title}
-                    </StyledLevelOneMenuItemText>
-                  </StyledMenuItem>
-                ))}
-              </StyledMenu>
-            </View>
-          </StyledScroller>
-        </StyledLevelOneScrollerContainer>
-        {levelTwoMenuItems.length > 0 && (
-          <StyledLevelTwoScrollerContainer>
-            <StyledScroller ref={levelThreeContainerRef}>
-              <View>
-                <StyledMenu>
-                  {levelTwoMenuItems.map(item => (
-                    <StyledMenuItem
-                      key={item.name}
-                      components={components}
-                      callbacks={callbacks}
-                      item={item}
-                      onClick={e => {
-                        scrollHelper(
-                          levelThreeContainerRef.current,
-                          e.currentTarget,
-                        )
-                      }}
-                    >
-                      <StyledLevelTwoMenuItemText
-                        preset="caption"
-                        isSelected={item.name === selectedLevelTwoItem}
+        {isNavigationAvailable && (
+          <>
+            <StyledLevelOneScrollerContainer>
+              <StyledScroller ref={levelTwoContainerRef}>
+                <View>
+                  <StyledMenu>
+                    {menu.map(menuItem => (
+                      <StyledMenuItem
+                        key={menuItem.name}
+                        components={components}
+                        callbacks={callbacks}
+                        item={menuItem}
+                        onClick={e =>
+                          scrollHelper(
+                            levelTwoContainerRef.current,
+                            e.currentTarget,
+                          )
+                        }
                       >
-                        {item.title}
-                      </StyledLevelTwoMenuItemText>
-                    </StyledMenuItem>
-                  ))}
-                </StyledMenu>
-              </View>
-            </StyledScroller>
-          </StyledLevelTwoScrollerContainer>
+                        <StyledLevelOneMenuItemText
+                          preset="link"
+                          isSelected={menuItem.name === selectedLevelOneItem}
+                        >
+                          {menuItem.title}
+                        </StyledLevelOneMenuItemText>
+                      </StyledMenuItem>
+                    ))}
+                  </StyledMenu>
+                </View>
+              </StyledScroller>
+            </StyledLevelOneScrollerContainer>
+            {levelTwoMenuItems.length > 0 && (
+              <StyledLevelTwoScrollerContainer>
+                <StyledScroller ref={levelThreeContainerRef}>
+                  <View>
+                    <StyledMenu>
+                      {levelTwoMenuItems.map(item => (
+                        <StyledMenuItem
+                          key={item.name}
+                          components={components}
+                          callbacks={callbacks}
+                          item={item}
+                          onClick={e => {
+                            scrollHelper(
+                              levelThreeContainerRef.current,
+                              e.currentTarget,
+                            )
+                          }}
+                        >
+                          <StyledLevelTwoMenuItemText
+                            preset="caption"
+                            isSelected={item.name === selectedLevelTwoItem}
+                          >
+                            {item.title}
+                          </StyledLevelTwoMenuItemText>
+                        </StyledMenuItem>
+                      ))}
+                    </StyledMenu>
+                  </View>
+                </StyledScroller>
+              </StyledLevelTwoScrollerContainer>
+            )}
+          </>
         )}
       </StyledMobileHeader>
     </>

@@ -1,56 +1,49 @@
-import React from 'react'
+import React, { useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import AnalyticsContext from '../../context'
+import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
-const getAnalyticsRoute = (value, category) => {
-  if (value) {
-    const { analyticsRoute } = value
-    return `${analyticsRoute}/${category}`
+const AnalyticsProvider = ({ category, children }) => {
+  const rootAnalyticsContext = useContext(RootAnalyticsContext)
+  if (!rootAnalyticsContext) {
+    throw new Error(
+      'Error in `AnalyticsProvider`: No `RootAnalyticsContext` found. Please make sure to wrap your app into `RootAnalyticsProvider`',
+    )
   }
-  return category
-}
+  const { appId, trackEvent } = rootAnalyticsContext
+  const parentContext = useContext(AnalyticsContext)
+  const analyticsRoute = parentContext
+    ? `${parentContext.analyticsRoute}/${category}`
+    : `${category}`
 
-/** Передает аналитический контекст дочерним компонентам */
-const AnalyticsProvider = ({ trackEvent, category, children }) => {
   return (
-    <AnalyticsContext.Consumer>
-      {value => {
-        const getEventTrackingFunction = () => {
-          if (trackEvent) return trackEvent
-          if (value && value.trackEvent) return value.trackEvent
-          throw new Error(
-            'No event tracking function specified for `AnalyticsProvider`',
-          )
-        }
-        const analyticsRoute = getAnalyticsRoute(value, category)
-        return (
-          <AnalyticsContext.Provider
-            value={{
-              trackEvent: getEventTrackingFunction(),
+    <AnalyticsContext.Provider
+      value={{
+        trackEvent: useCallback(
+          event =>
+            trackEvent({
+              appId,
               category,
               analyticsRoute,
-            }}
-          >
-            {children}
-          </AnalyticsContext.Provider>
-        )
+              ...event,
+            }),
+          [appId, category, analyticsRoute, trackEvent],
+        ),
+        analyticsRoute,
+        category,
+        appId,
       }}
-    </AnalyticsContext.Consumer>
+    >
+      {children}
+    </AnalyticsContext.Provider>
   )
 }
 
 AnalyticsProvider.propTypes = {
   /** Категория событий этого провайдера */
   category: PropTypes.string.isRequired,
-  /** Функция для трекинга событий */
-  trackEvent: PropTypes.func,
   /** Позволяет отключить трекинг для этого провайдера, передается дальше по контексту */
   children: PropTypes.node.isRequired,
-}
-
-AnalyticsProvider.defaultProps = {
-  trackEvent: null,
 }
 
 export default AnalyticsProvider

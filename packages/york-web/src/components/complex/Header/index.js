@@ -56,16 +56,16 @@ export default function Header({ components, ...rest }) {
       </StyledMobileHeader>
     </>
   )
+
   return analyticsContext ? (
-    <AnalyticsProvider category="topNavigation">
-      {renderContent()}
-    </AnalyticsProvider>
+    <AnalyticsProvider category="header">{renderContent()}</AnalyticsProvider>
   ) : (
     renderContent()
   )
 }
 
 Header.defaultProps = {
+  isNavigationAvailable: true,
   selectedLevelOneItem: null,
   selectedLevelTwoItem: null,
   selectedProfileItem: null,
@@ -76,6 +76,8 @@ Header.defaultProps = {
 }
 
 Header.propTypes = {
+  /** Доступна ли навигация */
+  isNavigationAvailable: PropTypes.bool,
   /** Доступен ли профиль */
   isProfileAvailable: PropTypes.bool.isRequired,
   /** Залогинен ли пользоватеть */
