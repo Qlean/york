@@ -17,7 +17,7 @@ import {
   normalizeColor,
 } from 'york-web/utils'
 
-import { Text, View, Separator, Spinner } from 'york-web/components/primitive'
+import { Text, View, Spinner } from 'york-web/components/primitive'
 
 const presets = {
   whiteBackdropRank1: {
