@@ -9,6 +9,8 @@ import {
   Separator,
   Text,
   Screen,
+  ListItem,
+  Line,
   Button,
   Icon,
   uiPoint,
@@ -104,6 +106,7 @@ export default function App() {
   return (
     isFontsLoaded && (
       <Screen
+        name="Expo"
         leftView={{
           node: <Icon name="back" />,
           onPress: () => {},
@@ -151,7 +154,41 @@ export default function App() {
           onChange={v => setPickerValue(v)}
         />
         <Separator height={4} />
-        <TextInput style={styles.textInput} placeholder="Напиши что-нибудь" />
+        <Line color="silver" />
+        <Separator height={4} />
+        <TextInput style={styles.textInput} placeholder="Напишите что-нибудь" />
+        <Separator height={4} />
+        <Line color="silver" />
+        <Separator height={1} />
+        <ListItem
+          title="Заголовок"
+          caption={<Text color="red">Кастомная подпись</Text>}
+          value="1"
+          isDisabled
+        />
+        <Line />
+        <ListItem
+          title="Заголовок"
+          caption={<Text color="red">Кастомная подпись</Text>}
+          value={0}
+          isDisabled
+        />
+        <Line />
+        <ListItem
+          title="Заголовок"
+          value={<Text color="jungle">Кастомное значение</Text>}
+          onPress={() => {}}
+          isDisabled
+        />
+        <Line />
+        <ListItem
+          title="Заголовок"
+          caption="Подпись"
+          value={<Icon name="arrow" />}
+          onPress={() => {}}
+          isDisabled={false}
+        />
+        <Line />
       </Screen>
     )
   )

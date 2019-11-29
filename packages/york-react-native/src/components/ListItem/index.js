@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 
 import Text from 'york-react-native/components/Text'
-import Icon from 'york-react-native/components/Icon'
 import Separator from 'york-react-native/components/Separator'
 import { uiPoint } from 'york-react-native/utils/styles'
 
@@ -13,63 +12,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 12 * uiPoint,
   },
-  titleContainer: {
+  itemsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  titleWithCaption: {
-    alignItems: 'flex-start',
+  valueLabel: {
+    alignSelf: 'flex-start',
   },
   leftView: {
     flex: 1,
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 })
 
 /**
  * Элемент списка. Можно использовать как часть FlatList, SectionList или как отдельный компонент
  */
-const ListItem = ({
-  onPress,
-  title,
-  caption,
-  value,
-  valueProps,
-  titleProps,
-  captionProps,
-  isDisabled,
-  withArrow = false,
-}) => (
+const ListItem = ({ title, caption, value, onPress, isDisabled }) => (
   <TouchableOpacity
     style={styles.root}
     disabled={!onPress || isDisabled}
     onPress={onPress}
   >
     <Separator height={3} />
-    <View
-      style={[
-        styles.titleContainer,
-        caption && !withArrow && styles.titleWithCaption,
-      ]}
-    >
+    <View style={styles.itemsContainer}>
       <View style={styles.leftView}>
-        <Text {...titleProps}>{title}</Text>
-        {R.isNil(caption) ? null : (
-          <Text preset="caption" color="grey" {...captionProps}>
-            {caption}
-          </Text>
-        )}
+        {React.isValidElement(title) ? title : <Text>{title}</Text>}
+
+        {React.isValidElement(caption)
+          ? caption
+          : !R.isNil(caption) && (
+              <Text preset="caption" color="grey">
+                {caption}
+              </Text>
+            )}
       </View>
-      {R.isNil(value) ? null : <Text {...valueProps}>{value}</Text>}
-      {withArrow && (
-        <View style={styles.iconContainer}>
-          <Icon name="arrow" />
-        </View>
-      )}
+
+      {React.isValidElement(value)
+        ? value
+        : !R.isNil(value) && <Text style={styles.valueLabel}>{value}</Text>}
     </View>
     <Separator height={3} />
   </TouchableOpacity>
@@ -79,42 +60,32 @@ ListItem.defaultProps = {
   onPress: undefined,
   caption: null,
   value: null,
-  titleProps: {},
-  captionProps: {},
-  valueProps: {},
-  withArrow: false,
 }
 
-const numberOrStringPropType = PropTypes.oneOfType([
+const labelPropTypes = PropTypes.oneOfType([
   PropTypes.string.isRequired,
   PropTypes.number.isRequired,
+  PropTypes.element.isRequired,
 ])
 
 ListItem.propTypes = {
+  /** Заголовок */
+  title: labelPropTypes.isRequired,
+  /** Подпись к заголовку */
+  caption: labelPropTypes,
+  /** Текст в правой части компонента  если передан `string` или `number`,
+   * то он позиционируется на одной линии с заголовком.
+   * Позиция кастомного элемента (текст нестандартного цвета или иконка)
+   * устанавливается через стиль View `align-self`
+   */
+  value: labelPropTypes,
   /**
    * Функция, вызываемая по нажатию на элемент списка. Если не передана, элемент отображается
    * в disabled состоянии
    */
   onPress: PropTypes.func,
-  /** Заголовок */
-  title: numberOrStringPropType.isRequired,
-  /** Подпись к заголовку */
-  caption: numberOrStringPropType,
   /** Делает компонент недоступным для нажатия */
   isDisabled: PropTypes.bool.isRequired,
-  /** Текст в правой части компонента, всегда отображается на одной линии с заголовком */
-  value: numberOrStringPropType,
-  /** Пропы для компонента Text, в который обёрнут title */
-  // eslint-disable-next-line react/forbid-prop-types
-  titleProps: PropTypes.object,
-  /** Пропы для компонента Text, в который обёрнут caption */
-  // eslint-disable-next-line react/forbid-prop-types
-  captionProps: PropTypes.object,
-  /** Пропы для компонента Text, в который обёрнут value */
-  // eslint-disable-next-line react/forbid-prop-types
-  valueProps: PropTypes.object,
-  /** Контроллирует отображение иконки в правой части компонента */
-  withArrow: PropTypes.bool,
 }
 
 export default ListItem
