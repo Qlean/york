@@ -242,8 +242,6 @@ function Button({
       {isSubmitting ? (
         <View justifyContent="center" alignItems="center">
           <Spinner isLoading={isSubmitting} color="inherit" size="s" />
-          <Separator width={2} />
-          {'Отправляем'}
         </View>
       ) : (
         children
