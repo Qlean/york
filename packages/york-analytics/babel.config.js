@@ -1,3 +1,13 @@
 module.exports = {
-  presets: ['@babel/preset-react', '@babel/preset-env'],
+  presets: [
+    [
+      '@babel/preset-typescript',
+      {
+        allExtensions: true,
+        isTSX: true,
+      },
+    ],
+    '@babel/preset-react',
+    '@babel/preset-env',
+  ],
 }

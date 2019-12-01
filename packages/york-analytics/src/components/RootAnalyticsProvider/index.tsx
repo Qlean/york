@@ -3,8 +3,15 @@ import PropTypes from 'prop-types'
 
 import AnalyticsProvider from '../AnalyticsProvider'
 import { RootAnalyticsContext } from '../../context'
+import { AnalyticsEvent } from '../../types'
 
-const RootAnalyticsProvider = ({ appId, trackEvent, children }) => {
+interface Props {
+  appId: string
+  trackEvent: (e: AnalyticsEvent) => void
+  children: React.ReactNode
+}
+
+const RootAnalyticsProvider = ({ appId, trackEvent, children }: Props) => {
   return (
     <RootAnalyticsContext.Provider
       value={{

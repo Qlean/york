@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "npm run build && lerna run --parallel start",
-    "start:web": "npm run build && lerna run --parallel --ignore @qlean/york-expo start",
+    "start:web": "lerna run --parallel --ignore @qlean/york-expo start",
     "start:expo": "lerna exec --scope @qlean/york-expo -- npm start",
     "build": "lerna exec --ignore @qlean/york-styleguide --ignore @qlean/york-expo -- npm run build",
     "build:all": "npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
@@ -29,12 +29,15 @@
     "format": "prettier --write '**/*.*'"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.7.4",
     "@qlean/york-analytics": "file:packages/york-analytics",
     "@qlean/york-core": "file:packages/york-core",
     "@qlean/york-react-native": "file:packages/york-react-native",
-    "@qlean/york-web": "file:packages/york-web"
+    "@qlean/york-web": "file:packages/york-web",
+    "react-docgen-typescript": "^1.16.1"
   },
   "devDependencies": {
+    "typescript": "^3.7.2",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -43,6 +46,7 @@
     "@babel/preset-react": "^7.0.0",
     "@qlean/eslint-config": "5.0.1",
     "@qlean/eslint-config-react-native": "5.0.1",
+    "@types/react": "^16.9.13",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-inline-react-svg": "^1.1.0",

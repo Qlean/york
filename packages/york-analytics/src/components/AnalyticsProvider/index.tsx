@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
-const AnalyticsProvider = ({ category, children }) => {
+const AnalyticsProvider = ({ category, children }: any) => {
   const rootAnalyticsContext = useContext(RootAnalyticsContext)
   if (!rootAnalyticsContext) {
     throw new Error(

@@ -2,7 +2,7 @@ import { useRef, useEffect, useContext } from 'react'
 import { AnalyticsContext } from '../../context'
 import { eventActionTypes } from '../../constants'
 
-const usePrevious = value => {
+const usePrevious = (value: any) => {
   const ref = useRef()
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const usePrevious = value => {
   return ref.current
 }
 
-const usePageView = ({ name, payload, isPayloadReady }) => {
+const usePageView = ({ name, payload, isPayloadReady }: any) => {
   if (!name) {
     throw new Error('Error in `usePageView`: `name` is not specified')
   }
@@ -31,6 +31,7 @@ const usePageView = ({ name, payload, isPayloadReady }) => {
       const { trackEvent, category } = analyticsContext
       if (!payload) {
         trackEvent({
+          // @ts-ignore
           action: eventActionTypes.pageView,
           category,
           label: name,

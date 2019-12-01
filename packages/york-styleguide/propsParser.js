@@ -1,4 +1,5 @@
 const reactDocgen = require('react-docgen')
+const reactDocgenTs = require('react-docgen-typescript')
 const R = require('ramda')
 
 const { colors } = require('@qlean/york-core/lib/styles/colors')
@@ -46,8 +47,23 @@ const formatProp = prop => {
   return type.name !== 'enum' ? prop : { ...prop, type: formatEnumType(type) }
 }
 
-module.exports = (filePath, source, resolver, handlers) =>
-  reactDocgen.parse(source, resolver, handlers).map(({ props, ...rest }) => ({
-    props: R.map(formatProp, props),
-    ...rest,
-  }))
+const getExtension = filePath => filePath.split('.').pop()
+
+module.exports = (filePath, source, resolver, handlers) => {
+  const fileExtension = getExtension(filePath)
+
+  if (fileExtension === 'js') {
+    return reactDocgen
+      .parse(source, resolver, handlers)
+      .map(({ props, ...rest }) => ({
+        props: R.map(formatProp, props),
+        ...rest,
+      }))
+  }
+
+  if (fileExtension === 'ts' || fileExtension === 'tsx') {
+    return reactDocgenTs
+      .withDefaultConfig()
+      .parse(filePath, source, resolver, handlers)
+  }
+}

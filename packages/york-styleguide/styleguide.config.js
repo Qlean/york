@@ -48,7 +48,7 @@ module.exports = {
         },
         {
           name: 'components',
-          components: '../york-analytics/src/components/**/*.js',
+          components: '../york-analytics/src/components/**/*.tsx',
         },
         {
           name: 'eventActionTypes',

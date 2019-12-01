@@ -1,7 +1,9 @@
 import { useCallback, useContext } from 'react'
-import { AnalyticsContext } from '../../context'
 
-const useAnalytics = category => {
+import { AnalyticsContext } from '../../context'
+import { Category } from '../../types'
+
+const useAnalytics = (category: Category) => {
   const analyticsContext = useContext(AnalyticsContext)
   if (!analyticsContext) {
     throw new Error(
