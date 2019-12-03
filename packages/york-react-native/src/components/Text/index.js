@@ -77,4 +77,6 @@ Text.propTypes = {
   style: NativeText.propTypes.style,
 }
 
+Text.presets = presets
+
 export default Text
