@@ -1,19 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { rgbaColors } from '@qlean/york-core'
 
 import { uiPoint, media, useKeyUp } from 'york-web/utils'
 
-import Window from './Window'
-
 const StyledModal = styled.div`
   position: fixed;
-  top: 0px;
-  left: 500px;
-  right: 0px;
-  bottom: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(
     ${rgbaColors.black.r},
     ${rgbaColors.black.g},
@@ -24,6 +23,9 @@ const StyledModal = styled.div`
   overflow-y: auto;
   box-sizing: border-box;
   display: flex;
+  ${media.mobile(`
+    padding: 0;
+  `)}
 `
 
 let mountedNodes = []
@@ -40,7 +42,10 @@ const unmountNode = node => {
   }
 }
 
-const Modal = ({ isOpen, className, children, onRequestClose, ...rest }) => {
+/**
+ * Модалочка!
+ */
+const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
   const overlayRef = useRef(null)
   const nodeRef = useRef(document.createElement('div'))
   const shouldCloseRef = useRef(true)
@@ -81,37 +86,54 @@ const Modal = ({ isOpen, className, children, onRequestClose, ...rest }) => {
   }, [isOpen])
 
   /**
-   * Этот коллбэк проверяет где находится курсор на тот момент когда пользователь отпускает мышь.
-   * Если это не оверлей, то закрывать модалку не нужно. Оно всегда срабатывает перед onClick.
+   * В этих коллбэках мы проверяем где находится мышь на начало и на конец клика. Если это
+   * не оверлей, то закрывать модалку не нужно. Они всегда срабатывает перед onClick.
    */
-  const onMouseUp = e => {
+  const onMouseDown = e => {
     shouldCloseRef.current = e.target === overlayRef.current
   }
 
-  const onClick = e => {
-    if (e.target === overlayRef.current && shouldCloseRef.current)
-      onRequestClose()
+  const onMouseUp = e => {
+    if (shouldCloseRef.current) {
+      shouldCloseRef.current = e.target === overlayRef.current
+    }
+  }
+
+  const onClick = () => {
+    if (shouldCloseRef.current) onRequestClose()
   }
 
   /**
-   * Дополнительная проверка на isMounted нужна чтобы не рендерить ничего в портал, которого нет
-   * в DOM. Это не вызовет ошибок, но, например, getBoundingClientRect перестанет работать.
+   * Фрагмент нужен чтобы react-docgen распознал компонент.
+   *
+   * Дополнительная проверка на isMounted требуется чтобы не рендерить ничего в портал, которого нет
+   * в DOM. Это не вызовет ошибок, но, например, getBoundingClientRect у детей перестанет работать.
    */
-  return isOpen && isMounted
-    ? ReactDOM.createPortal(
-        <StyledModal
-          ref={overlayRef}
-          onMouseUp={onMouseUp}
-          onClick={onClick}
-          {...rest}
-        >
-          {children}
-        </StyledModal>,
-        nodeRef.current,
-      )
-    : null
+  return (
+    <>
+      {isOpen && isMounted
+        ? ReactDOM.createPortal(
+            <StyledModal
+              ref={overlayRef}
+              onMouseDown={onMouseDown}
+              onMouseUp={onMouseUp}
+              onClick={onClick}
+              {...rest}
+            >
+              {children}
+            </StyledModal>,
+            nodeRef.current,
+          )
+        : null}
+    </>
+  )
 }
 
-Modal.Window = Window
+Modal.propTypes = {
+  name: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
+}
 
 export default Modal

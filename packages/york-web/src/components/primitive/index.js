@@ -1,4 +1,5 @@
 export { default as Link } from './Link'
+export { default as Modal } from './Modal'
 export { default as Page } from './Page'
 export { default as Separator } from './Separator'
 export { default as Text } from './Text'
