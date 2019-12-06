@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { borderRadiuses } from '../utils/styles'
+import { borderRadiuses, shadows } from '../utils/styles'
 import { useAnimation } from '../utils/hooks'
 
 const styles = StyleSheet.create({
@@ -17,72 +17,59 @@ const styles = StyleSheet.create({
   },
 })
 
-const shadows = StyleSheet.create({
-  // eslint-disable-next-line react-native/no-unused-styles
-  light: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 6,
-        shadowOpacity: 0.1,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
-  },
-  // eslint-disable-next-line react-native/no-unused-styles
-  medium: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 4 },
-        shadowRadius: 12,
-        shadowOpacity: 0.1,
-      },
-      android: {
-        elevation: 6,
-      },
-    }),
-  },
-  // eslint-disable-next-line react-native/no-unused-styles
-  strong: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 14,
-        shadowOpacity: 0.16,
-      },
-      android: {
-        elevation: 9,
-      },
-    }),
-  },
-  // eslint-disable-next-line react-native/no-unused-styles
-  hard: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 20,
-        shadowOpacity: 0.33,
-      },
-      android: {
-        elevation: 16,
-      },
-    }),
-  },
-})
+const shadowLevels = ['light', 'medium', 'strong', 'hard']
+
+const getLighterShadow = shadowLevel => {
+  const previousShadowLevelIndex = shadowLevels.indexOf(shadowLevel)
+  const lighterShadowLevel = shadowLevels[previousShadowLevelIndex - 1]
+  return shadows[lighterShadowLevel || shadowLevel]
+}
 
 const Card = ({ shadow, children }) => {
   const [isPressed, setIsPressed] = useState(false)
+
   const scale = useAnimation({
     initialValue: 1,
     toValue: isPressed ? 0.98 : 1,
     useNativeDriver: Platform.OS !== 'web',
-    duration: 80,
+    duration: 70,
+  })
+
+  const currentShadow = shadows[shadow]
+  const lighterShadow = getLighterShadow(shadow)
+
+  const elevation = useAnimation({
+    initialValue: currentShadow.elevation,
+    toValue: isPressed ? lighterShadow.elevation : currentShadow.elevation,
+    useNativeDriver: Platform.OS !== 'web',
+    duration: 70,
+  })
+
+  const shadowOffsetHeight = useAnimation({
+    initialValue: currentShadow.shadowOffset.height,
+    toValue: isPressed
+      ? lighterShadow.shadowOffset.height
+      : currentShadow.shadowOffset.height,
+    useNativeDriver: Platform.OS !== 'web',
+    duration: 70,
+  })
+
+  const shadowRadius = useAnimation({
+    initialValue: currentShadow.elevation,
+    toValue: isPressed
+      ? lighterShadow.shadowRadius
+      : currentShadow.shadowRadius,
+    useNativeDriver: Platform.OS !== 'web',
+    duration: 70,
+  })
+
+  const shadowOpacity = useAnimation({
+    initialValue: currentShadow.elevation,
+    toValue: isPressed
+      ? lighterShadow.shadowOpacity
+      : currentShadow.shadowOpacity,
+    useNativeDriver: Platform.OS !== 'web',
+    duration: 70,
   })
 
   return (
@@ -93,9 +80,16 @@ const Card = ({ shadow, children }) => {
       <Animated.View
         style={[
           styles.root,
-          shadows[shadow],
+          isPressed ? lighterShadow : shadows[shadow],
           {
             transform: [{ scale }],
+            elevation,
+            shadowOpacity,
+            shadowRadius,
+            shadowOffset: {
+              width: 0,
+              height: shadowOffsetHeight,
+            },
           },
         ]}
       >
@@ -107,7 +101,7 @@ const Card = ({ shadow, children }) => {
 
 Card.propTypes = {
   children: PropTypes.node.isRequired,
-  shadow: PropTypes.oneOf(['light', 'medium', 'strong', 'hard']).isRequired,
+  shadow: PropTypes.oneOf(shadowLevels).isRequired,
 }
 
 export default Card
