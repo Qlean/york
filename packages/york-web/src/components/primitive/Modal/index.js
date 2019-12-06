@@ -191,11 +191,11 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
 }
 
 Modal.propTypes = {
-  /** Имя страницы. Используется для аналитики */
+  /** Имя окна. Используется для аналитики */
   name: PropTypes.string.isRequired,
   /** Открыто ли окно */
   isOpen: PropTypes.bool.isRequired,
-  /** Контент модального окна */
+  /** Содержимое окна */
   children: PropTypes.node.isRequired,
   /** Коллбэк для закрытия окна */
   onRequestClose: PropTypes.func.isRequired,

@@ -115,7 +115,11 @@ const Window = ({ title, children, onRequestClose, ...rest }) => {
           <GridColumn columns={4} mobileProps={{ columns: 12 }}>
             {title && (
               <StyledTitle>
-                <Text preset="header3">{title}</Text>
+                {React.isValidElement(title) ? (
+                  title
+                ) : (
+                  <Text preset="header3">{title}</Text>
+                )}
               </StyledTitle>
             )}
             {children}
