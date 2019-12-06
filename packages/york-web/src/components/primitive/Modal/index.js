@@ -21,6 +21,7 @@ const StyledModal = styled.div`
   );
   padding: ${uiPoint * 20}px 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   display: flex;
   ${media.mobile(`
@@ -29,6 +30,7 @@ const StyledModal = styled.div`
 `
 
 let mountedNodes = []
+let isBodyLocked = false
 
 const mountNode = node => {
   document.body.appendChild(node)
@@ -46,13 +48,61 @@ const unmountNode = node => {
  * Модалочка!
  */
 const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
-  const overlayRef = useRef(null)
+  const bodyRef = useRef()
+  const scrollYRef = useRef()
+
+  const overlayRef = useRef()
   const nodeRef = useRef(document.createElement('div'))
   const shouldCloseRef = useRef(true)
 
   const [isMounted, setIsMounted] = useState(false)
 
+  /**
+   * Чтобы модалка не дергалась на тачскинах мы вешаем fixed на <body>. Однако браузер при этом
+   * отматывает всю страницу в самый верх, так что после закрытия попапа ее нужно возвращать
+   * на место. Иногда в подобных решения используется overflow:hidden, но я не нашел причин его
+   * применять.
+   *
+   * Известный баг: в Сафари на iOS скролл модалки может пропадать на несколько секунд, если тапать
+   * по статусбару. Исправить это не удалось, но в интернете существуют модальные окна где баг
+   * не воспроизводится. Так что проблема решаемая.
+   */
+  const lockBodyScroll = () => {
+    scrollYRef.current = window.scrollY
+
+    const scrollBarWidth =
+      window.innerWidth - document.documentElement.clientWidth
+
+    bodyRef.current.style.top = `-${scrollYRef.current}px`
+    bodyRef.current.style.position = 'fixed'
+    bodyRef.current.style.width = '100%'
+
+    bodyRef.current.style.boxSizing = 'border-box'
+    bodyRef.current.style.paddingRight = `${scrollBarWidth}px`
+
+    isBodyLocked = true
+  }
+
+  const unlockBodyScroll = () => {
+    if (isBodyLocked) {
+      bodyRef.current.style.top = ''
+      bodyRef.current.style.position = ''
+
+      bodyRef.current.style.boxSizing = ''
+      bodyRef.current.style.paddingRight = ''
+      bodyRef.current.style.width = ''
+
+      window.scrollTo(0, scrollYRef.current)
+
+      isBodyLocked = false
+    }
+  }
+
   useKeyUp('Escape', onRequestClose)
+
+  useEffect(() => {
+    bodyRef.current = document.querySelector('body')
+  }, [])
 
   useEffect(() => {
     const node = nodeRef.current
@@ -71,16 +121,15 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
      * будет некорректно разблокирован при закрытии одного из них.
      */
     if (mountedNodes.length) {
-      /////
-      console.log(mountedNodes, 'lock body!')
+      lockBodyScroll()
     } else {
-      console.log(mountedNodes, 'unlock body!')
+      unlockBodyScroll()
     }
 
     return () => {
       unmountNode(node)
       if (!mountedNodes.length) {
-        console.log(mountedNodes, 'unlock body!!!')
+        unlockBodyScroll()
       }
     }
   }, [isOpen])

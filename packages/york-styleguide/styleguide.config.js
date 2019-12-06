@@ -265,6 +265,11 @@ module.exports = {
         color: '#767676',
       },
     },
+    Pre: {
+      pre: {
+        overflow: 'auto',
+      },
+    },
   },
   template: {
     head: {
