@@ -1,38 +1,29 @@
 ```js
 import styled from 'styled-components'
-import { ModalWindow, Text, Separator } from '@qlean/york-web'
+import { colors } from '@qlean/york-core'
+import { Modal, View, Text, Separator, sizes } from '@qlean/york-web'
+
+const StyledBox = styled(Example.Box)`
+  text-align: center;
+  margin: auto;
+`
 
 const ExampleComponent = () => {
-  const [isSmallModalOpen, setIsSmallModalOpen] = React.useState(false)
-  const [isLargeModalOpen, setIsLargeModalOpen] = React.useState(false)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
   return (
     <>
       <Example.InputGroup>
-        <button onClick={() => setIsSmallModalOpen(true)}>
-          Маленькая модалка
-        </button>
-        <button onClick={() => setIsLargeModalOpen(true)}>
-          Большая модалка
-        </button>
+        <button onClick={() => setIsModalOpen(true)}>Простая модалка</button>
       </Example.InputGroup>
-      <ModalWindow
+      <Modal
         name="example"
-        title={Example.text.short}
-        isOpen={isSmallModalOpen}
-        onRequestClose={() => setIsSmallModalOpen(false)}
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
       >
-        <Text>{Example.text.medium}</Text>
-      </ModalWindow>
-      <ModalWindow
-        name="example"
-        title={Example.text.short}
-        isOpen={isLargeModalOpen}
-        onRequestClose={() => setIsLargeModalOpen(false)}
-      >
-        <Text>{Example.text.long}</Text>
-        <Separator height={4} />
-        <Text>{Example.text.long}</Text>
-      </ModalWindow>
+        <StyledBox width={24} height={16}>
+          <Text color="white">{Example.text.short}</Text>
+        </StyledBox>
+      </Modal>
     </>
   )
 }

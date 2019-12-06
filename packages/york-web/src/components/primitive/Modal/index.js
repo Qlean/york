@@ -20,10 +20,13 @@ const StyledModal = styled.div`
     0.5
   );
   padding: ${uiPoint * 20}px 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   display: flex;
+  pointer-events: auto;
+  ${media.desktop(`
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  `)}
   ${media.mobile(`
     padding: 0;
   `)}
@@ -45,7 +48,12 @@ const unmountNode = node => {
 }
 
 /**
- * Модалочка!
+ * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`.
+ * Закрывается по нажатию на Esc. У окна есть отступы и скролл на десктопе и ничего из этого
+ * в мобильной версии.
+ *
+ * Контент внутри `Modal` удобнее всего позиционировать с помощью `margin`. Например, `margin: auto`
+ * разместит его в центре оверлея.
  */
 const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
   const bodyRef = useRef()
@@ -73,6 +81,8 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
     const scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth
 
+    bodyRef.current.style.pointerEvents = 'none'
+
     bodyRef.current.style.top = `-${scrollYRef.current}px`
     bodyRef.current.style.position = 'fixed'
     bodyRef.current.style.width = '100%'
@@ -85,6 +95,8 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
 
   const unlockBodyScroll = () => {
     if (isBodyLocked) {
+      bodyRef.current.style.pointerEvents = ''
+
       bodyRef.current.style.top = ''
       bodyRef.current.style.position = ''
 
@@ -179,9 +191,13 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
 }
 
 Modal.propTypes = {
+  /** Имя страницы. Используется для аналитики */
   name: PropTypes.string.isRequired,
+  /** Открыто ли окно */
   isOpen: PropTypes.bool.isRequired,
+  /** Контент модального окна */
   children: PropTypes.node.isRequired,
+  /** Коллбэк для закрытия окна */
   onRequestClose: PropTypes.func.isRequired,
 }
 

@@ -10,7 +10,6 @@ import {
   borderRadiuses,
   shadows,
   sizes,
-  transitions,
   media,
   mobileHorizontalPadding,
 } from 'york-web/utils'
@@ -19,27 +18,47 @@ import CloseIcon from './assets/close.svg'
 
 const StyledWindow = styled.div`
   position: relative;
-  margin: auto;
-  transition: ${transitions.short};
+  background-color: ${colors.white};
+  border-radius: ${borderRadiuses.large};
+  ${media.desktop(`
+    margin: auto;
+  `)}
   ${media.mobile(`
+    border-radius: 0;
     width: 100%;
-    margin-bottom: 0;
   `)}
 `
 
 const StyledContent = styled.div`
-  background-color: ${colors.white};
   padding: ${sizes[6]}px;
-  border-radius: ${borderRadiuses.large};
   ${media.mobile(`
-    border-radius: 0;
+    height: 100%;
+    box-sizing: border-box;
     padding-left: ${mobileHorizontalPadding}px;
     padding-right: ${mobileHorizontalPadding}px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   `)}
 `
 
 const StyledStickyContainer = styled.div`
   position: sticky;
+  ${media.mobile(`
+    display: none;
+  `)}
+`
+
+/**
+ * В Сафари на iOS все довольно грустно с поддержкой как, sticky так fixed. Иконка продублирована
+ * чтобы не добавлять z-index и не перезаписывать top у sticky-контейнера.
+ */
+const StyledAbsoluteContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  ${media.desktop(`
+    display: none;
+  `)}
 `
 
 const iconSize = 32
@@ -56,6 +75,9 @@ const StyledIconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  :hover {
+    opacity: 0.7;
+  }
 `
 
 const StyledTitle = styled.div`
@@ -63,7 +85,7 @@ const StyledTitle = styled.div`
   margin-bottom: ${sizes[4]}px;
 `
 
-const Window = ({ title, children, onRequestClose }) => {
+const Window = ({ title, children, onRequestClose, ...rest }) => {
   const windowRef = useRef()
   const stickyContainerRef = useRef()
 
@@ -77,12 +99,16 @@ const Window = ({ title, children, onRequestClose }) => {
     stickyContainerRef.current.style.top = `-${y + scrollY}px`
   })
 
+  const closeIcon = (
+    <StyledIconContainer onClick={onRequestClose}>
+      <CloseIcon />
+    </StyledIconContainer>
+  )
+
   return (
-    <StyledWindow ref={windowRef}>
+    <StyledWindow ref={windowRef} {...rest}>
       <StyledStickyContainer ref={stickyContainerRef}>
-        <StyledIconContainer onClick={onRequestClose}>
-          <CloseIcon />
-        </StyledIconContainer>
+        {closeIcon}
       </StyledStickyContainer>
       <StyledContent>
         <GridContainer>
@@ -96,6 +122,7 @@ const Window = ({ title, children, onRequestClose }) => {
           </GridColumn>
         </GridContainer>
       </StyledContent>
+      <StyledAbsoluteContainer>{closeIcon}</StyledAbsoluteContainer>
     </StyledWindow>
   )
 }
