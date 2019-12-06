@@ -1,9 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { Modal } from 'york-web/components/primitive'
+import { media, sizes } from 'york-web/utils'
 
 import Window from './Window'
+
+const StyledModal = styled(Modal)`
+  display: flex;
+  padding: ${sizes[20]}px 0;
+  box-sizing: border-box;
+  ${media.desktop(`
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  `)}
+  ${media.mobile(`
+    padding: 0;
+  `)}
+`
 
 /**
  * Расширенная версия компонента `Modal`, включающая в себя готовое окно с заголовком и кнопкой
@@ -11,11 +26,11 @@ import Window from './Window'
  */
 const ModalWindow = ({ title, children, ...rest }) => {
   return (
-    <Modal {...rest}>
+    <StyledModal {...rest}>
       <Window title={title} onRequestClose={rest.onRequestClose}>
         {children}
       </Window>
-    </Modal>
+    </StyledModal>
   )
 }
 

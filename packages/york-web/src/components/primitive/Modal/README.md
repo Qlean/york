@@ -1,11 +1,11 @@
 ```js
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
-import { Modal, View, Text, Separator, sizes } from '@qlean/york-web'
+import { Modal, View, Text, Separator } from '@qlean/york-web'
 
 const StyledBox = styled(Example.Box)`
   text-align: center;
-  margin: auto;
+  margin: 30vh auto;
 `
 
 const ExampleComponent = () => {

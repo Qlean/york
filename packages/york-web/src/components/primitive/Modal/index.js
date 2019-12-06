@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { rgbaColors } from '@qlean/york-core'
 
-import { uiPoint, media, useKeyUp } from 'york-web/utils'
+import { useKeyUp } from 'york-web/utils'
 
 const StyledModal = styled.div`
   position: fixed;
@@ -19,16 +19,6 @@ const StyledModal = styled.div`
     ${rgbaColors.black.b},
     0.5
   );
-  padding: ${uiPoint * 20}px 0;
-  box-sizing: border-box;
-  display: flex;
-  ${media.desktop(`
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  `)}
-  ${media.mobile(`
-    padding: 0;
-  `)}
 `
 
 let mountedNodes = []
@@ -48,11 +38,7 @@ const unmountNode = node => {
 
 /**
  * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`.
- * Закрывается по нажатию на Esc. У окна есть отступы и скролл на десктопе и ничего из этого
- * в мобильной версии.
- *
- * Контент внутри `Modal` удобнее всего позиционировать с помощью `margin`. Например, `margin: auto`
- * разместит его в центре оверлея.
+ * Закрывается по нажатию на Esc.
  */
 const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
   const bodyRef = useRef()
@@ -80,8 +66,6 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
     const scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth
 
-    bodyRef.current.style.pointerEvents = 'none'
-
     bodyRef.current.style.top = `-${scrollYRef.current}px`
     bodyRef.current.style.position = 'fixed'
     bodyRef.current.style.width = '100%'
@@ -94,8 +78,6 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
 
   const unlockBodyScroll = () => {
     if (isBodyLocked) {
-      bodyRef.current.style.pointerEvents = ''
-
       bodyRef.current.style.top = ''
       bodyRef.current.style.position = ''
 
