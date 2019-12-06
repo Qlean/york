@@ -22,7 +22,6 @@ const StyledModal = styled.div`
   padding: ${uiPoint * 20}px 0;
   box-sizing: border-box;
   display: flex;
-  pointer-events: auto;
   ${media.desktop(`
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
