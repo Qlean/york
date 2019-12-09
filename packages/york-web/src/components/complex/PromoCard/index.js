@@ -14,19 +14,19 @@ import { Separator, Text } from 'york-web/components/primitive'
 
 const heights = {
   l: {
-    wide: uiPoint * 80,
-    base: uiPoint * 68,
-    mobile: uiPoint * 80,
+    wide: `${uiPoint * 80}px`,
+    base: `${uiPoint * 68}px`,
+    mobile: `125%`,
   },
   m: {
-    wide: uiPoint * 80,
-    base: uiPoint * 68,
-    mobile: uiPoint * 80,
+    wide: `${uiPoint * 80}px`,
+    base: `${uiPoint * 68}px`,
+    mobile: `125%`,
   },
   s: {
-    wide: uiPoint * 38,
-    base: uiPoint * 32,
-    mobile: uiPoint * 32,
+    wide: `${uiPoint * 38}px`,
+    base: `${uiPoint * 32}px`,
+    mobile: '53.3%',
   },
 }
 
@@ -41,20 +41,20 @@ const StyledOverlay = styled.div`
   transition: ${transitions.medium};
 `
 
-const StyledContainer = styled.div`
+const StyledPromoCard = styled.div`
   position: relative;
   border-radius: ${borderRadiuses.medium};
   overflow: hidden;
 
   ${({ size }) => `
     ${media.wide(`
-      height: ${heights[size].wide}px;
+      padding-top: ${heights[size].wide};
     `)}
     ${media.base(`
-      height: ${heights[size].base}px;
+      padding-top: ${heights[size].base};
     `)}
     ${media.mobile(`
-      height: ${heights[size].mobile}px;
+      padding-top: ${heights[size].mobile};
     `)}
   `}
 
@@ -155,7 +155,7 @@ const PromoCard = ({
   ...rest
 }) => {
   return (
-    <StyledContainer size={size} {...rest}>
+    <StyledPromoCard size={size} {...rest}>
       {image && <StyledImageContainer image={image} size={size} />}
       <StyledOverlay />
       <StyledContent size={size}>
@@ -195,7 +195,7 @@ const PromoCard = ({
           {caption}
         </Text>
       </StyledCaption>
-    </StyledContainer>
+    </StyledPromoCard>
   )
 }
 
