@@ -80,10 +80,10 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
     if (isBodyLocked) {
       bodyRef.current.style.top = ''
       bodyRef.current.style.position = ''
+      bodyRef.current.style.width = ''
 
       bodyRef.current.style.boxSizing = ''
       bodyRef.current.style.paddingRight = ''
-      bodyRef.current.style.width = ''
 
       window.scrollTo(0, scrollYRef.current)
 
