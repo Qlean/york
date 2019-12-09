@@ -24,10 +24,10 @@ const StyledModal = styled(Modal)`
  * Расширенная версия компонента `Modal`, включающая в себя готовое окно с заголовком и кнопкой
  * закрытия. Кроме указанных принимает все пропсы, которые принимает `Modal`.
  */
-const ModalWindow = ({ title, children, ...rest }) => {
+const ModalWindow = ({ title, size, children, ...rest }) => {
   return (
     <StyledModal {...rest}>
-      <Window title={title} onRequestClose={rest.onRequestClose}>
+      <Window title={title} size={size} onRequestClose={rest.onRequestClose}>
         {children}
       </Window>
     </StyledModal>
@@ -36,11 +36,17 @@ const ModalWindow = ({ title, children, ...rest }) => {
 
 ModalWindow.defaultProps = {
   title: null,
+  size: 'm',
 }
 
 ModalWindow.propTypes = {
   /** Заголовок окна. Если передан не элемент, то будет обернут в `<Text>` */
   title: PropTypes.node,
+  /**
+   * Размер окна: `m` равен 6 колонкам, а `l` — 8 колонкам. Не влияет на размер в мобильных
+   * разрешениях.
+   */
+  size: PropTypes.oneOf(['m', 'l']),
   /** Содержимое окна */
   children: PropTypes.node.isRequired,
 }

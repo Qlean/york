@@ -85,7 +85,7 @@ const StyledTitle = styled.div`
   margin-bottom: ${sizes[4]}px;
 `
 
-const Window = ({ title, children, onRequestClose, ...rest }) => {
+const Window = ({ title, size, children, onRequestClose, ...rest }) => {
   const windowRef = useRef()
   const stickyContainerRef = useRef()
 
@@ -112,7 +112,10 @@ const Window = ({ title, children, onRequestClose, ...rest }) => {
       </StyledStickyContainer>
       <StyledContent>
         <GridContainer>
-          <GridColumn columns={4} mobileProps={{ columns: 12 }}>
+          <GridColumn
+            columns={size === 'l' ? 8 : 6}
+            mobileProps={{ columns: 12 }}
+          >
             {title && (
               <StyledTitle>
                 {React.isValidElement(title) ? (
@@ -133,6 +136,7 @@ const Window = ({ title, children, onRequestClose, ...rest }) => {
 
 Window.propTypes = {
   title: PropTypes.node.isRequired,
+  size: PropTypes.oneOf(['m', 'l']).isRequired,
   children: PropTypes.node.isRequired,
   onRequestClose: PropTypes.func.isRequired,
 }

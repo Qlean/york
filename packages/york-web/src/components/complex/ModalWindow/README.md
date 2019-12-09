@@ -1,6 +1,12 @@
 ```js
 import styled from 'styled-components'
-import { ModalWindow, Text, Separator } from '@qlean/york-web'
+import {
+  ModalWindow,
+  Text,
+  Separator,
+  GridContainer,
+  GridColumn,
+} from '@qlean/york-web'
 
 const ExampleComponent = () => {
   const [isSmallModalOpen, setIsSmallModalOpen] = React.useState(false)
@@ -26,10 +32,15 @@ const ExampleComponent = () => {
       <ModalWindow
         name="example"
         title={Example.text.short}
+        size="l"
         isOpen={isLargeModalOpen}
         onRequestClose={() => setIsLargeModalOpen(false)}
       >
+        <Text>{Example.text.medium}</Text>
+        <Separator height={4} />
         <Text>{Example.text.long}</Text>
+        <Separator height={4} />
+        <Text>{Example.text.medium}</Text>
         <Separator height={4} />
         <Text>{Example.text.long}</Text>
       </ModalWindow>
