@@ -1,9 +1,16 @@
-import React, { useContext, useCallback } from 'react'
+import React, { ReactNode, useContext, useCallback } from 'react'
+import * as R from 'ramda'
 import PropTypes from 'prop-types'
 
 import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
-const AnalyticsProvider = ({ category, children }: any) => {
+interface Props {
+  /** Категория событий этого провайдера */
+  category: string
+  children: ReactNode
+}
+
+const AnalyticsProvider = ({ category, children }: Props) => {
   const rootAnalyticsContext = useContext(RootAnalyticsContext)
   if (!rootAnalyticsContext) {
     throw new Error(
@@ -12,9 +19,9 @@ const AnalyticsProvider = ({ category, children }: any) => {
   }
   const { appId, trackEvent } = rootAnalyticsContext
   const parentContext = useContext(AnalyticsContext)
-  const analyticsRoute = parentContext
-    ? `${parentContext.analyticsRoute}/${category}`
-    : `${category}`
+  const analyticsRoute = R.isEmpty(parentContext)
+    ? `${category}`
+    : `${parentContext.analyticsRoute}/${category}`
 
   return (
     <AnalyticsContext.Provider

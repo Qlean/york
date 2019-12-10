@@ -35,7 +35,6 @@
     "@qlean/york-web": "file:packages/york-web"
   },
   "devDependencies": {
-    "typescript": "^3.7.2",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -45,8 +44,10 @@
     "@babel/preset-react": "^7.0.0",
     "@qlean/eslint-config": "5.0.1",
     "@qlean/eslint-config-react-native": "5.0.1",
+    "@types/ramda": "^0.26.38",
     "@types/react": "^16.9.13",
     "babel-eslint": "^10.0.1",
+    "typescript": "^3.7.2",
     "babel-loader": "^8.0.5",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-module-resolver": "^3.2.0",
