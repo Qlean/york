@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import * as R from 'ramda'
 
 import { rgbaColors } from '@qlean/york-core'
 
@@ -23,6 +24,13 @@ const StyledModal = styled.div`
 
 let mountedNodes = []
 let isBodyLocked = false
+const bodyStyles = {}
+
+const addStylesToNode = (styles, node) =>
+  R.forEachObjIndexed((value, key) => {
+    // eslint-disable-next-line no-param-reassign
+    node.style[key] = value
+  }, styles)
 
 const mountNode = node => {
   document.body.appendChild(node)
@@ -66,24 +74,29 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
     const scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth
 
-    bodyRef.current.style.top = `-${scrollYRef.current}px`
-    bodyRef.current.style.position = 'fixed'
-    bodyRef.current.style.width = '100%'
+    const lockStyles = {
+      top: `-${scrollYRef.current}px`,
+      position: 'fixed',
+      width: '100%',
+      boxSizing: 'border-box',
+      paddingRight: `${scrollBarWidth}px`,
+    }
 
-    bodyRef.current.style.boxSizing = 'border-box'
-    bodyRef.current.style.paddingRight = `${scrollBarWidth}px`
+    R.pipe(
+      R.keys,
+      R.forEach(key => {
+        bodyStyles[key] = bodyRef.current.style[key] || ''
+      }),
+    )(lockStyles)
+
+    addStylesToNode(lockStyles, bodyRef.current)
 
     isBodyLocked = true
   }
 
   const unlockBodyScroll = () => {
     if (isBodyLocked) {
-      bodyRef.current.style.top = ''
-      bodyRef.current.style.position = ''
-      bodyRef.current.style.width = ''
-
-      bodyRef.current.style.boxSizing = ''
-      bodyRef.current.style.paddingRight = ''
+      addStylesToNode(bodyStyles, bodyRef.current)
 
       window.scrollTo(0, scrollYRef.current)
 
