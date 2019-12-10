@@ -1,17 +1,15 @@
-export type EventAction = 'click' | 'pageView' | 'mount' | 'press' | 'submit'
-
 type EventPayload = string | number
 
 export interface AnalyticsEvent {
+  action: string
   category: string
   label: string
-  action: EventAction
   [payload: string]: EventPayload
 }
 
 export interface AnalyticsEventInput {
   label: string
-  action: EventAction
+  action: string
   [payload: string]: EventPayload
 }
 
