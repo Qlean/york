@@ -1,4 +1,4 @@
-type EventPayload = string | number
+export type EventPayload = string | number
 
 export interface AnalyticsEvent {
   action: string
@@ -10,7 +10,7 @@ export interface AnalyticsEvent {
 export interface AnalyticsEventInput {
   label: string
   action: string
-  [payload: string]: EventPayload
+  [key: string]: EventPayload
 }
 
 export type TrackEvent = (e: AnalyticsEvent) => void

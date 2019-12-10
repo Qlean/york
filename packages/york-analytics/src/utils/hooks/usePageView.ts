@@ -1,6 +1,7 @@
 import { useRef, useEffect, useContext } from 'react'
 import { AnalyticsContext } from '../../context'
 import { eventActionTypes } from '../../constants'
+import { EventPayload } from '../../types'
 
 const usePrevious = (value: boolean) => {
   const ref = useRef(false)
@@ -14,7 +15,9 @@ const usePrevious = (value: boolean) => {
 
 interface Config {
   name: string
-  payload: any
+  payload: {
+    [key: string]: EventPayload
+  }
   isPayloadReady: boolean
 }
 
