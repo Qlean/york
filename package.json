@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "npm run build && lerna run --parallel start",
-    "start:web": "lerna run --parallel --ignore @qlean/york-expo start",
+    "start:web": "npm run build && lerna run --parallel --ignore @qlean/york-expo start",
     "start:expo": "lerna exec --scope @qlean/york-expo -- npm start",
     "build": "lerna exec --ignore @qlean/york-styleguide --ignore @qlean/york-expo -- npm run build",
     "build:all": "npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
