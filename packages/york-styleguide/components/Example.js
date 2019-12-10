@@ -89,7 +89,9 @@ Select.propTypes = {
 
 const StyledInputGroup = styled.div`
   display: flex;
-  margin-bottom: ${sizes[2]}px;
+  :not(:last-child) {
+    margin-bottom: ${sizes[2]}px;
+  }
   & > *:not(:last-child) {
     ${media.desktop(`margin-right: ${sizes[2]}px;`)}
     ${media.mobile(`margin-bottom: ${sizes[1]}px;`)}

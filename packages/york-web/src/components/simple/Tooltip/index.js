@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from '@qlean/york-core'
@@ -109,10 +109,10 @@ export default function Tooltip({ tooltip, children }) {
     момент написания компонента не существует хорошего кросс-браузерного способа установить коллбэк
     на событие "все шрифты загружены". Кроме того, этот способ работает с SSR.
 
-    useEffect все еще нужен на случай изменения пропсов.
+    useLayoutEffect все еще нужен на случай изменения пропсов.
   */
 
-  useEffect(positionTooltip)
+  useLayoutEffect(positionTooltip)
 
   useEffect(() => {
     window.addEventListener('resize', positionTooltip)
