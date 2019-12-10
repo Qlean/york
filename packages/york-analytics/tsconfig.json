@@ -5,7 +5,7 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "lib": ["dom", "esnext"],
-    "target": "es5",
+    "target": "esnext",
     "jsx": "react",
     "emitDeclarationOnly": true,
     "declaration": true,
