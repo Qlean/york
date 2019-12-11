@@ -1,17 +1,26 @@
 {
   "compilerOptions": {
     "outDir": "./lib/",
-    "sourceMap": true,
-    "noImplicitAny": true,
     "module": "commonjs",
     "lib": ["dom", "esnext"],
-    "target": "esnext",
+    // Поддержка jsx
     "jsx": "react",
-    "emitDeclarationOnly": true,
+    // Так как мы не используем TS для транспайлинга кода, нам нужны только декларации типов
     "declaration": true,
-    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    /**
+    * Позволяет использовать default imports там, где их нет. 
+    * Например import React from 'react'
+    **/
     "allowSyntheticDefaultImports": true,
+    // Строгие проверки типов. Пока false, на следующем этапе внедрения TS ужесточим провеки
     "strict": false,
+    // Требует явной установки any, без этого флага у нетипизированного кода any устанавливается автоматически
+    "noImplicitAny": true,
+    /**
+    * Запрещает TS проверять корректность типов внутри сторонних пакетов.
+    * Проверка контракта между нашим кодом и кодом стороннего пакета остаётся
+    */
     "skipLibCheck": true
   },
   "include": ["./src/**/*"],
