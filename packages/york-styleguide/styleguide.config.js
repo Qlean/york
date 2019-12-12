@@ -173,6 +173,10 @@ module.exports = {
               content: '../york-web/docs/minScreenWidth.md',
             },
             {
+              name: 'mobileHorizontalPadding',
+              content: '../york-web/docs/mobileHorizontalPadding.md',
+            },
+            {
               name: 'shadows',
               content: '../york-web/docs/shadows.md',
             },
