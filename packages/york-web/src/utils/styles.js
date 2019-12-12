@@ -29,6 +29,7 @@ export const borderRadiuses = {
   none: 'none',
   small: '4px',
   medium: '6px',
+  large: '10px',
   round: '100px',
 }
 
