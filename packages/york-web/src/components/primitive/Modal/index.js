@@ -44,6 +44,10 @@ const unmountNode = node => {
   }
 }
 
+const cancelBodyScroll = () => {
+  document.body.scrollTop = 0
+}
+
 /**
  * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`,
  * закрывается по нажатию на Esc. Не стилизует контент и не вмешивается в его позиционирование.
@@ -64,9 +68,12 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
    * на место. Иногда в подобных решения используется overflow:hidden, но я не нашел причин его
    * применять.
    *
-   * Известный баг: в Сафари на iOS скролл модалки может пропадать на несколько секунд, если тапать
-   * по статусбару. Исправить это не удалось, но в интернете существуют модальные окна где баг
-   * не воспроизводится. Так что проблема решаемая.
+   * cancelBodyScroll это дополнительный костыль для iOS, где body все еще может перехватывать
+   * события скролла, даже с position: fixed. Например, если открыть модалку, и сразу же
+   * проскроллить вверх, то некоторое время скроллинг будет недоступен. Функция cancelBodyScroll
+   * решает эту проблему.
+   *
+   * Источник решения: https://stackoverflow.com/questions/48873171
    */
   const lockBodyScroll = () => {
     scrollYRef.current = window.scrollY
@@ -91,6 +98,8 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
 
     addStylesToNode(lockStyles, bodyRef.current)
 
+    document.addEventListener('touchmove', cancelBodyScroll)
+
     isBodyLocked = true
   }
 
@@ -99,6 +108,8 @@ const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
       addStylesToNode(bodyStyles, bodyRef.current)
 
       window.scrollTo(0, scrollYRef.current)
+
+      document.removeEventListener('touchmove', cancelBodyScroll)
 
       isBodyLocked = false
     }

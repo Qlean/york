@@ -3,20 +3,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Modal } from 'york-web/components/primitive'
-import { media, sizes } from 'york-web/utils'
+import { media } from 'york-web/utils'
 
 import Window from './Window'
 
 const StyledModal = styled(Modal)`
   display: flex;
-  padding: ${sizes[20]}px 0;
-  box-sizing: border-box;
   ${media.desktop(`
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  `)}
-  ${media.mobile(`
-    padding: 0;
   `)}
 `
 
