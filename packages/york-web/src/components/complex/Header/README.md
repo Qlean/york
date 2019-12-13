@@ -142,7 +142,7 @@ const StyledBox = styled(Example.Box)`
   width: 100%;
 `
 
-const ExampleComponents = () => {
+const ExampleComponent = () => {
   const [isNavigationAvailable, setIsNavigationAvailable] = React.useState(true)
   const [isProfileAvailable, setIsProfileAvailable] = React.useState(true)
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
@@ -233,5 +233,5 @@ const ExampleComponents = () => {
   )
 }
 
-;<ExampleComponents />
+;<ExampleComponent />
 ```
