@@ -17,7 +17,7 @@ import {
   normalizeColor,
 } from 'york-web/utils'
 
-import { Text } from 'york-web/components/primitive'
+import { Text, View, Spinner } from 'york-web/components/primitive'
 
 const presets = {
   whiteBackdropRank1: {
@@ -238,7 +238,15 @@ function Button({
   const content = React.isValidElement(children) ? (
     children
   ) : (
-    <StyledText>{isSubmitting ? 'Подождите...' : children}</StyledText>
+    <StyledText>
+      {isSubmitting ? (
+        <View justifyContent="center" alignItems="center">
+          <Spinner isLoading={isSubmitting} color="inherit" size="s" />
+        </View>
+      ) : (
+        children
+      )}
+    </StyledText>
   )
   return (
     <StyledButton
