@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
-import { sizes } from '@qlean/york-web'
 import { colors } from '@qlean/york-core'
+
+import { sizes } from 'york-web/utils'
 
 const spinnerSizes = {
   s: sizes[4],
@@ -33,7 +34,11 @@ const StyledSpinnerContainer = styled.div`
 
 /** Компонент для отображения статуса загрузки. Используется в `Loader` и `Button`. */
 const Spinner = ({ color, size }) => {
-  // На странице может быть несколько спиннеров разного цвета, нам нужны уникальные id для градиентов.
+  /**
+   * На странице может быть несколько спиннеров разного цвета, нам нужны уникальные id
+   * для градиентов.
+   * */
+
   const idSuffix = String(Math.random())
 
   return (
