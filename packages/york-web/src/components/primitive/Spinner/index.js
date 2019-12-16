@@ -69,20 +69,20 @@ const Spinner = ({ color, size, ...rest }) => {
         <circle
           cx="30"
           cy="30"
-          r="27.5"
+          r="26"
           transform="rotate(340, 30, 30)"
           stroke={`url(#spinner-gradient-layer-1-${idSuffix})`}
-          strokeWidth="5"
+          strokeWidth="8"
           fill="none"
           strokeLinecap="round"
         />
         <circle
           cx="30"
           cy="30"
-          r="27.5"
+          r="26"
           transform="rotate(110, 30, 30)"
           stroke={`url(#spinner-gradient-layer-2-${idSuffix})`}
-          strokeWidth="5"
+          strokeWidth="8"
           fill="none"
           strokeDasharray="100 1000"
           strokeLinecap="round"
