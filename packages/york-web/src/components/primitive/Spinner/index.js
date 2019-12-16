@@ -33,7 +33,7 @@ const StyledSpinnerContainer = styled.div`
 `
 
 /** Компонент для отображения статуса загрузки. Используется в `Loader` и `Button`. */
-const Spinner = ({ color, size }) => {
+const Spinner = ({ color, size, ...rest }) => {
   /**
    * На странице может быть несколько спиннеров разного цвета, нам нужны уникальные id
    * для градиентов.
@@ -42,7 +42,7 @@ const Spinner = ({ color, size }) => {
   const idSuffix = String(Math.random())
 
   return (
-    <StyledSpinnerContainer color={color} size={size}>
+    <StyledSpinnerContainer color={color} size={size} {...rest}>
       <svg viewBox="0 0 60 60">
         <defs>
           <linearGradient

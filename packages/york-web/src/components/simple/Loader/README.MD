@@ -13,10 +13,17 @@ const StyledContent = styled(View)`
 
 const ExampleComponent = () => {
   const [isLoading, setIsLoading] = React.useState(true)
+  const [size, setSize] = React.useState('m')
 
   return (
     <>
       <Example.InputGroup>
+        <Example.Select
+          title="size"
+          value={size}
+          options={['s', 'm', 'l'].map(value => ({ value, label: value }))}
+          onChange={e => setSize(e.target.value)}
+        />
         <Example.Checkbox
           value={isLoading}
           onChange={() => setIsLoading(!isLoading)}
@@ -24,16 +31,11 @@ const ExampleComponent = () => {
           isLoading
         </Example.Checkbox>
       </Example.InputGroup>
-      <StyledContainer>
-        <Loader
-          isLoading={isLoading}
-          spinnerProps={{ color: 'green', size: 'l' }}
-        >
-          <StyledContent justifyContent="center" alignItems="center">
-            <Text>{Example.text.short}</Text>
-          </StyledContent>
-        </Loader>
-      </StyledContainer>
+      <Loader isLoading={isLoading} size={size}>
+        <StyledContent justifyContent="center" alignItems="center">
+          <Text>{Example.text.short}</Text>
+        </StyledContent>
+      </Loader>
     </>
   )
 }
