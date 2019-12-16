@@ -1,15 +1,21 @@
 ```js
 import styled from 'styled-components'
-import { Spinner } from '@qlean/york-web'
+import { Spinner, media } from '@qlean/york-web'
+
+const StyledItem = styled(Example.ShowcaseItem)`
+  width: 25%;
+  ${media.mobile('width: 50%;')}
+`
+
 ;<Example.Showcase>
-  <Example.ShowcaseItem title="l" caption="Fullscreen">
+  <StyledItem title="l" caption="Весь экран">
     <Spinner size="l" />
-  </Example.ShowcaseItem>
-  <Example.ShowcaseItem title="m" caption="Block">
+  </StyledItem>
+  <StyledItem title="m" caption="Блок">
     <Spinner color="blue" />
-  </Example.ShowcaseItem>
-  <Example.ShowcaseItem title="s" caption="Button">
+  </StyledItem>
+  <StyledItem title="s" caption="Маленький блок или кнопка">
     <Spinner color="grey" size="s" />
-  </Example.ShowcaseItem>
+  </StyledItem>
 </Example.Showcase>
 ```
