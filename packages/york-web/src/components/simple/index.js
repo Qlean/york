@@ -1,5 +1,5 @@
 export { default as Button } from './Button'
 export { default as GridColumn } from './GridColumn'
 export { default as GridContainer } from './GridContainer'
-export { default as Tooltip } from './Tooltip'
 export { default as Loader } from './Loader'
+export { default as Tooltip } from './Tooltip'
