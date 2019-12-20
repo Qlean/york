@@ -1,10 +1,10 @@
-import React, { useRef, useLayoutEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { colors } from '@qlean/york-core'
 
-import { Text } from 'york-web/components/primitive'
+import { Text, Separator } from 'york-web/components/primitive'
 import { GridContainer, GridColumn } from 'york-web/components/simple'
 import {
   borderRadiuses,
@@ -16,21 +16,30 @@ import {
 
 import CloseIcon from './assets/close.svg'
 
-const StyledWindow = styled.div`
+const StyledWindowContainer = styled.div`
   position: relative;
-  background-color: ${colors.white};
-  border-radius: ${borderRadiuses.large};
+  pointer-events: none;
+  margin: auto;
   ${media.desktop(`
-    margin: auto;
+    padding: 100px 0;
   `)}
   ${media.mobile(`
+    height: 100%;
+  `)}
+`
+
+const StyledWindow = styled.div`
+  pointer-events: auto;
+  background-color: ${colors.white};
+  border-radius: ${borderRadiuses.large};
+  height: 100%;
+  ${media.mobile(`
     border-radius: 0;
-    width: 100%;
   `)}
 `
 
 const StyledContent = styled.div`
-  padding: ${sizes[6]}px;
+  padding: 0 ${sizes[6]}px;
   ${media.mobile(`
     height: 100%;
     box-sizing: border-box;
@@ -43,6 +52,7 @@ const StyledContent = styled.div`
 
 const StyledStickyContainer = styled.div`
   position: sticky;
+  top: 0;
   ${media.mobile(`
     display: none;
   `)}
@@ -50,7 +60,7 @@ const StyledStickyContainer = styled.div`
 
 /**
  * В Сафари на iOS все довольно грустно с поддержкой как, sticky так fixed. Иконка продублирована
- * чтобы не добавлять z-index и не перезаписывать top у sticky-контейнера.
+ * чтобы не добавлять z-index.
  */
 const StyledAbsoluteContainer = styled.div`
   position: absolute;
@@ -86,19 +96,6 @@ const StyledTitle = styled.div`
 `
 
 const Window = ({ title, size, children, onRequestClose, ...rest }) => {
-  const windowRef = useRef()
-  const stickyContainerRef = useRef()
-
-  /**
-   * Залипающий элемент является прямым потомком оверлея и учитывает его паддинг. Это нужно
-   * компенсировать. Позицию скролла тоже проверяем на всякий (странный) случай.
-   */
-  useLayoutEffect(() => {
-    const { y } = windowRef.current.getBoundingClientRect()
-    const scrollY = windowRef.current.parentElement.scrollTop
-    stickyContainerRef.current.style.top = `-${y + scrollY}px`
-  })
-
   const closeIcon = (
     <StyledIconContainer onClick={onRequestClose}>
       <CloseIcon />
@@ -106,31 +103,33 @@ const Window = ({ title, size, children, onRequestClose, ...rest }) => {
   )
 
   return (
-    <StyledWindow ref={windowRef} {...rest}>
-      <StyledStickyContainer ref={stickyContainerRef}>
-        {closeIcon}
-      </StyledStickyContainer>
-      <StyledContent>
-        <GridContainer>
-          <GridColumn
-            columns={size === 'l' ? 8 : 6}
-            mobileProps={{ columns: 12 }}
-          >
-            {title && (
-              <StyledTitle>
-                {React.isValidElement(title) ? (
-                  title
-                ) : (
-                  <Text preset="header3">{title}</Text>
-                )}
-              </StyledTitle>
-            )}
-            {children}
-          </GridColumn>
-        </GridContainer>
-      </StyledContent>
-      <StyledAbsoluteContainer>{closeIcon}</StyledAbsoluteContainer>
-    </StyledWindow>
+    <StyledWindowContainer>
+      <StyledWindow {...rest}>
+        <StyledStickyContainer>{closeIcon}</StyledStickyContainer>
+        <StyledContent>
+          <Separator height={6} />
+          <GridContainer>
+            <GridColumn
+              columns={size === 'l' ? 8 : 6}
+              mobileProps={{ columns: 12 }}
+            >
+              {title && (
+                <StyledTitle>
+                  {React.isValidElement(title) ? (
+                    title
+                  ) : (
+                    <Text preset="header3">{title}</Text>
+                  )}
+                </StyledTitle>
+              )}
+              {children}
+            </GridColumn>
+          </GridContainer>
+          <Separator height={6} />
+        </StyledContent>
+        <StyledAbsoluteContainer>{closeIcon}</StyledAbsoluteContainer>
+      </StyledWindow>
+    </StyledWindowContainer>
   )
 }
 
