@@ -36,7 +36,16 @@ const styles = StyleSheet.create({
  * Базовое поле для ввода текста
  */
 function TextInput(props) {
-  const { isDisabled, title, caption, error, name, onChange, ...rest } = props
+  const {
+    isDisabled,
+    title,
+    caption,
+    error,
+    name,
+    onChange,
+    style,
+    ...rest
+  } = props
   const [isActive, setIsActive] = useState(false)
   const withError = Boolean(error)
 
@@ -61,6 +70,7 @@ function TextInput(props) {
           withError && styles.error,
           isActive && styles.active,
           isDisabled && styles.disabled,
+          style,
         ]}
         editable={!isDisabled}
       />
@@ -81,6 +91,7 @@ TextInput.defaultProps = {
   caption: '',
   placeholder: '',
   error: '',
+  style: null,
 }
 
 TextInput.propTypes = {
@@ -95,6 +106,7 @@ TextInput.propTypes = {
   caption: PropTypes.string,
   error: PropTypes.string,
   placeholder: PropTypes.string,
+  style: PropTypes.string,
 }
 
 export default TextInput
