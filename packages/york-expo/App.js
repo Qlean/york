@@ -145,13 +145,11 @@ export default function App() {
           onChange={v => setPickerValue(v)}
         />
         <Separator height={4} />
-        <Line color="silver" />
-        <Separator height={4} />
         <TextInput
-          name="doggosCount"
-          placeholder="Сколько собак нужно для счастья?"
-          title="Заголовок"
-          caption="Подпись"
+          name="doggoName"
+          placeholder="Кличка"
+          title="Как назовёте?"
+          caption="Выберите кличку для собаки"
           isDisabled={isDisabled}
           value={inputValue}
           onChange={setInputValue}
