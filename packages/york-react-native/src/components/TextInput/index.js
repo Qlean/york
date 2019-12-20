@@ -5,11 +5,12 @@ import { colors } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
-import { uiPoint, sizes, borderRadiuses } from 'york-react-native/utils/styles'
+import { sizes, borderRadiuses } from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
   input: {
-    height: uiPoint * 10,
+    paddingTop: 12,
+    paddingBottom: 13,
     backgroundColor: colors.white,
     color: colors.coal,
     borderColor: colors.silver,
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: colors.smoke,
     borderColor: colors.silver,
+    color: colors.grey,
   },
   error: {
     borderColor: colors.red,
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Базовое однострочное поле для ввода текста, аналог `input` без `type`.
+ * Базовое поле для ввода текста
  */
 function TextInput(props) {
   const { isDisabled, title, caption, error, name, onChange, ...rest } = props
@@ -40,18 +42,17 @@ function TextInput(props) {
 
   return (
     <View>
-      {title && <Text>{title}</Text>}
-      {caption && (
+      {title ? <Text>{title}</Text> : null}
+      {caption ? (
         <Text preset="caption" color="grey">
           {caption}
         </Text>
-      )}
+      ) : null}
       <Separator height={1} />
       <NativeTextInput
         {...rest}
-        numberOfLines={1}
         testId={name}
-        onChangeText={onChange}
+        onChangeText={text => onChange(text)}
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
         placeholderTextColor={colors.grey}
