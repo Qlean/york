@@ -75,7 +75,7 @@ function TextInput(props) {
       <NativeTextInput
         {...rest}
         testId={name}
-        onChangeText={text => onChange(text)}
+        onChangeText={onChange}
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
         placeholderTextColor={colors.grey}
