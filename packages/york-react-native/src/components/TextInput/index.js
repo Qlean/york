@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput as NativeTextInput } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Platform,
+  TextInput as NativeTextInput,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
-import { sizes, borderRadiuses } from 'york-react-native/utils/styles'
+import {
+  sizes,
+  borderRadiuses,
+  fontFamily,
+} from 'york-react-native/utils/styles'
 
 const styles = StyleSheet.create({
   input: {
@@ -18,6 +27,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: borderRadiuses.small,
     paddingLeft: sizes[3],
+    ...Platform.select({
+      ios: { fontFamily },
+      android: { fontFamily },
+      web: { fontFamily: 'Museo Sans', fontWeight: '500' },
+    }),
   },
   active: {
     borderColor: colors.grey,
