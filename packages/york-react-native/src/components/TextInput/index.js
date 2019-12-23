@@ -56,7 +56,6 @@ const TextInput = ({
   error,
   onChange,
   isDisabled,
-  isMultiline,
   style,
   onBlur,
   onFocus,
@@ -95,7 +94,6 @@ const TextInput = ({
           style,
         ]}
         editable={!isDisabled}
-        multiline={isMultiline}
       />
       {error ? (
         <>
@@ -115,7 +113,6 @@ TextInput.defaultProps = {
   placeholder: '',
   error: '',
   style: null,
-  isMultiline: false,
   onFocus: null,
   onBlur: null,
 }
@@ -129,8 +126,6 @@ TextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   /** Активен ли инпут */
   isDisabled: PropTypes.bool.isRequired,
-  /** Переводит инпут в режим textarea, передаётся в нативный TextInput как проп multiline */
-  isMultiline: PropTypes.bool,
   /** Заголовок */
   title: PropTypes.string,
   /** Описание */
