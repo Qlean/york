@@ -19,7 +19,7 @@ import {
 const styles = StyleSheet.create({
   input: {
     paddingTop: 12,
-    paddingBottom: 13,
+    paddingBottom: 12,
     backgroundColor: colors.white,
     color: colors.coal,
     borderColor: colors.silver,
@@ -47,20 +47,22 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Базовое поле для ввода текста
+ * Базовое поле для ввода текста, обёртка над TextInput
  */
-function TextInput(props) {
-  const {
-    isDisabled,
-    title,
-    caption,
-    error,
-    name,
-    onChange,
-    style,
-    ...rest
-  } = props
-  const [isActive, setIsActive] = useState(false)
+const TextInput = ({
+  name,
+  title,
+  caption,
+  error,
+  onChange,
+  isDisabled,
+  isMultiline,
+  style,
+  onBlur,
+  onFocus,
+  ...rest
+}) => {
+  const [isFocused, setIsFocused] = useState(false)
   const withError = Boolean(error)
 
   return (
@@ -76,17 +78,24 @@ function TextInput(props) {
         {...rest}
         testId={name}
         onChangeText={onChange}
-        onFocus={() => setIsActive(true)}
-        onBlur={() => setIsActive(false)}
+        onFocus={() => {
+          if (typeof onFocus === 'function') onFocus()
+          setIsFocused(true)
+        }}
+        onBlur={() => {
+          if (typeof onBlur === 'function') onBlur()
+          setIsFocused(false)
+        }}
         placeholderTextColor={colors.grey}
         style={[
           styles.input,
           withError && styles.error,
-          isActive && styles.active,
+          isFocused && styles.active,
           isDisabled && styles.disabled,
           style,
         ]}
         editable={!isDisabled}
+        multiline={isMultiline}
       />
       {error ? (
         <>
@@ -106,20 +115,33 @@ TextInput.defaultProps = {
   placeholder: '',
   error: '',
   style: null,
+  isMultiline: false,
+  onFocus: null,
+  onBlur: null,
 }
 
 TextInput.propTypes = {
   /** Имя для автотестов, прокидывается как testID  */
   name: PropTypes.string.isRequired,
-  /** Значение поля */
+  /** Значение инпута */
   value: PropTypes.string.isRequired,
-  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
+  /** Коллбек, вызываемый при изменении значения с аргументом `value` */
   onChange: PropTypes.func.isRequired,
+  /** Активен ли инпут */
   isDisabled: PropTypes.bool.isRequired,
+  /** Переводит инпут в режим textarea, передаётся в нативный TextInput как проп multiline */
+  isMultiline: PropTypes.bool,
+  /** Заголовок */
   title: PropTypes.string,
+  /** Описание */
   caption: PropTypes.string,
+  /** Текст ошибки */
   error: PropTypes.string,
+  /** Заглушка, используется при пустом значении */
   placeholder: PropTypes.string,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  /** Дополнительные стили */
   style: PropTypes.string,
 }
 
