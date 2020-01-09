@@ -77,12 +77,12 @@ const TextInput = ({
         {...rest}
         testId={name}
         onChangeText={onChange}
-        onFocus={() => {
-          if (typeof onFocus === 'function') onFocus()
+        onFocus={e => {
+          if (typeof onFocus === 'function') onFocus(e)
           setIsFocused(true)
         }}
-        onBlur={() => {
-          if (typeof onBlur === 'function') onBlur()
+        onBlur={e => {
+          if (typeof onBlur === 'function') onBlur(e)
           setIsFocused(false)
         }}
         placeholderTextColor={colors.grey}
