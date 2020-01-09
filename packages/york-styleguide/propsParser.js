@@ -47,10 +47,8 @@ const formatProp = prop => {
   return type.name !== 'enum' ? prop : { ...prop, type: formatEnumType(type) }
 }
 
-const getExtension = filePath => filePath.split('.').pop()
-
 module.exports = (filePath, source, resolver, handlers) => {
-  const fileExtension = getExtension(filePath)
+  const fileExtension = R.last(filePath.split('.'))
 
   if (fileExtension === 'js') {
     return reactDocgen
@@ -66,4 +64,6 @@ module.exports = (filePath, source, resolver, handlers) => {
       .withDefaultConfig()
       .parse(filePath, source, resolver, handlers)
   }
+
+  return null
 }

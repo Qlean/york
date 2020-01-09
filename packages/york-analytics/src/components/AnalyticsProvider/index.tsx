@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, ReactNode, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 
-import { AnalyticsContext, RootAnalyticsContext } from '../context'
+import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
 type Props = {
   /** Категория событий этого провайдера */
@@ -48,9 +48,7 @@ const AnalyticsProvider = ({ category, children }: Props): ReactElement => {
 }
 
 AnalyticsProvider.propTypes = {
-  /** Категория событий этого провайдера */
   category: PropTypes.string.isRequired,
-  /** Позволяет отключить трекинг для этого провайдера, передается дальше по контексту */
   children: PropTypes.node.isRequired,
 }
 

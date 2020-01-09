@@ -1,5 +1,7 @@
-export { default as AnalyticsProvider } from './AnalyticsProvider'
-export { default as RootAnalyticsProvider } from './RootAnalyticsProvider'
+export { default as AnalyticsProvider } from './components/AnalyticsProvider'
+export {
+  default as RootAnalyticsProvider,
+} from './components/RootAnalyticsProvider'
 
 export { default as useAnalytics } from './useAnalytics'
 export { default as usePageView } from './usePageView'

@@ -2,11 +2,13 @@ import React, { ReactNode, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 
 import AnalyticsProvider from '../AnalyticsProvider'
-import { RootAnalyticsContext } from '../context'
-import { TrackEvent } from '../types'
+import { RootAnalyticsContext } from '../../context'
+import { TrackEvent } from '../../types'
 
 interface Props {
+  /** Имя приложения */
   appId: string
+  /** Функция для трекинга событий */
   trackEvent: TrackEvent
   children: ReactNode
 }
@@ -29,9 +31,7 @@ const RootAnalyticsProvider = ({
 }
 
 RootAnalyticsProvider.propTypes = {
-  /** Имя приложения */
   appId: PropTypes.string.isRequired,
-  /** Функция для трекинга событий */
   trackEvent: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 }
