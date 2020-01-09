@@ -1,9 +1,10 @@
 import { useRef, useEffect, useContext } from 'react'
-import { AnalyticsContext } from '../../context'
-import { eventActionTypes } from '../../constants'
-import { EventPayload } from '../../types'
 
-const usePrevious = (value: boolean) => {
+import { AnalyticsContext } from './context'
+import { eventActionTypes } from './enums'
+import { PageConfig } from './types'
+
+const usePrevious = (value: boolean): boolean => {
   const ref = useRef(false)
 
   useEffect(() => {
@@ -13,18 +14,11 @@ const usePrevious = (value: boolean) => {
   return ref.current
 }
 
-interface Config {
-  name: string
-  payload: {
-    [key: string]: EventPayload
-  }
-  isPayloadReady: boolean
-}
-
-const usePageView = ({ name, payload, isPayloadReady }: Config) => {
+const usePageView = ({ name, payload, isPayloadReady }: PageConfig): void => {
   if (!name) {
     throw new Error('Error in `usePageView`: `name` is not specified')
   }
+
   if (payload && typeof isPayloadReady === 'undefined') {
     // eslint-disable-next-line no-console
     console.warn(

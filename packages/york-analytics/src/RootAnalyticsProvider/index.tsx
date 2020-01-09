@@ -1,19 +1,21 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 
 import AnalyticsProvider from '../AnalyticsProvider'
-import { RootAnalyticsContext } from '../../context'
-import { AppId, TrackEvent } from '../../types'
+import { RootAnalyticsContext } from '../context'
+import { TrackEvent } from '../types'
 
 interface Props {
-  /** Идентификатор приложения */
-  appId: AppId
-  /** Функция для трекинга событий */
+  appId: string
   trackEvent: TrackEvent
   children: ReactNode
 }
 
-const RootAnalyticsProvider = ({ appId, trackEvent, children }: Props) => {
+const RootAnalyticsProvider = ({
+  appId,
+  trackEvent,
+  children,
+}: Props): ReactElement => {
   return (
     <RootAnalyticsContext.Provider
       value={{

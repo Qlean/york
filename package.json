@@ -26,7 +26,8 @@
     "release:npm": "npm run checkup && lerna publish",
     "release:expo": "lerna exec --scope @qlean/york-expo -- npm run release",
     "lint": "eslint . --ext .js",
-    "format": "prettier --write '**/*.*'"
+    "format": "prettier --write '**/*.*'",
+    "york-analytics": "lerna exec --scope @qlean/york-analytics"
   },
   "dependencies": {
     "@qlean/york-analytics": "file:packages/york-analytics",
@@ -40,14 +41,15 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.4.4",
-    "@babel/preset-typescript": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.7.4",
     "@qlean/eslint-config": "5.0.1",
     "@qlean/eslint-config-react-native": "5.0.1",
     "@types/ramda": "^0.26.38",
     "@types/react": "^16.9.13",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "babel-eslint": "^10.0.1",
-    "typescript": "^3.7.2",
     "babel-loader": "^8.0.5",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-module-resolver": "^3.2.0",
@@ -55,7 +57,9 @@
     "core-js": "^3.2.1",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
     "eslint-import-resolver-babel-module": "^5.1.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-import-resolver-webpack": "^0.11.1",
     "file-loader": "^3.0.1",
     "husky": "^2.2.0",
@@ -75,6 +79,7 @@
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
+    "typescript": "^3.7.2",
     "url-loader": "^2.1.0",
     "webpack": "^4.30.0"
   }

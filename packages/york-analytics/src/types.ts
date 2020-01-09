@@ -1,20 +1,26 @@
-export type EventPayload = string | number
+type EventPayload = string | number
 
-export interface AnalyticsEvent {
+export type TrackEvent = (event: {
   action: string
   category: string
   label: string
   [payload: string]: EventPayload
+}) => void
+
+export type RootAnalytics = {
+  appId: string
+  trackEvent: TrackEvent
 }
 
-export interface AnalyticsEventInput {
-  label: string
-  action: string
-  [key: string]: EventPayload
+export type Analytics = RootAnalytics & {
+  category: string
+  analyticsRoute: string
 }
 
-export type TrackEvent = (e: AnalyticsEvent) => void
-
-export type AppId = string
-
-export type Category = string
+export type PageConfig = {
+  name: string
+  payload: {
+    [key: string]: EventPayload
+  }
+  isPayloadReady: boolean
+}
