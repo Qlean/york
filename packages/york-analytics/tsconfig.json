@@ -3,17 +3,13 @@
     "outDir": "./lib/",
     "module": "commonjs",
     "lib": ["dom", "esnext"],
-    // Поддержка jsx
     "jsx": "react",
+    "strict": true,
     // Так как мы не используем TS для транспайлинга кода, нам нужны только декларации типов
     "declaration": true,
     "emitDeclarationOnly": true,
-    /**
-     * Позволяет использовать default imports там, где их нет. Например import React from 'react'
-     **/
+    // Позволяет использовать default imports там, где их нет. Например import React from 'react'
     "allowSyntheticDefaultImports": true,
-    // Строгие проверки всего
-    "strict": true,
     /**
      * Запрещает TS проверять корректность типов внутри сторонних пакетов. Проверка контракта между
      * нашим кодом и кодом стороннего пакета остаётся.
