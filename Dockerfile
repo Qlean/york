@@ -1,4 +1,4 @@
-FROM node:10-alpine as base
+FROM node:10.18.0-alpine3.11 as base
 ARG USER=app
 
 RUN set -ex; \
