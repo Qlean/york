@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 const getFormattedMoney = number => {
   const formattedNumber = new Intl.NumberFormat('ru-RU').format(number / 100)
   const suffix = 'р.'

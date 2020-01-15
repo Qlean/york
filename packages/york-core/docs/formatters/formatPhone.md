@@ -1,6 +1,6 @@
 `import { formatPhone } from '@qlean/york-core'`
 
-`formatPhone(value: String) => String`
+`(value: string) => string`
 
 Переводит номер телефона в человеко-читаемый формат. Если номер начинается с `8`, то не ставит `+` перед ним.
 

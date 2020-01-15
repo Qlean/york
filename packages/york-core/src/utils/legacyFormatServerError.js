@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type, @typescript-eslint/unbound-method */
 import * as R from 'ramda'
 
 import { capitalize } from './formatters'
