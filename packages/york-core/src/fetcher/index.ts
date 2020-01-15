@@ -2,34 +2,6 @@ import { NetworkError, getResponseBody } from './utils'
 
 export * from './utils'
 
-let isTokenRefreshing = false
-let failedRequests: FailedRequest[] = []
-
-const pushToFailedRequests = <T>(request: GetOriginalRequest): Promise<T> =>
-  new Promise((resolve, reject) => {
-    failedRequests.push({ resolve, reject })
-  })
-    .then((token: unknown): Promise<Response> => request(token as string))
-    .then(response => getResponseBody<T>(response))
-    .catch(error => Promise.reject(error))
-
-const processQueue = (error: Error | null, token: string): void => {
-  isTokenRefreshing = false
-  failedRequests.forEach(({ reject, resolve }) => {
-    if (error) reject(error)
-    else resolve(token)
-  })
-  failedRequests = []
-}
-
-enum methods {
-  GET = 'GET',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  POST = 'POST',
-  DELETE = 'DELETE',
-}
-
 type FailedRequest = {
   resolve: (token: string) => void
   reject: (error: Error) => void
@@ -53,6 +25,34 @@ type RequestWithoutPayload = <T>(url: string, config: RequestInit) => Promise<T>
 type Transformer = (data: any) => any
 
 type GetOriginalRequest = (token: string) => Promise<Response>
+
+enum methods {
+  GET = 'GET',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  POST = 'POST',
+  DELETE = 'DELETE',
+}
+
+let isTokenRefreshing = false
+let failedRequests: FailedRequest[] = []
+
+const pushToFailedRequests = <T>(request: GetOriginalRequest): Promise<T> =>
+  new Promise((resolve, reject) => {
+    failedRequests.push({ resolve, reject })
+  })
+    .then((token: unknown): Promise<Response> => request(token as string))
+    .then(response => getResponseBody<T>(response))
+    .catch(error => Promise.reject(error))
+
+const processQueue = (error: Error | null, token: string): void => {
+  isTokenRefreshing = false
+  failedRequests.forEach(({ reject, resolve }) => {
+    if (error) reject(error)
+    else resolve(token)
+  })
+  failedRequests = []
+}
 
 export const fetcher = ({
   baseUrl,
