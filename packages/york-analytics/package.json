@@ -9,10 +9,13 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "babel src -d lib -w --copy-files --extensions \".ts,.tsx\"",
-    "build": "npm run clean && tsc && babel src -d lib --extensions \".ts,.tsx\"",
-    "clean": "rimraf lib",
-    "lint": "eslint src --ext .js"
+    "start": "npm run clean && concurrently -n=\"babel,tsc\" -p=name \"npm run start:babel\" \"npm run start:tsc\"",
+    "start:babel": "npm run build:babel -- --watch --verbose",
+    "start:tsc": "npm run build:tsc -- --watch",
+    "build": "npm run clean && npm run build:tsc && npm run build:babel",
+    "build:babel": "babel src --out-dir lib --extensions .js,.ts",
+    "build:tsc": "tsc",
+    "clean": "rimraf lib"
   },
   "peerDependencies": {
     "prop-types": ">=15",

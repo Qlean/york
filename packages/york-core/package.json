@@ -11,8 +11,7 @@
   "scripts": {
     "start": "babel src -d lib --ignore test.js -w",
     "build": "npm run clean && babel src -d lib --ignore test.js",
-    "clean": "rimraf coverage lib",
-    "lint": "eslint . --ext .js"
+    "clean": "rimraf coverage lib"
   },
   "peerDependencies": {
     "ramda": ">=0.26"
