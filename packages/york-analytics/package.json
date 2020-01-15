@@ -9,8 +9,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "babel src -d lib -w --copy-files",
-    "build": "npm run clean && babel src -d lib --copy-files",
+    "start": "babel src -d lib -w --copy-files --extensions \".ts,.tsx\"",
+    "build": "npm run clean && tsc && babel src -d lib --extensions \".ts,.tsx\"",
     "clean": "rimraf lib",
     "lint": "eslint src --ext .js"
   },

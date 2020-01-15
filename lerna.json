@@ -1,15 +1,11 @@
 {
   "lerna": "3.13.4",
   "version": "4.4.1",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "publish": {
       "allowBranch": "master"
     }
   },
-  "npmClientArgs": [
-    "--no-lockfile"
-  ]
+  "npmClientArgs": ["--no-lockfile"]
 }

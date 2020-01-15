@@ -1,9 +1,15 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, ReactNode, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 
 import { AnalyticsContext, RootAnalyticsContext } from '../../context'
 
-const AnalyticsProvider = ({ category, children }) => {
+type Props = {
+  /** Категория событий этого провайдера */
+  category: string
+  children: ReactNode
+}
+
+const AnalyticsProvider = ({ category, children }: Props): ReactElement => {
   const rootAnalyticsContext = useContext(RootAnalyticsContext)
   if (!rootAnalyticsContext) {
     throw new Error(
@@ -20,13 +26,15 @@ const AnalyticsProvider = ({ category, children }) => {
     <AnalyticsContext.Provider
       value={{
         trackEvent: useCallback(
-          event =>
-            trackEvent({
-              appId,
-              category,
-              analyticsRoute,
-              ...event,
-            }),
+          event => {
+            if (trackEvent)
+              trackEvent({
+                appId,
+                category,
+                analyticsRoute,
+                ...event,
+              })
+          },
           [appId, category, analyticsRoute, trackEvent],
         ),
         analyticsRoute,
@@ -40,9 +48,7 @@ const AnalyticsProvider = ({ category, children }) => {
 }
 
 AnalyticsProvider.propTypes = {
-  /** Категория событий этого провайдера */
   category: PropTypes.string.isRequired,
-  /** Позволяет отключить трекинг для этого провайдера, передается дальше по контексту */
   children: PropTypes.node.isRequired,
 }
 

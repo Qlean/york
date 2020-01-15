@@ -43,12 +43,12 @@ module.exports = {
       content: '../york-analytics/README.MD',
       sections: [
         {
-          name: 'AnalyticsContext',
-          content: '../york-analytics/docs/context.md',
+          name: 'components',
+          components: '../york-analytics/src/components/**/*.tsx',
         },
         {
-          name: 'components',
-          components: '../york-analytics/src/components/**/*.js',
+          name: 'AnalyticsContext',
+          content: '../york-analytics/docs/context.md',
         },
         {
           name: 'eventActionTypes',
