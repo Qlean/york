@@ -81,7 +81,7 @@ const TextInput = ({
           if (onFocus) onFocus(e)
           setIsFocused(true)
         }}
-        onBlur={e => {
+        onEndEditing={e => {
           if (onBlur) onBlur(e)
           setIsFocused(false)
         }}
