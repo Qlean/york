@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 import { borderRadiuses, shadows } from '../utils/styles'
-import { useAnimation } from '../utils/hooks'
+import { useAnimation, useAnimatedShadow } from '../utils/hooks'
 
 const styles = StyleSheet.create({
   root: {
@@ -27,47 +27,24 @@ const getLighterShadow = shadowLevel => {
 
 const Card = ({ shadow, children }) => {
   const [isPressed, setIsPressed] = useState(false)
+  const currentShadow = shadows[shadow]
+  const lighterShadow = getLighterShadow(shadow)
+
+  const {
+    shadowOpacity,
+    shadowRadius,
+    shadowOffsetHeight,
+    elevation,
+  } = useAnimatedShadow({
+    from: currentShadow,
+    to: lighterShadow,
+    isActive: isPressed,
+    duration: 70,
+  })
 
   const scale = useAnimation({
     initialValue: 1,
     toValue: isPressed ? 0.98 : 1,
-    useNativeDriver: Platform.OS !== 'web',
-    duration: 70,
-  })
-
-  const currentShadow = shadows[shadow]
-  const lighterShadow = getLighterShadow(shadow)
-
-  const elevation = useAnimation({
-    initialValue: currentShadow.elevation,
-    toValue: isPressed ? lighterShadow.elevation : currentShadow.elevation,
-    useNativeDriver: Platform.OS !== 'web',
-    duration: 70,
-  })
-
-  const shadowOffsetHeight = useAnimation({
-    initialValue: currentShadow.shadowOffset.height,
-    toValue: isPressed
-      ? lighterShadow.shadowOffset.height
-      : currentShadow.shadowOffset.height,
-    useNativeDriver: Platform.OS !== 'web',
-    duration: 70,
-  })
-
-  const shadowRadius = useAnimation({
-    initialValue: currentShadow.elevation,
-    toValue: isPressed
-      ? lighterShadow.shadowRadius
-      : currentShadow.shadowRadius,
-    useNativeDriver: Platform.OS !== 'web',
-    duration: 70,
-  })
-
-  const shadowOpacity = useAnimation({
-    initialValue: currentShadow.elevation,
-    toValue: isPressed
-      ? lighterShadow.shadowOpacity
-      : currentShadow.shadowOpacity,
     useNativeDriver: Platform.OS !== 'web',
     duration: 70,
   })
@@ -80,7 +57,6 @@ const Card = ({ shadow, children }) => {
       <Animated.View
         style={[
           styles.root,
-          isPressed ? lighterShadow : shadows[shadow],
           {
             transform: [{ scale }],
             elevation,

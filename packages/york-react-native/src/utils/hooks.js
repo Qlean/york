@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react'
-import { Animated } from 'react-native'
+import { Animated, Platform } from 'react-native'
 
-// eslint-disable-next-line import/prefer-default-export
 export const useAnimation = config => {
   const { initialValue = 0 } = config
   const animatedValue = useRef(new Animated.Value(initialValue)).current
@@ -13,4 +12,40 @@ export const useAnimation = config => {
   useEffect(animate, [config.toValue])
 
   return animatedValue
+}
+
+export const useAnimatedShadow = ({ from, to, isActive, duration }) => {
+  const animatedShadow = useAnimation({
+    initialValue: isActive ? 0 : 1,
+    toValue: isActive ? 1 : 0,
+    useNativeDriver: Platform.OS !== 'web',
+    duration,
+  })
+
+  const shadowOpacity = animatedShadow.interpolate({
+    inputRange: [0, 1],
+    outputRange: [from.shadowOpacity, to.shadowOpacity],
+  })
+
+  const shadowOffsetHeight = animatedShadow.interpolate({
+    inputRange: [0, 1],
+    outputRange: [from.shadowOffset.height, to.shadowOffset.height],
+  })
+
+  const shadowRadius = animatedShadow.interpolate({
+    inputRange: [0, 1],
+    outputRange: [from.shadowRadius, to.shadowRadius],
+  })
+
+  const elevation = animatedShadow.interpolate({
+    inputRange: [0, 1],
+    outputRange: [from.elevation, to.elevation],
+  })
+
+  return {
+    shadowOffsetHeight,
+    shadowRadius,
+    elevation,
+    shadowOpacity,
+  }
 }

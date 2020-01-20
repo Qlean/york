@@ -39,55 +39,31 @@ export const safeAreaPaddingBottom = isIphoneX() ? 34 : 0
 
 export const shadows = {
   light: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 6,
-        shadowOpacity: 0.1,
-      },
-      android: {
-        elevation: 3,
-      },
-    }),
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.1,
+    elevation: 3,
   },
   medium: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 4 },
-        shadowRadius: 12,
-        shadowOpacity: 0.1,
-      },
-      android: {
-        elevation: 6,
-      },
-    }),
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 12,
+    shadowOpacity: 0.1,
+    elevation: 6,
   },
   strong: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 14,
-        shadowOpacity: 0.16,
-      },
-      android: {
-        elevation: 9,
-      },
-    }),
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 14,
+    shadowOpacity: 0.16,
+    elevation: 9,
   },
   hard: {
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 20,
-        shadowOpacity: 0.33,
-      },
-      android: {
-        elevation: 16,
-      },
-    }),
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 20,
+    shadowOpacity: 0.33,
+    elevation: 16,
   },
 }
