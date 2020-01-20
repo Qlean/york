@@ -9,7 +9,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "npm run clean && concurrently -n=\"babel,tsc\" -p=name \"npm run start:babel\" \"npm run start:tsc\"",
+    "start": "concurrently -n=\"babel,tsc\" -p=name \"npm run start:babel\" \"npm run start:tsc\"",
     "start:babel": "npm run build:babel -- --watch --verbose",
     "start:tsc": "npm run build:tsc -- --watch",
     "build": "npm run clean && npm run build:tsc && npm run build:babel",
