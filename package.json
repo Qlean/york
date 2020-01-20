@@ -27,7 +27,8 @@
     "release:expo": "lerna exec --scope @qlean/york-expo -- npm run release",
     "lint": "eslint . --ext .js",
     "format": "prettier --write '**/*.*'",
-    "york-analytics": "lerna exec --scope @qlean/york-analytics"
+    "york-analytics": "lerna exec --scope @qlean/york-analytics",
+    "york-core": "lerna exec --scope @qlean/york-core"
   },
   "dependencies": {
     "@qlean/york-analytics": "file:packages/york-analytics",

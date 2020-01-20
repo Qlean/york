@@ -1,6 +1,6 @@
 `import { formatMoney } from '@qlean/york-core'`
 
-`formatMoney(value: Any) => String`
+`(value: number | string) => string`
 
 Добавляет к аргументу неразрывный пробел и 'р.'.
 

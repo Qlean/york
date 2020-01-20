@@ -1,6 +1,6 @@
 `import { capitalize } from '@qlean/york-core'`
 
-`capitalize(value: String) => String`
+`(value: string) => string`
 
 Делает первую букву строки заглавной.
 

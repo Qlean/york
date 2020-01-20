@@ -1,8 +1,7 @@
-`import { api } from '@qlean/york-core'`
+`import { fetcher } from '@qlean/york-core'`
 
-`fetcher.get(url: String, config: Object) => Promise`
-`fetcher.delete(url: String, config: Object) => Promise`
-`fetcher[method](url: String, payload: Object, config: Object) => Promise`
+`fetcher[method]<T>(url: string, config: object) => Promise<T>`
+`fetcher[method]<T>(url: string, payload: object, config: object) => Promise<T>`
 
 Абстракция над нативным `fetch`. Чем-то похож на `axios`. Нужен для того, чтобы:
 

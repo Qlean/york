@@ -1,6 +1,6 @@
 `import { formatPhoneHref } from '@qlean/york-core'`
 
-`formatPhoneHref(value: String) => String`
+`(value: string) => string`
 
 Переводит номер телефона в формат, пригодный для ссылок. Если номер начинается с `8`, то не ставит `+` перед ним.
 
