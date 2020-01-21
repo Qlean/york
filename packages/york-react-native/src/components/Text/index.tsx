@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import {
   Text as NativeText,
   StyleSheet,
@@ -8,6 +8,8 @@ import {
 import { colors, colorNames } from '@qlean/york-core'
 
 import { fontFamily, fontFamilyBold } from 'york-react-native/utils/styles'
+
+type TextPreset = keyof typeof presets
 
 type FontFamily = {
   fontFamily?: string
@@ -58,9 +60,10 @@ const styles = StyleSheet.create(presets)
 
 type Props = {
   /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
-  preset: keyof typeof presets
+  preset?: TextPreset
   /** Цвет текста */
   color: colorNames
+  children: ReactNode
 } & TextProps
 
 /**
