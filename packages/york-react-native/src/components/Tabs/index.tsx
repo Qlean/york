@@ -1,7 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
-import { colors } from '@qlean/york-core'
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
+import { colors, colorNames } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
 import { sizes } from 'york-react-native/utils/styles'
@@ -16,6 +21,7 @@ const styles = StyleSheet.create({
     maxHeight: sizes[12] + borderWidth,
     borderBottomColor: colors.whisper,
     borderBottomWidth: 1,
+    backgroundColor: colors.white,
   },
   tab: {
     flex: 1,
@@ -44,13 +50,32 @@ const styles = StyleSheet.create({
   },
 })
 
+type TabValue = string | number
+
+type TabOption = {
+  value: TabValue
+  label: string
+  withDot: boolean
+}
+
+type Props = {
+  /** Список табов */
+  options: TabOption[]
+  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
+  onChange: (value: TabValue, index: number) => void
+  /** Значение выбранного таба */
+  value: TabValue
+  /** Дополнительные стили */
+  style: StyleProp<ViewStyle>
+}
+
 /**
  * Табы, используются для навигации. Поддерживают стандартный список `options` с полями `value`
  * и `label`, а так же специальным `bool` полем `withDot`, которое контроллирует отображение
  * красного индикатора рядом с названием таба.
  */
-const Tabs = ({ value, onChange, options, style }) => (
-  <View backgroundColor={colors.white} style={[styles.root, style]}>
+const Tabs = ({ value, onChange, options, style }: Props) => (
+  <View style={[styles.root, style]}>
     {options.map((option, index) => {
       const isSelected = option.value === value
 
@@ -62,7 +87,10 @@ const Tabs = ({ value, onChange, options, style }) => (
           style={[styles.tab, isSelected && styles.tabSelected]}
         >
           <View style={[styles.title]}>
-            <Text preset="caption" color={isSelected ? 'green' : 'grey'}>
+            <Text
+              preset="caption"
+              color={isSelected ? colorNames.green : colorNames.grey}
+            >
               {option.label}
             </Text>
 
@@ -73,32 +101,5 @@ const Tabs = ({ value, onChange, options, style }) => (
     })}
   </View>
 )
-
-Tabs.propTypes = {
-  /** Список табов */
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.oneOfType([
-        PropTypes.string.isRequired,
-        PropTypes.number.isRequired,
-      ]).isRequired,
-      label: PropTypes.string.isRequired,
-      withDot: PropTypes.bool,
-    }),
-  ).isRequired,
-  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
-  onChange: PropTypes.func.isRequired,
-  /** Значение выбранного таба */
-  value: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.number.isRequired,
-  ]).isRequired,
-  /** Дополнительные стили */
-  style: ViewPropTypes.style,
-}
-
-Tabs.defaultProps = {
-  style: null,
-}
 
 export default Tabs
