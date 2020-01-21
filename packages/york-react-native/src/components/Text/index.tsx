@@ -1,12 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Text as NativeText, StyleSheet, Platform } from 'react-native'
-import { colors } from '@qlean/york-core'
+import {
+  Text as NativeText,
+  StyleSheet,
+  Platform,
+  TextProps,
+} from 'react-native'
+import { colors, colorNames } from '@qlean/york-core'
 
 import { fontFamily, fontFamilyBold } from 'york-react-native/utils/styles'
 
-const getFontFamily = isBold =>
-  Platform.select({
+type FontFamily = {
+  fontFamily?: string
+  fontWeight?: '700' | '500'
+}
+
+const getFontFamily = (isBold: boolean) =>
+  Platform.select<FontFamily>({
     ios: { fontFamily: isBold ? fontFamilyBold : fontFamily },
     android: { fontFamily: isBold ? fontFamilyBold : fontFamily },
     web: { fontFamily: 'Museo Sans', fontWeight: isBold ? '700' : '500' },
@@ -45,37 +54,30 @@ const presets = {
   },
 }
 
-const styles = StyleSheet.create({
-  ...presets,
-})
+const styles = StyleSheet.create(presets)
+
+type Props = {
+  /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
+  preset: keyof typeof presets
+  /** Цвет текста */
+  color: colorNames
+} & TextProps
 
 /**
  * Компонент для оформления текста, использует шрифт Museo Sans. Чтобы он работал, нужно добавить
  * в сборку начертания `MuseoSansCyrl-500` и `MuseoSansCyrl-700`.
  */
-const Text = ({ preset, color, style, ...rest }) => {
-  return (
-    <NativeText
-      style={[styles[preset], { color: colors[color] }, style]}
-      {...rest}
-    />
-  )
-}
-
-Text.defaultProps = {
-  color: 'coal',
-  preset: 'text',
-  style: null,
-}
-
-Text.propTypes = {
-  /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
-  preset: PropTypes.oneOf(Object.keys(presets)),
-  /** Цвет текста */
-  color: PropTypes.oneOf(Object.keys(colors)),
-  /** Дополнительные стили */
-  style: NativeText.propTypes.style,
-}
+const Text = ({
+  preset = 'text',
+  color = colorNames.coal,
+  style,
+  ...rest
+}: Props) => (
+  <NativeText
+    style={[styles[preset], { color: colors[color] }, style]}
+    {...rest}
+  />
+)
 
 Text.presets = presets
 
