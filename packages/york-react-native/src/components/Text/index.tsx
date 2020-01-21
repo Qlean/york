@@ -62,7 +62,7 @@ type Props = {
   /** Пресет, устанавливает размер, межстрочный интервал, вес и другие стилевые параметры текста */
   preset?: TextPreset
   /** Цвет текста */
-  color: colorNames
+  color?: colorNames
   children: ReactNode
 } & TextProps
 
