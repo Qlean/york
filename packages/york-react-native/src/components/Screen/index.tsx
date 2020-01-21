@@ -1,5 +1,4 @@
-import React, { forwardRef, useState, useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef, useState, useContext, ReactNode } from 'react'
 import {
   View,
   ScrollView,
@@ -7,7 +6,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
-  ViewPropTypes,
+  TouchableOpacityProps,
+  ViewProps,
+  ScrollViewProps,
+  LayoutChangeEvent,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 import {
@@ -21,6 +23,36 @@ import {
   safeAreaPaddingBottom,
   sizes,
 } from 'york-react-native/utils/styles'
+
+type SideViewProps = {
+  node: ReactNode
+  isDisabled?: boolean
+  onPress: Function
+} & TouchableOpacityProps
+
+type FooterProps = ViewProps
+
+type ScreenProps = {
+  /** Название экрана */
+  name: string
+  /** Пропсы для левой верхней кнопки экрана */
+  leftView?: SideViewProps
+  /** Пропсы для правой верхней кнопки экрана */
+  rightView?: SideViewProps
+  /** Футер экрана. Прибивается к низу. */
+  footer?: JSX.Element
+  /** Автоматический отступ до безопасной зоны сверху */
+  withSafeAreaPaddingTop?: boolean
+  /** Автоматический отступ до безопасной зоны снизу */
+  withSafeAreaPaddingBottom?: boolean
+  /** Дополнительные данные для аналитики */
+  analyticsPayload: {
+    [key: string]: string | number
+  }
+  children: ReactNode
+  refreshControl?: JSX.Element
+  isPayloadReady?: boolean
+} & ScrollViewProps
 
 const sideViewSize = 32
 const sideViewContainerPadding = sizes[2]
@@ -87,7 +119,13 @@ const styles = StyleSheet.create({
   },
 })
 
-const SideView = ({ node, isDisabled, onPress, style, ...rest }) => (
+const SideView = ({
+  node,
+  isDisabled = false,
+  onPress,
+  style,
+  ...rest
+}: SideViewProps) => (
   <TouchableOpacity
     {...rest}
     onPress={onPress}
@@ -98,31 +136,9 @@ const SideView = ({ node, isDisabled, onPress, style, ...rest }) => (
   </TouchableOpacity>
 )
 
-SideView.defaultProps = {
-  node: null,
-  isDisabled: false,
-  onPress: null,
-  style: null,
-}
-
-SideView.propTypes = {
-  node: PropTypes.node,
-  isDisabled: PropTypes.bool,
-  onPress: PropTypes.func,
-  style: ViewPropTypes.style,
-}
-
-const Footer = ({ style, ...rest }) => (
+export const Footer = ({ style, ...rest }: FooterProps) => (
   <View {...rest} style={[styles.footer, style]} />
 )
-
-Footer.defaultProps = {
-  style: null,
-}
-
-Footer.propTypes = {
-  style: ViewPropTypes.style,
-}
 
 /**
  * Экран. Принимает все пропы для `ScrollView`, умеет отображать фиксированный футер, левую
@@ -134,20 +150,20 @@ Footer.propTypes = {
  * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics) и отправляет событие
  * о просмотре экрана.
  */
-const Screen = forwardRef(
+const Screen = forwardRef<ScrollView, ScreenProps>(
   (
     {
       children,
       footer,
       leftView,
       rightView,
-      withSafeAreaPaddingTop,
-      withSafeAreaPaddingBottom,
+      withSafeAreaPaddingTop = false,
+      withSafeAreaPaddingBottom = true,
       style,
       name,
       analyticsPayload,
       refreshControl,
-      isPayloadReady,
+      isPayloadReady = true,
       ...rest
     },
     ref,
@@ -158,11 +174,11 @@ const Screen = forwardRef(
     const isScrollEnabled =
       Boolean(refreshControl) || contentHeight > scrollViewHeight
 
-    const onFooterLayout = ({ nativeEvent }) =>
+    const onFooterLayout = ({ nativeEvent }: LayoutChangeEvent) =>
       setFooterHeight(nativeEvent.layout.height)
-    const onScrollViewLayout = ({ nativeEvent }) =>
+    const onScrollViewLayout = ({ nativeEvent }: LayoutChangeEvent) =>
       setScrollViewHeight(nativeEvent.layout.height)
-    const onScrollViewContentSizeChange = (width, height) =>
+    const onScrollViewContentSizeChange = (width: number, height: number) =>
       setContentHeight(height)
 
     const renderScreenBody = () => (
@@ -188,7 +204,6 @@ const Screen = forwardRef(
           {rightView && <SideView {...rightView} style={styles.rightView} />}
           <ScrollView
             {...rest}
-            name={name}
             ref={ref}
             scrollEnabled={isScrollEnabled}
             onLayout={onScrollViewLayout}
@@ -221,48 +236,8 @@ const Screen = forwardRef(
   },
 )
 
-Screen.defaultProps = {
-  leftView: null,
-  rightView: null,
-  footer: null,
-  withSafeAreaPaddingTop: false,
-  withSafeAreaPaddingBottom: true,
-  style: null,
-  refreshControl: null,
-  analyticsPayload: null,
-  isPayloadReady: true,
-}
-
-Screen.propTypes = {
-  /** Название экрана */
-  name: PropTypes.string.isRequired,
-  /** Пропсы для левой верхней кнопки экрана */
-  leftView: PropTypes.shape({
-    node: PropTypes.node.isRequired,
-    isDisabled: PropTypes.bool,
-    onPress: PropTypes.func.isRequired,
-  }),
-  /** Пропсы для правой верхней кнопки экрана */
-  rightView: PropTypes.shape({
-    node: PropTypes.node.isRequired,
-    isDisabled: PropTypes.bool,
-    onPress: PropTypes.func.isRequired,
-  }),
-  /** Футер экрана. Прибивается к низу. */
-  footer: PropTypes.element,
-  /** Автоматический отступ до безопасной зоны сверху */
-  withSafeAreaPaddingTop: PropTypes.bool,
-  /** Автоматический отступ до безопасной зоны снизу */
-  withSafeAreaPaddingBottom: PropTypes.bool,
-  /** Дополнительные данные для аналитики */
-  // eslint-disable-next-line react/forbid-prop-types
-  analyticsPayload: PropTypes.object,
-  children: PropTypes.node.isRequired,
-  refreshControl: PropTypes.element,
-  style: ViewPropTypes.style,
-  isPayloadReady: PropTypes.bool,
-}
-
+// @Deprecated
+// @ts-ignore
 Screen.Footer = Footer
 
 export default Screen
