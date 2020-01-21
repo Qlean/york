@@ -1,12 +1,49 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
-import { colors } from '@qlean/york-core'
+import {
+  View,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  GestureResponderEvent,
+  ListRenderItem,
+} from 'react-native'
+import { colors, colorNames } from '@qlean/york-core'
 
 import { sizes } from 'york-react-native/utils/styles'
-
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
+
+type RadioValue = string | number
+
+type OnRadioItemPress = (e: GestureResponderEvent) => void
+
+type RadioItemProps = {
+  title: string
+  caption?: string
+  name: string
+  isSelected: boolean
+  onPress: OnRadioItemPress
+}
+
+type RadioOption = {
+  /** Значение опции */
+  value: RadioValue
+  /** Лейбл опции */
+  title: string
+  /** Подзаголовок опции */
+  caption?: string
+}
+
+type RadioGroupProps = {
+  /** Имя для автотестов, прокидывается как testID в каждый элемент группы в формате `name/value` */
+  name: string
+  /** Список опций */
+  options: RadioOption[]
+  /** Выбранная опция */
+  value: RadioValue
+  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
+  onChange: (value: RadioValue, index: number) => void
+}
 
 const bulletSize = sizes[4]
 
@@ -34,38 +71,34 @@ const styles = StyleSheet.create({
   },
 })
 
-const RadioItem = ({ title, caption, name, isSelected, onPress }) => (
+const RadioItem = ({
+  title,
+  caption,
+  name,
+  isSelected,
+  onPress,
+}: RadioItemProps) => (
   <TouchableOpacity style={styles.option} onPress={onPress} testID={name}>
     <View style={[styles.bullet, isSelected && styles.bulletSelected]} />
     <Separator width={2} />
     <View style={styles.textContainer}>
       <Text>{title}</Text>
-      {caption ? <Text color="grey">{caption}</Text> : null}
+      {caption ? <Text color={colorNames.grey}>{caption}</Text> : null}
     </View>
   </TouchableOpacity>
 )
 
-RadioItem.defaultProps = {
-  caption: null,
-}
-
-RadioItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  caption: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onPress: PropTypes.func.isRequired,
-}
-
-const keyExtractor = ({ value }) => String(value)
+const keyExtractor = ({ value }: { value: RadioValue }) => String(value)
 const ItemSeparatorComponent = () => <Separator height={4} />
 
 /**
  * Группа радио-инпутов, используется для выбора одной опции из нескольких.
  */
-const RadioGroup = ({ options, value, name, onChange }) => {
-  const onItemPress = (...args) => () => onChange(...args)
-  const renderItem = args => {
+const RadioGroup = ({ options, value, name, onChange }: RadioGroupProps) => {
+  const onItemPress: (value: RadioValue, index: number) => OnRadioItemPress = (
+    ...args
+  ) => () => onChange(...args)
+  const renderItem: ListRenderItem<RadioOption> = args => {
     const {
       item: { title, value: itemValue, caption },
       index,
@@ -90,33 +123,6 @@ const RadioGroup = ({ options, value, name, onChange }) => {
       extraData={value}
     />
   )
-}
-
-RadioGroup.defaultProps = {
-  value: null,
-}
-
-RadioGroup.propTypes = {
-  /** Имя для автотестов, прокидывается как testID в каждый элемент группы в формате `name/value` */
-  name: PropTypes.string.isRequired,
-  /** Список опций */
-  options: PropTypes.arrayOf(
-    PropTypes.exact({
-      /** Значение опции */
-      value: PropTypes.oneOfType([
-        PropTypes.string.isRequired,
-        PropTypes.number.isRequired,
-      ]).isRequired,
-      /** Лейбл опции */
-      title: PropTypes.string.isRequired,
-      /** Подзаголовок опции */
-      caption: PropTypes.string,
-    }).isRequired,
-  ).isRequired,
-  /** Выбранная опция */
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
-  onChange: PropTypes.func.isRequired,
 }
 
 export default RadioGroup
