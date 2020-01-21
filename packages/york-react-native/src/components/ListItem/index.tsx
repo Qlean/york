@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import * as R from 'ramda'
-import PropTypes from 'prop-types'
 import {
   TouchableOpacity,
   View,
