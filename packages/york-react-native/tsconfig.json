@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib/",
+    "module": "commonjs",
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "york-react-native/*": ["*"],
+  }
+  }
+}
