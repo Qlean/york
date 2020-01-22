@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 import { Animated } from 'react-native'
 
 // eslint-disable-next-line import/prefer-default-export
-export const useAnimation = config => {
+export const useAnimation = (config: any) => {
   const { initialValue = 0 } = config
   const animatedValue = useRef(new Animated.Value(initialValue)).current
 
