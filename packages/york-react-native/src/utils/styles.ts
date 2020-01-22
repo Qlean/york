@@ -1,11 +1,13 @@
 import { Dimensions, Platform } from 'react-native'
 import * as R from 'ramda'
-
 import { sizes as coreSizes } from '@qlean/york-core'
 
 export const uiPoint = 5
 
-export const sizes = R.map(size => size * uiPoint, coreSizes)
+export const sizes: ReadonlyArray<number> = R.map(
+  size => size * uiPoint,
+  coreSizes,
+)
 
 export const fontFamily = 'MuseoSansCyrl-500'
 export const fontFamilyBold = 'MuseoSansCyrl-700'
