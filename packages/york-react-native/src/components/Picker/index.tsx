@@ -15,7 +15,7 @@ import {
   StatusBar,
 } from 'react-native'
 import * as R from 'ramda'
-import { colors } from '@qlean/york-core'
+import { colors, colorNames } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
@@ -32,7 +32,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
  * Dimensions возвращает полную высоту экрана, поэтому на Андроиде нужно компенсировать высоту
  * статус бара.
  * */
-const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
+const statusBarHeight = (Platform.OS === 'android'
+  ? StatusBar.currentHeight
+  : 0) as number
 
 const totalVerticalPadding = uiPoint * 28
 const maxPickerHeight = screenHeight - totalVerticalPadding - statusBarHeight
@@ -116,6 +118,34 @@ const styles = StyleSheet.create({
   },
 })
 
+type PickerValue = string | number
+
+type PickerOption = {
+  value: PickerValue
+  label: string
+}
+
+type Props = {
+  /** Имя для автотестов, прокидывается как testID */
+  name: string
+  /** Список опций */
+  options: PickerOption[]
+  /** Значение пикера */
+  value: PickerValue
+  /** Заголовок */
+  title?: string
+  /** Описание */
+  caption?: string
+  /** Заглушка, используется при пустом значении */
+  placeholder?: string
+  /** Текст ошибки */
+  error?: string
+  /** Активен ли пикер */
+  isDisabled?: boolean
+  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
+  onChange: Function
+}
+
 /**
  * Пикер, используется для выбора одной опции из нескольких. Поддерживает пустую строку в качестве
  * неопределенного значения. Если в `options` есть соответствующий пункт, то будет отображать его,
@@ -124,17 +154,17 @@ const styles = StyleSheet.create({
  * Компонент `Modal` пока не поддерживается в `react-native-web`, поэтому открытый пикер показан
  * на скриншоте.
  */
-export default function Picker({
+const Picker = ({
   name,
   options,
   value,
-  title,
-  caption,
-  placeholder,
-  error,
+  title = '',
+  caption = '',
+  placeholder = '',
+  error = '',
   isDisabled,
   onChange,
-}) {
+}: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const pickerHeight = Math.min(
@@ -156,7 +186,8 @@ export default function Picker({
     setIsModalVisible(false)
   }
 
-  const onItemPress = (...args) => () => {
+  type OnItemPress = (v: PickerValue, i: number) => () => void
+  const onItemPress: OnItemPress = (...args) => () => {
     onChange(...args)
     /**
      * Небольшая задержка перед закрытием позволяет лучше понять что нажатие состоялось и увидеть
@@ -169,7 +200,7 @@ export default function Picker({
     <View>
       {withTitle && <Text>{title}</Text>}
       {withCaption && (
-        <Text preset="caption" color="grey">
+        <Text preset="caption" color={colorNames.grey}>
           {caption}
         </Text>
       )}
@@ -189,7 +220,7 @@ export default function Picker({
         >
           <Text
             style={styles.inputText}
-            color={withValue && !isDisabled ? 'coal' : 'grey'}
+            color={withValue && !isDisabled ? colorNames.coal : colorNames.grey}
             numberOfLines={1}
           >
             {withValue ? valueLabel : placeholder}
@@ -207,7 +238,7 @@ export default function Picker({
       {withError && (
         <>
           <Separator height={1} />
-          <Text preset="caption" color="red">
+          <Text preset="caption" color={colorNames.red}>
             {error}
           </Text>
         </>
@@ -240,9 +271,7 @@ export default function Picker({
                           value === item.value && styles.pickerItemSelected,
                         ]}
                       >
-                        <Text size="h2" numberOfLines={1}>
-                          {item.label}
-                        </Text>
+                        <Text numberOfLines={1}>{item.label}</Text>
                       </View>
                     </TouchableHighlight>
                   ))}
@@ -256,41 +285,4 @@ export default function Picker({
   )
 }
 
-Picker.propTypes = {
-  /** Имя для автотестов, прокидывается как testID */
-  name: PropTypes.string.isRequired,
-  /** Список опций */
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.oneOfType([
-        PropTypes.string.isRequired,
-        PropTypes.number.isRequired,
-      ]).isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  /** Значение пикера */
-  value: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.number.isRequired,
-  ]).isRequired,
-  /** Заголовок */
-  title: PropTypes.string,
-  /** Описание */
-  caption: PropTypes.string,
-  /** Заглушка, используется при пустом значении */
-  placeholder: PropTypes.string,
-  /** Текст ошибки */
-  error: PropTypes.string,
-  /** Активен ли пикер */
-  isDisabled: PropTypes.bool.isRequired,
-  /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
-  onChange: PropTypes.func.isRequired,
-}
-
-Picker.defaultProps = {
-  title: '',
-  caption: '',
-  placeholder: '',
-  error: '',
-}
+export default Picker
