@@ -1,61 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
-import { colors } from '@qlean/york-core'
-
-import { sizes } from 'york-react-native/utils/styles'
-
-import Text from 'york-react-native/components/Text'
+import { FlatList } from 'react-native'
 import Separator from 'york-react-native/components/Separator'
-
-const bulletSize = sizes[4]
-
-const styles = StyleSheet.create({
-  option: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  bullet: {
-    width: bulletSize,
-    height: bulletSize,
-    borderRadius: bulletSize / 2,
-    borderWidth: 1,
-    borderColor: colors.silver,
-    backgroundColor: colors.white,
-    /** Компенсация разницы размера буллета и lineHeight */
-    marginTop: 2,
-  },
-  bulletSelected: {
-    borderWidth: 6,
-    borderColor: colors.green,
-  },
-  textContainer: {
-    flexShrink: 1,
-  },
-})
-
-const RadioItem = ({ title, caption, name, isSelected, onPress }) => (
-  <TouchableOpacity style={styles.option} onPress={onPress} testID={name}>
-    <View style={[styles.bullet, isSelected && styles.bulletSelected]} />
-    <Separator width={2} />
-    <View style={styles.textContainer}>
-      <Text>{title}</Text>
-      {caption ? <Text color="grey">{caption}</Text> : null}
-    </View>
-  </TouchableOpacity>
-)
-
-RadioItem.defaultProps = {
-  caption: null,
-}
-
-RadioItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  caption: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onPress: PropTypes.func.isRequired,
-}
+import RadioItem from 'york-react-native/components/RadioItem'
 
 const keyExtractor = ({ value }) => String(value)
 const ItemSeparatorComponent = () => <Separator height={4} />
