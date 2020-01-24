@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
-import { TouchableOpacity, View, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, StyleSheet, ViewPropTypes } from 'react-native'
 
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
 /**
  * Элемент списка. Можно использовать как часть FlatList, SectionList или как отдельный компонент
  */
-const ListItem = ({ title, caption, value, onPress, isDisabled }) => (
+const ListItem = ({ title, caption, value, onPress, isDisabled, style }) => (
   <TouchableOpacity
-    style={styles.root}
+    style={[styles.root, style]}
     disabled={!onPress || isDisabled}
     onPress={onPress}
   >
@@ -60,6 +60,7 @@ ListItem.defaultProps = {
   onPress: undefined,
   caption: null,
   value: null,
+  style: null,
 }
 
 ListItem.propTypes = {
@@ -80,6 +81,8 @@ ListItem.propTypes = {
   onPress: PropTypes.func,
   /** Делает компонент недоступным для нажатия */
   isDisabled: PropTypes.bool.isRequired,
+  /** Дополнительные стили */
+  style: ViewPropTypes.style,
 }
 
 export default ListItem
