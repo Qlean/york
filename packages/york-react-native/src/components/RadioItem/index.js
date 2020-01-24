@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, ViewPropTypes } from 'react-native'
 import { colors } from '@qlean/york-core'
 
 import { sizes } from 'york-react-native/utils/styles'
@@ -35,13 +35,22 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Радио-инпут, встроен в RadioGroup, может использоваться отдельно
+ * Радио-инпут, встроен в <RadioGroup/>, может использоваться отдельно
  */
-const RadioItem = ({ title, caption, name, isSelected, onPress, style }) => (
+const RadioItem = ({
+  title,
+  caption,
+  name,
+  isSelected,
+  onPress,
+  style,
+  ...rest
+}) => (
   <TouchableOpacity
     style={[styles.option, style]}
     onPress={onPress}
     testID={name}
+    {...rest}
   >
     <View style={[styles.bullet, isSelected && styles.bulletSelected]} />
     <Separator width={2} />
@@ -59,16 +68,18 @@ RadioItem.defaultProps = {
 }
 
 RadioItem.propTypes = {
-  /** Лейбл инпута */
+  /** Лейбл радио-кнопки */
   title: PropTypes.string,
   /** Подзаголовок */
   caption: PropTypes.string,
   /** Имя для автотестов, прокидывается как testID */
   name: PropTypes.string.isRequired,
+  /** Состояние радио-кнопки */
   isSelected: PropTypes.bool.isRequired,
+  /** Коллбек, вызываемый при нажатии с аргементом (e: GestureEventResponder) */
   onPress: PropTypes.func.isRequired,
   /** Дополнительные стили */
-  style: PropTypes.string,
+  style: ViewPropTypes.style,
 }
 
 export default RadioItem
