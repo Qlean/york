@@ -43,12 +43,12 @@ module.exports = {
       content: '../york-analytics/README.MD',
       sections: [
         {
-          name: 'AnalyticsContext',
-          content: '../york-analytics/docs/context.md',
+          name: 'components',
+          components: '../york-analytics/src/components/**/*.tsx',
         },
         {
-          name: 'components',
-          components: '../york-analytics/src/components/**/*.js',
+          name: 'AnalyticsContext',
+          content: '../york-analytics/docs/context.md',
         },
         {
           name: 'eventActionTypes',
@@ -173,6 +173,10 @@ module.exports = {
               content: '../york-web/docs/minScreenWidth.md',
             },
             {
+              name: 'mobileHorizontalPadding',
+              content: '../york-web/docs/mobileHorizontalPadding.md',
+            },
+            {
               name: 'shadows',
               content: '../york-web/docs/shadows.md',
             },
@@ -263,6 +267,11 @@ module.exports = {
     Code: {
       code: {
         color: '#767676',
+      },
+    },
+    Pre: {
+      pre: {
+        overflow: 'auto',
       },
     },
   },

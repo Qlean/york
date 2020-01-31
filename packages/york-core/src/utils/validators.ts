@@ -1,4 +1,4 @@
-const isInRange = (number, start, end) => {
+const isInRange = (number: number, start: number, end: number): boolean => {
   return number >= start && number <= end
 }
 
@@ -7,7 +7,7 @@ const isInRange = (number, start, end) => {
  * В первую очередь нужен для того чтобы защитить пользователя от ошибок при ручном вводе.
  * https://en.wikipedia.org/wiki/Luhn_algorithm
  */
-const validateWithLuhnAlgorithm = value => {
+const validateWithLuhnAlgorithm = (value: string): boolean => {
   const sum = value
     .split('')
     .reverse()
@@ -24,7 +24,13 @@ const validateWithLuhnAlgorithm = value => {
   return sum % 10 === 0
 }
 
-export const validateCardNumber = (value, config = {}) => {
+export const validateCardNumber = (
+  value: string,
+  config: {
+    minLength?: number
+    maxLength?: number
+  } = {},
+): boolean => {
   if (typeof value !== 'string') {
     throw new Error(
       'Error in validateCardNumber. Card number must be provided as a string',
@@ -38,7 +44,7 @@ export const validateCardNumber = (value, config = {}) => {
     )
   }
   return (
-    value &&
+    Boolean(value) &&
     !Number.isNaN(Number(value)) &&
     value.length >= minLength &&
     value.length <= maxLength &&
@@ -46,7 +52,7 @@ export const validateCardNumber = (value, config = {}) => {
   )
 }
 
-export const validateCardExpiry = value => {
+export const validateCardExpiry = (value: string): boolean => {
   if (typeof value !== 'string') {
     throw new Error(
       'Error in validateCardExpiry. Card expiry must be provided as a string',
@@ -79,7 +85,13 @@ export const validateCardExpiry = value => {
   return isMonthValid && isYearValid
 }
 
-export const validateCardSecureCode = (value, config = {}) => {
+export const validateCardSecureCode = (
+  value: string,
+  config: {
+    minLength?: number
+    maxLength?: number
+  } = {},
+): boolean => {
   if (typeof value !== 'string') {
     throw new Error('Card secure code must be provided as a string')
   }
@@ -90,7 +102,7 @@ export const validateCardSecureCode = (value, config = {}) => {
     )
   }
   return (
-    value &&
+    Boolean(value) &&
     !Number.isNaN(Number(value)) &&
     value.length >= minLength &&
     value.length <= maxLength

@@ -1,7 +1,9 @@
 import { useCallback, useContext } from 'react'
-import { AnalyticsContext } from '../../context'
 
-const useAnalytics = category => {
+import { AnalyticsContext } from './context'
+import { Analytics } from './types'
+
+const useAnalytics = (category?: string): Analytics => {
   const analyticsContext = useContext(AnalyticsContext)
   if (!analyticsContext) {
     throw new Error(
@@ -20,6 +22,7 @@ const useAnalytics = category => {
   }
 
   return {
+    category: finalCategory,
     trackEvent: useCallback(
       data =>
         trackEvent({

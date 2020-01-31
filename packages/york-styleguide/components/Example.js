@@ -89,7 +89,9 @@ Select.propTypes = {
 
 const StyledInputGroup = styled.div`
   display: flex;
-  margin-bottom: ${sizes[2]}px;
+  :not(:last-child) {
+    margin-bottom: ${sizes[2]}px;
+  }
   & > *:not(:last-child) {
     ${media.desktop(`margin-right: ${sizes[2]}px;`)}
     ${media.mobile(`margin-bottom: ${sizes[1]}px;`)}
@@ -214,8 +216,8 @@ const StyledPage = styled.div`
   ${media.mobile(`width: ${GridContainer.maxWidths.mobile + 40}px;`)}
 `
 
-const Frame = ({ children }) => (
-  <StyledFrame>
+const Frame = ({ children, ...rest }) => (
+  <StyledFrame {...rest}>
     <StyledPage>{children}</StyledPage>
   </StyledFrame>
 )

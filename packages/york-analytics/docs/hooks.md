@@ -1,5 +1,4 @@
 ### useAnalytics
-`useAnalytics(category?: String) => { trackEvent: Function, appId: String, category: String, analyticsRoute: String }`
 
 Хук `useAnalytics` возвращает объект, содержащий мемоизированную функцию трекинга, а так же другие данные из аналитического контекста. Функцию можно вызвать в любой момент, например при первом рендере компонента или в `onChange` инпута. Категория событий будет равна аргументу `category` или категории из ближайшего `AnalyticsProvider`, если вызвать хук без аргумента.
 
@@ -39,10 +38,9 @@ const ExampleComponent = () => {
 ```
 
 ### usePageView
-`usePageView({ name: String, payload?: Object, isPayloadReady?: Boolean })`
+
 Хук `usePageView` отправляет событие о просмотре страницы или экрана. Если не передавать `payload`, то событие сработает при первом рендере, в противном случае хук отправит событие только после того как `isPayloadReady` станет равен `true`. Таким образом можно дождаться асинхронной загрузки данных перед отправкой.
 
-Пример:
 ```js static
 import React, { useState, useEffect } from 'react'
 import { usePageView } from '@qlean/york-analytics'
@@ -63,9 +61,9 @@ const CustomPage = ({ name, children }) => {
   usePageView({
     name,
     payload: {
-      orderId
+      orderId,
     },
-    isPayloadReady: !isLoading
+    isPayloadReady: !isLoading,
   })
 
   return <div name={name}>{children}</div>

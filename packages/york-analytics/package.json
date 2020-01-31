@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-analytics",
-  "version": "4.0.0",
+  "version": "4.4.5",
   "description": "",
   "license": "MIT",
   "repository": {
@@ -9,10 +9,13 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "start": "babel src -d lib -w --copy-files",
-    "build": "npm run clean && babel src -d lib --copy-files",
-    "clean": "rimraf lib",
-    "lint": "eslint src --ext .js"
+    "start": "concurrently -n=\"babel,tsc\" -p=name \"npm run start:babel\" \"npm run start:tsc\"",
+    "start:babel": "npm run build:babel -- --watch --verbose",
+    "start:tsc": "npm run build:tsc -- --watch",
+    "build": "npm run clean && npm run build:tsc && npm run build:babel",
+    "build:babel": "babel src --out-dir lib --extensions .js,.ts,.tsx",
+    "build:tsc": "tsc",
+    "clean": "rimraf lib"
   },
   "peerDependencies": {
     "prop-types": ">=15",

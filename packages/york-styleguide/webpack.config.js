@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
     alias: {
       'react-native': 'react-native-web',
       'york-web': path.resolve(__dirname, '../york-web/src'),
@@ -11,6 +12,37 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-typescript',
+                {
+                  allExtensions: true,
+                  isTSX: true,
+                },
+              ],
+              '@babel/preset-react',
+              '@babel/preset-env',
+            ],
+            plugins: [
+              'inline-react-svg',
+              '@babel/plugin-proposal-class-properties',
+              [
+                'babel-plugin-styled-components',
+                {
+                  uglifyPure: false,
+                  ssr: true,
+                },
+              ],
+            ],
+          },
+        },
+        exclude: /node_modules/,
+      },
       {
         test: /\.js$/,
         use: {

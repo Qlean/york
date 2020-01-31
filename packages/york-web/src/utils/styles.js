@@ -29,6 +29,7 @@ export const borderRadiuses = {
   none: 'none',
   small: '4px',
   medium: '6px',
+  large: '10px',
   round: '100px',
 }
 
@@ -40,6 +41,8 @@ export const zIndexes = {
 }
 
 export const minScreenWidth = 320
+
+export const mobileHorizontalPadding = sizes[6]
 
 export const fontFamily = '"Museo Sans", sans-serif'
 

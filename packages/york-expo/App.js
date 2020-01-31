@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Switch, StyleSheet, TextInput } from 'react-native'
+import { View, Switch, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import * as Font from 'expo-font'
 
-import { colors } from '@qlean/york-core'
 import {
+  TextInput,
   Picker,
   Separator,
   Text,
@@ -13,8 +13,6 @@ import {
   Line,
   Button,
   Icon,
-  uiPoint,
-  sizes,
 } from '@qlean/york-react-native'
 
 import ExampleCard from './examples/Card'
@@ -26,14 +24,6 @@ const styles = StyleSheet.create({
   labeledSwitch: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  textInput: {
-    height: uiPoint * 10,
-    backgroundColor: colors.white,
-    borderColor: colors.silver,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingLeft: sizes[3],
   },
 })
 
@@ -102,6 +92,7 @@ export default function App() {
   }, [])
 
   const [pickerValue, setPickerValue] = useState('')
+  const [inputValue, setInputValue] = useState('')
   const [isDisabled, setIsDisabled] = useState(false)
   const [withError, setWithError] = useState(false)
 
@@ -158,9 +149,16 @@ export default function App() {
           onChange={v => setPickerValue(v)}
         />
         <Separator height={4} />
-        <Line color="silver" />
-        <Separator height={4} />
-        <TextInput style={styles.textInput} placeholder="Напишите что-нибудь" />
+        <TextInput
+          name="doggoName"
+          placeholder="Кличка"
+          title="Как назовёте?"
+          caption="Выберите кличку для собаки"
+          isDisabled={isDisabled}
+          value={inputValue}
+          onChange={setInputValue}
+          error={withError ? 'Что-то пошло не так' : ''}
+        />
         <Separator height={4} />
         <Line color="silver" />
         <Separator height={1} />

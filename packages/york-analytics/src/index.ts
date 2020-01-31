@@ -2,6 +2,11 @@ export { default as AnalyticsProvider } from './components/AnalyticsProvider'
 export {
   default as RootAnalyticsProvider,
 } from './components/RootAnalyticsProvider'
-export * from './constants'
+
+export { default as useAnalytics } from './useAnalytics'
+export { default as usePageView } from './usePageView'
+
+export * from './enums'
 export * from './context'
-export * from './utils'
+
+export * from './types'

@@ -1,6 +1,6 @@
 {
   "name": "@qlean/york-web",
-  "version": "4.0.1",
+  "version": "4.4.2",
   "description": "",
   "license": "MIT",
   "repository": {
@@ -11,8 +11,7 @@
   "scripts": {
     "start": "babel src -d lib -w --copy-files",
     "build": "npm run clean && babel src -d lib --copy-files",
-    "clean": "rimraf lib",
-    "lint": "eslint src --ext .js"
+    "clean": "rimraf lib"
   },
   "peerDependencies": {
     "@qlean/york-analytics": "*",
