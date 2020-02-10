@@ -15,9 +15,11 @@ import {
   Icon,
 } from '@qlean/york-react-native'
 
+import ExampleCard from './examples/Card'
+
 const styles = StyleSheet.create({
   content: {
-    padding: 20,
+    padding: sizes[4],
   },
   labeledSwitch: {
     flexDirection: 'row',
@@ -121,6 +123,8 @@ export default function App() {
         contentContainerStyle={styles.content}
         withSafeAreaPaddingTop
       >
+        <ExampleCard />
+        <Separator height={4} />
         <LabeledSwitch
           label="isDisabled!"
           value={isDisabled}
