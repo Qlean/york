@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactChildren } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
@@ -17,15 +17,32 @@ const styles = StyleSheet.create({
   },
 })
 
-const shadowLevels = ['light', 'medium', 'strong', 'hard']
+enum ShadowLevels {
+  light = 'light',
+  medium = 'medium',
+  strong = 'strong',
+  hard = 'hard',
+}
 
-const getLighterShadow = shadowLevel => {
+const shadowLevels: Array<ShadowLevels> = [
+  ShadowLevels.light,
+  ShadowLevels.medium,
+  ShadowLevels.strong,
+  ShadowLevels.hard,
+]
+
+const getLighterShadow = (shadowLevel: ShadowLevels) => {
   const previousShadowLevelIndex = shadowLevels.indexOf(shadowLevel)
   const lighterShadowLevel = shadowLevels[previousShadowLevelIndex - 1]
   return shadows[lighterShadowLevel || shadowLevel]
 }
 
-const Card = ({ shadow, children }) => {
+type Props = {
+  shadow: ShadowLevels
+  children: ReactChildren
+}
+
+const Card = ({ shadow, children }: Props) => {
   const [isPressed, setIsPressed] = useState(false)
   const currentShadow = shadows[shadow]
   const lighterShadow = getLighterShadow(shadow)
