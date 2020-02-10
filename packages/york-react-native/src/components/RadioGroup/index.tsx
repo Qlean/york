@@ -1,19 +1,12 @@
 import React from 'react'
-import { FlatList, GestureResponderEvent, ListRenderItem } from 'react-native'
+import { FlatList, ListRenderItem, GestureResponderEvent } from 'react-native'
+
 import Separator from 'york-react-native/components/Separator'
 import RadioItem from 'york-react-native/components/RadioItem'
 
 type RadioValue = string | number
 
 type OnRadioItemPress = (e: GestureResponderEvent) => void
-
-type RadioItemProps = {
-  title: string
-  caption?: string
-  name: string
-  isSelected: boolean
-  onPress: OnRadioItemPress
-}
 
 type RadioOption = {
   /** Значение опции */
