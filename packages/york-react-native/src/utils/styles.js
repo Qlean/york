@@ -1,7 +1,7 @@
 import { Dimensions, Platform } from 'react-native'
 import * as R from 'ramda'
 
-import { sizes as coreSizes } from '@qlean/york-core'
+import { sizes as coreSizes, colors } from '@qlean/york-core'
 
 export const uiPoint = 5
 
@@ -36,3 +36,34 @@ const getSafeAreaPaddingTop = () => {
 
 export const safeAreaPaddingTop = getSafeAreaPaddingTop()
 export const safeAreaPaddingBottom = isIphoneX() ? 34 : 0
+
+export const shadows = {
+  light: {
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.1,
+    elevation: 3,
+  },
+  medium: {
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 12,
+    shadowOpacity: 0.1,
+    elevation: 6,
+  },
+  strong: {
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 14,
+    shadowOpacity: 0.16,
+    elevation: 9,
+  },
+  hard: {
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 20,
+    shadowOpacity: 0.33,
+    elevation: 16,
+  },
+}
