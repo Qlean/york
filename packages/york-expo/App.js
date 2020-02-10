@@ -13,6 +13,7 @@ import {
   Line,
   Button,
   Icon,
+  sizes,
 } from '@qlean/york-react-native'
 
 import ExampleCard from './examples/Card'
