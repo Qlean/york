@@ -1,17 +1,7 @@
 import React from 'react'
-import {
-  View,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  GestureResponderEvent,
-  ListRenderItem,
-} from 'react-native'
-import { colors, colorNames } from '@qlean/york-core'
-
-import { sizes } from 'york-react-native/utils/styles'
-import Text from 'york-react-native/components/Text'
+import { FlatList, GestureResponderEvent, ListRenderItem } from 'react-native'
 import Separator from 'york-react-native/components/Separator'
+import RadioItem from 'york-react-native/components/RadioItem'
 
 type RadioValue = string | number
 
@@ -45,50 +35,8 @@ type RadioGroupProps = {
   onChange: (value: RadioValue, index: number) => void
 }
 
-const bulletSize = sizes[4]
-
-const styles = StyleSheet.create({
-  option: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  bullet: {
-    width: bulletSize,
-    height: bulletSize,
-    borderRadius: bulletSize / 2,
-    borderWidth: 1,
-    borderColor: colors.silver,
-    backgroundColor: colors.white,
-    /** Компенсация разницы размера буллета и lineHeight */
-    marginTop: 2,
-  },
-  bulletSelected: {
-    borderWidth: 6,
-    borderColor: colors.green,
-  },
-  textContainer: {
-    flexShrink: 1,
-  },
-})
-
-const RadioItem = ({
-  title,
-  caption,
-  name,
-  isSelected,
-  onPress,
-}: RadioItemProps) => (
-  <TouchableOpacity style={styles.option} onPress={onPress} testID={name}>
-    <View style={[styles.bullet, isSelected && styles.bulletSelected]} />
-    <Separator width={2} />
-    <View style={styles.textContainer}>
-      <Text>{title}</Text>
-      {caption ? <Text color={colorNames.grey}>{caption}</Text> : null}
-    </View>
-  </TouchableOpacity>
-)
-
 const keyExtractor = ({ value }: { value: RadioValue }) => String(value)
+
 const ItemSeparatorComponent = () => <Separator height={4} />
 
 /**

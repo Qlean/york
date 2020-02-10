@@ -53,9 +53,16 @@ type Props = {
 /**
  * Элемент списка. Можно использовать как часть FlatList, SectionList или как отдельный компонент
  */
-const ListItem = ({ title, caption, value, onPress, isDisabled }: Props) => (
+const ListItem = ({
+  title,
+  caption,
+  value,
+  onPress,
+  isDisabled,
+  style,
+}: Props) => (
   <TouchableOpacity
-    style={styles.root}
+    style={[styles.root, style]}
     disabled={!onPress || isDisabled}
     onPress={onPress}
   >
@@ -85,6 +92,7 @@ ListItem.defaultProps = {
   onPress: undefined,
   caption: null,
   value: null,
+  style: null,
 }
 
 export default ListItem
