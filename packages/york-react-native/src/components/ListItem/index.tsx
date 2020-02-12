@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   GestureResponderEvent,
+  ViewStyle,
 } from 'react-native'
 
 import Text from 'york-react-native/components/Text'
@@ -48,6 +49,7 @@ type Props = {
   onPress: (e: GestureResponderEvent) => void
   /** Делает компонент недоступным для нажатия */
   isDisabled: boolean
+  style: ViewStyle
 }
 
 /**
