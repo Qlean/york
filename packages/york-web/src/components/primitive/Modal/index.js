@@ -222,7 +222,7 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   /** Коллбэк для закрытия окна */
   onRequestClose: PropTypes.func.isRequired,
-  /** QuerySelector портала */
+  /** QuerySelector портала, если не указан, создаст div сам */
   portalSelector: PropTypes.string,
 }
 
