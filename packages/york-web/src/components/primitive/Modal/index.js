@@ -49,7 +49,7 @@ const cancelBodyScroll = () => {
 }
 
 const getPortal = selector => {
-  if (document === undefined) {
+  if (typeof document === 'undefined') {
     return null
   }
 
