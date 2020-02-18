@@ -226,4 +226,8 @@ Modal.propTypes = {
   portalSelector: PropTypes.string,
 }
 
+Modal.defaultProps = {
+  portalSelector: undefined,
+}
+
 export default Modal
