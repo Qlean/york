@@ -13,7 +13,7 @@ const StyledLabel = styled.label`
   font-size: 16px;
   line-height: ${sizes[5]}px;
   color: ${colors.coal};
-  margin: ${sizes[2]}px 0;
+  margin: ${sizes[2]}px;
   &:before {
     content: ' ';
     margin-right: ${sizes[2]}px;
