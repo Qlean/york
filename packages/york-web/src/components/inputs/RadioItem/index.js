@@ -13,6 +13,7 @@ const StyledLabel = styled.label`
   font-size: 16px;
   line-height: ${sizes[5]}px;
   color: ${colors.coal};
+  margin: ${sizes[2]}px 0;
   &:before {
     content: ' ';
     margin-right: ${sizes[2]}px;
@@ -51,7 +52,7 @@ RadioItem.propTypes = {
   value: PropTypes.string.isRequired,
   /** Идентификатор поля */
   id: PropTypes.string.isRequired,
-  /** Имя поля */
+  /** Имя поля в форме */
   name: PropTypes.string.isRequired,
   /** Подпись */
   label: PropTypes.string.isRequired,
