@@ -87,6 +87,7 @@ const StyledIconContainer = styled.div`
   justify-content: center;
   :hover {
     opacity: 0.7;
+    cursor: pointer;
   }
 `
 

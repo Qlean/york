@@ -48,16 +48,34 @@ const cancelBodyScroll = () => {
   document.body.scrollTop = 0
 }
 
+const getPortal = selector => {
+  if (typeof document === 'undefined') {
+    return null
+  }
+
+  if (selector === undefined) {
+    return document.createElement('div')
+  }
+
+  return document.querySelector(selector)
+}
+
 /**
  * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`,
  * закрывается по нажатию на Esc. Не стилизует контент и не вмешивается в его позиционирование.
  */
-const Modal = ({ isOpen, children, onRequestClose, ...rest }) => {
+const Modal = ({
+  isOpen,
+  children,
+  onRequestClose,
+  portalSelector,
+  ...rest
+}) => {
   const bodyRef = useRef()
   const scrollYRef = useRef()
 
   const overlayRef = useRef()
-  const nodeRef = useRef(document.createElement('div'))
+  const nodeRef = useRef(getPortal(portalSelector))
   const shouldCloseRef = useRef(true)
 
   const [isMounted, setIsMounted] = useState(false)
@@ -204,6 +222,12 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   /** Коллбэк для закрытия окна */
   onRequestClose: PropTypes.func.isRequired,
+  /** QuerySelector портала, если не указан, создаст div сам */
+  portalSelector: PropTypes.string,
+}
+
+Modal.defaultProps = {
+  portalSelector: undefined,
 }
 
 export default Modal
