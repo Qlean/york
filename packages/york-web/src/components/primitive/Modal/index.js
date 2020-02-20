@@ -64,6 +64,8 @@ const getPortal = selector => {
  * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`,
  * закрывается по нажатию на Esc. Не стилизует контент и не вмешивается в его позиционирование.
  */
+
+let node
 const Modal = ({
   isOpen,
   children,
@@ -140,7 +142,9 @@ const Modal = ({
   }, [])
 
   useEffect(() => {
-    const node = nodeRef.current
+    if (!node || nodeRef.current) {
+      node = nodeRef.current
+    }
 
     if (isOpen) {
       mountNode(node)
@@ -206,7 +210,7 @@ const Modal = ({
             >
               {children}
             </StyledModal>,
-            nodeRef.current,
+            node,
           )
         : null}
     </>
