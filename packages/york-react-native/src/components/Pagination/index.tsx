@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
 import * as R from 'ramda'
 import { colors } from '@qlean/york-core'
@@ -34,10 +33,17 @@ const styles = StyleSheet.create({
   },
 })
 
+type Props = {
+  /** Текущая выбранная страница */
+  value: number
+  /** Количество страниц */
+  pagesCount: number
+}
+
 /**
  * Пагинация. Принимает количество страниц и номер текущей.
  */
-const Pagination = ({ pagesCount, value: currentStep }) => {
+const Pagination = ({ pagesCount, value: currentStep }: Props) => {
   const steps = R.times(n => n + 1, pagesCount)
 
   return (
@@ -55,13 +61,6 @@ const Pagination = ({ pagesCount, value: currentStep }) => {
       ))}
     </View>
   )
-}
-
-Pagination.propTypes = {
-  /** Текущая выбранная страница */
-  value: PropTypes.number.isRequired,
-  /** Количество страниц */
-  pagesCount: PropTypes.number.isRequired,
 }
 
 export default Pagination

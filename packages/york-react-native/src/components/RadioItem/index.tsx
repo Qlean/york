@@ -1,12 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity, StyleSheet, ViewPropTypes } from 'react-native'
-import { colors } from '@qlean/york-core'
+import {
+  View,
+  GestureResponderEvent,
+  TouchableOpacity,
+  StyleSheet,
+  ViewPropTypes,
+  ViewStyle,
+} from 'react-native'
+import { colors, colorNames } from '@qlean/york-core'
 
 import { sizes } from 'york-react-native/utils/styles'
-
-import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
+import Text from 'york-react-native/components/Text'
+
+type OnRadioItemPress = (e: GestureResponderEvent) => void
+
+export type Props = {
+  title: string
+  caption?: string
+  name: string
+  isSelected: boolean
+  onPress: OnRadioItemPress
+  style: ViewStyle
+}
 
 const bulletSize = sizes[4]
 
@@ -45,7 +62,7 @@ const RadioItem = ({
   onPress,
   style,
   ...rest
-}) => (
+}: Props) => (
   <TouchableOpacity
     style={[styles.option, style]}
     onPress={onPress}
@@ -56,7 +73,7 @@ const RadioItem = ({
     <Separator width={2} />
     <View style={styles.textContainer}>
       <Text>{title}</Text>
-      {caption ? <Text color="grey">{caption}</Text> : null}
+      {caption ? <Text color={colorNames.grey}>{caption}</Text> : null}
     </View>
   </TouchableOpacity>
 )

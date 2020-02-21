@@ -4,9 +4,12 @@ import {
   StyleSheet,
   Platform,
   TextInput as NativeTextInput,
+  TextInputProps,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TextInputEndEditingEventData,
 } from 'react-native'
-import PropTypes from 'prop-types'
-import { colors } from '@qlean/york-core'
+import { colors, colorNames } from '@qlean/york-core'
 
 import Text from 'york-react-native/components/Text'
 import Separator from 'york-react-native/components/Separator'
@@ -46,13 +49,36 @@ const styles = StyleSheet.create({
   },
 })
 
+type Props = {
+  /** Имя для автотестов, прокидывается как testID  */
+  name: string
+  /** Значение инпута */
+  value: string
+  /** Коллбек, вызываемый при изменении значения с аргументом `value` */
+  onChange: (text: string) => void
+  /** Активен ли инпут */
+  isDisabled: boolean
+  /** Заголовок */
+  title?: string
+  /** Описание */
+  caption?: string
+  /** Текст ошибки */
+  error?: string
+  /** Заглушка, используется при пустом значении */
+  placeholder?: string
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  onBlur?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void
+  /** Дополнительные стили */
+  style?: string
+} & TextInputProps
+
 /**
  * Базовое поле для ввода текста, обёртка над TextInput
  */
 const TextInput = ({
   name,
-  title,
-  caption,
+  title = '',
+  caption = '',
   error,
   onChange,
   isDisabled,
@@ -60,7 +86,7 @@ const TextInput = ({
   onBlur,
   onFocus,
   ...rest
-}) => {
+}: Props) => {
   const [isFocused, setIsFocused] = useState(false)
   const withError = Boolean(error)
 
@@ -68,14 +94,14 @@ const TextInput = ({
     <View>
       {title ? <Text>{title}</Text> : null}
       {caption ? (
-        <Text preset="caption" color="grey">
+        <Text preset="caption" color={colorNames.grey}>
           {caption}
         </Text>
       ) : null}
       <Separator height={1} />
       <NativeTextInput
         {...rest}
-        testId={name}
+        testID={name}
         onChangeText={onChange}
         onFocus={e => {
           if (onFocus) onFocus(e)
@@ -98,7 +124,7 @@ const TextInput = ({
       {error ? (
         <>
           <Separator height={1} />
-          <Text preset="caption" color="red">
+          <Text preset="caption" color={colorNames.red}>
             {error}
           </Text>
         </>
@@ -108,36 +134,7 @@ const TextInput = ({
 }
 
 TextInput.defaultProps = {
-  title: '',
-  caption: '',
   placeholder: '',
-  error: '',
-  style: null,
-  onFocus: null,
-  onBlur: null,
-}
-
-TextInput.propTypes = {
-  /** Имя для автотестов, прокидывается как testID  */
-  name: PropTypes.string.isRequired,
-  /** Значение инпута */
-  value: PropTypes.string.isRequired,
-  /** Коллбек, вызываемый при изменении значения с аргументом `value` */
-  onChange: PropTypes.func.isRequired,
-  /** Активен ли инпут */
-  isDisabled: PropTypes.bool.isRequired,
-  /** Заголовок */
-  title: PropTypes.string,
-  /** Описание */
-  caption: PropTypes.string,
-  /** Текст ошибки */
-  error: PropTypes.string,
-  /** Заглушка, используется при пустом значении */
-  placeholder: PropTypes.string,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  /** Дополнительные стили */
-  style: PropTypes.string,
 }
 
 export default TextInput

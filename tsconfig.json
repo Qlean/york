@@ -1,0 +1,14 @@
+{
+  
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@qlean/york-core": ["york-core/src"],
+      "@qlean/york-analytics": ["york-analytics/src"],
+      "@qlean/york-react-native": ["york-react-native/src"],
+      "york-react-native/*": ["york-react-native/src/*"],
+    }
+  }
+}

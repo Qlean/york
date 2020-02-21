@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native'
-import { colors } from '@qlean/york-core'
+import { colors, colorNames } from '@qlean/york-core'
 
 import { sizes, borderRadiuses } from 'york-react-native/utils/styles'
 
@@ -41,6 +40,23 @@ const styles = StyleSheet.create({
   },
 })
 
+type Props = {
+  /** Лэйбл чекбокса */
+  title: string
+  /** Подзаголовок чекбокса */
+  caption?: string
+  /** Текст ошибки */
+  error?: string
+  /** Имя для автотестов, прокидывается как testID */
+  name: string
+  /** Выбран ли чекбокс */
+  value: boolean
+  /** Коллбек, вызываемый при изменении значения с аргументом `value` */
+  onChange: (e: any) => void
+  /** Делает чекбокс недоступным для нажатия. */
+  isDisabled: boolean
+}
+
 /**
  * Чекбокс. Используется для выбора булевых значений.
  */
@@ -52,7 +68,7 @@ const Checkbox = ({
   value,
   onChange,
   isDisabled,
-}) => {
+}: Props) => {
   const onPress = () => onChange(!value)
   return (
     <TouchableOpacity
@@ -64,7 +80,7 @@ const Checkbox = ({
       <View
         style={[
           styles.checkbox,
-          error && styles.checkboxWithError,
+          Boolean(error) && styles.checkboxWithError,
           value && styles.checkboxChecked,
           isDisabled && styles.checkboxDisabled,
         ]}
@@ -81,9 +97,11 @@ const Checkbox = ({
       </View>
       <Separator width={2} />
       <View style={styles.textContainer}>
-        <Text color={isDisabled ? 'grey' : 'coal'}>{title}</Text>
-        {caption && <Text color="grey">{caption}</Text>}
-        {error && <Text color="red">{error}</Text>}
+        <Text color={isDisabled ? colorNames.grey : colorNames.coal}>
+          {title}
+        </Text>
+        {caption && <Text color={colorNames.grey}>{caption}</Text>}
+        {error && <Text color={colorNames.red}>{error}</Text>}
       </View>
     </TouchableOpacity>
   )
@@ -92,23 +110,6 @@ const Checkbox = ({
 Checkbox.defaultProps = {
   caption: null,
   error: null,
-}
-
-Checkbox.propTypes = {
-  /** Лэйбл чекбокса */
-  title: PropTypes.string.isRequired,
-  /** Подзаголовок чекбокса */
-  caption: PropTypes.string,
-  /** Текст ошибки */
-  error: PropTypes.string,
-  /** Имя для автотестов, прокидывается как testID */
-  name: PropTypes.string.isRequired,
-  /** Выбран ли чекбокс */
-  value: PropTypes.bool.isRequired,
-  /** Коллбек, вызываемый при изменении значения с аргументом `value` */
-  onChange: PropTypes.func.isRequired,
-  /** Делает чекбокс недоступным для нажатия. */
-  isDisabled: PropTypes.bool.isRequired,
 }
 
 export default Checkbox
