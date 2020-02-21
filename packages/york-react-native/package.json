@@ -13,7 +13,7 @@
     "start:babel": "npm run build:babel -- --watch --verbose --copy-files",
     "start:tsc": "npm run build:tsc -- --watch",
     "build": "npm run clean && npm run build:tsc && npm run build:babel",
-    "build:babel": "babel src --out-dir lib --extensions .js,.ts,.tsx",
+    "build:babel": "babel src --out-dir lib --copy-files --extensions .js,.ts,.tsx",
     "build:tsc": "tsc",
     "clean": "rimraf lib"
   },
