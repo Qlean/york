@@ -7,8 +7,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { borderRadiuses, shadows } from '../utils/styles'
-import { useAnimation, useAnimatedShadow } from '../utils/hooks'
+import { borderRadiuses, shadows } from 'york-react-native/utils/styles'
+import { useAnimation, useAnimatedShadow } from 'york-react-native/utils/hooks'
 
 const styles = StyleSheet.create({
   root: {
@@ -42,6 +42,12 @@ type Props = {
   children: ReactChildren
 }
 
+/**
+ * Карточка. Поддерживает четыре уровня теней - light, medium, strong и hard.
+ * При нажатии тень уменьшается до предыдущего уровня (исключение - light, тень не меняется)
+ * По структуре представляет собой обычный View без дополнительных настроек и стилей
+ * Вся стилизация должна производиться посредством children
+ */
 const Card = ({ shadow, children }: Props) => {
   const [isPressed, setIsPressed] = useState(false)
   const currentShadow = shadows[shadow]

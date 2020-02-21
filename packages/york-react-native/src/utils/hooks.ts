@@ -17,7 +17,7 @@ export const useAnimation = (config: any) => {
 export const useAnimatedShadow = ({ from, to, isActive, duration }: any) => {
   const animatedShadow = useAnimation({
     initialValue: isActive ? 0 : 1,
-    toValue: isActive ? 1 : 0,
+    toValue: isActive ? 0 : 1,
     useNativeDriver: Platform.OS !== 'web',
     duration,
   })

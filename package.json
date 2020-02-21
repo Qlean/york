@@ -15,11 +15,11 @@
     }
   },
   "scripts": {
-    "start": "npm run build && lerna run --parallel start",
-    "start:web": "npm run build && lerna run --parallel --ignore @qlean/york-expo start",
+    "start": "npm run build && lerna run  start",
+    "start:web": "npm run build && lerna run --ignore @qlean/york-expo start",
     "start:expo": "lerna exec --scope @qlean/york-expo -- npm start",
-    "build": "lerna exec --ignore @qlean/york-styleguide --ignore @qlean/york-expo -- npm run build",
-    "build:all": "npm run build && lerna exec --scope @qlean/york-styleguide -- npm run build",
+    "build": "lerna exec --concurrency 1 --ignore @qlean/york-styleguide --ignore @qlean/york-expo -- npm run build",
+    "build:all": "npm run build && lerna exec --concurrency 1 --scope @qlean/york-styleguide -- npm run build",
     "bootstrap": "lerna link && lerna exec --scope @qlean/york-expo -- npm install",
     "checkup": "npm run build && lerna run test && npm run lint",
     "release": "npm run release:npm && npm run release:expo",

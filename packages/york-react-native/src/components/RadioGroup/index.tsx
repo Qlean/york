@@ -35,7 +35,12 @@ const ItemSeparatorComponent = () => <Separator height={4} />
 /**
  * Группа радио-инпутов, используется для выбора одной опции из нескольких.
  */
-const RadioGroup = ({ options, value, name, onChange }: RadioGroupProps) => {
+export const RadioGroup = ({
+  options,
+  value,
+  name,
+  onChange,
+}: RadioGroupProps) => {
   const onItemPress: (value: RadioValue, index: number) => OnRadioItemPress = (
     ...args
   ) => () => onChange(...args)

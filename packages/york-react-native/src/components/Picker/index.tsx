@@ -32,9 +32,8 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
  * Dimensions возвращает полную высоту экрана, поэтому на Андроиде нужно компенсировать высоту
  * статус бара.
  * */
-const statusBarHeight = (Platform.OS === 'android'
-  ? StatusBar.currentHeight
-  : 0) as number
+const statusBarHeight =
+  Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0
 
 const totalVerticalPadding = uiPoint * 28
 const maxPickerHeight = screenHeight - totalVerticalPadding - statusBarHeight

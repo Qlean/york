@@ -91,15 +91,15 @@ const SideView = ({
  * Хедер используется для заголовка окна. Поддерживает кастомные компоненты для левой и правой
  * части, автоматически делает отступ сверху, чтобы хорошо выглядеть на iOS.
  */
-export default function Header({
-  title = '',
-  caption = '',
+export const Header = ({
+  title,
+  caption,
   style,
   leftView,
   rightView,
   centerNode,
   withSafeAreaPadding = true,
-}: HeaderProps) {
+}: HeaderProps) => {
   return (
     <View
       style={[
@@ -132,3 +132,5 @@ export default function Header({
     </View>
   )
 }
+
+export default Header

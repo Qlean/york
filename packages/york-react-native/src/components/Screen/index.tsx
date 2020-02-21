@@ -7,7 +7,6 @@ import {
   Platform,
   TouchableOpacity,
   TouchableOpacityProps,
-  ViewProps,
   ScrollViewProps,
   LayoutChangeEvent,
 } from 'react-native'
@@ -23,14 +22,13 @@ import {
   safeAreaPaddingBottom,
   sizes,
 } from 'york-react-native/utils/styles'
+import ScreenFooter from 'york-react-native/components/ScreenFooter'
 
 type SideViewProps = {
   node: ReactNode
   isDisabled?: boolean
   onPress: Function
 } & TouchableOpacityProps
-
-type FooterProps = ViewProps
 
 type ScreenProps = {
   /** Название экрана */
@@ -113,10 +111,6 @@ const styles = StyleSheet.create({
   },
   leftView: { left: 0 },
   rightView: { right: 0 },
-  footer: {
-    padding: sizes[2],
-    paddingTop: 0,
-  },
 })
 
 const SideView = ({
@@ -136,10 +130,6 @@ const SideView = ({
   </TouchableOpacity>
 )
 
-export const Footer = ({ style, ...rest }: FooterProps) => (
-  <View {...rest} style={[styles.footer, style]} />
-)
-
 /**
  * Экран. Принимает все пропы для `ScrollView`, умеет отображать фиксированный футер, левую
  * и правую верхние иконки для действий, автоматически делает отступ снизу, чтобы хорошо выглядеть
@@ -149,8 +139,9 @@ export const Footer = ({ style, ...rest }: FooterProps) => (
  * будет использоваться вместе с `Header`, в котором сейф-зона сверху уже есть.
  * `Screen` автоматически создает новый контекст для аналитики (см. york-analytics) и отправляет событие
  * о просмотре экрана.
+ * @visibleName Screen
  */
-const Screen = forwardRef<ScrollView, ScreenProps>(
+export const Screen = forwardRef<ScrollView, ScreenProps>(
   (
     {
       children,
@@ -238,6 +229,6 @@ const Screen = forwardRef<ScrollView, ScreenProps>(
 
 // @Deprecated
 // @ts-ignore
-Screen.Footer = Footer
+Screen.Footer = ScreenFooter
 
 export default Screen
