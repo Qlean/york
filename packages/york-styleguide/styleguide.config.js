@@ -203,7 +203,7 @@ module.exports = {
       sections: [
         {
           name: 'components',
-          components: '../york-react-native/src/components/**/*.js',
+          components: '../york-react-native/src/components/**/*.tsx',
         },
         {
           name: 'utils',

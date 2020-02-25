@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { Animated, Platform } from 'react-native'
 
-export const useAnimation = config => {
+export const useAnimation = (config: any) => {
   const { initialValue = 0 } = config
   const animatedValue = useRef(new Animated.Value(initialValue)).current
 
@@ -14,10 +14,10 @@ export const useAnimation = config => {
   return animatedValue
 }
 
-export const useAnimatedShadow = ({ from, to, isActive, duration }) => {
+export const useAnimatedShadow = ({ from, to, isActive, duration }: any) => {
   const animatedShadow = useAnimation({
     initialValue: isActive ? 0 : 1,
-    toValue: isActive ? 1 : 0,
+    toValue: isActive ? 0 : 1,
     useNativeDriver: Platform.OS !== 'web',
     duration,
   })

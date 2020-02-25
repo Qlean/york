@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactChildren } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
@@ -7,8 +7,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { colors } from '@qlean/york-core'
-import { borderRadiuses, shadows } from '../utils/styles'
-import { useAnimation, useAnimatedShadow } from '../utils/hooks'
+import { borderRadiuses, shadows } from 'york-react-native/utils/styles'
+import { useAnimation, useAnimatedShadow } from 'york-react-native/utils/hooks'
 
 const styles = StyleSheet.create({
   root: {
@@ -17,15 +17,38 @@ const styles = StyleSheet.create({
   },
 })
 
-const shadowLevels = ['light', 'medium', 'strong', 'hard']
+enum ShadowLevels {
+  light = 'light',
+  medium = 'medium',
+  strong = 'strong',
+  hard = 'hard',
+}
 
-const getLighterShadow = shadowLevel => {
+const shadowLevels: Array<ShadowLevels> = [
+  ShadowLevels.light,
+  ShadowLevels.medium,
+  ShadowLevels.strong,
+  ShadowLevels.hard,
+]
+
+const getLighterShadow = (shadowLevel: ShadowLevels) => {
   const previousShadowLevelIndex = shadowLevels.indexOf(shadowLevel)
   const lighterShadowLevel = shadowLevels[previousShadowLevelIndex - 1]
   return shadows[lighterShadowLevel || shadowLevel]
 }
 
-const Card = ({ shadow, children }) => {
+type Props = {
+  shadow: ShadowLevels
+  children: ReactChildren
+}
+
+/**
+ * Карточка. Поддерживает четыре уровня теней - light, medium, strong и hard.
+ * При нажатии тень уменьшается до предыдущего уровня (исключение - light, тень не меняется)
+ * По структуре представляет собой обычный View без дополнительных настроек и стилей
+ * Вся стилизация должна производиться посредством children
+ */
+const Card = ({ shadow, children }: Props) => {
   const [isPressed, setIsPressed] = useState(false)
   const currentShadow = shadows[shadow]
   const lighterShadow = getLighterShadow(shadow)

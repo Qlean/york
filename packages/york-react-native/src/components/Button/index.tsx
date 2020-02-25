@@ -1,7 +1,13 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import { TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native'
-import { colors } from '@qlean/york-core'
+import React, { useContext, SyntheticEvent } from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Platform,
+  TouchableOpacityProps,
+  GestureResponderEvent,
+} from 'react-native'
+import { colors, colorNames } from '@qlean/york-core'
 import { AnalyticsContext, eventActionTypes } from '@qlean/york-analytics'
 
 import { useAnimation } from 'york-react-native/utils/hooks'
@@ -12,73 +18,84 @@ import Text from 'york-react-native/components/Text'
 const disabledBackground = 'rgba(0, 0, 0, 0.05)'
 const shadowColor = 'rgb(13, 40, 19)'
 
-const presets = {
-  white1: {
-    button: { backgroundColor: colors.green, borderColor: colors.green },
-    textProps: { color: 'white' },
-    disabledProps: {
-      button: { backgroundColor: disabledBackground },
-      textProps: { color: 'black' },
-    },
-  },
-  white2: {
-    button: { backgroundColor: colors.white, borderColor: colors.green },
-    textProps: { color: 'green' },
-    disabledProps: {
-      button: { borderColor: colors.whisper },
-      textProps: { color: 'black' },
-    },
-  },
-  white3: {
-    button: { backgroundColor: colors.white, borderColor: colors.silver },
-    textProps: { color: 'black' },
-    disabledProps: {
-      button: { borderColor: colors.whisper },
-      textProps: { color: 'black' },
-    },
-  },
-  white4: {
-    button: { backgroundColor: colors.transparent },
-    textProps: { color: 'green' },
-    disabledProps: {
-      textProps: { color: 'black' },
-    },
-  },
-  light1: {
-    button: { backgroundColor: colors.black, borderColor: colors.black },
-    textProps: { color: 'white' },
-    disabledProps: {
-      button: { backgroundColor: disabledBackground },
-      textProps: { color: 'black' },
-    },
-  },
-  light4: {
-    button: { backgroundColor: colors.transparent },
-    textProps: { color: 'black' },
-    disabledProps: {
-      textProps: { color: 'black' },
-    },
-  },
-  dark1: {
-    button: { backgroundColor: colors.black, borderColor: colors.black },
-    textProps: { color: 'white' },
-    disabledProps: {
-      button: { backgroundColor: disabledBackground },
-      textProps: { color: 'white' },
-    },
-  },
-  dark4: {
-    button: { backgroundColor: colors.transparent },
-    textProps: { color: 'white' },
-    disabledProps: {
-      textProps: { color: 'white' },
-    },
-  },
-}
+type Rank = typeof ranks[number]
+type BackdropColor = typeof backdropColor[number]
+type ButtonPreset = keyof typeof presets
+
+const ranks = [1, 2, 3, 4] as const
+
+const backdropColor = ['white', 'dark', 'light'] as const
 
 const sizes = {
   s: { height: 35 },
   m: { height: 50 },
+} as const
+
+const presets = {
+  white1: {
+    button: { backgroundColor: colors.green, borderColor: colors.green },
+    textProps: { color: colorNames.white },
+    disabledProps: {
+      button: { backgroundColor: disabledBackground },
+      textProps: { color: colorNames.black },
+    },
+  },
+  white2: {
+    button: { backgroundColor: colors.white, borderColor: colors.green },
+    textProps: { color: colorNames.green },
+    disabledProps: {
+      button: { borderColor: colors.whisper },
+      textProps: { color: colorNames.black },
+    },
+  },
+  white3: {
+    button: { backgroundColor: colors.white, borderColor: colors.silver },
+    textProps: { color: colorNames.black },
+    disabledProps: {
+      button: { borderColor: colors.whisper },
+      textProps: { color: colorNames.black },
+    },
+  },
+  white4: {
+    button: { backgroundColor: colors.transparent },
+    textProps: { color: colorNames.green },
+    disabledProps: {
+      button: {},
+      textProps: { color: colorNames.black },
+    },
+  },
+  light1: {
+    button: { backgroundColor: colors.black, borderColor: colors.black },
+    textProps: { color: colorNames.white },
+    disabledProps: {
+      button: { backgroundColor: disabledBackground },
+      textProps: { color: colorNames.black },
+    },
+  },
+  light4: {
+    button: { backgroundColor: colors.transparent },
+    textProps: { color: colorNames.black },
+    disabledProps: {
+      button: {},
+      textProps: { color: colorNames.black },
+    },
+  },
+  dark1: {
+    button: { backgroundColor: colors.black, borderColor: colors.black },
+    textProps: { color: colorNames.white },
+    disabledProps: {
+      button: { backgroundColor: disabledBackground },
+      textProps: { color: colorNames.white },
+    },
+  },
+  dark4: {
+    button: { backgroundColor: colors.transparent },
+    textProps: { color: colorNames.white },
+    disabledProps: {
+      button: {},
+      textProps: { color: colorNames.white },
+    },
+  },
 }
 
 const styles = StyleSheet.create({
@@ -124,16 +141,42 @@ const styles = StyleSheet.create({
   },
   ...sizes,
   ...Object.keys(presets).reduce(
-    (acc, preset) => ({
+    // @ts-ignore
+    (acc, preset: ButtonPreset) => ({
       ...acc,
       [preset]: presets[preset].button,
-      [`${preset}Text`]: presets[preset].text,
-      [`${preset}Disabled`]: (presets[preset].disabledProps || {}).button,
-      [`${preset}DisabledText`]: (presets[preset].disabledProps || {}).text,
+      [`${preset}Disabled`]: presets[preset].disabledProps.button,
     }),
     {},
   ),
 })
+
+type Props = {
+  /** Текст на кнопке. */
+  title: string
+  /** Делает кнопку недоступной для нажатия. */
+  isDisabled: boolean
+  /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
+  isSubmitting?: boolean
+  /** Важность кнопки на странице. */
+  rank?: Rank
+  /** Цвет фона на котором будет располагаться кнопка */
+  backdropColor: BackdropColor
+  /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
+  size: keyof typeof sizes
+  /** Тень кнопки. Используется только с белым backdropColor. */
+  withShadow?: boolean
+  /** Иконка слева от текста. */
+  iconElement: JSX.Element
+  /** Имя для автотестов, прокидывается как testID */
+  name: string
+  /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
+  onPress: (e: GestureResponderEvent) => void
+  /** Дополнительные данные для аналитики */
+  analyticsPayload: {
+    [key: string]: string | number
+  }
+} & TouchableOpacityProps
 
 /**
  * Кнопка, используется для всякого кликабельного. Два параметра, отвечающих за ее внеший вид — `rank` и `backdropColor`.
@@ -142,17 +185,17 @@ const styles = StyleSheet.create({
 const Button = ({
   title,
   isDisabled,
-  isSubmitting,
-  size,
-  rank,
-  backdropColor,
-  withShadow,
+  isSubmitting = false,
+  size = 'm',
+  rank = 1,
+  backdropColor = colorNames.white,
+  withShadow = false,
   iconElement,
   name,
   onPress,
-  analyticsPayload,
+  analyticsPayload = {},
   ...props
-}) => {
+}: Props) => {
   if (
     process.env.NODE_ENV !== 'production' &&
     withShadow === true &&
@@ -166,7 +209,7 @@ const Button = ({
 
   const analyticsContext = useContext(AnalyticsContext)
 
-  const handlePress = e => {
+  const handlePress = (e: GestureResponderEvent) => {
     if (analyticsContext) {
       const { trackEvent, category } = analyticsContext
       trackEvent({
@@ -185,7 +228,7 @@ const Button = ({
     useNativeDriver: Platform.OS !== 'web',
     duration: 100,
   })
-  const preset = `${backdropColor}${rank}`
+  const preset = `${backdropColor}${rank}` as ButtonPreset
   const buttonText = isSubmitting ? 'Подождите...' : title
   return (
     <TouchableOpacity
@@ -247,42 +290,6 @@ const Button = ({
       </Animated.View>
     </TouchableOpacity>
   )
-}
-
-Button.defaultProps = {
-  rank: 1,
-  backdropColor: 'white',
-  size: 'm',
-  withShadow: false,
-  isSubmitting: false,
-  iconElement: null,
-  analyticsPayload: {},
-}
-
-Button.propTypes = {
-  /** Текст на кнопке. */
-  title: PropTypes.string.isRequired,
-  /** Делает кнопку недоступной для нажатия. */
-  isDisabled: PropTypes.bool.isRequired,
-  /** Заменяет текст кнопки на лоадер и делает недоступной для нажатия */
-  isSubmitting: PropTypes.bool,
-  /** Важность кнопки на странице. */
-  rank: PropTypes.oneOf([1, 2, 3, 4]),
-  /** Цвет фона на котором будет располагаться кнопка */
-  backdropColor: PropTypes.oneOf(['white', 'dark', 'light']),
-  /** Размер кнопки. Меняется только высота, т. к. кнопка всегда занимает всю ширину контейнера */
-  size: PropTypes.oneOf(Object.keys(sizes)),
-  /** Тень кнопки. Используется только с белым backdropColor. */
-  withShadow: PropTypes.bool,
-  /** Иконка слева от текста. */
-  iconElement: PropTypes.element,
-  /** Имя для автотестов, прокидывается как testID */
-  name: PropTypes.string.isRequired,
-  /** Коллбек, вызываемый по нажатию. Автоматически отключается, если `isDisabled` или `isSubmitting` заданы как `true`. */
-  onPress: PropTypes.func.isRequired,
-  /** Дополнительные данные для аналитики */
-  // eslint-disable-next-line react/forbid-prop-types
-  analyticsPayload: PropTypes.object,
 }
 
 export default Button
