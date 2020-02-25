@@ -6,6 +6,10 @@ import { fontFamily, sizes } from 'york-web/utils'
 
 import { asInput } from '../utils'
 
+const StyledView = styled.div`
+  flex: 1;
+`
+
 const StyledLabel = styled.label`
   align-items: center;
   display: flex;
@@ -23,6 +27,7 @@ const StyledLabel = styled.label`
     border-radius: calc(${sizes[2]}px + 1px);
     border: 1px solid ${colors.silver};
     background-color: transparent;
+    box-sizing: content-box;
   }
   &:hover:before {
     border: 1px solid ${colors.green};
@@ -38,12 +43,13 @@ const StyledInput = styled.input`
   }
 `
 
-const RadioItem = ({ value, id, name, label }) => {
+const RadioItem = props => {
+  const { value, id, name, label } = props
   return (
-    <>
-      <StyledInput id={id} type="radio" name={name} value={value} />
+    <StyledView>
+      <StyledInput id={id} type="radio" name={name} value={value} {...props} />
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
-    </>
+    </StyledView>
   )
 }
 
