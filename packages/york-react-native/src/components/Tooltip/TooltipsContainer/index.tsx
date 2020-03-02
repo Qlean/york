@@ -2,13 +2,13 @@ import { PanResponder, StyleProp, StyleSheet, View, ViewStyle } from 'react-nati
 import React, { ReactNode, useCallback, useState } from 'react'
 import { Portal } from 'york-react-native/components'
 
-import {portalGateName, TooltipsContext, tooltipsStorageType, hiddenTooltipsStorageType} from '../'
+import {portalGateName, tooltipsContext, TooltipsStorageType, HiddenTooltipsStorageType} from '../'
 
-type stylesType = {
+type StylesType = {
   wrapper: StyleProp<ViewStyle>
 }
 
-const styles: stylesType = StyleSheet.create({
+const styles: StylesType = StyleSheet.create({
   wrapper: {
     position: 'absolute',
     top: 0,
@@ -18,7 +18,7 @@ const styles: stylesType = StyleSheet.create({
   },
 })
 
-type tooltipsContainerProps = {
+type TooltipsContainerProps = {
   children: ReactNode
 }
 
@@ -28,9 +28,9 @@ type tooltipsContainerProps = {
  * 
  * При любом действии пользователя (touch, move, etc.) закрывает активные тултипы.
  */
-export const TooltipsContainer: React.FC<tooltipsContainerProps> = ({ children }) => {
-  const [tooltipsMap, setTooltips] = useState<tooltipsStorageType>({})
-  const [hidden, setHidden] = useState<hiddenTooltipsStorageType>([])
+export const TooltipsContainer: React.FC<TooltipsContainerProps> = ({ children }) => {
+  const [tooltipsMap, setTooltips] = useState<TooltipsStorageType>({})
+  const [hidden, setHidden] = useState<HiddenTooltipsStorageType>([])
 
   const addTooltip = useCallback(
     (text, config) => {
@@ -38,8 +38,6 @@ export const TooltipsContainer: React.FC<tooltipsContainerProps> = ({ children }
         return
       }
       
-      console.log('addTooltip', text, 'to', JSON.stringify(tooltipsMap));
-
       // изменение по ссылке сделано намеренно: при рендере больше 1 тултипа одновременно, несколько вызовов `addTooltip`
       // переписыавют результаты друг друга (т.к. tooltipsMap не успеавет измениться в замыкании)
       tooltipsMap[text] = config
@@ -56,7 +54,7 @@ export const TooltipsContainer: React.FC<tooltipsContainerProps> = ({ children }
       return
     }
 
-    const nextTooltipsMap: tooltipsStorageType = { ...tooltipsMap }
+    const nextTooltipsMap: TooltipsStorageType = { ...tooltipsMap }
     keysToHide.forEach(key => {
       delete nextTooltipsMap[key]
     })
@@ -80,10 +78,10 @@ export const TooltipsContainer: React.FC<tooltipsContainerProps> = ({ children }
 
   return (
     <View style={styles.wrapper} {...panResponder.panHandlers}>
-      <TooltipsContext.Provider value={{ tooltipsMap, addTooltip, hidden, hideVisible }}>
+      <tooltipsContext.Provider value={{ tooltipsMap, addTooltip, hidden, hideVisible }}>
         {children}
         <Portal.GateExit name={portalGateName} />
-      </TooltipsContext.Provider>
+      </tooltipsContext.Provider>
     </View>
   )
 }

@@ -1,15 +1,15 @@
-import React, { useState, useContext, useCallback, useEffect, ReactNode} from 'react'
+import React, { useContext, useEffect} from 'react'
 import { Portal } from 'york-react-native/components'
 
-import {portalGateName, TooltipsContext, tooltipText, ITooltipConfig} from '../'
+import {portalGateName, tooltipsContext, TooltipText, TooltipConfig} from '../'
 
 import Item from './Item'
 
 
 type Props = {
   /** Текст тултипа */
-  text: tooltipText
-  config: ITooltipConfig
+  text: TooltipText
+  config: TooltipConfig
 }
 
 /**
@@ -24,7 +24,7 @@ type Props = {
  * !ВНИМАНИЕ!: для работы тултипов требуется компонент `Portal` и `TooltipsContainer`.
  */
 export const Tooltip: React.FC<Props> = ({ text, config }) => {
-  const { tooltipsMap, addTooltip } = useContext(TooltipsContext)
+  const { tooltipsMap, addTooltip } = useContext(tooltipsContext)
 
   useEffect(() => {
     addTooltip(text, config)

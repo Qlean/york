@@ -6,7 +6,7 @@ import { colors, colorNames } from '@qlean/york-core'
 
 
 const screenMargin = sizes[4]
-const { width: screenWidth, height: screenHeight }: IDimension = Dimensions.get('window')
+const { width: screenWidth, height: screenHeight }: Dimension = Dimensions.get('window')
 
 const pinInnerMargin = sizes[2]
 const pinSide = sizes[3]
@@ -53,9 +53,9 @@ enum SIDE {
 }
 
 function getSide(
-  pinPointDownsideTop: position,
-  pinPointUpsideTop: position,
-  height: dimension,
+  pinPointDownsideTop: PositionUnit,
+  pinPointUpsideTop: PositionUnit,
+  height: DimensionUnit,
   preferredSide: SIDE = SIDE.DOWNSIDE,
 ): SIDE {
   if (preferredSide === SIDE.DOWNSIDE && pinPointDownsideTop + height > screenHeight - screenMargin) {
@@ -70,17 +70,17 @@ function getSide(
 }
 
 const getPosition = (
-  pinPointDownsidePosition: IPositionTL,
-  pinPointUpsidePosition: IPositionTL,
-  { width: resultWidth, height: resultHeight }: IDimension,
+  pinPointDownsidePosition: PositionTL,
+  pinPointUpsidePosition: PositionTL,
+  { width: resultWidth, height: resultHeight }: Dimension,
   preferredSide?: SIDE,
-): [IPositionTL, position, SIDE] => {
+): [PositionTL, PositionUnit, SIDE] => {
   console.log('getPosition', pinPointDownsidePosition, pinPointUpsidePosition);
   const side: SIDE = getSide(pinPointDownsidePosition.top, pinPointUpsidePosition.top, resultHeight, preferredSide)
 
-  const pinLeft: position = side === SIDE.DOWNSIDE ? pinPointDownsidePosition.left : pinPointUpsidePosition.left
-  let left: position
-  let pinInnerLeft: position
+  const pinLeft: PositionUnit = side === SIDE.DOWNSIDE ? pinPointDownsidePosition.left : pinPointUpsidePosition.left
+  let left: PositionUnit
+  let pinInnerLeft: PositionUnit
   if (pinLeft < resultWidth / 2 + screenMargin) {
     left = screenMargin
     pinInnerLeft = pinLeft - screenMargin
@@ -91,8 +91,6 @@ const getPosition = (
     left = pinLeft - resultWidth / 2
     pinInnerLeft = resultWidth / 2
   }
-  
-  console.log('pinInnerLeft', pinInnerLeft);
 
   if (
     (typeof __DEV__ !== 'undefined' && __DEV__ && pinInnerLeft < pinHeight + pinInnerMargin) ||
@@ -113,17 +111,17 @@ const getPosition = (
 
 type ItemProps = {
   text: string
-  width: dimension | undefined
-  pinPointDownside: IPositionTL
-  pinPointUpside: IPositionTL
+  width: DimensionUnit | undefined
+  pinPointDownside: PositionTL
+  pinPointUpside: PositionTL
 }
 
 const Item: React.FC<ItemProps> = ({ text, width, pinPointDownside, pinPointUpside }) => {
-  const [position, setPosition] = useState<IPositionTL>({ top: 0, left: 0 })
-  const [pinInnerLeft, setPinInnerLeft] = useState<position>(0)
+  const [position, setPosition] = useState<PositionTL>({ top: 0, left: 0 })
+  const [pinInnerLeft, setPinInnerLeft] = useState<PositionUnit>(0)
   const [side, setSide] = useState<SIDE>(SIDE.DOWNSIDE)
 
-  const style = useMemo((): { [key: string]: StyleProp<ViewStyle> } => {
+  const style = useMemo((): Record<string, StyleProp<ViewStyle>> => {
     return {
       container: {
         ...styles.container,
@@ -139,9 +137,8 @@ const Item: React.FC<ItemProps> = ({ text, width, pinPointDownside, pinPointUpsi
     }
   }, [position.top, position.left, setPinInnerLeft, side, pinInnerLeft])
   
-  console.log(style)
 
-  const onLayout = ({ nativeEvent: { layout } }: { nativeEvent: { layout: IDimension } }) => {
+  const onLayout = ({ nativeEvent: { layout } }: { nativeEvent: { layout: Dimension } }) => {
     const [nextPos, nextPinInnerLeft, nextSide] = getPosition(pinPointDownside, pinPointUpside, layout)
 
     setPosition(nextPos)

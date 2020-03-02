@@ -1,35 +1,24 @@
 import React, { createContext, useState, useCallback, useContext, useEffect, Fragment, ReactNode } from 'react'
 
-type gateNameType = string
-type portalCargoType = ReactNode
-type portalsStorageType = {
-  [gateName: string]: portalCargoType
-}
-type exitsType = gateNameType[]
+type GateNameType = string
+type PortalCargoType = ReactNode
+type PortalsStorageType = Record<GateNameType, PortalCargoType>
+type ExitsType = GateNameType[]
+type MakeTunnel = (name: GateNameType, element: PortalCargoType) => void
+type CloseTunnel = (name: GateNameType) => void
+type RegisterExit = (name: GateNameType) => void 
+type UnregisterExit = (name: GateNameType) => void 
 
-interface IMakeTunnel {
-  (name: gateNameType, element: portalCargoType): void
-}
-interface ICloseTunnel {
-  (name: gateNameType): void
-}
-interface IRegisterExit {
-  (name: gateNameType): void
-}
-interface IUnregisterExit {
-  (name: gateNameType): void
+interface PortalContext {
+  dataMap: PortalsStorageType
+  makeTunnel: MakeTunnel
+  closeTunnel: CloseTunnel
+  exits: ExitsType
+  registerExit: RegisterExit
+  unregisterExit: UnregisterExit
 }
 
-interface IPortalContext {
-  dataMap: portalsStorageType
-  makeTunnel: IMakeTunnel
-  closeTunnel: ICloseTunnel
-  exits: exitsType
-  registerExit: IRegisterExit
-  unregisterExit: IUnregisterExit
-}
-
-const PortalContext = createContext<IPortalContext>({
+const portalContext = createContext<PortalContext>({
   dataMap: {},
   makeTunnel: () => null,
   closeTunnel: () => null,
@@ -41,9 +30,9 @@ const PortalContext = createContext<IPortalContext>({
 type ProviderProps = { children: ReactNode }
 
 const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
-  const [dataMap, setData] = useState<portalsStorageType>({})
+  const [dataMap, setData] = useState<PortalsStorageType>({})
 
-  const makeTunnel = useCallback<IMakeTunnel>(
+  const makeTunnel = useCallback<MakeTunnel>(
     (gateName, element) => {
       dataMap[gateName] = element
 
@@ -51,7 +40,7 @@ const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
     },
     [dataMap],
   )
-  const closeTunnel = useCallback<ICloseTunnel>(
+  const closeTunnel = useCallback<CloseTunnel>(
     gateName => {
       delete dataMap[gateName]
 
@@ -60,9 +49,9 @@ const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
     [dataMap],
   )
 
-  const [exits, setExit] = useState<exitsType>([])
+  const [exits, setExit] = useState<ExitsType>([])
 
-  const registerExit = useCallback<IRegisterExit>(
+  const registerExit = useCallback<RegisterExit>(
     name => {
       if (exits.includes(name)) {
         return
@@ -75,7 +64,7 @@ const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
     [exits],
   )
 
-  const unregisterExit = useCallback<IUnregisterExit>(
+  const unregisterExit = useCallback<UnregisterExit>(
     name => {
       if (!exits.includes(name)) {
         return
@@ -90,7 +79,7 @@ const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
   )
 
   return (
-    <PortalContext.Provider
+    <portalContext.Provider
       value={{
         dataMap,
         exits,
@@ -101,24 +90,22 @@ const PortalProvider: React.FC<ProviderProps> = ({ children }) => {
       }}
     >
       {children}
-    </PortalContext.Provider>
+    </portalContext.Provider>
   )
 }
 
 type PortalGateEnterProps = {
-  targetName: gateNameType
-  children: portalCargoType
+  targetName: GateNameType
+  children: PortalCargoType
 }
 
 const PortalGateEnter: React.FC<PortalGateEnterProps> = ({ targetName, children }) => {
-  const { makeTunnel, closeTunnel } = useContext(PortalContext)
+  const { makeTunnel, closeTunnel } = useContext(portalContext)
 
   useEffect(() => {
-    console.log('PortalGateEnter makeTunnel for ', JSON.stringify(targetName));
     makeTunnel(targetName, children)
 
     return () => {
-      console.log('PortalGateEnter closeTunnel for ', targetName);
       closeTunnel(targetName) 
     }
   }, [targetName, children])
@@ -127,17 +114,15 @@ const PortalGateEnter: React.FC<PortalGateEnterProps> = ({ targetName, children 
 }
 
 type PortalGateExitProps = {
-  name: gateNameType
+  name: GateNameType
 }
 const PortalGateExit: React.FC<PortalGateExitProps> = ({ name }) => {
-  const { dataMap, registerExit, unregisterExit } = useContext(PortalContext)
+  const { dataMap, registerExit, unregisterExit } = useContext(portalContext)
 
   useEffect(() => {
-    console.log('registerExit with name', JSON.stringify(name));
     registerExit(name)
 
     return () => {
-      console.log('unregisterExit1 with name', JSON.stringify(name));
       unregisterExit(name)
     }
   }, [name])
@@ -146,10 +131,10 @@ const PortalGateExit: React.FC<PortalGateExitProps> = ({ name }) => {
 }
 
 const PortalDefaultGateExit: React.FC = () => {
-  const { dataMap, exits } = useContext(PortalContext)
+  const { dataMap, exits } = useContext(portalContext)
 
-  const elementsToRender = Object.entries(dataMap).reduce<portalCargoType[]>(
-    (acc, [gateName, element]: [gateNameType, portalCargoType]) => {
+  const elementsToRender = Object.entries(dataMap).reduce<PortalCargoType[]>(
+    (acc, [gateName, element]: [GateNameType, PortalCargoType]) => {
       if (exits.includes(gateName)) {
         return acc
       }

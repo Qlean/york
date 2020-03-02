@@ -1,12 +1,12 @@
-declare type position = number
-declare type dimension = number
+declare type PositionUnit = number
+declare type DimensionUnit = number
 
-declare interface IPositionTL {
-  top: position
-  left: position
+declare interface PositionTL {
+  top: PositionUnit
+  left: PositionUnit
 }
 
-declare interface IDimension {
-  width: dimension
-  height: dimension
+declare interface Dimension {
+  width: DimensionUnit
+  height: DimensionUnit
 }

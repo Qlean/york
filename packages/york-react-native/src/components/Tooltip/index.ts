@@ -1,34 +1,28 @@
 import React from 'react'
 
-export type tooltipText = string
+export type TooltipText = string
 
-export interface ITooltipConfig {
-  width: dimension | undefined
-  pinPointDownside: IPositionTL
-  pinPointUpside: IPositionTL
+export interface TooltipConfig {
+  width?: DimensionUnit
+  pinPointDownside: PositionTL
+  pinPointUpside: PositionTL
 }
 
-export type tooltipsStorageType = { [key: string]: ITooltipConfig }
-export type hiddenTooltipsStorageType = tooltipText[]
+export type TooltipsStorageType = Record<TooltipText, TooltipConfig> 
+export type HiddenTooltipsStorageType = TooltipText[]
+export type AddTooltip = (text: TooltipText, config: TooltipConfig) => void 
+export type HideVisible = () => void 
 
-export interface IAddTooltip {
-  (text: tooltipText, config: ITooltipConfig): void
-}
-export interface IHideVisible {
-  (): void
-}
-
-export interface ITooltipContext {
-  tooltipsMap: tooltipsStorageType
-  addTooltip: IAddTooltip
-  hidden: hiddenTooltipsStorageType
-  hideVisible: IHideVisible
+export interface TooltipContext {
+  tooltipsMap: TooltipsStorageType
+  addTooltip: AddTooltip
+  hidden: HiddenTooltipsStorageType
+  hideVisible: HideVisible
 }
 
-type portalName = string
-export const portalGateName: portalName = 'tooltips'
+export const portalGateName = 'tooltips'
 
-export const TooltipsContext = React.createContext<ITooltipContext>({
+export const tooltipsContext = React.createContext<TooltipContext>({
   tooltipsMap: {},
   addTooltip: () => null,
   hidden: [],
