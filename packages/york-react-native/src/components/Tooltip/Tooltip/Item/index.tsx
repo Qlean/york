@@ -75,7 +75,6 @@ const getPosition = (
   { width: resultWidth, height: resultHeight }: Dimension,
   preferredSide?: SIDE,
 ): [PositionTL, PositionUnit, SIDE] => {
-  console.log('getPosition', pinPointDownsidePosition, pinPointUpsidePosition);
   const side: SIDE = getSide(pinPointDownsidePosition.top, pinPointUpsidePosition.top, resultHeight, preferredSide)
 
   const pinLeft: PositionUnit = side === SIDE.DOWNSIDE ? pinPointDownsidePosition.left : pinPointUpsidePosition.left
