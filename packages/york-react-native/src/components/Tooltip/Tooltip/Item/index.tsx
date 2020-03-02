@@ -110,7 +110,7 @@ const getPosition = (
 
 type ItemProps = {
   text: string
-  width: DimensionUnit | undefined
+  width?: DimensionUnit
   pinPointDownside: PositionTL
   pinPointUpside: PositionTL
 }
