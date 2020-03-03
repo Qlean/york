@@ -14,12 +14,7 @@ const StyledModal = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(
-    ${rgbaColors.black.r},
-    ${rgbaColors.black.g},
-    ${rgbaColors.black.b},
-    0.5
-  );
+  background-color: rgba(${rgbaColors.black.r}, ${rgbaColors.black.g}, ${rgbaColors.black.b}, 0.5);
 `
 
 let mountedNodes = []
@@ -66,13 +61,7 @@ const getPortal = selector => {
  */
 
 let node
-const Modal = ({
-  isOpen,
-  children,
-  onRequestClose,
-  portalSelector,
-  ...rest
-}) => {
+const Modal = ({ isOpen, children, onRequestClose, portalSelector, ...rest }) => {
   const bodyRef = useRef()
   const scrollYRef = useRef()
 
@@ -98,8 +87,7 @@ const Modal = ({
   const lockBodyScroll = () => {
     scrollYRef.current = window.scrollY
 
-    const scrollBarWidth =
-      window.innerWidth - document.documentElement.clientWidth
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
 
     const lockStyles = {
       top: `-${scrollYRef.current}px`,
@@ -145,15 +133,21 @@ const Modal = ({
     if (!node || nodeRef.current) {
       node = nodeRef.current
     }
+  }, [isOpen])
 
-    if (isOpen) {
-      mountNode(node)
-      setIsMounted(true)
-    } else {
-      unmountNode(node)
-      setIsMounted(false)
+  useEffect(() => {
+    if (node) {
+      if (isOpen) {
+        mountNode(node)
+        setIsMounted(true)
+      } else {
+        unmountNode(node)
+        setIsMounted(false)
+      }
     }
+  }, [isOpen])
 
+  useEffect(() => {
     /**
      * Логика блока скролла связана не с конкретным модальным окном, а с тем открыты ли вообще
      * какие-то модальные окна. Если этого не делать, то при множественных модальных окнах скролл
@@ -166,7 +160,9 @@ const Modal = ({
     }
 
     return () => {
-      unmountNode(node)
+      if (node) {
+        unmountNode(node)
+      }
       if (!mountedNodes.length) {
         unlockBodyScroll()
       }
@@ -201,13 +197,7 @@ const Modal = ({
     <>
       {isOpen && isMounted
         ? ReactDOM.createPortal(
-            <StyledModal
-              ref={overlayRef}
-              onMouseDown={onMouseDown}
-              onMouseUp={onMouseUp}
-              onClick={onClick}
-              {...rest}
-            >
+            <StyledModal ref={overlayRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onClick={onClick} {...rest}>
               {children}
             </StyledModal>,
             node,
