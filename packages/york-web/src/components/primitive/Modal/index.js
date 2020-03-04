@@ -14,12 +14,7 @@ const StyledModal = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(
-    ${rgbaColors.black.r},
-    ${rgbaColors.black.g},
-    ${rgbaColors.black.b},
-    0.5
-  );
+  background-color: rgba(${rgbaColors.black.r}, ${rgbaColors.black.g}, ${rgbaColors.black.b}, 0.5);
 `
 
 let mountedNodes = []
@@ -64,13 +59,9 @@ const getPortal = selector => {
  * Модальное окно. Включает в себя оверлей на весь экран. Блокирует скроллинг на `<body>`,
  * закрывается по нажатию на Esc. Не стилизует контент и не вмешивается в его позиционирование.
  */
-const Modal = ({
-  isOpen,
-  children,
-  onRequestClose,
-  portalSelector,
-  ...rest
-}) => {
+
+let node
+const Modal = ({ isOpen, children, onRequestClose, portalSelector, ...rest }) => {
   const bodyRef = useRef()
   const scrollYRef = useRef()
 
@@ -96,8 +87,7 @@ const Modal = ({
   const lockBodyScroll = () => {
     scrollYRef.current = window.scrollY
 
-    const scrollBarWidth =
-      window.innerWidth - document.documentElement.clientWidth
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
 
     const lockStyles = {
       top: `-${scrollYRef.current}px`,
@@ -140,16 +130,29 @@ const Modal = ({
   }, [])
 
   useEffect(() => {
-    const node = nodeRef.current
-
-    if (isOpen) {
-      mountNode(node)
-      setIsMounted(true)
-    } else {
-      unmountNode(node)
-      setIsMounted(false)
+    if (!node || nodeRef.current) {
+      node = nodeRef.current
     }
+  }, [isOpen])
 
+  useEffect(() => {
+    if (node) {
+      if (isOpen) {
+        mountNode(node)
+        setIsMounted(true)
+      } else {
+        unmountNode(node)
+        setIsMounted(false)
+      }
+    }
+    return () => {
+      if (node) {
+        unmountNode(node)
+      }
+    }
+  }, [isOpen])
+
+  useEffect(() => {
     /**
      * Логика блока скролла связана не с конкретным модальным окном, а с тем открыты ли вообще
      * какие-то модальные окна. Если этого не делать, то при множественных модальных окнах скролл
@@ -162,7 +165,6 @@ const Modal = ({
     }
 
     return () => {
-      unmountNode(node)
       if (!mountedNodes.length) {
         unlockBodyScroll()
       }
@@ -197,16 +199,10 @@ const Modal = ({
     <>
       {isOpen && isMounted
         ? ReactDOM.createPortal(
-            <StyledModal
-              ref={overlayRef}
-              onMouseDown={onMouseDown}
-              onMouseUp={onMouseUp}
-              onClick={onClick}
-              {...rest}
-            >
+            <StyledModal ref={overlayRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onClick={onClick} {...rest}>
               {children}
             </StyledModal>,
-            nodeRef.current,
+            node,
           )
         : null}
     </>
