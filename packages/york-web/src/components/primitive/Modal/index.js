@@ -145,6 +145,11 @@ const Modal = ({ isOpen, children, onRequestClose, portalSelector, ...rest }) =>
         setIsMounted(false)
       }
     }
+    return () => {
+      if (node) {
+        unmountNode(node)
+      }
+    }
   }, [isOpen])
 
   useEffect(() => {
@@ -160,9 +165,6 @@ const Modal = ({ isOpen, children, onRequestClose, portalSelector, ...rest }) =>
     }
 
     return () => {
-      if (node) {
-        unmountNode(node)
-      }
       if (!mountedNodes.length) {
         unlockBodyScroll()
       }
