@@ -34,7 +34,9 @@ const defaultMessageObject: messageObject = {
 
 type Props = {
   /** Сообщение */
-  message: messageType
+  message: messageType,
+  index: number,
+  count: number,
 }
 
 const styles = StyleSheet.create({
@@ -87,21 +89,24 @@ const normalizeMessage = (message: messageType): messageObject => {
 /**
  * Уведомление
  */
-const Message = ({ message }: Props) => {
+const Message = ({ message, index, count }: Props) => {
   const {
     text,
     icon,
     onPress,
   } = normalizeMessage(message)
   const imageSource = icon === 'error' ? errorImage : successImage
+  const isBehind = index < count - 1
 
   return (
     <TouchableOpacity disabled={!onPress} onPress={onPress}>
-      {/* <SafeAreaView /> */}
+      <SafeAreaView />
       <View
         style={{
           ...styles.root,
           paddingHorizontal: icon ? sizes[3] : sizes[4],
+          opacity: isBehind ? 0.8 : 1,
+          zIndex: index + 1,
         }}
       >
         <View>
