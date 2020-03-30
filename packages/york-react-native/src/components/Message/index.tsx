@@ -2,8 +2,6 @@ import React from 'react'
 import { GestureResponderEvent } from 'react-native'
 import {
   Image,
-  Platform,
-  SafeAreaView,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -36,18 +34,17 @@ type Props = {
   /** Сообщение */
   message: messageType,
   index: number,
-  count: number,
 }
 
 const styles = StyleSheet.create({
   root: {
+    marginTop: sizes[1],
+    marginHorizontal: sizes[1],
     backgroundColor: colors.coal,
     paddingVertical: sizes[3],
-    marginTop: Platform.OS === 'android' ? 0 : -20,
     minHeight: sizes[12],
     justifyContent: 'center',
-    borderBottomLeftRadius: borderRadiuses.small,
-    borderBottomRightRadius: borderRadiuses.small,
+    borderRadius: borderRadiuses.small,
   },
   messageView: {
     flexDirection: 'row',
@@ -89,24 +86,22 @@ const normalizeMessage = (message: messageType): messageObject => {
 /**
  * Уведомление
  */
-const Message = ({ message, index, count }: Props) => {
+const Message = ({ message, index }: Props) => {
   const {
     text,
     icon,
     onPress,
   } = normalizeMessage(message)
   const imageSource = icon === 'error' ? errorImage : successImage
-  const isBehind = index < count - 1
+  const isBehind = index > 0
 
   return (
     <TouchableOpacity disabled={!onPress} onPress={onPress}>
-      <SafeAreaView />
       <View
         style={{
           ...styles.root,
           paddingHorizontal: icon ? sizes[3] : sizes[4],
-          opacity: isBehind ? 0.8 : 1,
-          zIndex: index + 1,
+          opacity: isBehind ? 0.8 : 0.95,
         }}
       >
         <View>
