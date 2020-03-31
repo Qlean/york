@@ -17,14 +17,14 @@ import {
 const errorImage = require('./assets/error.png')
 const successImage = require('./assets/success.png')
 
-type messageObject = {
+type MessageObject = {
   text: string,
   icon?: 'success' | 'error',
   onPress?: (event: GestureResponderEvent) => void,
 }
-type messageType = string | Error | messageObject
+export type Message = string | Error | MessageObject
 
-const defaultMessageObject: messageObject = {
+const defaultMessageObject: MessageObject = {
   text: '',
   icon: undefined,
   onPress: undefined,
@@ -32,14 +32,16 @@ const defaultMessageObject: messageObject = {
 
 type Props = {
   /** Сообщение */
-  message: messageType,
+  message: Message,
   index: number,
+  count: number,
+  hideMessage?: () => void,
 }
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: sizes[1],
-    marginHorizontal: sizes[1],
+    marginTop: sizes[2],
+    marginHorizontal: sizes[2],
     backgroundColor: colors.coal,
     paddingVertical: sizes[3],
     minHeight: sizes[12],
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const normalizeMessage = (message: messageType): messageObject => {
+const normalizeMessage = (message: Message): MessageObject => {
   if (typeof message === 'string') {
     return {
       ...defaultMessageObject,
@@ -86,14 +88,14 @@ const normalizeMessage = (message: messageType): messageObject => {
 /**
  * Уведомление
  */
-const Message = ({ message, index }: Props) => {
+const Message = ({ message, index, count }: Props) => {
   const {
     text,
     icon,
     onPress,
   } = normalizeMessage(message)
   const imageSource = icon === 'error' ? errorImage : successImage
-  const isBehind = index > 0
+  const isBehind = index < count - 1
 
   return (
     <TouchableOpacity disabled={!onPress} onPress={onPress}>
@@ -101,7 +103,7 @@ const Message = ({ message, index }: Props) => {
         style={{
           ...styles.root,
           paddingHorizontal: icon ? sizes[3] : sizes[4],
-          opacity: isBehind ? 0.8 : 0.95,
+          opacity: isBehind ? 0.8 : 1,
         }}
       >
         <View>
