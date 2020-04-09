@@ -163,6 +163,7 @@ const Picker = ({
   error = '',
   isDisabled,
   onChange,
+  onModalStateChange,
 }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
