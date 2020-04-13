@@ -32,8 +32,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
  * Dimensions возвращает полную высоту экрана, поэтому на Андроиде нужно компенсировать высоту
  * статус бара.
  * */
-const statusBarHeight =
-  Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0
+const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0
 
 const totalVerticalPadding = uiPoint * 28
 const maxPickerHeight = screenHeight - totalVerticalPadding - statusBarHeight
@@ -99,8 +98,7 @@ const styles = StyleSheet.create({
     /**
      * На Андроиде скругление не работает как задумано и выглядит инородно из-за прямых скроллбаров
      */
-    borderRadius:
-      Platform.OS === 'ios' ? borderRadiuses.small : borderRadiuses.none,
+    borderRadius: Platform.OS === 'ios' ? borderRadiuses.small : borderRadiuses.none,
   },
   pickerContent: {
     paddingVertical: pickerContentPaddingVertical,
@@ -143,6 +141,8 @@ type Props = {
   isDisabled?: boolean
   /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
   onChange: Function
+  /** Коллбек, вызываемый при изменении состояния модалки */
+  onModalStateChange: Function
 }
 
 /**
@@ -163,13 +163,11 @@ const Picker = ({
   error = '',
   isDisabled,
   onChange,
+  onModalStateChange,
 }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const pickerHeight = Math.min(
-    options.length * pickerItemHeight + pickerContentPaddingVertical * 2,
-    maxPickerHeight,
-  )
+  const pickerHeight = Math.min(options.length * pickerItemHeight + pickerContentPaddingVertical * 2, maxPickerHeight)
   const valueLabel = (options.find(item => item.value === value) || {}).label
   const withValue = !R.isNil(valueLabel) && value !== ''
   const withTitle = Boolean(title)
@@ -178,10 +176,12 @@ const Picker = ({
 
   const showModal = () => {
     Keyboard.dismiss()
+    onModalStateChange(true)
     setIsModalVisible(true)
   }
 
   const hideModal = () => {
+    onModalStateChange(false)
     setIsModalVisible(false)
   }
 
@@ -204,19 +204,8 @@ const Picker = ({
         </Text>
       )}
       {(withTitle || withCaption) && <Separator height={1} />}
-      <View
-        style={[
-          styles.input,
-          withError && !isDisabled && styles.inputError,
-          isDisabled && styles.inputDisabled,
-        ]}
-      >
-        <TouchableOpacity
-          testID={name}
-          style={styles.inputContent}
-          disabled={isDisabled}
-          onPress={showModal}
-        >
+      <View style={[styles.input, withError && !isDisabled && styles.inputError, isDisabled && styles.inputDisabled]}>
+        <TouchableOpacity testID={name} style={styles.inputContent} disabled={isDisabled} onPress={showModal}>
           <Text
             style={styles.inputText}
             color={withValue && !isDisabled ? colorNames.coal : colorNames.grey}
@@ -226,11 +215,7 @@ const Picker = ({
           </Text>
           <Image
             style={styles.inputIcon}
-            source={
-              isDisabled
-                ? require('./assets/chevronDisabled.png')
-                : require('./assets/chevron.png')
-            }
+            source={isDisabled ? require('./assets/chevronDisabled.png') : require('./assets/chevron.png')}
           />
         </TouchableOpacity>
       </View>
@@ -244,12 +229,7 @@ const Picker = ({
       )}
       {/* react-native-web не поддерживает Modal */}
       {Platform.OS !== 'web' && (
-        <Modal
-          animationType="fade"
-          transparent
-          visible={isModalVisible}
-          onRequestClose={hideModal}
-        >
+        <Modal animationType="fade" transparent visible={isModalVisible} onRequestClose={hideModal}>
           <View style={styles.modalBackground} />
           <TouchableWithoutFeedback onPress={hideModal}>
             <View style={styles.modal} />
@@ -264,12 +244,7 @@ const Picker = ({
                       underlayColor={colors.coal}
                       onPress={onItemPress(item.value, i)}
                     >
-                      <View
-                        style={[
-                          styles.pickerItem,
-                          value === item.value && styles.pickerItemSelected,
-                        ]}
-                      >
+                      <View style={[styles.pickerItem, value === item.value && styles.pickerItemSelected]}>
                         <Text numberOfLines={1}>{item.label}</Text>
                       </View>
                     </TouchableHighlight>
