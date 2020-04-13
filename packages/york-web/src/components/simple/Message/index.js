@@ -11,6 +11,7 @@ const SuccessImage = require('./assets/success.svg')
 
 const MessageWrapper = styled.div`
   background-color: ${colors.coal};
+  opacity: ${props => props.opacity || 1};
   padding: ${sizes[3]}px;
   border-radius: ${borderRadiuses.small};
   min-width: 300px;
@@ -39,6 +40,7 @@ const SuccessIcon = styled(SuccessImage)`
 
 const StyledText = styled(Text)`
   color: ${colors.smoke};
+  flex: 1;
 `
 
 const defaultMessageObject = {
@@ -83,11 +85,12 @@ const getIcon = icon => {
 /**
  * Уведомление
  */
-const Message = ({ message }) => {
+const Message = ({ message, index, count }) => {
   const { text, icon, onClick } = normalizeMessage(message)
+  const isBehind = index < count - 1
 
   return (
-    <MessageWrapper onClick={onClick}>
+    <MessageWrapper onClick={onClick} opacity={isBehind ? 0.8 : 1}>
       <MessageView>
         {icon && getIcon(icon)}
         <StyledText preset="caption">{text}</StyledText>
@@ -106,6 +109,8 @@ Message.propTypes = {
       onClick: PropTypes.func,
     }),
   ]).isRequired,
+  index: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
 }
 
 export default Message
