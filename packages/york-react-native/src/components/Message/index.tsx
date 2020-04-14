@@ -30,9 +30,10 @@ const defaultMessageObject: MessageObject = {
 type Props = {
   /** Сообщение */
   message: Message,
+  /** Индекс сообщения в массиве сообщений */
   index: number,
+  /** Общее количество сообщений в массиве */
   count: number,
-  hideMessage?: () => void,
 }
 
 const styles = StyleSheet.create({
