@@ -8,14 +8,11 @@ import {
 } from 'react-native'
 import { colors } from '@qlean/york-core'
 
-import { Text } from 'york-react-native/components'
+import { Icon, Text } from 'york-react-native/components'
 import {
   borderRadiuses,
   sizes,
 } from 'york-react-native/utils/styles'
-
-const errorImage = require('./assets/error.png')
-const successImage = require('./assets/success.png')
 
 type MessageObject = {
   text: string,
@@ -57,8 +54,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   icon: {
-    width: 24,
-    height: 24,
     marginRight: sizes[3],
   }
 })
@@ -94,7 +89,6 @@ const Message = ({ message, index, count }: Props) => {
     icon,
     onPress,
   } = useMemo(() => normalizeMessage(message), [message])
-  const imageSource = icon === 'error' ? errorImage : successImage
   const isBehind = index < count - 1
 
   return (
@@ -108,7 +102,7 @@ const Message = ({ message, index, count }: Props) => {
       >
         <View>
           <View style={styles.messageView}>
-            {icon && <Image source={imageSource} style={styles.icon} />}
+            {icon && <Icon name={icon} style={styles.icon} />}
             <Text style={styles.text} preset="caption">{text}</Text>
           </View>
         </View>

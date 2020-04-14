@@ -14,6 +14,8 @@ const icons = {
   back: require('./assets/back.png'),
   close: require('./assets/close.png'),
   arrow: require('./assets/arrow.png'),
+  error: require('./assets/error.png'),
+  success: require('./assets/success.png'),
 }
 
 type Props = {
