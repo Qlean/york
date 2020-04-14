@@ -21,32 +21,35 @@ const styles = StyleSheet.create({
 });
 
 export type Notification = {
+  /** Сообщение */
   message: Message,
+  /** Параметры сообщения */
   config: Config,
+  /** Значение анимации */
   isVisibleAnimValue?: Animated.Value,
+  /** Ключ */
   key?: string,
 }
 
 export type Config = {
+  /** Время отображения сообщения в мс */
   duration: number,
-  slideAnimationOffset: number,
-  showAnimationDuration: number,
-  hideAnimationDuration: number,
-  closeOnSwipe: boolean,
 }
 
 type Props = {
+  /** Время отображения 2 уведомлений одновременно на экране */
   overlayDuration: number,
+  /** Компонент для отображения сообщения */
   messageComponent: typeof MessageComponent,
 }
 
 const defaultConfig: Config = {
   duration: 1000,
-  slideAnimationOffset: 40,
-  showAnimationDuration: 255,
-  hideAnimationDuration: 255,
-  closeOnSwipe: true,
 };
+
+const slideAnimationOffset = 40;
+const showAnimationDuration = 255;
+const hideAnimationDuration = 255;
 
 type State = {
   notifications: ReadonlyArray<Notification>,
@@ -70,8 +73,7 @@ export default class MessageBar extends Component<Props, State> {
   componentDidMount() {
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (e, gesture) => (
-        defaultConfig.closeOnSwipe
-        && gesture.dy < -MIN_SWIPE_DISTANCE
+        gesture.dy < -MIN_SWIPE_DISTANCE
         && gesture.vy < -MIN_SWIPE_VELOCITY
       ),
       onPanResponderMove: () => {
@@ -115,7 +117,7 @@ export default class MessageBar extends Component<Props, State> {
     const notification = notifications.find(itemOfNotifications => itemOfNotifications.message === notificationParam.message);
 
     if (notification && notification.isVisibleAnimValue) {
-      const { duration, showAnimationDuration } = notification.config;
+      const { duration } = notification.config;
       notification.isVisibleAnimValue.setValue(0);
 
       Animated.timing(
@@ -146,7 +148,6 @@ export default class MessageBar extends Component<Props, State> {
       : notifications.findIndex(itemOfNotifications => itemOfNotifications.message === notifications[notifications.length -1].message)
 
     if (notification && notification.isVisibleAnimValue && notifications.includes(notification)) {
-      const { hideAnimationDuration } = notification.config;
 
       Animated.timing(
         notification.isVisibleAnimValue,
@@ -168,7 +169,6 @@ export default class MessageBar extends Component<Props, State> {
   render() {
     const { notifications } = this.state;
     const { messageComponent: MessageComponent } = this.props;
-    const { slideAnimationOffset } = defaultConfig;
     const panHandlers = this.panResponder ? this.panResponder.panHandlers : {}
 
     return (
@@ -200,7 +200,6 @@ export default class MessageBar extends Component<Props, State> {
                     {notification && (
                       <MessageComponent
                         message={notification.message}
-                        hideMessage={() => this.hideMessage(notification)}
                         index={index}
                         count={notifications.length}
                       />
