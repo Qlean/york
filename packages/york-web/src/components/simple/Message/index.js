@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
@@ -86,7 +86,7 @@ const getIcon = icon => {
  * Уведомление
  */
 const Message = ({ message, index, count }) => {
-  const { text, icon, onClick } = normalizeMessage(message)
+  const { text, icon, onClick } = useMemo(() => normalizeMessage(message), [message])
   const isBehind = index < count - 1
 
   return (

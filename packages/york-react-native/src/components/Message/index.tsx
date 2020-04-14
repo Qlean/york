@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { GestureResponderEvent } from 'react-native'
 import {
   Image,
@@ -93,7 +93,7 @@ const Message = ({ message, index, count }: Props) => {
     text,
     icon,
     onPress,
-  } = normalizeMessage(message)
+  } = useMemo(() => normalizeMessage(message), [message])
   const imageSource = icon === 'error' ? errorImage : successImage
   const isBehind = index < count - 1
 
