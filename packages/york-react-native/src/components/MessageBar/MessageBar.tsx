@@ -109,15 +109,13 @@ export default class MessageBar extends Component<Props, State> {
     );
   }
 
-  showMessage(n: Notification) {
+  showMessage(notificationParam: Notification) {
     const { overlayDuration } = this.props;
     const { notifications } = this.state;
-    const notification = notifications.find(notif => notif.message === n.message);
+    const notification = notifications.find(itemOfNotifications => itemOfNotifications.message === notificationParam.message);
 
     if (notification && notification.isVisibleAnimValue) {
-
       const { duration, showAnimationDuration } = notification.config;
-
       notification.isVisibleAnimValue.setValue(0);
 
       Animated.timing(
@@ -136,16 +134,16 @@ export default class MessageBar extends Component<Props, State> {
     }
   }
 
-  hideMessage(n?: Notification) {
+  hideMessage(notificationParam?: Notification) {
     const { notifications } = this.state;
 
-    const notification = n 
-      ? notifications.find(notif => notif.message === n.message)
+    const notification = notificationParam 
+      ? notifications.find(itemOfNotifications => itemOfNotifications.message === notificationParam.message)
       : notifications[notifications.length - 1];
 
-    const notificationIndex = n
-      ? notifications.findIndex(notif => notif.message === n.message)
-      : notifications.findIndex(notif => notif.message === notifications[notifications.length -1].message)
+    const notificationIndex = notificationParam
+      ? notifications.findIndex(itemOfNotifications => itemOfNotifications.message === notificationParam.message)
+      : notifications.findIndex(itemOfNotifications => itemOfNotifications.message === notifications[notifications.length -1].message)
 
     if (notification && notification.isVisibleAnimValue && notifications.includes(notification)) {
       const { hideAnimationDuration } = notification.config;
@@ -160,7 +158,7 @@ export default class MessageBar extends Component<Props, State> {
       ).start(() => {
         if (notifications.includes(notification)) {
           this.setState({
-            notifications: notifications.filter((notif, index) => index !== notificationIndex),
+            notifications: notifications.filter((itemOfNotifications, index) => index !== notificationIndex),
           });
         }
       });
