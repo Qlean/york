@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { colors } from '@qlean/york-core'
 import styled from 'styled-components'
 
-import { sizes, uiPoint, borderRadiuses } from 'york-web/utils'
+import { sizes, borderRadiuses } from 'york-web/utils'
 import { Text } from 'york-web/components/primitive'
 
 const ErrorImage = require('./assets/error.svg')
