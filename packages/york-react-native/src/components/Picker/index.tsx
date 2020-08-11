@@ -142,7 +142,7 @@ type Props = {
   /** Коллбек, вызываемый при изменении значения с аргументами `value` и `index` */
   onChange: Function
   /** Коллбек, вызываемый при изменении состояния модалки */
-  onModalStateChange: Function
+  onModalStateChange?: Function
 }
 
 /**
@@ -176,12 +176,16 @@ const Picker = ({
 
   const showModal = () => {
     Keyboard.dismiss()
-    onModalStateChange(true)
+    if (onModalStateChange) {
+      onModalStateChange(true)
+    }
     setIsModalVisible(true)
   }
 
   const hideModal = () => {
-    onModalStateChange(false)
+    if (onModalStateChange) {
+      onModalStateChange(false)
+    }
     setIsModalVisible(false)
   }
 
