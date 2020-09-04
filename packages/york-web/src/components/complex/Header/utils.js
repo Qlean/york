@@ -11,16 +11,14 @@ export const menuItemShape = PropTypes.exact({
 
 export const callbacksShape = PropTypes.objectOf(PropTypes.func.isRequired)
 
-export const componentsShape = PropTypes.objectOf(
-  PropTypes.elementType.isRequired,
-)
+export const componentsShape = PropTypes.objectOf(PropTypes.elementType.isRequired)
 
 export const headerPropTypes = {
   isNavigationAvailable: PropTypes.bool.isRequired,
   isProfileAvailable: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isPlusSubscriber: PropTypes.bool.isRequired,
-  defaultTab: PropTypes.string.isRequired,
+  defaultTab: PropTypes.string,
   selectedLevelOneItem: PropTypes.string,
   selectedLevelTwoItem: PropTypes.string,
   selectedProfileItem: PropTypes.string,
@@ -33,6 +31,7 @@ export const headerPropTypes = {
     tabs: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
     profile: PropTypes.arrayOf(menuItemShape.isRequired).isRequired,
   }).isRequired,
+  hideTabs: PropTypes.bool,
 }
 
 /*
