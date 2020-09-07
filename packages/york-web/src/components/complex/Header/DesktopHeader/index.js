@@ -88,7 +88,7 @@ export default function DesktopHeader({
                   <Link href={tab.href} name="logo">
                     <Logo />
                   </Link>
-                  {isNavigationAvailable && (
+                  {isNavigationAvailable && !hideTabs && (
                     <>
                       <Separator width={3} />
                       <Tabs defaultTab={defaultTab} tabs={tabs} />
@@ -106,7 +106,7 @@ export default function DesktopHeader({
                       <Phone phone={phone} />
                     </StyledTopMenuItem>
                   )}
-                  {isProfileAvailable && !hideTabs && (
+                  {isProfileAvailable && (
                     <StyledTopMenuItem>
                       <Profile
                         components={components}
