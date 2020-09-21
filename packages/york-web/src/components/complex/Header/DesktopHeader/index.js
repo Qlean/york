@@ -70,11 +70,12 @@ export default function DesktopHeader({
   callbacks,
   callbacks: { onRegionChange },
   content: { tabs, regions, profile },
-  hideTabs,
 }) {
   const tab = tabs.find(({ name }) => name === defaultTab)
   const menu = tab.items
-  const levelTwoMenu = selectedLevelOneItem ? menu.find(({ name }) => name === selectedLevelOneItem) : null
+  const levelTwoMenu = selectedLevelOneItem
+    ? menu.find(({ name }) => name === selectedLevelOneItem)
+    : null
   const levelTwoMenuItems = (levelTwoMenu && levelTwoMenu.items) || []
 
   return (
@@ -98,7 +99,11 @@ export default function DesktopHeader({
                 <View alignItems="center">
                   {selectedRegion && (
                     <StyledTopMenuItem>
-                      <Region items={regions} selectedItem={selectedRegion} onChange={onRegionChange} />
+                      <Region
+                        items={regions}
+                        selectedItem={selectedRegion}
+                        onChange={onRegionChange}
+                      />
                     </StyledTopMenuItem>
                   )}
                   {phone && (
@@ -106,7 +111,7 @@ export default function DesktopHeader({
                       <Phone phone={phone} />
                     </StyledTopMenuItem>
                   )}
-                  {isProfileAvailable && !hideTabs && (
+                  {isProfileAvailable && (
                     <StyledTopMenuItem>
                       <Profile
                         components={components}
