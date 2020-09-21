@@ -100,7 +100,6 @@ export default function MobileBurgerHeader({
   components,
   components: { Link, Logo },
   content: { tabs, regions, profile },
-  hideTabs,
 }) {
   const analyticsContext = useContext(AnalyticsContext)
   const [activeItems, setActiveItems] = useState({})
@@ -128,7 +127,7 @@ export default function MobileBurgerHeader({
           </StyledBurgerButton>
         </View>
       </View>
-      {!hideTabs && (
+      {tabs.length > 1 && (
         <>
           <StyledTabsContainer justifyContent="center">
             {tabs.map(({ name, title }) => {

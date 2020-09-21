@@ -70,7 +70,6 @@ export default function DesktopHeader({
   callbacks,
   callbacks: { onRegionChange },
   content: { tabs, regions, profile },
-  hideTabs,
 }) {
   const tab = tabs.find(({ name }) => name === defaultTab)
   const menu = tab.items
@@ -88,7 +87,7 @@ export default function DesktopHeader({
                   <Link href={tab.href} name="logo">
                     <Logo />
                   </Link>
-                  {isNavigationAvailable && !hideTabs && (
+                  {isNavigationAvailable && tabs.length > 1 && (
                     <>
                       <Separator width={3} />
                       <Tabs defaultTab={defaultTab} tabs={tabs} />
