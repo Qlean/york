@@ -24,7 +24,7 @@ type RequestWithoutPayload = <T>(url: string, config: RequestInit) => Promise<T>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Transformer = (data: any) => any
 
-type GetOriginalRequest = (token: string) => Promise<Response>
+type GetOriginalRequest = (token?: string) => Promise<Response>
 
 enum methods {
   GET = 'GET',
@@ -54,29 +54,34 @@ const processQueue = (error: Error | null, token: string): void => {
   failedRequests = []
 }
 
-export const fetcher = ({
-  baseUrl,
-  ssoUrl,
-  getRefreshToken,
-  getAccessToken,
-  onRefresh,
-  requestDataTransformer,
-  responseDataTransformer,
-}: {
+type FetcherParams = {
   baseUrl: string
   ssoUrl: string
-  getRefreshToken: () => string
-  getAccessToken: () => string
+  getRefreshToken: () => string | undefined
+  getAccessToken: () => string | undefined
   onRefresh: ({ refreshToken, accessToken }: AuthTokens) => void
   requestDataTransformer: Transformer
   responseDataTransformer: Transformer
-}): {
+}
+
+type FetcherReturn = {
   get: RequestWithoutPayload
   put: RequestWithPayload
   patch: RequestWithPayload
   post: RequestWithPayload
   delete: RequestWithoutPayload
-} => {
+}
+
+export const fetcher = (params: FetcherParams): FetcherReturn => {
+  const {
+    baseUrl,
+    ssoUrl,
+    getRefreshToken,
+    getAccessToken,
+    onRefresh,
+    requestDataTransformer,
+    responseDataTransformer,
+  } = params
   const originalRefreshToken = getRefreshToken()
   const originalAccessToken = getAccessToken()
 
@@ -105,11 +110,7 @@ export const fetcher = ({
         ...config.headers,
       },
       method,
-      body: payload
-        ? JSON.stringify(
-            requestDataTransformer ? requestDataTransformer(payload) : payload,
-          )
-        : null,
+      body: payload ? JSON.stringify(requestDataTransformer ? requestDataTransformer(payload) : payload) : null,
     }
 
     const getOriginalRequest: GetOriginalRequest = token =>
@@ -123,48 +124,40 @@ export const fetcher = ({
 
     if (isTokenRefreshing) return pushToFailedRequests(getOriginalRequest)
 
-    const response: Response = await getOriginalRequest(
-      originalAccessToken,
-    ).then(res => {
+    const response: Response = await getOriginalRequest(originalAccessToken).then(res => {
       if (res.status === 419) {
         if (isTokenRefreshing) return pushToFailedRequests(getOriginalRequest)
 
         isTokenRefreshing = true
 
-        return getNewAccessToken(originalRefreshToken).then(
-          async ({ accessToken }) => {
-            /**
-             * FIXME: Очень узкое место. Ждем, пока выполнится первый запрос, чтобы после этого
-             * выполнить всю очередь. По каким-то причинам очередь не успевает заполнятся полностью,
-             * если так не сделать.
-             */
-            const newResponse = await getOriginalRequest(accessToken)
-            processQueue(null, accessToken)
-            return newResponse
-          },
-        )
+        if (originalRefreshToken === undefined) throw new Error('Refresh token is undefined')
+
+        return getNewAccessToken(originalRefreshToken).then(async ({ accessToken }) => {
+          /**
+           * FIXME: Очень узкое место. Ждем, пока выполнится первый запрос, чтобы после этого
+           * выполнить всю очередь. По каким-то причинам очередь не успевает заполняться полностью,
+           * если так не сделать.
+           */
+          const newResponse = await getOriginalRequest(accessToken)
+          processQueue(null, accessToken)
+          return newResponse
+        })
       }
 
       return res
     })
 
-    if (response.ok)
-      return getResponseBody<T>(response, responseDataTransformer)
+    if (response.ok) return getResponseBody<T>(response, responseDataTransformer)
 
     const errorData = await getResponseBody(response, responseDataTransformer)
     throw new NetworkError(response, errorData)
   }
 
-  const getRequest: RequestWithoutPayload = (url, config) =>
-    request(methods.GET, url, null, config)
-  const putRequest: RequestWithPayload = (url, payload, config) =>
-    request(methods.PUT, url, payload, config)
-  const patchRequest: RequestWithPayload = (url, payload, config) =>
-    request(methods.PATCH, url, payload, config)
-  const postRequest: RequestWithPayload = (url, payload, config) =>
-    request(methods.POST, url, payload, config)
-  const deleteRequest: RequestWithoutPayload = (url, config) =>
-    request(methods.DELETE, url, null, config)
+  const getRequest: RequestWithoutPayload = (url, config) => request(methods.GET, url, null, config)
+  const putRequest: RequestWithPayload = (url, payload, config) => request(methods.PUT, url, payload, config)
+  const patchRequest: RequestWithPayload = (url, payload, config) => request(methods.PATCH, url, payload, config)
+  const postRequest: RequestWithPayload = (url, payload, config) => request(methods.POST, url, payload, config)
+  const deleteRequest: RequestWithoutPayload = (url, config) => request(methods.DELETE, url, null, config)
 
   return {
     get: getRequest,
