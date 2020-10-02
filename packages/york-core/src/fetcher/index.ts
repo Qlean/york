@@ -64,7 +64,7 @@ type FetcherParams = {
   responseDataTransformer: Transformer
 }
 
-type FetcherReturn = {
+export type FetcherReturn = {
   get: RequestWithoutPayload
   put: RequestWithPayload
   patch: RequestWithPayload
