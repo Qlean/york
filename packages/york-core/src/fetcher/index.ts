@@ -60,8 +60,8 @@ type FetcherParams = {
   getRefreshToken: () => string | undefined
   getAccessToken: () => string | undefined
   onRefresh: ({ refreshToken, accessToken }: AuthTokens) => void
-  requestDataTransformer: Transformer
-  responseDataTransformer: Transformer
+  requestDataTransformer?: Transformer
+  responseDataTransformer?: Transformer
 }
 
 export type FetcherReturn = {
