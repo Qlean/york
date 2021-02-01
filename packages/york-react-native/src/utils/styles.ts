@@ -4,10 +4,7 @@ import { sizes as coreSizes, colors } from '@qlean/york-core'
 
 export const uiPoint = 5
 
-export const sizes: ReadonlyArray<number> = R.map(
-  size => size * uiPoint,
-  coreSizes,
-)
+export const sizes: ReadonlyArray<number> = R.map((size) => size * uiPoint, coreSizes)
 
 export const fontFamily = 'MuseoSansCyrl-500'
 export const fontFamilyBold = 'MuseoSansCyrl-700'
@@ -20,14 +17,18 @@ export const borderRadiuses = {
 }
 
 // Взято из https://github.com/ptelad/react-native-iphone-x-helper
-const isIphoneX = () => {
-  const { width, height } = Dimensions.get('window')
+export function isIphoneX() {
+  const dimen = Dimensions.get('window');
   return (
-    Platform.OS === 'ios' &&
-    !Platform.isPad &&
-    !Platform.isTVOS &&
-    (height === 812 || width === 812 || (height === 896 || width === 896))
-  )
+      Platform.OS === 'ios' &&
+      !Platform.isPad &&
+      !Platform.isTVOS &&
+      ((dimen.height === 780 || dimen.width === 780)
+        || (dimen.height === 812 || dimen.width === 812)
+        || (dimen.height === 844 || dimen.width === 844)
+        || (dimen.height === 896 || dimen.width === 896)
+        || (dimen.height === 926 || dimen.width === 926))
+  );
 }
 
 const getSafeAreaPaddingTop = () => {
