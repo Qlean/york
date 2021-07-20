@@ -76,7 +76,7 @@
     "react-art": "^16.8.6",
     "react-docgen-typescript": "^1.16.1",
     "react-dom": "16.8.6",
-    "react-native": "^0.60.4",
+    "react-native": "^0.62.3",
     "react-native-web": "0.11.7",
     "react-styleguidist": "^9.0.9",
     "rimraf": "^2.6.3",
